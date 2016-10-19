@@ -1,5 +1,10 @@
 
+plugins {
+    id 'net.saliman.cobertura' version '2.3.1'
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
 
+cobertura.coverageFormats = ['html', 'xml']
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
@@ -12,6 +17,8 @@ repositories {
 }
 
 version = '0.1.0'
+
+// coveralls plugin depends on xml format report
 
 // In this section you declare the dependencies for your production and test code
 dependencies {

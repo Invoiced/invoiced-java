@@ -69,10 +69,19 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 					continue;
 				}
 
+				if (Modifier.isFinal(field.getModifiers())) {
+					continue;
+				}
+
+				if (Modifier.isFinal(fieldFrom.getModifiers())) {
+					continue;
+				}
+
 				Object value = fieldFrom.get(from);
 				to.getClass().getDeclaredField(field.getName()).set(to, value);
 
 			} catch (IllegalAccessException e) {
+				System.out.println("IN SETFIELDS");
 				throw e;
 
 			} catch (NoSuchFieldException e) {

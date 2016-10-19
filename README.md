@@ -3,8 +3,8 @@ invoiced-java
 
 This repository contains the Java client library for the [Invoiced](https://invoiced.com) API.
 
-[![Build Status](https://travis-ci.org/Invoiced/invoiced-ruby.svg?branch=master)](https://travis-ci.org/Invoiced/invoiced-ruby)
-[![Coverage Status](https://coveralls.io/repos/Invoiced/invoiced-ruby/badge.svg?branch=master&service=github)](https://coveralls.io/github/Invoiced/invoiced-ruby?branch=master)
+[![Build Status](https://travis-ci.org/Invoiced/invoiced-java.svg?branch=master)](https://travis-ci.org/Invoiced/invoiced-java)
+[![Coverage Status](https://coveralls.io/repos/github/Invoiced/invoiced-java/badge.svg?branch=master)](https://coveralls.io/github/Invoiced/invoiced-java?branch=master)
 
 ## Installing
 
