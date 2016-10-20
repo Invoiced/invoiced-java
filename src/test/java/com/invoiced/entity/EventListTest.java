@@ -25,6 +25,27 @@ public class EventListTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
+	@Test  public void testForCoverage() {
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+		Event event = conn.newEvent();
+		event.id = 231;
+		assertTrue("Event Entity id is wrong", event.getEntityId() == 231);
+		assertTrue("Event id is wrong", event.getParentID() == -1);
+		try {
+			event.create();
+			event.setParentID(-1231);
+			assertTrue("Event id is wrong", event.getParentID() == -1);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+
+	}
+
 
 	@Test public void testList() {
 
@@ -39,8 +60,9 @@ public class EventListTest {
 		try {
 
 			Event event = conn.newEvent();
-			EntityList<Event> events = event.listAll(null);
+			EntityList<Event> events = event.listAll();
 
+			assertTrue("Total count is incorrect", events.getTotalCount() == 2);
 			assertTrue("Id1 is incorrect", events.get(0).id == 1228003L );
 			assertTrue("Id2 is incorrect", events.get(1).id == 1228004L );
 

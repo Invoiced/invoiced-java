@@ -36,7 +36,7 @@ public class ContactListTest {
 
 			Customer cust = conn.newCustomer().retrieve(11);
 			Contact contact = cust.newContact();
-			EntityList<Contact> contacts = contact.listAll(null);
+			EntityList<Contact> contacts = contact.listAll();
 
 			assertTrue("Contact 1 id is incorrect", contacts.get(0).id == 10403L);
 

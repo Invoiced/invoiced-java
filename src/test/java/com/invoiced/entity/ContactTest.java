@@ -42,6 +42,8 @@ public class ContactTest {
 			contact.email = "nancy.talty@example.com";
 			contact.create();
 
+			String s = contact.toString();
+			assertTrue("Contact string is incorrect", s.contains("10403"));
 
 			assertTrue("Contact id is incorrect", contact.id == 10403);
 

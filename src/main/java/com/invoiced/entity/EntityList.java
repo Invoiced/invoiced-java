@@ -37,32 +37,6 @@ public class EntityList<T extends AbstractEntity> extends ArrayList<T> {
 	}
 
 
-	public  String toJsonString() {
-
-
-		String s = "AbstractEntityList";
-
-		try {
-			s = Util.getMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
-
-		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
-
-		return s;
-	}
-
 
 
 

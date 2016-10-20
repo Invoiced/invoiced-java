@@ -34,23 +34,19 @@ public class Connection {
 		refreshUnirestConnection();
 
 		try {
-			HttpResponse<JsonNode> response = Unirest.post(url)
-			                                  .basicAuth(this.apiKey, "")
-			                                  .header("accept", this.Accept)
-			                                  .header("Content-Type", "application/json")
-			                                  .queryString(queryParms)
-			                                  .body(jsonBody)
-			                                  .asJson();
+			HttpResponse response = Unirest.post(url)
+			                        .basicAuth(this.apiKey, "")
+			                        .header("accept", this.Accept)
+			                        .header("Content-Type", "application/json")
+			                        .queryString(queryParms)
+			                        .body(jsonBody)
+			                        .asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
 
-		} catch (UnirestException e) {
-			e.printStackTrace();
-			throw new ConnException(e);
-		} catch (Exception e) {
-
-			throw new ConnException(e);
+		} catch (Throwable c) {
+			throw new ConnException(c);
 		}
 
 
@@ -84,20 +80,19 @@ public class Connection {
 		refreshUnirestConnection();
 
 		try {
-			HttpResponse<JsonNode> response = Unirest.patch(url)
-			                                  .basicAuth(this.apiKey, "")
-			                                  .header("accept", this.Accept)
-			                                  .header("Content-Type", "application/json")
-			                                  .body(jsonBody)
-			                                  .asJson();
+			HttpResponse response = Unirest.patch(url)
+			                        .basicAuth(this.apiKey, "")
+			                        .header("accept", this.Accept)
+			                        .header("Content-Type", "application/json")
+			                        .body(jsonBody)
+			                        .asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
-		} catch (UnirestException e) {
-			throw new ConnException(e);
-		} catch (Exception e) {
-			throw new ConnException(e);
+		} catch (Throwable c) {
+			throw new ConnException(c);
 		}
+
 
 
 		if (responseCode == 401) {
@@ -121,30 +116,29 @@ public class Connection {
 		refreshUnirestConnection();
 
 		try {
-			HttpResponse<JsonNode> response = Unirest.get(url)
-			                                  .basicAuth(this.apiKey, "")
-			                                  .header("accept", this.Accept)
-			                                  .header("Content-Type", "application/json")
-			                                  .queryString(queryParms)
-			                                  .asJson();
+			HttpResponse response = Unirest.get(url)
+			                        .basicAuth(this.apiKey, "")
+			                        .header("accept", this.Accept)
+			                        .header("Content-Type", "application/json")
+			                        .queryString(queryParms)
+			                        .asString();
+			// .asJson();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
 
-		} catch (UnirestException e) {
-			throw new ConnException(e);
-		} catch (Exception e) {
-			throw new ConnException(e);
-		} finally {
-			// System.out.println(responseString);
-			// System.out.println(responseCode);
+		} catch (Throwable c) {
+			throw new ConnException(c);
 		}
+
 
 
 		if (responseCode == 401) {
 			throw new AuthException(responseString);
 		} else if (responseCode == 400 || responseCode == 403 || responseCode == 404) {
+			throw new ApiException(responseString);
+		} else if (responseCode != 200 && responseCode != 204 && responseCode != 204 ) {
 			throw new ApiException(responseString);
 		}
 
@@ -164,12 +158,12 @@ public class Connection {
 		ListResponse apiResult = null;
 
 		try {
-			HttpResponse<JsonNode> response = Unirest.get(url)
-			                                  .basicAuth(this.apiKey, "")
-			                                  .header("accept", this.Accept)
-			                                  .header("Content-Type", "application/json")
-			                                  .queryString(queryParms)
-			                                  .asJson();
+			HttpResponse response = Unirest.get(url)
+			                        .basicAuth(this.apiKey, "")
+			                        .header("accept", this.Accept)
+			                        .header("Content-Type", "application/json")
+			                        .queryString(queryParms)
+			                        .asString();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
@@ -183,13 +177,10 @@ public class Connection {
 			apiResult = new ListResponse(responseString, links, totalCount);
 
 
-		} catch (UnirestException e) {
-			throw new ConnException(e);
-		} catch (Exception e) {
-			throw new ConnException(e);
-		} finally {
-
+		} catch (Throwable c) {
+			throw new ConnException(c);
 		}
+
 
 
 		if (responseCode == 401) {
@@ -227,11 +218,10 @@ public class Connection {
 
 
 
-		} catch (UnirestException e) {
-			throw new ConnException(e);
-		} catch (Exception e) {
-			throw new ConnException(e);
+		} catch (Throwable c) {
+			throw new ConnException(c);
 		}
+
 
 		if (responseCode == 401) {
 			throw new AuthException(responseString);

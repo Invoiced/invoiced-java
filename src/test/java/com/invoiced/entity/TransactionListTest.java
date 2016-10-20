@@ -31,7 +31,7 @@ public class TransactionListTest {
 
 
 		try {
-			EntityList<Transaction> transactions = conn.newTransaction().listAll(null);
+			EntityList<Transaction> transactions = conn.newTransaction().listAll();
 
 			assertTrue("Transaction 1 id is incorrect", transactions.get(0).id == 20939);
 

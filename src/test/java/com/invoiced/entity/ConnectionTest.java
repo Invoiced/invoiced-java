@@ -256,6 +256,33 @@ public class ConnectionTest {
 
 	}
 
+	@Test public void testDelay() {
+
+		//references connection_rr_1.json
+
+		// String jsonBody = "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"collection_mode\": \"manual\",\n  \"payment_terms\": \"NET 30\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": \"Sarah Fisher\",\n  \"address1\": \"342 Amber St\",\n  \"address2\": null,\n  \"city\": \"Hill Valley\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94523\",\n  \"country\": \"US\",\n  \"tax_id\": \"893-934835\",\n  \"phone\": \"(820) 297-2983\",\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
+
+		Connection conn = new Connection("", true);
+
+		conn.testModeOn();
+
+		try {
+			String url = conn.baseUrl() + "/" + "delayed";
+
+			String tmp =  conn.get(url, null);
+
+			// assertTrue("Response is incorrect", Util.jsonEqual(jsonBody, tmp));
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+
+		}
+
+	}
+
+
 
 
 }

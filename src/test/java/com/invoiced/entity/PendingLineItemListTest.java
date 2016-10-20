@@ -40,7 +40,7 @@ public class PendingLineItemListTest {
 
 			Customer cust = conn.newCustomer().retrieve(11);
 			PendingLineItem pli = cust.newPendingLineItem();
-			EntityList<PendingLineItem> plis = pli.listAll(null);
+			EntityList<PendingLineItem> plis = pli.listAll();
 
 			assertTrue("PendingLineItem 1 id is incorrect", plis.get(0).id == 8);
 

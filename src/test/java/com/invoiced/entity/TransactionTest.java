@@ -20,6 +20,18 @@ public class TransactionTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
+	@Test public void testParentID() {
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Transaction transaction = conn.newTransaction();
+		assertTrue("Invoice Parent Id is incorrect", transaction.getParentID() == -1);
+		transaction.setParentID(-4);
+		assertTrue("Invoice Parent Id is incorrect", transaction.getParentID() == -1);
+
+
+	}
+
 	@Test public void testCreate() {
 
 		//references connection_rr_21.json

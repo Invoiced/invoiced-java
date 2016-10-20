@@ -23,6 +23,20 @@ public class FileTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
+	@Test public void testParentID() {
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		File file = conn.newFile();
+		assertTrue("File Parent Id is incorrect", file.getParentID() == -1);
+		file.setParentID(-4);
+		assertTrue("File Parent Id is incorrect", file.getParentID() == -1);
+
+		assertTrue("File hasList is incorrect", !file.hasList());
+
+
+	}
+
 	@Test public void testCreate() {
 
 		//references connection_rr_42.json

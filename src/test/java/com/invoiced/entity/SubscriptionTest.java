@@ -19,6 +19,18 @@ public class SubscriptionTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
+	@Test public void testParentID() {
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Subscription subscription = conn.newSubscription();
+		assertTrue("Invoice Parent Id is incorrect", subscription.getParentID() == -1);
+		subscription.setParentID(-4);
+		assertTrue("Invoice Parent Id is incorrect", subscription.getParentID() == -1);
+
+
+	}
+
 	@Test public void testCreate() {
 
 		//references connection_rr_17.json

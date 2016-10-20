@@ -55,7 +55,7 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 		this.tClass = tClass;
 	}
 
-	protected static void setFields(Object from, Object to) throws IllegalAccessException, NoSuchFieldException, Exception {
+	protected static void setFields(Object from, Object to) throws EntityException {
 		Field[] fields = from.getClass().getDeclaredFields();
 		for (Field field : fields) {
 			try {
@@ -80,15 +80,8 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 				Object value = fieldFrom.get(from);
 				to.getClass().getDeclaredField(field.getName()).set(to, value);
 
-			} catch (IllegalAccessException e) {
-				System.out.println("IN SETFIELDS");
-				throw e;
-
-			} catch (NoSuchFieldException e) {
-				throw e;
-
-			} catch (Exception e) {
-				throw e;
+			} catch (Throwable c) {
+				throw new EntityException(c);
 			}
 		}
 	}

@@ -32,7 +32,7 @@ public class SubscriptionListTest {
 
 
 		try {
-			EntityList<Subscription> subscriptions = conn.newSubscription().listAll(null);
+			EntityList<Subscription> subscriptions = conn.newSubscription().listAll();
 
 			assertTrue("Subscription 1 id is incorrect", subscriptions.get(0).id == 595);
 

@@ -33,7 +33,7 @@ public class InvoiceListTest {
 
 
 		try {
-			EntityList<Invoice> invoices = conn.newInvoice().listAll(null);
+			EntityList<Invoice> invoices = conn.newInvoice().listAll();
 
 			assertTrue("Invoice 1 id is incorrect", invoices.get(0).id == 46225L);
 

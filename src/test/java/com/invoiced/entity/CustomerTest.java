@@ -14,6 +14,7 @@ import com.mashape.unirest.http.Unirest;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 import java.util.Arrays;
+import com.invoiced.exception.*;
 
 
 
@@ -40,6 +41,18 @@ public class CustomerTest {
 
 	// }
 
+	@Test public void testParentID() {
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer customer = conn.newCustomer();
+		assertTrue("Customer Parent Id is incorrect", customer.getParentID() == -1);
+		customer.setParentID(-4);
+		assertTrue("Customer Parent Id is incorrect", customer.getParentID() == -1);
+
+
+	}
+
 	@Test public void testCreate() {
 
 		//references connection_rr_9.json
@@ -59,6 +72,60 @@ public class CustomerTest {
 
 		} catch (Exception e) {
 			fail(e.getMessage());
+		}
+
+
+	}
+
+	@Test public void testCustomerAPIException() {
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer cust = conn.newCustomer();
+
+
+		try {
+			Customer cust2 = cust.retrieve(198971);
+
+		} catch (Exception e) {
+			assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
+		}
+
+
+	}
+
+	@Test public void testCustomerAuthException() {
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer cust = conn.newCustomer();
+
+
+		try {
+			Customer cust2 = cust.retrieve(198979);
+
+		} catch (Exception e) {
+			assertTrue("Should have thrown a AuthException", e.getMessage().contains("AuthException"));
+		}
+
+
+	}
+
+	@Test public void testCustomerAPI2Exception() {
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer cust = conn.newCustomer();
+
+
+		try {
+			Customer cust2 = cust.retrieve(198980);
+
+		} catch (Exception e) {
+			assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
 		}
 
 

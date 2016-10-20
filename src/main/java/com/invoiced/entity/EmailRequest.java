@@ -27,27 +27,5 @@ public class EmailRequest extends AbstractItem {
 	public String message;
 
 
-	@JsonIgnore
-	public  String toJsonString() throws EntityException {
-
-
-		String s = "Entity";
-
-		try {
-
-			s = Util.getMapper().writeValueAsString(this);
-
-
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
-
-
-		return s;
-	}
-
-
-
-
 
 }

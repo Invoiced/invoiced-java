@@ -57,6 +57,19 @@ public class InvoiceTest {
 
 	// }
 
+	@Test public void testParentID() {
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Invoice invoice = conn.newInvoice();
+		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == -1);
+		invoice.setParentID(-4);
+		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == -1);
+
+
+	}
+
+
 	@Test public void testCreate() {
 
 		//references connection_rr_13.json
