@@ -35,6 +35,8 @@ public class EventListTest {
 		assertTrue("Event id is wrong", event.getParentID() == -1);
 		try {
 			event.create();
+			event.retrieve(23423);
+			event.delete();
 			event.setParentID(-1231);
 			assertTrue("Event id is wrong", event.getParentID() == -1);
 

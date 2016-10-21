@@ -3,7 +3,7 @@ invoiced-java
 
 This repository contains the Java client library for the [Invoiced](https://invoiced.com) API.
 
-You can find detailed API documentation along with java code snippets [here](https://invoiced.com/docs/api/?java#)
+You can find detailed API documentation along with java code snippets [here](https://invoiced.com/docs/api/?java#).
 
 [![Build Status](https://travis-ci.org/Invoiced/invoiced-java.svg?branch=master)](https://travis-ci.org/Invoiced/invoiced-java)
 [![Coverage Status](https://coveralls.io/repos/github/Invoiced/invoiced-java/badge.svg?branch=master)](https://coveralls.io/github/Invoiced/invoiced-java?branch=master)
@@ -19,7 +19,7 @@ gradle jar
 ## Requirements
 
 - Gradle 3.0
-- Java 7 or Java 8
+- Java 7+
 
 ## Usage
 
