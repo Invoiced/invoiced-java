@@ -246,7 +246,7 @@ public class Connection {
 
 
 
-	Connection(String apiKey, boolean sandBox) {
+	public Connection(String apiKey, boolean sandBox) {
 
 		this.apiKey = apiKey;
 		this.sandBox = sandBox;
