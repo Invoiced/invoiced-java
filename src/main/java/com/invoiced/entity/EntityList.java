@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 public class EntityList<T extends AbstractEntity> extends ArrayList<T> {
 
+	private static final long serialVersionUID = 1L;
+
 	private HashMap<String, String> linkURLs;
 	private int totalCount;
 

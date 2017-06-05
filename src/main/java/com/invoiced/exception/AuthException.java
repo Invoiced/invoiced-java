@@ -2,23 +2,11 @@ package com.invoiced.exception;
 
 public class AuthException extends Exception {
 
-	// public AuthException() {
-
-	// }
+	private static final long serialVersionUID = 1L;
 
 	public AuthException(String message) {
 		super(message);
 
 	}
-
-	// public AuthException(Throwable cause) {
-	// super(cause);
-
-	// }
-
-	// public AuthException(String message, Throwable cause) {
-	// super(message, cause);
-
-	// }
 
 }
