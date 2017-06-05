@@ -1,6 +1,5 @@
 package com.invoiced.exception;
 
-
 public class AuthException extends Exception {
 
 	// public AuthException() {
@@ -13,12 +12,12 @@ public class AuthException extends Exception {
 	}
 
 	// public AuthException(Throwable cause) {
-	// 	super(cause);
+	// super(cause);
 
 	// }
 
 	// public AuthException(String message, Throwable cause) {
-	// 	super(message, cause);
+	// super(message, cause);
 
 	// }
 

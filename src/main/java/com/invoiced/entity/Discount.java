@@ -7,11 +7,9 @@ import java.sql.Timestamp;
 
 public class Discount extends AbstractItem {
 
-
 	Discount() {
 
 	}
-
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
@@ -25,11 +23,8 @@ public class Discount extends AbstractItem {
 	@JsonProperty("coupon")
 	public Rate coupon;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("expires")
 	public Timestamp expires;
 
-
 }
-

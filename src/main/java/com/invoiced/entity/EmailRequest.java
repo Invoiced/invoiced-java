@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-
 public class EmailRequest extends AbstractItem {
-
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("to")
@@ -25,7 +23,5 @@ public class EmailRequest extends AbstractItem {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("message")
 	public String message;
-
-
 
 }

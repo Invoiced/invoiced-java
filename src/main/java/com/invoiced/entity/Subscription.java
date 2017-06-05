@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.invoiced.exception.*;
 
-
 public class Subscription extends AbstractEntity<Subscription> {
 
 	public Subscription(Connection conn) {
@@ -37,7 +36,6 @@ public class Subscription extends AbstractEntity<Subscription> {
 		return true;
 	}
 
-
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
@@ -52,8 +50,6 @@ public class Subscription extends AbstractEntity<Subscription> {
 	protected long getParentID() {
 		return -1;
 	}
-
-
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
@@ -99,7 +95,6 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("status")
 	public String status;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("addons")
 	public SubscriptionAddOn[] addons;
@@ -124,27 +119,17 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("metadata")
 	public Object metadata;
 
-
 	public void cancel() throws EntityException {
-
 
 		try {
 
 			this.delete();
-
 
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
 
-
-
 	}
-
-
-
-
-
 
 }

@@ -1,16 +1,16 @@
 package com.invoiced.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Contact extends AbstractEntity<Contact> {
 
 	private long customerId;
 
-	Contact(Connection conn, long customerId ) {
+	Contact(Connection conn, long customerId) {
 
 		super(conn, Contact.class);
 		this.customerId = customerId;
@@ -22,41 +22,47 @@ public class Contact extends AbstractEntity<Contact> {
 
 	}
 
+	@Override
 	@JsonIgnore
 	protected long getEntityId() {
 		return this.id;
 	}
 
+	@Override
 	@JsonIgnore
 	protected String getEntityName() {
 		return "customers" + "/" + String.valueOf(this.customerId) + "/contacts";
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean hasCRUD() {
 		return true;
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean hasList() {
 		return true;
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return true;
 	}
 
+	@Override
 	@JsonIgnore
 	protected void setParentID(long parentID) {
 		this.customerId = parentID;
 	}
 
+	@Override
 	@JsonIgnore
 	protected long getParentID() {
 		return this.customerId;
 	}
-
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
@@ -70,26 +76,21 @@ public class Contact extends AbstractEntity<Contact> {
 	@JsonProperty("email")
 	public String email;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("primary")
 	public boolean primary;
-
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("address1")
 	public String address1;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("address2")
 	public String address2;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("city")
 	public String city;
-
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("state")
@@ -99,18 +100,12 @@ public class Contact extends AbstractEntity<Contact> {
 	@JsonProperty("postal_code")
 	public String postalCode;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("country")
 	public String country;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("created_at")
 	public Timestamp createdAt;
-
-
-
-
 
 }

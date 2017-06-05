@@ -1,6 +1,5 @@
 package com.invoiced.entity;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -14,26 +13,21 @@ import com.mashape.unirest.http.Unirest;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 
-
-
-
 public class ContactTest {
-
 
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test public void testCreate() {
+	@Test
+	public void testCreate() {
 
-		//references connection_rr_11.json
-		//references connection_rr_33.json
-
+		// references connection_rr_11.json
+		// references connection_rr_33.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Customer cust = conn.newCustomer();
-
 
 		try {
 			cust = cust.retrieve(11);
@@ -47,28 +41,24 @@ public class ContactTest {
 
 			assertTrue("Contact id is incorrect", contact.id == 10403);
 
-
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testRetrieve() {
+	@Test
+	public void testRetrieve() {
 
-		//references connection_rr_11.json
-		//references connection_rr_34.json
+		// references connection_rr_11.json
+		// references connection_rr_34.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
-
 		try {
 			Customer cust = conn.newCustomer().retrieve(11);
 			Contact contact = cust.newContact().retrieve(10403);
-
 
 			assertTrue("Contact e-mail is incorrect", contact.email.equals("nancy.talty@example.com"));
 
@@ -76,17 +66,16 @@ public class ContactTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testSave() {
+	@Test
+	public void testSave() {
 
-		//references connection_rr_11.json
-		//references connection_rr_35.json
+		// references connection_rr_11.json
+		// references connection_rr_35.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
-
 
 		try {
 
@@ -101,18 +90,16 @@ public class ContactTest {
 
 			assertTrue("Customer City is incorrect", contact.city.equals("Oklahoma City"));
 
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
 	}
 
+	@Test
+	public void testDelete() {
 
-
-	@Test public void testDelete() {
-
-		//references connection_rr_36.json
+		// references connection_rr_36.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -126,12 +113,10 @@ public class ContactTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-
-
-	@Test public void testJsonSerialization() {
+	@Test
+	public void testJsonSerialization() {
 		Contact contact = new Contact(null, -1);
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -145,7 +130,7 @@ public class ContactTest {
 			assertTrue("Name is incorrect", c1.name.equals("Nancy Talty"));
 			assertTrue("Email is incorrect", c1.email.equals("nancy.talty@example.com"));
 			assertTrue("Primary is incorrect", c1.primary == true);
-			//TODO TEST PAYMENT SOURCE MORE
+			// TODO TEST PAYMENT SOURCE MORE
 
 			assertTrue("Address1 is incorrect", c1.address1.equals("507 Grove Avenue"));
 			assertTrue("Address2 is incorrect", c1.address2 == null);
@@ -154,7 +139,6 @@ public class ContactTest {
 			assertTrue("PostalCode is incorrect", c1.postalCode.equals("73102"));
 			assertTrue("Country is incorrect", c1.country == null);
 			assertTrue("CreatedAt is incorrect", c1.createdAt.equals(new Timestamp(1463510889L)));
-
 
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();

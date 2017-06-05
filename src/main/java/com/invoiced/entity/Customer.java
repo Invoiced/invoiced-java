@@ -22,7 +22,6 @@ public class Customer extends AbstractEntity<Customer> {
 
 	}
 
-
 	@JsonIgnore
 	protected long getEntityId() {
 		return this.id;
@@ -57,8 +56,6 @@ public class Customer extends AbstractEntity<Customer> {
 	protected long getParentID() {
 		return -1;
 	}
-
-
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
@@ -151,7 +148,8 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Balance getBalance() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/balance";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+				+ String.valueOf(this.getEntityId()) + "/balance";
 
 		Balance balance = null;
 
@@ -161,7 +159,6 @@ public class Customer extends AbstractEntity<Customer> {
 
 			balance = Util.getMapper().readValue(response, Balance.class);
 
-
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
@@ -170,15 +167,13 @@ public class Customer extends AbstractEntity<Customer> {
 		return balance;
 	}
 
-
-
 	@JsonIgnore
 	public Email[] sendStatement(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/emails";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+				+ String.valueOf(this.getEntityId()) + "/emails";
 
 		Email[] emails = null;
-
 
 		try {
 
@@ -188,22 +183,20 @@ public class Customer extends AbstractEntity<Customer> {
 
 			emails = Util.getMapper().readValue(response, Email[].class);
 
-
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
 
-
 		return emails;
-
 
 	}
 
 	@JsonIgnore
 	public Invoice invoice() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/invoices";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+				+ String.valueOf(this.getEntityId()) + "/invoices";
 
 		Invoice invoice = null;
 
@@ -215,8 +208,6 @@ public class Customer extends AbstractEntity<Customer> {
 			invoice.setConnection(this.getConnection());
 			invoice.setClass(Invoice.class);
 
-
-
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
@@ -224,7 +215,6 @@ public class Customer extends AbstractEntity<Customer> {
 
 		return invoice;
 	}
-
 
 	@JsonIgnore
 	public Contact newContact() {
@@ -237,11 +227,5 @@ public class Customer extends AbstractEntity<Customer> {
 		return new PendingLineItem(this.getConnection(), this.id);
 
 	}
-
-
-
-
-
-
 
 }

@@ -37,7 +37,6 @@ public class Invoice extends AbstractEntity<Invoice> {
 		return true;
 	}
 
-
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
@@ -52,8 +51,6 @@ public class Invoice extends AbstractEntity<Invoice> {
 	protected long getParentID() {
 		return -1;
 	}
-
-
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
@@ -190,11 +187,10 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/emails";
-
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+				+ String.valueOf(this.getEntityId()) + "/emails";
 
 		Email[] emails = null;
-
 
 		try {
 
@@ -202,32 +198,26 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 			String response = this.getConnection().post(url, null, emailRequestJson);
 
-
-
 			emails = Util.getMapper().readValue(response, Email[].class);
-
 
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
 
-
 		return emails;
-
 
 	}
 
 	@JsonIgnore
 	public void pay() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/pay";
-
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+				+ String.valueOf(this.getEntityId()) + "/pay";
 
 		try {
 
 			String response = this.getConnection().post(url, null, "");
-
 
 			Invoice v1 = Util.getMapper().readValue(response, Invoice.class);
 
@@ -236,13 +226,10 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 			setFields(v1, this);
 
-
-
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
-
 
 		return;
 
@@ -251,7 +238,8 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public Attachment[] listAttachments() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/attachments";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+				+ String.valueOf(this.getEntityId()) + "/attachments";
 
 		Attachment[] attachments = null;
 
@@ -261,7 +249,6 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 			attachments = Util.getMapper().readValue(response, Attachment[].class);
 
-
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
@@ -269,9 +256,5 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 		return attachments;
 	}
-
-
-
-
 
 }

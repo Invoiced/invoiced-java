@@ -1,6 +1,5 @@
 package com.invoiced.entity;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -16,32 +15,29 @@ import org.junit.Rule;
 import java.util.Arrays;
 import com.invoiced.exception.*;
 
-
-
 public class CustomerTest {
-
 
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
 	// @Test public void testPaymentSource() {
 
-	// 	PaymentSource source = new PaymentSource();
-	// 	source.id = 850;
-	// 	source.object = "card";
-	// 	source.brand = "Visa";
-	// 	source.last4 = "4242";
-	// 	source.expMonth = 2;
-	// 	source.expYear = 20;
-	// 	source.funding = "credit";
+	// PaymentSource source = new PaymentSource();
+	// source.id = 850;
+	// source.object = "card";
+	// source.brand = "Visa";
+	// source.last4 = "4242";
+	// source.expMonth = 2;
+	// source.expYear = 20;
+	// source.funding = "credit";
 
-
-	// 	System.out.println(source);
-	// 	System.out.println(source.verified);
+	// System.out.println(source);
+	// System.out.println(source.verified);
 
 	// }
 
-	@Test public void testParentID() {
+	@Test
+	public void testParentID() {
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
@@ -50,12 +46,12 @@ public class CustomerTest {
 		customer.setParentID(-4);
 		assertTrue("Customer Parent Id is incorrect", customer.getParentID() == -1);
 
-
 	}
 
-	@Test public void testCreate() {
+	@Test
+	public void testCreate() {
 
-		//references connection_rr_9.json
+		// references connection_rr_9.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -69,21 +65,19 @@ public class CustomerTest {
 			cust.create();
 			assertTrue("Customer Id is incorrect", cust.id == 131211L);
 
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testCustomerAPIException() {
+	@Test
+	public void testCustomerAPIException() {
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Customer cust = conn.newCustomer();
-
 
 		try {
 			Customer cust2 = cust.retrieve(198971);
@@ -92,16 +86,15 @@ public class CustomerTest {
 			assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
 		}
 
-
 	}
 
-	@Test public void testCustomerAuthException() {
+	@Test
+	public void testCustomerAuthException() {
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Customer cust = conn.newCustomer();
-
 
 		try {
 			Customer cust2 = cust.retrieve(198979);
@@ -110,16 +103,15 @@ public class CustomerTest {
 			assertTrue("Should have thrown a AuthException", e.getMessage().contains("AuthException"));
 		}
 
-
 	}
 
-	@Test public void testCustomerAPI2Exception() {
+	@Test
+	public void testCustomerAPI2Exception() {
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Customer cust = conn.newCustomer();
-
 
 		try {
 			Customer cust2 = cust.retrieve(198980);
@@ -128,12 +120,12 @@ public class CustomerTest {
 			assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
 		}
 
-
 	}
 
-	@Test public void testSave() {
+	@Test
+	public void testSave() {
 
-		//references connection_rr_10.json
+		// references connection_rr_10.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -145,12 +137,10 @@ public class CustomerTest {
 		cust.id = 10;
 		cust.city = "Austin";
 
-
 		try {
 			cust.save();
 
 			assertTrue("Customer City is incorrect", cust.city.equals("Austin"));
-
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -158,15 +148,15 @@ public class CustomerTest {
 
 	}
 
-	@Test public void testRetrieve() {
+	@Test
+	public void testRetrieve() {
 
-		//references connection_rr_11.json
+		// references connection_rr_11.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Customer cust = conn.newCustomer();
-
 
 		try {
 			Customer cust2 = cust.retrieve(11);
@@ -176,19 +166,18 @@ public class CustomerTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testDelete() {
+	@Test
+	public void testDelete() {
 
-		//references connection_rr_12.json
+		// references connection_rr_12.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Customer cust = conn.newCustomer();
 		cust.id = 12;
-
 
 		try {
 			cust.delete();
@@ -197,21 +186,18 @@ public class CustomerTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
+	@Test
+	public void testBalance() {
 
-	@Test public void testBalance() {
-
-		//references connection_rr_11.json
-		//references connection_rr_25.json
+		// references connection_rr_11.json
+		// references connection_rr_25.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Customer cust = conn.newCustomer();
-
-
 
 		try {
 			cust = cust.retrieve(11);
@@ -223,21 +209,23 @@ public class CustomerTest {
 
 			BalanceHistory[] balanceHistories = balance.history;
 
-			assertTrue("Balance History timestamp 0 is incorrect", balanceHistories[0].timestamp.getTime() == 1464041624L);
+			assertTrue("Balance History timestamp 0 is incorrect",
+					balanceHistories[0].timestamp.getTime() == 1464041624L);
 
-			assertTrue("Balance History timestamp 1 is incorrect", balanceHistories[1].timestamp.getTime() == 1464040550L);
+			assertTrue("Balance History timestamp 1 is incorrect",
+					balanceHistories[1].timestamp.getTime() == 1464040550L);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testSendStatement() {
+	@Test
+	public void testSendStatement() {
 
-		//references connection_rr_11.json
-		//references connection_rr_26.json
+		// references connection_rr_11.json
+		// references connection_rr_26.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -256,28 +244,23 @@ public class CustomerTest {
 		emailRequest.subject = "Statement from Dunder Mifflin, Inc.";
 		emailRequest.message = "Dear Client, we have attached your latest account statement. Thank you!";
 
-
-
 		try {
 			cust = cust.retrieve(11);
 			Email[] emails = cust.sendStatement(emailRequest);
 
 			assertTrue("Email id is incorrect", emails[0].id.equals("f45382c6fbc44d44aa7f9a55eb2ce731"));
 
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
+	@Test
+	public void testInvoice() {
 
-	@Test public void testInvoice() {
-
-		//references connection_rr_41.json
-		//references connection_rr_11.json
-
+		// references connection_rr_41.json
+		// references connection_rr_11.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -294,13 +277,10 @@ public class CustomerTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-
-
-
-	@Test public void testJsonSerialization() {
+	@Test
+	public void testJsonSerialization() {
 		Customer cust = new Customer(null);
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -315,7 +295,7 @@ public class CustomerTest {
 			assertTrue("Number is incorrect", c1.number.equals("CUST-0001"));
 			assertTrue("Email is incorrect", c1.email.equals("billing@acmecorp.com"));
 			assertTrue("PaymentTerms is incorrect", c1.paymentTerms == null);
-			//TODO TEST PAYMENT SOURCE MORE
+			// TODO TEST PAYMENT SOURCE MORE
 			assertTrue("PaymentSource is incorrect", c1.paymentSource != null);
 			assertTrue("Taxes is incorrect", c1.taxes.length == 0);
 			assertTrue("Type is incorrect", c1.type.equals("company"));
@@ -329,10 +309,10 @@ public class CustomerTest {
 			assertTrue("TaxID is incorrect", c1.taxId == null);
 			assertTrue("Phone is incorrect", c1.phone == null);
 			assertTrue("Notes is incorrect", c1.notes == null);
-			assertTrue("statementPdfUrl is incorrect", c1.statementPdfUrl.equals("https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf"));
+			assertTrue("statementPdfUrl is incorrect", c1.statementPdfUrl
+					.equals("https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf"));
 			assertTrue("CreatedAt is incorrect", c1.createdAt.equals(new Timestamp(1415222128L)));
 			assertTrue("Metadata is incorrect", c1.metadata != null);
-
 
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();

@@ -1,6 +1,5 @@
 package com.invoiced.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +10,7 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 
 	private long customerId;
 
-	PendingLineItem(Connection conn, long customerId ) {
+	PendingLineItem(Connection conn, long customerId) {
 
 		super(conn, PendingLineItem.class);
 		this.customerId = customerId;
@@ -27,7 +26,6 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 	protected long getEntityId() {
 		return this.id;
 	}
-
 
 	@JsonIgnore
 	protected String getEntityName() {
@@ -59,13 +57,9 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 		return this.customerId;
 	}
 
-
-
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
 	public long id;
-
-
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("catalog_item")
@@ -75,21 +69,17 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 	@JsonProperty("type")
 	public String type;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("name")
 	public String name;
-
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("description")
 	public String description;
 
-
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("quantity")
 	public double quantity;
-
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("amount")
@@ -99,11 +89,9 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 	@JsonProperty("unit_cost")
 	public double unitCost;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("discountable")
 	public boolean discountable;
-
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("discounts")
@@ -113,11 +101,9 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 	@JsonProperty("taxable")
 	public boolean taxable;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("taxes")
 	public Tax[] taxes;
-
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("plan")
@@ -126,8 +112,5 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("metadata")
 	public Object metadata;
-
-
-
 
 }

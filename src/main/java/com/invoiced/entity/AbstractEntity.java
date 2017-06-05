@@ -1,34 +1,20 @@
 package com.invoiced.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import java.io.IOException;
-import com.invoiced.exception.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.InstantiationException;
-import java.lang.NoSuchFieldException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.invoiced.util.Util;
-import com.invoiced.util.ListResponse;
 import java.util.HashMap;
+
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.invoiced.exception.EntityException;
+import com.invoiced.util.ListResponse;
+import com.invoiced.util.Util;
 
-
-
-public abstract class AbstractEntity <T extends AbstractEntity> {
+public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	private Connection conn;
 	private Class<T> tClass;
 	private boolean entityCreated;
-
 
 	public AbstractEntity(Connection conn, Class<T> tClass) {
 		this.conn = conn;
@@ -36,14 +22,12 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 		this.entityCreated = false;
 	}
 
-
 	public AbstractEntity(Class<T> tClass) {
 		this.tClass = tClass;
 		this.entityCreated = false;
 	}
 
-
-	protected  void setConnection(Connection conn) {
+	protected void setConnection(Connection conn) {
 		this.conn = conn;
 	}
 
@@ -86,7 +70,6 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 		}
 	}
 
-
 	public void create() throws EntityException {
 
 		if (this.entityCreated) {
@@ -96,7 +79,6 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 		if (!this.hasCRUD()) {
 			return;
 		}
-
 
 		String url = conn.baseUrl() + "/" + this.getEntityName();
 		T v1 = null;
@@ -110,7 +92,6 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 			v1.setClass(this.tClass);
 
 			setFields(v1, this);
-
 
 		} catch (Throwable c) {
 			throw new EntityException(c);
@@ -130,7 +111,6 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 			String jsonString = this.toJsonString();
 			s1 = s1 + " JSON: " + jsonString;
 
-
 		} catch (Throwable c) {
 			throw new RuntimeException(c);
 		}
@@ -139,22 +119,19 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 
 	}
 
-
-	public  String toJsonString() throws EntityException {
-
+	public String toJsonString() throws EntityException {
 
 		String s = "Entity";
 
 		try {
 
 			s = Util.getMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
-			// s = Util.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(s);
-
+			// s =
+			// Util.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(s);
 
 		} catch (Throwable c) {
 			throw new EntityException(c);
 		}
-
 
 		return s;
 	}
@@ -165,9 +142,7 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 			return;
 		}
 
-
 		String url = conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
-
 
 		T v1 = null;
 
@@ -186,12 +161,9 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 			throw new EntityException(c);
 		}
 
-
 	}
 
-
-	public  T retrieve(long id) throws EntityException {
-
+	public T retrieve(long id) throws EntityException {
 
 		T v1 = null;
 
@@ -206,26 +178,21 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 
 		return v1;
 
-
 	}
 
-
-	public  T retrieve(long id, HashMap<String, Object> queryParms) throws EntityException {
+	public T retrieve(long id, HashMap<String, Object> queryParms) throws EntityException {
 
 		if (!this.hasCRUD()) {
 			return null;
 		}
 
-
 		String url = conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(id);
-
 
 		T v1 = null;
 
 		try {
 
 			String response = conn.get(url, queryParms);
-
 
 			v1 = Util.getMapper().readValue(response, tClass);
 			v1.setConnection(this.conn);
@@ -242,10 +209,7 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 
 		return v1;
 
-
 	}
-
-
 
 	public void delete() throws EntityException {
 
@@ -253,34 +217,26 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 			return;
 		}
 
-
 		String url = conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
-
 
 		try {
 
 			conn.delete(url);
-
 
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
 
-
-
 	}
+
 	public EntityList<T> list(String nextURL) throws EntityException {
-
-
 
 		EntityList<T> entities = null;
 
 		try {
 
 			entities = this.list(nextURL, null);
-
-
 
 		} catch (EntityException e) {
 			throw e;
@@ -290,22 +246,16 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 
 	}
 
-
 	public EntityList<T> listAll() throws EntityException {
 		EntityList<T> entities = null;
 
 		try {
 
-
 			entities = this.listAll(null);
-
-
 
 		} catch (EntityException e) {
 			throw e;
 		}
-
-
 
 		return entities;
 	}
@@ -322,14 +272,14 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 			url = nextURL;
 		}
 
-
 		EntityList<T> entities = null;
 
 		try {
 
 			ListResponse response = conn.getList(url, queryParms);
 
-			JavaType collectionType = Util.getMapper().getTypeFactory().constructCollectionType(EntityList.class, this.tClass);
+			JavaType collectionType = Util.getMapper().getTypeFactory().constructCollectionType(EntityList.class,
+					this.tClass);
 
 			entities = Util.getMapper().readValue(response.getResult(), collectionType);
 
@@ -344,10 +294,7 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 					entity.setParentID(this.getParentID());
 				}
 
-
 			}
-
-
 
 		} catch (Throwable c) {
 			throw new EntityException(c);
@@ -357,7 +304,6 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 
 	}
 
-
 	public EntityList<T> listAll(HashMap<String, Object> queryParms) throws EntityException {
 		EntityList<T> entities = null;
 		EntityList<T> tmp = null;
@@ -366,9 +312,7 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 			return null;
 		}
 
-
 		String url = null;
-
 
 		try {
 
@@ -381,31 +325,25 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 					entities.addAll(tmp);
 				}
 
-
 				url = tmp.getLinkURLs().get("next");
 
-			} while (tmp.getLinkURLs().get("next") != null && !tmp.getLinkURLs().get("self").equals(tmp.getLinkURLs().get("last")));
+			} while (tmp.getLinkURLs().get("next") != null
+					&& !tmp.getLinkURLs().get("self").equals(tmp.getLinkURLs().get("last")));
 
 			entities.setLinkURLs(tmp.getLinkURLs());
 
 		} catch (EntityException e) {
 			throw e;
-		} catch (Throwable c)  {
+		} catch (Throwable c) {
 			throw new EntityException(c);
 		}
-
-
 
 		return entities;
 	}
 
-
 	abstract long getEntityId();
 
-
-
 	abstract String getEntityName();
-
 
 	abstract boolean hasCRUD();
 
@@ -416,11 +354,5 @@ public abstract class AbstractEntity <T extends AbstractEntity> {
 	abstract void setParentID(long parentID);
 
 	abstract long getParentID();
-
-
-
-
-
-
 
 }

@@ -1,6 +1,5 @@
 package com.invoiced.entity;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -14,16 +13,13 @@ import com.mashape.unirest.http.Unirest;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 
-
-
-
 public class FileTest {
-
 
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test public void testParentID() {
+	@Test
+	public void testParentID() {
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
@@ -34,12 +30,12 @@ public class FileTest {
 
 		assertTrue("File hasList is incorrect", !file.hasList());
 
-
 	}
 
-	@Test public void testCreate() {
+	@Test
+	public void testCreate() {
 
-		//references connection_rr_42.json
+		// references connection_rr_42.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -56,25 +52,20 @@ public class FileTest {
 
 			assertTrue("File Id is incorrect", file.id == 13);
 
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
 		}
 
-
 	}
 
+	@Test
+	public void testRetrieve() {
 
-	@Test public void testRetrieve() {
-
-		//references connection_rr_43.json
+		// references connection_rr_43.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
-
-
-
 
 		try {
 			File file = conn.newFile().retrieve(13);
@@ -84,17 +75,16 @@ public class FileTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testDelete() {
+	@Test
+	public void testDelete() {
 
-		//references connection_rr_43.json
-		//references connection_rr_44.json
+		// references connection_rr_43.json
+		// references connection_rr_44.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
-
 
 		try {
 			File file = conn.newFile().retrieve(13);
@@ -104,11 +94,10 @@ public class FileTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-
-	@Test public void testJsonSerialization() {
+	@Test
+	public void testJsonSerialization() {
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -126,8 +115,6 @@ public class FileTest {
 			assertTrue("Url is incorrect", c1.url.equals("https://invoiced.com/img/logo-invoice.png"));
 
 			assertTrue("CreatedAt is incorrect", c1.createdAt.getTime() == 1464625855);
-
-
 
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();

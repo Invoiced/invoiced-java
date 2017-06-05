@@ -28,7 +28,6 @@ public class File extends AbstractEntity<File> {
 		return false;
 	}
 
-
 	@JsonIgnore
 	protected long getEntityId() {
 		return this.id;
@@ -54,7 +53,6 @@ public class File extends AbstractEntity<File> {
 		return -1;
 	}
 
-
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
 	public long id;
@@ -62,7 +60,6 @@ public class File extends AbstractEntity<File> {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("name")
 	public String name;
-
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("object")
@@ -80,12 +77,8 @@ public class File extends AbstractEntity<File> {
 	@JsonProperty("url")
 	public String url;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("created_at")
 	public Timestamp createdAt;
-
-
-
 
 }

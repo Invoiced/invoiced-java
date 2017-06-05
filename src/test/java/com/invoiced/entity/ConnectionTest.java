@@ -1,6 +1,5 @@
 package com.invoiced.entity;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.mashape.unirest.http.HttpResponse;
@@ -15,16 +14,15 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 import com.invoiced.util.Util;
 
-
 public class ConnectionTest {
-
 
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test public void testGet() {
+	@Test
+	public void testGet() {
 
-		//references connection_rr_1.json
+		// references connection_rr_1.json
 
 		String jsonBody = "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"collection_mode\": \"manual\",\n  \"payment_terms\": \"NET 30\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": \"Sarah Fisher\",\n  \"address1\": \"342 Amber St\",\n  \"address2\": null,\n  \"city\": \"Hill Valley\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94523\",\n  \"country\": \"US\",\n  \"tax_id\": \"893-934835\",\n  \"phone\": \"(820) 297-2983\",\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
 
@@ -35,10 +33,9 @@ public class ConnectionTest {
 		try {
 			String url = conn.baseUrl() + "/" + "customers/15444";
 
-			String tmp =  conn.get(url, null);
+			String tmp = conn.get(url, null);
 
 			assertTrue("Response is incorrect", Util.jsonEqual(jsonBody, tmp));
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,10 +45,10 @@ public class ConnectionTest {
 
 	}
 
+	@Test
+	public void testGetFail() {
 
-	@Test public void testGetFail() {
-
-		//references connection_rr_2.json
+		// references connection_rr_2.json
 
 		String jsonBody = "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Customer was not found: 51123223\"\n}";
 
@@ -62,8 +59,7 @@ public class ConnectionTest {
 		try {
 			String url = conn.baseUrl() + "/customers/51123223";
 
-			String tmp =  conn.get(url, null);
-
+			String tmp = conn.get(url, null);
 
 		} catch (ApiException e) {
 			try {
@@ -82,9 +78,10 @@ public class ConnectionTest {
 
 	}
 
-	@Test public void testDelete() {
+	@Test
+	public void testDelete() {
 
-		//references connection_rr_3.json
+		// references connection_rr_3.json
 
 		Connection conn = new Connection("", true);
 
@@ -95,24 +92,20 @@ public class ConnectionTest {
 
 			conn.delete(url);
 
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 
 		}
 
-
 	}
-
 
 	public void testDeleteFail() {
 
-		//references connection_rr_4.json
+		// references connection_rr_4.json
 
 		Connection conn = new Connection("", true);
 
 		conn.testModeOn();
-
 
 		String url = conn.baseUrl() + "/" + "customers" + "/21121";
 
@@ -128,13 +121,12 @@ public class ConnectionTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
+	@Test
+	public void testUpdate() {
 
-	@Test public void testUpdate() {
-
-		//references connection_rr_5.json
+		// references connection_rr_5.json
 
 		String expectedJson = "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"collection_mode\": \"manual\",\n  \"payment_terms\": \"NET 14\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": \"Sarah Fisher\",\n  \"address1\": \"342 Amber St\",\n  \"address2\": null,\n  \"city\": \"Hill Valley\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94523\",\n  \"country\": \"US\",\n  \"tax_id\": \"893-934835\",\n  \"phone\": \"(820) 297-2983\",\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
 
@@ -151,21 +143,19 @@ public class ConnectionTest {
 
 			assertTrue("Response is incorrect", Util.jsonEqual(expectedJson, tmp));
 
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testMockUpdateFail() {
-		//references connection_rr_5.json
+	@Test
+	public void testMockUpdateFail() {
+		// references connection_rr_5.json
 
 		String expectedJson = "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Customer was not found: 77777\"\n}";
 
 		String jsonBody = "{  \n  \"payment_terms\":\"NET 14\",\n  \"attention_to\":\"Sarah Fisher\",\n  \"address1\":\"342 Amber St\",\n  \"city\":\"Hill Valley\",\n  \"state\":\"CA\",\n  \"postal_code\":\"94523\",\n  \"tax_id\":\"893-934835\",\n  \"phone\":\"(820) 297-2983\" \n }";
-
 
 		Connection conn = new Connection("", true);
 
@@ -176,8 +166,7 @@ public class ConnectionTest {
 
 			String tmp = conn.patch(url, jsonBody);
 
-
-		}  catch (ApiException e) {
+		} catch (ApiException e) {
 			try {
 				assertTrue("Response is incorrect", Util.jsonEqual(expectedJson, e.getMessage()));
 			} catch (IOException e1) {
@@ -191,14 +180,12 @@ public class ConnectionTest {
 			fail(e.getMessage());
 		}
 
-
-
-
 	}
 
-	@Test public void testCreate() {
+	@Test
+	public void testCreate() {
 
-		//references connection_rr_7.json
+		// references connection_rr_7.json
 
 		String expectedJson = "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"collection_mode\": \"manual\",\n  \"payment_terms\": \"NET 30\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": null,\n  \"address1\": null,\n  \"address2\": null,\n  \"city\": null,\n  \"state\": null,\n  \"postal_code\": null,\n  \"country\": \"US\",\n  \"tax_id\": null,\n  \"phone\": null,\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
 
@@ -215,20 +202,18 @@ public class ConnectionTest {
 
 			assertTrue("Response is incorrect", Util.jsonEqual(expectedJson, tmp));
 
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testCreateFail() {
+	@Test
+	public void testCreateFail() {
 
 		String expectedJson = "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Name missing\",\n    \"param\": \"name\"\n}";
 
 		String jsonBody = "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"collection_mode\":\"manual\",\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\" \n }";
-
 
 		Connection conn = new Connection("", true);
 
@@ -239,8 +224,7 @@ public class ConnectionTest {
 
 			String tmp = conn.post(url, null, jsonBody);
 
-
-		}  catch (ApiException e) {
+		} catch (ApiException e) {
 			try {
 				assertTrue("Response is incorrect", Util.jsonEqual(expectedJson, e.getMessage()));
 			} catch (IOException e1) {
@@ -256,11 +240,22 @@ public class ConnectionTest {
 
 	}
 
-	@Test public void testDelay() {
+	@Test
+	public void testDelay() {
 
-		//references connection_rr_1.json
+		// references connection_rr_1.json
 
-		// String jsonBody = "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"collection_mode\": \"manual\",\n  \"payment_terms\": \"NET 30\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": \"Sarah Fisher\",\n  \"address1\": \"342 Amber St\",\n  \"address2\": null,\n  \"city\": \"Hill Valley\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94523\",\n  \"country\": \"US\",\n  \"tax_id\": \"893-934835\",\n  \"phone\": \"(820) 297-2983\",\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
+		// String jsonBody = "{\n \"id\": 15444,\n \"number\": \"CUST-0001\",\n
+		// \"name\": \"Acme\",\n \"email\": \"billing@acmecorp.com\",\n
+		// \"collection_mode\": \"manual\",\n \"payment_terms\": \"NET 30\",\n
+		// \"payment_source\": null,\n \"taxes\": [],\n \"type\": \"company\",\n
+		// \"attention_to\": \"Sarah Fisher\",\n \"address1\": \"342 Amber
+		// St\",\n \"address2\": null,\n \"city\": \"Hill Valley\",\n \"state\":
+		// \"CA\",\n \"postal_code\": \"94523\",\n \"country\": \"US\",\n
+		// \"tax_id\": \"893-934835\",\n \"phone\": \"(820) 297-2983\",\n
+		// \"notes\": null,\n \"statement_pdf_url\":
+		// \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n
+		// \"created_at\": 1415222128,\n \"metadata\": {}\n}";
 
 		Connection conn = new Connection("", true);
 
@@ -269,10 +264,10 @@ public class ConnectionTest {
 		try {
 			String url = conn.baseUrl() + "/" + "delayed";
 
-			String tmp =  conn.get(url, null);
+			String tmp = conn.get(url, null);
 
-			// assertTrue("Response is incorrect", Util.jsonEqual(jsonBody, tmp));
-
+			// assertTrue("Response is incorrect", Util.jsonEqual(jsonBody,
+			// tmp));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -281,8 +276,5 @@ public class ConnectionTest {
 		}
 
 	}
-
-
-
 
 }

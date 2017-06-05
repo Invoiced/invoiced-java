@@ -12,12 +12,10 @@ import java.util.HashMap;
 import java.io.IOException;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-
 public class EntityList<T extends AbstractEntity> extends ArrayList<T> {
 
 	private HashMap<String, String> linkURLs;
 	private int totalCount;
-
 
 	public HashMap<String, String> getLinkURLs() {
 		return this.linkURLs;
@@ -35,10 +33,5 @@ public class EntityList<T extends AbstractEntity> extends ArrayList<T> {
 	public int getTotalCount() {
 		return this.totalCount;
 	}
-
-
-
-
-
 
 }

@@ -1,32 +1,29 @@
 package com.invoiced.entity;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import com.invoiced.exception.*;
-import com.mashape.unirest.http.options.Options;
+
+import com.invoiced.exception.ApiException;
+import com.invoiced.exception.AuthException;
+import com.invoiced.exception.ConnException;
 import com.invoiced.util.ListResponse;
 import com.invoiced.util.Util;
-import java.lang.Integer;
-
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.options.Options;
 
 public class Connection {
 
 	private final String apiKey;
 	private final static String Accept = "application/json";
-	private  boolean sandBox;
+	private boolean sandBox;
 	private final static String baseEndPointProduction = "https://api.invoiced.com";
 	private final static String baseEndPointSandbox = "https://api.sandbox.invoiced.com";
 	private final static String baseEndPointLocal = "http://localhost:8080";
 
 	private boolean testMode;
 
-
-
-	protected String post(String url, HashMap<String, Object> queryParms, String jsonBody) throws ApiException, AuthException, ConnException  {
+	protected String post(String url, HashMap<String, Object> queryParms, String jsonBody)
+			throws ApiException, AuthException, ConnException {
 
 		String responseString = "";
 		int responseCode = -1;
@@ -34,21 +31,14 @@ public class Connection {
 		refreshUnirestConnection();
 
 		try {
-			HttpResponse response = Unirest.post(url)
-			                        .basicAuth(this.apiKey, "")
-			                        .header("accept", this.Accept)
-			                        .header("Content-Type", "application/json")
-			                        .queryString(queryParms)
-			                        .body(jsonBody)
-			                        .asString();
+			HttpResponse response = Unirest.post(url).basicAuth(this.apiKey, "").header("accept", this.Accept)
+					.header("Content-Type", "application/json").queryString(queryParms).body(jsonBody).asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
-
 
 		} catch (Throwable c) {
 			throw new ConnException(c);
 		}
-
 
 		if (responseCode == 401) {
 			throw new AuthException(responseString);
@@ -56,12 +46,9 @@ public class Connection {
 			throw new ApiException(responseString);
 		}
 
-
 		return responseString;
 
-
 	}
-
 
 	public static void closeAll() {
 		try {
@@ -71,8 +58,7 @@ public class Connection {
 		}
 	}
 
-
-	protected String patch(String url, String jsonBody) throws ApiException, AuthException, ConnException  {
+	protected String patch(String url, String jsonBody) throws ApiException, AuthException, ConnException {
 
 		String responseString = "";
 		int responseCode = -1;
@@ -80,12 +66,8 @@ public class Connection {
 		refreshUnirestConnection();
 
 		try {
-			HttpResponse response = Unirest.patch(url)
-			                        .basicAuth(this.apiKey, "")
-			                        .header("accept", this.Accept)
-			                        .header("Content-Type", "application/json")
-			                        .body(jsonBody)
-			                        .asString();
+			HttpResponse response = Unirest.patch(url).basicAuth(this.apiKey, "").header("accept", this.Accept)
+					.header("Content-Type", "application/json").body(jsonBody).asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
@@ -93,22 +75,18 @@ public class Connection {
 			throw new ConnException(c);
 		}
 
-
-
 		if (responseCode == 401) {
 			throw new AuthException(responseString);
 		} else if (responseCode == 400 || responseCode == 403 || responseCode == 404) {
 			throw new ApiException(responseString);
 		}
 
-
 		return responseString;
-
 
 	}
 
-
-	protected  String get(String url, HashMap<String, Object> queryParms)  throws ApiException, AuthException, ConnException {
+	protected String get(String url, HashMap<String, Object> queryParms)
+			throws ApiException, AuthException, ConnException {
 
 		String responseString = "";
 		int responseCode = -1;
@@ -116,39 +94,31 @@ public class Connection {
 		refreshUnirestConnection();
 
 		try {
-			HttpResponse response = Unirest.get(url)
-			                        .basicAuth(this.apiKey, "")
-			                        .header("accept", this.Accept)
-			                        .header("Content-Type", "application/json")
-			                        .queryString(queryParms)
-			                        .asString();
+			HttpResponse response = Unirest.get(url).basicAuth(this.apiKey, "").header("accept", this.Accept)
+					.header("Content-Type", "application/json").queryString(queryParms).asString();
 			// .asJson();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
-
 		} catch (Throwable c) {
 			throw new ConnException(c);
 		}
-
-
 
 		if (responseCode == 401) {
 			throw new AuthException(responseString);
 		} else if (responseCode == 400 || responseCode == 403 || responseCode == 404) {
 			throw new ApiException(responseString);
-		} else if (responseCode != 200 && responseCode != 204 && responseCode != 204 ) {
+		} else if (responseCode != 200 && responseCode != 204 && responseCode != 204) {
 			throw new ApiException(responseString);
 		}
 
-
 		return responseString;
-
 
 	}
 
-	protected  ListResponse getList(String url, HashMap<String, Object> queryParms)  throws ApiException, AuthException, ConnException {
+	protected ListResponse getList(String url, HashMap<String, Object> queryParms)
+			throws ApiException, AuthException, ConnException {
 
 		String responseString = "";
 		int responseCode = -1;
@@ -158,12 +128,8 @@ public class Connection {
 		ListResponse apiResult = null;
 
 		try {
-			HttpResponse response = Unirest.get(url)
-			                        .basicAuth(this.apiKey, "")
-			                        .header("accept", this.Accept)
-			                        .header("Content-Type", "application/json")
-			                        .queryString(queryParms)
-			                        .asString();
+			HttpResponse response = Unirest.get(url).basicAuth(this.apiKey, "").header("accept", this.Accept)
+					.header("Content-Type", "application/json").queryString(queryParms).asString();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
@@ -176,12 +142,9 @@ public class Connection {
 
 			apiResult = new ListResponse(responseString, links, totalCount);
 
-
 		} catch (Throwable c) {
 			throw new ConnException(c);
 		}
-
-
 
 		if (responseCode == 401) {
 			throw new AuthException(responseString);
@@ -189,14 +152,11 @@ public class Connection {
 			throw new ApiException(responseString);
 		}
 
-
-
 		return apiResult;
-
 
 	}
 
-	protected  void delete(String url) throws ApiException, AuthException, ConnException {
+	protected void delete(String url) throws ApiException, AuthException, ConnException {
 
 		int responseCode = -1;
 		String responseString = "";
@@ -204,11 +164,8 @@ public class Connection {
 		refreshUnirestConnection();
 
 		try {
-			HttpResponse response = Unirest.delete(url)
-			                        .basicAuth(this.apiKey, "")
-			                        .header("accept", this.Accept)
-			                        .header("Content-Type", "application/json")
-			                        .asString();
+			HttpResponse response = Unirest.delete(url).basicAuth(this.apiKey, "").header("accept", this.Accept)
+					.header("Content-Type", "application/json").asString();
 
 			responseCode = response.getStatus();
 
@@ -216,12 +173,9 @@ public class Connection {
 				responseString = response.getBody().toString();
 			}
 
-
-
 		} catch (Throwable c) {
 			throw new ConnException(c);
 		}
-
 
 		if (responseCode == 401) {
 			throw new AuthException(responseString);
@@ -234,7 +188,6 @@ public class Connection {
 		}
 	}
 
-
 	private void refreshUnirestConnection() {
 
 		this.closeAll();
@@ -243,18 +196,13 @@ public class Connection {
 
 	}
 
-
-
-
 	public Connection(String apiKey, boolean sandBox) {
 
 		this.apiKey = apiKey;
 		this.sandBox = sandBox;
 		this.testMode = false;
 
-
 	}
-
 
 	public final Invoice newInvoice() {
 
@@ -268,13 +216,11 @@ public class Connection {
 
 	}
 
-
 	public final Transaction newTransaction() {
 
 		return new Transaction(this);
 
 	}
-
 
 	public final Subscription newSubscription() {
 
@@ -298,7 +244,6 @@ public class Connection {
 		this.testMode = true;
 	}
 
-
 	protected final String baseUrl() {
 
 		if (testMode == true) {
@@ -311,9 +256,7 @@ public class Connection {
 
 		}
 
-
 		return baseEndPointProduction;
-
 
 	}
 

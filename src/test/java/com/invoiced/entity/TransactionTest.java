@@ -1,6 +1,5 @@
 package com.invoiced.entity;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -11,16 +10,15 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
-
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
-
 
 public class TransactionTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test public void testParentID() {
+	@Test
+	public void testParentID() {
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
@@ -29,12 +27,12 @@ public class TransactionTest {
 		transaction.setParentID(-4);
 		assertTrue("Invoice Parent Id is incorrect", transaction.getParentID() == -1);
 
-
 	}
 
-	@Test public void testCreate() {
+	@Test
+	public void testCreate() {
 
-		//references connection_rr_21.json
+		// references connection_rr_21.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -46,31 +44,26 @@ public class TransactionTest {
 		transaction.gatewayId = "1450";
 		transaction.amount = 800;
 
-
-
 		try {
 
 			transaction.create();
 			assertTrue("Transaction id is incorrect", transaction.id == 20939);
 
-
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testRetrieve() {
+	@Test
+	public void testRetrieve() {
 
-		//references connection_rr_22.json
+		// references connection_rr_22.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Transaction transaction = conn.newTransaction();
-
 
 		try {
 			transaction = transaction.retrieve(20939);
@@ -83,31 +76,24 @@ public class TransactionTest {
 
 	}
 
+	@Test
+	public void testSave() {
 
-	@Test public void testSave() {
-
-		//references connection_rr_22.json
-		//references connection_rr_23.json
+		// references connection_rr_22.json
+		// references connection_rr_23.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
-
 		Transaction transaction = conn.newTransaction();
-
-
 
 		try {
 			transaction = transaction.retrieve(20939);
 			transaction.notes = "Check was received by Jan";
 
-
 			transaction.save();
 
 			assertTrue("Transaction should have been updated", transaction.notes.equals("Check was received by Jan"));
-
-
-
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -115,18 +101,16 @@ public class TransactionTest {
 
 	}
 
+	@Test
+	public void testDelete() {
 
-	@Test public void testDelete() {
-
-		//references connection_rr_22.json
-		//references connection_rr_24.json
+		// references connection_rr_22.json
+		// references connection_rr_24.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Transaction transaction = conn.newTransaction();
-
-
 
 		try {
 			transaction = transaction.retrieve(20939);
@@ -136,13 +120,13 @@ public class TransactionTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-	@Test public void testSend() {
+	@Test
+	public void testSend() {
 
-		//references connection_rr_22.json
-		//references connection_rr_31.json
+		// references connection_rr_22.json
+		// references connection_rr_31.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -161,8 +145,6 @@ public class TransactionTest {
 		emailRequest.subject = "Receipt for your recent payment to Dunder Mifflin, Inc.";
 		emailRequest.message = "Dear Client, we have attached a receipt for your most recent payment. Thank you!";
 
-
-
 		try {
 
 			transaction = transaction.retrieve(20939);
@@ -172,19 +154,17 @@ public class TransactionTest {
 
 			assertTrue("Email message is incorrect", emails[0].message.equals(emailRequest.message));
 
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
+	@Test
+	public void testRefund() {
 
-	@Test public void testRefund() {
-
-		//references connection_rr_22.json
-		//references connection_rr_32.json
+		// references connection_rr_22.json
+		// references connection_rr_32.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -199,19 +179,15 @@ public class TransactionTest {
 
 			assertTrue("Refund Transaction id is incorrect", refund.id == 20952);
 
-
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-
-	@Test public void testJsonSerialization() {
+	@Test
+	public void testJsonSerialization() {
 		Transaction cust = new Transaction(null);
-
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -222,7 +198,7 @@ public class TransactionTest {
 
 			assertTrue("Id is incorrect", t1.id == 20939L);
 			assertTrue("Customer is incorrect", t1.customer == 15460L);
-			assertTrue("Invoice is incorrect", t1.invoice ==  44648L);
+			assertTrue("Invoice is incorrect", t1.invoice == 44648L);
 			assertTrue("Date is incorrect", t1.date.equals(new Timestamp(1410843600L)));
 			assertTrue("Type is incorrect", t1.type.equals("payment"));
 			assertTrue("Method is incorrect", t1.method.equals("check"));
@@ -235,11 +211,11 @@ public class TransactionTest {
 			assertTrue("Fee is incorrect", t1.fee == 0d);
 			assertTrue("Notes is incorrect", t1.notes == null);
 			assertTrue("Parent Transaction is incorrect", t1.parentTransaction == 0L);
-			assertTrue("PdfUrl is incorrect", t1.pdfUrl.equals("https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
+			assertTrue("PdfUrl is incorrect",
+					t1.pdfUrl.equals("https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
 
 			assertTrue("CreatedAt is incorrect", t1.createdAt.equals(new Timestamp(1415228628L)));
 			assertTrue("Metadata is incorrect", t1.metadata != null);
-
 
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
@@ -253,9 +229,8 @@ public class TransactionTest {
 		}
 	}
 
-	@Test public void testJsonDeserialization() {
-
-
+	@Test
+	public void testJsonDeserialization() {
 
 	}
 }

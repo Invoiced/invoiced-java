@@ -12,33 +12,24 @@ public class RefundRequest extends AbstractItem {
 		this.amount = amount;
 	}
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("amount")
 	public double amount;
 
-
-
 	// @JsonIgnore
-	// public  String toJsonString() throws EntityException {
+	// public String toJsonString() throws EntityException {
 
+	// String s = "Entity";
 
-	// 	String s = "Entity";
+	// try {
 
-	// 	try {
+	// s = Util.getMapper().writeValueAsString(this);
 
-	// 		s = Util.getMapper().writeValueAsString(this);
-
-
-	// 	} catch (Throwable c) {
-	// 		throw new EntityException(c);
-	// 	}
-
-
-	// 	return s;
+	// } catch (Throwable c) {
+	// throw new EntityException(c);
 	// }
 
-
-
+	// return s;
+	// }
 
 }

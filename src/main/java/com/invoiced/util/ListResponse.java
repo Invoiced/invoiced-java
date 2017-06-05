@@ -8,7 +8,6 @@ public class ListResponse {
 	private HashMap<String, String> links;
 	private int totalCount;
 
-
 	public ListResponse(String result, HashMap<String, String> links, int totalCount) {
 		this.result = result;
 		this.links = links;
@@ -20,7 +19,6 @@ public class ListResponse {
 		return this.result;
 	}
 
-
 	public HashMap<String, String> getLinks() {
 		return this.links;
 	}
@@ -28,6 +26,5 @@ public class ListResponse {
 	public int getTotalCount() {
 		return this.totalCount;
 	}
-
 
 }

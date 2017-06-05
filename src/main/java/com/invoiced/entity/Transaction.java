@@ -21,6 +21,7 @@ public class Transaction extends AbstractEntity<Transaction> {
 	protected long getEntityId() {
 		return this.id;
 	}
+
 	@JsonIgnore
 	protected String getEntityName() {
 		return "transactions";
@@ -36,7 +37,6 @@ public class Transaction extends AbstractEntity<Transaction> {
 		return true;
 	}
 
-
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
@@ -51,8 +51,6 @@ public class Transaction extends AbstractEntity<Transaction> {
 	protected long getParentID() {
 		return -1;
 	}
-
-
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
@@ -130,19 +128,17 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonProperty("metadata")
 	public Object metadata;
 
-
 	@JsonIgnore
 	public Transaction refund(double amount) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/refunds";
-
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+				+ String.valueOf(this.getEntityId()) + "/refunds";
 
 		RefundRequest refundRequest = new RefundRequest(amount);
 
 		Transaction v1 = null;
 
 		try {
-
 
 			String refundToJson = refundRequest.toJsonString();
 
@@ -152,26 +148,22 @@ public class Transaction extends AbstractEntity<Transaction> {
 			v1.setConnection(this.getConnection());
 			v1.setClass(Transaction.class);
 
-
-
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
 
-
 		return v1;
-
 
 	}
 
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/emails";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+				+ String.valueOf(this.getEntityId()) + "/emails";
 
 		Email[] emails = null;
-
 
 		try {
 
@@ -181,21 +173,13 @@ public class Transaction extends AbstractEntity<Transaction> {
 
 			emails = Util.getMapper().readValue(response, Email[].class);
 
-
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
 
-
 		return emails;
 
-
 	}
-
-
-
-
-
 
 }

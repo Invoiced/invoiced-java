@@ -28,7 +28,6 @@ public class Event extends AbstractEntity<Event> {
 		return true;
 	}
 
-
 	@JsonIgnore
 	protected long getEntityId() {
 		return this.id;
@@ -54,7 +53,6 @@ public class Event extends AbstractEntity<Event> {
 		return -1;
 	}
 
-
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
 	public long id;
@@ -63,18 +61,12 @@ public class Event extends AbstractEntity<Event> {
 	@JsonProperty("type")
 	public String type;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("timestamp")
 	public Timestamp timestamp;
 
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("data")
 	public Object data;
-
-
-
-
 
 }

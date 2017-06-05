@@ -1,6 +1,5 @@
 package com.invoiced.exception;
 
-
 public class ApiException extends Exception {
 
 	// public ApiException() {
@@ -13,12 +12,12 @@ public class ApiException extends Exception {
 	}
 
 	// public ApiException(Throwable cause) {
-	// 	super(cause);
+	// super(cause);
 
 	// }
 
 	// public ApiException(String message, Throwable cause) {
-	// 	super(message, cause);
+	// super(message, cause);
 
 	// }
 

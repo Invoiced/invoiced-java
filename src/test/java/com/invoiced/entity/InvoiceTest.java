@@ -1,7 +1,6 @@
 
 package com.invoiced.entity;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -14,8 +13,6 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 import java.util.Arrays;
 
-
-
 public class InvoiceTest {
 
 	@Rule
@@ -23,41 +20,42 @@ public class InvoiceTest {
 
 	// @Test public void testLineItem() {
 
-	// 	LineItem lineItem = new LineItem();
-	// 	lineItem.id = 8;
-	// 	lineItem.catalogItem = "delivery";
-	// 	lineItem.type = "service";
-	// 	lineItem.name = "Delivery";
-	// 	lineItem.quantity = 1;
-	// 	lineItem.unitCost = 10;
-	// 	lineItem.amount = 10;
-	// 	lineItem.discountable = true;
+	// LineItem lineItem = new LineItem();
+	// lineItem.id = 8;
+	// lineItem.catalogItem = "delivery";
+	// lineItem.type = "service";
+	// lineItem.name = "Delivery";
+	// lineItem.quantity = 1;
+	// lineItem.unitCost = 10;
+	// lineItem.amount = 10;
+	// lineItem.discountable = true;
 
-	// 	System.out.println(lineItem);
+	// System.out.println(lineItem);
 
 	// }
 
 	// @Test public void testDiscount() {
 
-	// 	Discount discount = new Discount();
-	// 	discount.id = 20553;
-	// 	discount.amount = 5;
+	// Discount discount = new Discount();
+	// discount.id = 20553;
+	// discount.amount = 5;
 
-	// 	System.out.println(discount);
+	// System.out.println(discount);
 
 	// }
 
 	// @Test public void testTax() {
 
-	// 	Tax tax = new Tax();
-	// 	tax.id = 20554;
-	// 	tax.amount = 3.85;
+	// Tax tax = new Tax();
+	// tax.id = 20554;
+	// tax.amount = 3.85;
 
-	// 	System.out.println(tax);
+	// System.out.println(tax);
 
 	// }
 
-	@Test public void testParentID() {
+	@Test
+	public void testParentID() {
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
@@ -66,13 +64,12 @@ public class InvoiceTest {
 		invoice.setParentID(-4);
 		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == -1);
 
-
 	}
 
+	@Test
+	public void testCreate() {
 
-	@Test public void testCreate() {
-
-		//references connection_rr_13.json
+		// references connection_rr_13.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -95,42 +92,17 @@ public class InvoiceTest {
 		invoice.items = items;
 		invoice.taxes = taxes;
 
-
 		try {
-
 
 			invoice.create();
 
 			assertTrue("Invoice Id is incorrect", invoice.id == 46225L);
 
-			assertTrue("Invoice Item Id is incorrect",  invoice.items[0].id == 7);
+			assertTrue("Invoice Item Id is incorrect", invoice.items[0].id == 7);
 
-			assertTrue("Invoice Item Id is incorrect",  invoice.items[1].id == 8);
+			assertTrue("Invoice Item Id is incorrect", invoice.items[1].id == 8);
 
-			assertTrue("Tax Id is incorrect",  invoice.taxes[0].id == 20554);
-
-
-
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-
-
-	}
-
-	@Test public void testRetrieve() {
-
-		//references connection_rr_14.json
-
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
-
-		Invoice invoice = conn.newInvoice();
-
-
-		try {
-			invoice = invoice.retrieve(46225);
-			assertTrue("Invoice url is incorrect", invoice.url.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY"));
+			assertTrue("Tax Id is incorrect", invoice.taxes[0].id == 20554);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -138,22 +110,41 @@ public class InvoiceTest {
 
 	}
 
+	@Test
+	public void testRetrieve() {
 
-	@Test public void testSave() {
-
-		//references connection_rr_14.json
-		//references connection_rr_15.json
+		// references connection_rr_14.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Invoice invoice = conn.newInvoice();
 
+		try {
+			invoice = invoice.retrieve(46225);
+			assertTrue("Invoice url is incorrect",
+					invoice.url.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY"));
 
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testSave() {
+
+		// references connection_rr_14.json
+		// references connection_rr_15.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Invoice invoice = conn.newInvoice();
 
 		try {
 			invoice = invoice.retrieve(46225);
-			invoice.name =  "July Paper Delivery";
+			invoice.name = "July Paper Delivery";
 			invoice.notes = "The order was delivered on Jul 20, 2015";
 			invoice.sent = true;
 
@@ -163,28 +154,24 @@ public class InvoiceTest {
 
 			assertTrue("Invoice name should be updated", invoice.name.equals("July Paper Delivery"));
 
-
-
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
 	}
 
-
 	// }
 
-	@Test public void testDelete() {
+	@Test
+	public void testDelete() {
 
-		//references connection_rr_14.json
-		//references connection_rr_16.json
+		// references connection_rr_14.json
+		// references connection_rr_16.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Invoice invoice = conn.newInvoice();
-
 
 		try {
 			invoice = invoice.retrieve(46225);
@@ -194,20 +181,18 @@ public class InvoiceTest {
 			fail(e.getMessage());
 		}
 
-
 	}
 
+	@Test
+	public void testPay() {
 
-	@Test public void testPay() {
-
-		//references connection_rr_28.json
-		//references connection_rr_29.json
+		// references connection_rr_28.json
+		// references connection_rr_29.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Invoice invoice = conn.newInvoice();
-
 
 		try {
 			invoice = invoice.retrieve(46226);
@@ -216,31 +201,24 @@ public class InvoiceTest {
 
 			invoice.pay();
 
-
 			assertTrue("Invoice should be paid", invoice.paid == true);
-
-
-
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
-
 	}
 
+	@Test
+	public void testListAttachments() {
 
-	@Test public void testListAttachments() {
-
-		//references connection_rr_14.json
-		//references connection_rr_30.json
+		// references connection_rr_14.json
+		// references connection_rr_30.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		Invoice invoice = conn.newInvoice();
-
 
 		try {
 			invoice = invoice.retrieve(46225);
@@ -249,22 +227,17 @@ public class InvoiceTest {
 
 			assertTrue("Attachment 0 id is incorrect", attachments[0].id == 13);
 
-
-
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
-
 	}
 
+	@Test
+	public void testSend() {
 
-	@Test public void testSend() {
-
-		//references connection_rr_14.json
-		//references connection_rr_27.json
+		// references connection_rr_14.json
+		// references connection_rr_27.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -283,8 +256,6 @@ public class InvoiceTest {
 		emailRequest.subject = "New Invoice from Dunder Mifflin, Inc.: INV-0016";
 		emailRequest.message = "Dear Client, a new invoice for $51.15 has been created on your account. [View and Pay Invoice button] Thank you!";
 
-
-
 		try {
 			invoice = invoice.retrieve(46225);
 			Email[] emails = invoice.send(emailRequest);
@@ -293,20 +264,15 @@ public class InvoiceTest {
 
 			assertTrue("Email message is incorrect", emails[0].message.equals(emailRequest.message));
 
-
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 
-
 	}
 
-
-
-	@Test public void testJsonSerialization() {
+	@Test
+	public void testJsonSerialization() {
 		Invoice cust = new Invoice(null);
-
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -334,13 +300,12 @@ public class InvoiceTest {
 
 			assertTrue("Number is incorrect", i1.number.equals("INV-0016"));
 
-
 			assertTrue("Date is incorrect", i1.date.equals(new Timestamp(1416290400L)));
 			assertTrue("Due Date is incorrect", i1.dueDate.equals(new Timestamp(1417500000L)));
 
 			assertTrue("Payment Terms is incorrect", i1.paymentTerms.equals("NET 14"));
 
-			//TODO Also test embedded objects in items, taxes
+			// TODO Also test embedded objects in items, taxes
 			assertTrue("Items is incorrect", i1.items.length > 0);
 
 			assertTrue("Notes is incorrect", i1.notes == null);
@@ -352,11 +317,14 @@ public class InvoiceTest {
 
 			assertTrue("Tags is incorrect", i1.tags.length == 0);
 
-			assertTrue("Url is incorrect", i1.url.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY"));
+			assertTrue("Url is incorrect",
+					i1.url.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY"));
 
-			assertTrue("Payment Url is incorrect", i1.paymentUrl.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY/payment"));
+			assertTrue("Payment Url is incorrect", i1.paymentUrl
+					.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY/payment"));
 
-			assertTrue("Pdf Url is Incorrect", i1.pdfUrl.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
+			assertTrue("Pdf Url is Incorrect",
+					i1.pdfUrl.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
 
 			assertTrue("Create At is incorrect", i1.createdAt.equals(new Timestamp(1415229884L)));
 
@@ -365,7 +333,6 @@ public class InvoiceTest {
 			assertTrue("There should be 2 items", i1.items.length == 2);
 
 			assertTrue("Line item amount should be 45.0", i1.items[0].amount == 45.0);
-
 
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
@@ -379,9 +346,8 @@ public class InvoiceTest {
 		}
 	}
 
-	@Test public void testJsonDeserialization() {
-
-
+	@Test
+	public void testJsonDeserialization() {
 
 	}
 }

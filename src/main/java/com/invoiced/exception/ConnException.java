@@ -1,13 +1,12 @@
 package com.invoiced.exception;
 
-
 public class ConnException extends Exception {
 
 	// public ConnException() {
 	// }
 
 	// public ConnException(String message) {
-	// 	super(message);
+	// super(message);
 
 	// }
 
@@ -17,7 +16,7 @@ public class ConnException extends Exception {
 	}
 
 	// public ConnException(String message, Throwable cause) {
-	// 	super(message, cause);
+	// super(message, cause);
 
 	// }
 

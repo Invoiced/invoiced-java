@@ -1,13 +1,12 @@
 package com.invoiced.util;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.io.IOException;
 
-
 public class UtilTest {
-	@Test public void testJsonEquals1() {
+	@Test
+	public void testJsonEquals1() {
 		String s1 = "{\"testing-library\": \"WireMock\"}";
 		String s2 = "{\"testing-library\":\"WireMock\"}";
 
@@ -24,7 +23,8 @@ public class UtilTest {
 
 	}
 
-	@Test public void testJsonEquals2() {
+	@Test
+	public void testJsonEquals2() {
 		String s1 = "{\"name\": \"invd\", \"address\": \"austin\"}";
 		String s2 = "{\"address\": \"austin\"   ,   \"name\":    \"invd\"      }";
 
@@ -41,9 +41,8 @@ public class UtilTest {
 
 	}
 
-
-
-	@Test public void testJsonNotEqual1() {
+	@Test
+	public void testJsonNotEqual1() {
 		String s1 = "{\"testing-library\": \"WireMock\"}";
 		String s2 = "{\"testing-library\":\"WireMock1\"}";
 
@@ -60,15 +59,13 @@ public class UtilTest {
 
 	}
 
-	@Test public void testParseLinks() {
+	@Test
+	public void testParseLinks() {
 
 		String s = "<https://api.invoiced.com/customers?page=3&per_page=10>; rel=\"self\", <https://api.invoiced.com/customers?page=1&per_page=10>; rel=\"first\",<https://api.invoiced.com/customers?page=2&per_page=10>; rel=\"previous\",<https://api.invoiced.com/customers?page=4&per_page=10>; rel=\"next\",<https://api.invoiced.com/customers?page=5&per_page=10>; rel=\"last\"";
 
 		Util.parseLinks(s);
 
-
 	}
-
-
 
 }
