@@ -1,17 +1,18 @@
 package com.invoiced.entity;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
+
+import org.junit.Rule;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
-import com.mashape.unirest.http.Unirest;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import org.junit.Rule;
 
 public class PendingLineItemTest {
 

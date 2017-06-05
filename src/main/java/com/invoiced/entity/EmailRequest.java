@@ -1,10 +1,7 @@
 package com.invoiced.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.invoiced.exception.EntityException;
-import com.invoiced.util.Util;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EmailRequest extends AbstractItem {
 

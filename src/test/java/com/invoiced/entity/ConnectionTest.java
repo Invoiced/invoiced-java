@@ -1,17 +1,17 @@
 package com.invoiced.entity;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import com.invoiced.exception.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
-import org.junit.rules.ExpectedException;
+
+import org.junit.Rule;
+import org.junit.Test;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import org.junit.Rule;
+import com.invoiced.exception.ApiException;
+import com.invoiced.exception.AuthException;
+import com.invoiced.exception.ConnException;
 import com.invoiced.util.Util;
 
 public class ConnectionTest {

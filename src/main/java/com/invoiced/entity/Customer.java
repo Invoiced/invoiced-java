@@ -1,13 +1,12 @@
 package com.invoiced.entity;
 
 import java.sql.Timestamp;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.invoiced.exception.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
-import java.util.HashMap;
-import com.invoiced.exception.*;
 
 public class Customer extends AbstractEntity<Customer> {
 

@@ -1,16 +1,7 @@
 package com.invoiced.entity;
 
 import java.util.ArrayList;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Value;
-import com.invoiced.util.Util;
 import java.util.HashMap;
-import java.io.IOException;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class EntityList<T extends AbstractEntity> extends ArrayList<T> {
 

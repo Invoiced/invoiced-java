@@ -1,17 +1,20 @@
 
 package com.invoiced.entity;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.DeserializationFeature;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.sql.Timestamp;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+
 import org.junit.Rule;
-import java.util.Arrays;
+import org.junit.Test;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 public class InvoiceTest {
 
