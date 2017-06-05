@@ -20,36 +20,43 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 
 	}
 
+	@Override
 	@JsonIgnore
 	protected long getEntityId() {
 		return this.id;
 	}
 
+	@Override
 	@JsonIgnore
 	protected String getEntityName() {
 		return "customers" + "/" + String.valueOf(this.customerId) + "/line_items";
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean hasCRUD() {
 		return true;
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean hasList() {
 		return true;
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return true;
 	}
 
+	@Override
 	@JsonIgnore
 	protected void setParentID(long parentID) {
 		this.customerId = parentID;
 	}
 
+	@Override
 	@JsonIgnore
 	protected long getParentID() {
 		return this.customerId;

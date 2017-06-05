@@ -275,7 +275,7 @@ public class InvoiceTest {
 
 	@Test
 	public void testJsonSerialization() {
-		Invoice cust = new Invoice(null);
+		new Invoice(null);
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 

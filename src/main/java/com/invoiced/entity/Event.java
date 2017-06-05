@@ -19,36 +19,43 @@ public class Event extends AbstractEntity<Event> {
 
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean hasCRUD() {
 		return false;
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean hasList() {
 		return true;
 	}
 
+	@Override
 	@JsonIgnore
 	protected long getEntityId() {
 		return this.id;
 	}
 
+	@Override
 	@JsonIgnore
 	protected String getEntityName() {
 		return "events";
 	}
 
+	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
 	}
 
+	@Override
 	@JsonIgnore
 	protected void setParentID(long parentID) {
 
 	}
 
+	@Override
 	@JsonIgnore
 	protected long getParentID() {
 		return -1;

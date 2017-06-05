@@ -80,7 +80,7 @@ public class CustomerTest {
 		Customer cust = conn.newCustomer();
 
 		try {
-			Customer cust2 = cust.retrieve(198971);
+			cust.retrieve(198971);
 
 		} catch (Exception e) {
 			assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
@@ -97,7 +97,7 @@ public class CustomerTest {
 		Customer cust = conn.newCustomer();
 
 		try {
-			Customer cust2 = cust.retrieve(198979);
+			cust.retrieve(198979);
 
 		} catch (Exception e) {
 			assertTrue("Should have thrown a AuthException", e.getMessage().contains("AuthException"));
@@ -114,7 +114,7 @@ public class CustomerTest {
 		Customer cust = conn.newCustomer();
 
 		try {
-			Customer cust2 = cust.retrieve(198980);
+			cust.retrieve(198980);
 
 		} catch (Exception e) {
 			assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
@@ -281,7 +281,7 @@ public class CustomerTest {
 
 	@Test
 	public void testJsonSerialization() {
-		Customer cust = new Customer(null);
+		new Customer(null);
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 

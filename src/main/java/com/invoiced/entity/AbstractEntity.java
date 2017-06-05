@@ -80,14 +80,14 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			return;
 		}
 
-		String url = conn.baseUrl() + "/" + this.getEntityName();
+		String url = this.conn.baseUrl() + "/" + this.getEntityName();
 		T v1 = null;
 
 		try {
 			String jsonRequest = this.toJsonString();
-			String response = conn.post(url, null, jsonRequest);
+			String response = this.conn.post(url, null, jsonRequest);
 
-			v1 = Util.getMapper().readValue(response, tClass);
+			v1 = Util.getMapper().readValue(response, this.tClass);
 			v1.setConnection(this.conn);
 			v1.setClass(this.tClass);
 
@@ -142,15 +142,15 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			return;
 		}
 
-		String url = conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
+		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
 
 		T v1 = null;
 
 		try {
 			String jsonRequest = this.toJsonString();
-			String response = conn.patch(url, jsonRequest);
+			String response = this.conn.patch(url, jsonRequest);
 
-			v1 = Util.getMapper().readValue(response, tClass);
+			v1 = Util.getMapper().readValue(response, this.tClass);
 
 			// v1.setConnection(this.conn);
 			// v1.setClass(this.tClass);
@@ -186,15 +186,15 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			return null;
 		}
 
-		String url = conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(id);
+		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(id);
 
 		T v1 = null;
 
 		try {
 
-			String response = conn.get(url, queryParms);
+			String response = this.conn.get(url, queryParms);
 
-			v1 = Util.getMapper().readValue(response, tClass);
+			v1 = Util.getMapper().readValue(response, this.tClass);
 			v1.setConnection(this.conn);
 			v1.setClass(this.tClass);
 
@@ -217,11 +217,11 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			return;
 		}
 
-		String url = conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
+		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
 
 		try {
 
-			conn.delete(url);
+			this.conn.delete(url);
 
 		} catch (Throwable c) {
 
@@ -262,11 +262,11 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	public EntityList<T> list(String nextURL, HashMap<String, Object> queryParms) throws EntityException {
 
-		if (!hasList()) {
+		if (!this.hasList()) {
 			return null;
 		}
 
-		String url = conn.baseUrl() + "/" + this.getEntityName();
+		String url = this.conn.baseUrl() + "/" + this.getEntityName();
 
 		if (nextURL != null && nextURL.length() > 0) {
 			url = nextURL;
@@ -276,7 +276,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 		try {
 
-			ListResponse response = conn.getList(url, queryParms);
+			ListResponse response = this.conn.getList(url, queryParms);
 
 			JavaType collectionType = Util.getMapper().getTypeFactory().constructCollectionType(EntityList.class,
 					this.tClass);
@@ -308,7 +308,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		EntityList<T> entities = null;
 		EntityList<T> tmp = null;
 
-		if (!hasList()) {
+		if (!this.hasList()) {
 			return null;
 		}
 

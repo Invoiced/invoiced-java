@@ -127,7 +127,7 @@ public class SubscriptionTest {
 
 	@Test
 	public void testJsonSerialization() {
-		Subscription cust = new Subscription(null);
+		new Subscription(null);
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 

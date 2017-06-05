@@ -59,7 +59,7 @@ public class ConnectionTest {
 		try {
 			String url = conn.baseUrl() + "/customers/51123223";
 
-			String tmp = conn.get(url, null);
+			conn.get(url, null);
 
 		} catch (ApiException e) {
 			try {
@@ -164,7 +164,7 @@ public class ConnectionTest {
 		try {
 			String url = conn.baseUrl() + "/" + "customers" + "/77777";
 
-			String tmp = conn.patch(url, jsonBody);
+			conn.patch(url, jsonBody);
 
 		} catch (ApiException e) {
 			try {
@@ -222,7 +222,7 @@ public class ConnectionTest {
 		try {
 			String url = conn.baseUrl() + "/" + "customers";
 
-			String tmp = conn.post(url, null, jsonBody);
+			conn.post(url, null, jsonBody);
 
 		} catch (ApiException e) {
 			try {
@@ -264,7 +264,7 @@ public class ConnectionTest {
 		try {
 			String url = conn.baseUrl() + "/" + "delayed";
 
-			String tmp = conn.get(url, null);
+			conn.get(url, null);
 
 			// assertTrue("Response is incorrect", Util.jsonEqual(jsonBody,
 			// tmp));

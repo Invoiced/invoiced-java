@@ -189,7 +189,7 @@ public class TransactionTest {
 
 	@Test
 	public void testJsonSerialization() {
-		Transaction cust = new Transaction(null);
+		new Transaction(null);
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
