@@ -16,7 +16,6 @@ public class EntityList<T extends AbstractEntity> extends ArrayList<T> {
 
 	public void setLinkURLs(HashMap<String, String> linkURLs) {
 		this.linkURLs = linkURLs;
-
 	}
 
 	public void setTotalCount(int totalCount) {

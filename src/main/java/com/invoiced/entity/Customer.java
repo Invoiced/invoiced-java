@@ -11,14 +11,11 @@ import com.invoiced.util.Util;
 public class Customer extends AbstractEntity<Customer> {
 
 	public Customer(Connection conn) {
-
 		super(conn, Customer.class);
-
 	}
 
 	Customer() {
 		super(Customer.class);
-
 	}
 
 	@Override
@@ -195,7 +192,6 @@ public class Customer extends AbstractEntity<Customer> {
 		}
 
 		return emails;
-
 	}
 
 	@JsonIgnore
@@ -225,13 +221,11 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Contact newContact() {
 		return new Contact(this.getConnection(), this.id);
-
 	}
 
 	@JsonIgnore
 	public PendingLineItem newPendingLineItem() {
 		return new PendingLineItem(this.getConnection(), this.id);
-
 	}
 
 }

@@ -9,14 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class File extends AbstractEntity<File> {
 
 	public File(Connection conn) {
-
 		super(conn, File.class);
-
 	}
 
 	File() {
 		super(File.class);
-
 	}
 
 	@Override

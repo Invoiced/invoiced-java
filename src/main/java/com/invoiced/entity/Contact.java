@@ -14,12 +14,10 @@ public class Contact extends AbstractEntity<Contact> {
 
 		super(conn, Contact.class);
 		this.customerId = customerId;
-
 	}
 
 	Contact() {
 		super(Contact.class);
-
 	}
 
 	@Override
