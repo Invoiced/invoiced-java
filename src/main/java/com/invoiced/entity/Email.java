@@ -55,10 +55,4 @@ public class Email extends AbstractItem {
 	@JsonProperty("created_at")
 	public Timestamp createdAt;
 
-	// "opens": 0,
-	// "opens_detail": [],
-	// "clicks": 0,
-	// "clicks_detail": [],
-	// "created_at": 1436890047
-
 }

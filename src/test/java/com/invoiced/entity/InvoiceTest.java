@@ -21,42 +21,6 @@ public class InvoiceTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
-	// @Test public void testLineItem() {
-
-	// LineItem lineItem = new LineItem();
-	// lineItem.id = 8;
-	// lineItem.catalogItem = "delivery";
-	// lineItem.type = "service";
-	// lineItem.name = "Delivery";
-	// lineItem.quantity = 1;
-	// lineItem.unitCost = 10;
-	// lineItem.amount = 10;
-	// lineItem.discountable = true;
-
-	// System.out.println(lineItem);
-
-	// }
-
-	// @Test public void testDiscount() {
-
-	// Discount discount = new Discount();
-	// discount.id = 20553;
-	// discount.amount = 5;
-
-	// System.out.println(discount);
-
-	// }
-
-	// @Test public void testTax() {
-
-	// Tax tax = new Tax();
-	// tax.id = 20554;
-	// tax.amount = 3.85;
-
-	// System.out.println(tax);
-
-	// }
-
 	@Test
 	public void testParentID() {
 		Connection conn = new Connection("", true);

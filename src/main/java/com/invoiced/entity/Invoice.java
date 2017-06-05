@@ -229,9 +229,6 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 			Invoice v1 = Util.getMapper().readValue(response, Invoice.class);
 
-			// v1.setConnection(this.conn);
-			// v1.setClass(Invoice.class);
-
 			setFields(v1, this);
 
 		} catch (Throwable c) {

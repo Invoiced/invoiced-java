@@ -126,8 +126,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		try {
 
 			s = Util.getMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
-			// s =
-			// Util.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(s);
 
 		} catch (Throwable c) {
 			throw new EntityException(c);
@@ -151,9 +149,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			String response = this.conn.patch(url, jsonRequest);
 
 			v1 = Util.getMapper().readValue(response, this.tClass);
-
-			// v1.setConnection(this.conn);
-			// v1.setClass(this.tClass);
 
 			setFields(v1, this);
 

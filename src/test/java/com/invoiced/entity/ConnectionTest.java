@@ -266,9 +266,6 @@ public class ConnectionTest {
 
 			conn.get(url, null);
 
-			// assertTrue("Response is incorrect", Util.jsonEqual(jsonBody,
-			// tmp));
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());

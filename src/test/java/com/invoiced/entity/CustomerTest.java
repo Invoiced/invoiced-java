@@ -20,22 +20,6 @@ public class CustomerTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
-	// @Test public void testPaymentSource() {
-
-	// PaymentSource source = new PaymentSource();
-	// source.id = 850;
-	// source.object = "card";
-	// source.brand = "Visa";
-	// source.last4 = "4242";
-	// source.expMonth = 2;
-	// source.expYear = 20;
-	// source.funding = "credit";
-
-	// System.out.println(source);
-	// System.out.println(source.verified);
-
-	// }
-
 	@Test
 	public void testParentID() {
 		Connection conn = new Connection("", true);

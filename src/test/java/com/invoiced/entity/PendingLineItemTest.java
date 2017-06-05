@@ -112,7 +112,6 @@ public class PendingLineItemTest {
 
 	@Test
 	public void testJsonSerialization() {
-		// PendingLineItem pli = new PendingLineItem(null, -1);
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
