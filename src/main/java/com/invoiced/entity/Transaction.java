@@ -160,7 +160,6 @@ public class Transaction extends AbstractEntity<Transaction> {
 		}
 
 		return v1;
-
 	}
 
 	@JsonIgnore
@@ -185,7 +184,6 @@ public class Transaction extends AbstractEntity<Transaction> {
 		}
 
 		return emails;
-
 	}
 
 }

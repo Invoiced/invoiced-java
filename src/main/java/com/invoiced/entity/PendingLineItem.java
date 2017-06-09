@@ -9,15 +9,12 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 	private long customerId;
 
 	PendingLineItem(Connection conn, long customerId) {
-
 		super(conn, PendingLineItem.class);
 		this.customerId = customerId;
-
 	}
 
 	PendingLineItem() {
 		super(PendingLineItem.class);
-
 	}
 
 	@Override

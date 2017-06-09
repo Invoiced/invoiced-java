@@ -7,14 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Event extends AbstractEntity<Event> {
 
 	public Event(Connection conn) {
-
 		super(conn, Event.class);
-
 	}
 
 	Event() {
 		super(Event.class);
-
 	}
 
 	@Override

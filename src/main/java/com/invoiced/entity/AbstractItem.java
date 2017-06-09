@@ -21,7 +21,6 @@ public abstract class AbstractItem {
 		}
 
 		return s1;
-
 	}
 
 	public String toJsonString() throws EntityException {

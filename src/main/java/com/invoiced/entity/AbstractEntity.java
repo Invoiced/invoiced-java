@@ -98,7 +98,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		this.entityCreated = true;
-
 	}
 
 	@Override
@@ -116,7 +115,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		return s1;
-
 	}
 
 	public String toJsonString() throws EntityException {
@@ -155,7 +153,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		} catch (Throwable c) {
 			throw new EntityException(c);
 		}
-
 	}
 
 	public T retrieve(long id) throws EntityException {
@@ -172,7 +169,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		return v1;
-
 	}
 
 	public T retrieve(long id, HashMap<String, Object> queryParms) throws EntityException {
@@ -203,7 +199,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		return v1;
-
 	}
 
 	public void delete() throws EntityException {
@@ -222,7 +217,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 			throw new EntityException(c);
 		}
-
 	}
 
 	public EntityList<T> list(String nextURL) throws EntityException {
@@ -238,7 +232,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		return entities;
-
 	}
 
 	public EntityList<T> listAll() throws EntityException {
@@ -296,7 +289,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		return entities;
-
 	}
 
 	public EntityList<T> listAll(HashMap<String, Object> queryParms) throws EntityException {

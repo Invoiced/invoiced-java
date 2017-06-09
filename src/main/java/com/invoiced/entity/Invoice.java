@@ -212,7 +212,6 @@ public class Invoice extends AbstractEntity<Invoice> {
 		}
 
 		return emails;
-
 	}
 
 	@JsonIgnore
@@ -235,7 +234,6 @@ public class Invoice extends AbstractEntity<Invoice> {
 		}
 
 		return;
-
 	}
 
 	@JsonIgnore

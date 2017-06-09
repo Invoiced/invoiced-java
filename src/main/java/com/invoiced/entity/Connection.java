@@ -48,7 +48,6 @@ public class Connection {
 		}
 
 		return responseString;
-
 	}
 
 	public static void closeAll() {
@@ -84,7 +83,6 @@ public class Connection {
 		}
 
 		return responseString;
-
 	}
 
 	protected String get(String url, HashMap<String, Object> queryParms)
@@ -116,7 +114,6 @@ public class Connection {
 		}
 
 		return responseString;
-
 	}
 
 	protected ListResponse getList(String url, HashMap<String, Object> queryParms)
@@ -156,7 +153,6 @@ public class Connection {
 		}
 
 		return apiResult;
-
 	}
 
 	protected void delete(String url) throws ApiException, AuthException, ConnException {
@@ -192,11 +188,8 @@ public class Connection {
 	}
 
 	private void refreshUnirestConnection() {
-
 		Connection.closeAll();
-
 		Options.refresh();
-
 	}
 
 	public Connection(String apiKey, boolean sandBox) {
@@ -204,43 +197,30 @@ public class Connection {
 		this.apiKey = apiKey;
 		this.sandBox = sandBox;
 		this.testMode = false;
-
 	}
 
 	public final Invoice newInvoice() {
-
 		return new Invoice(this);
-
 	}
 
 	public final Customer newCustomer() {
-
 		return new Customer(this);
-
 	}
 
 	public final Transaction newTransaction() {
-
 		return new Transaction(this);
-
 	}
 
 	public final Subscription newSubscription() {
-
 		return new Subscription(this);
-
 	}
 
 	public final Event newEvent() {
-
 		return new Event(this);
-
 	}
 
 	public final File newFile() {
-
 		return new File(this);
-
 	}
 
 	protected final void testModeOn() {
@@ -260,7 +240,6 @@ public class Connection {
 		}
 
 		return baseEndPointProduction;
-
 	}
 
 }
