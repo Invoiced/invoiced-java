@@ -115,7 +115,7 @@ public class FileTest {
 			assertTrue("Type is incorrect", c1.type.equals("image/png"));
 			assertTrue("Url is incorrect", c1.url.equals("https://invoiced.com/img/logo-invoice.png"));
 
-			assertTrue("CreatedAt is incorrect", c1.createdAt.getTime() == 1464625855);
+			assertTrue("CreatedAt is incorrect", c1.createdAt  == 1464625855L);
 
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();

@@ -194,10 +194,10 @@ public class CustomerTest {
 			BalanceHistory[] balanceHistories = balance.history;
 
 			assertTrue("Balance History timestamp 0 is incorrect",
-					balanceHistories[0].timestamp.getTime() == 1464041624L);
+			           balanceHistories[0].timestamp  == 1464041624L);
 
 			assertTrue("Balance History timestamp 1 is incorrect",
-					balanceHistories[1].timestamp.getTime() == 1464040550L);
+			           balanceHistories[1].timestamp  == 1464040550L);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -294,8 +294,8 @@ public class CustomerTest {
 			assertTrue("Phone is incorrect", c1.phone == null);
 			assertTrue("Notes is incorrect", c1.notes == null);
 			assertTrue("statementPdfUrl is incorrect", c1.statementPdfUrl
-					.equals("https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf"));
-			assertTrue("CreatedAt is incorrect", c1.createdAt.equals(new Timestamp(1415222128L)));
+			           .equals("https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf"));
+			assertTrue("CreatedAt is incorrect", c1.createdAt == 1415222128L);
 			assertTrue("Metadata is incorrect", c1.metadata != null);
 
 		} catch (JsonGenerationException e) {

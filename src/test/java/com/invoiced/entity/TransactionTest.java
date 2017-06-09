@@ -201,7 +201,7 @@ public class TransactionTest {
 			assertTrue("Id is incorrect", t1.id == 20939L);
 			assertTrue("Customer is incorrect", t1.customer == 15460L);
 			assertTrue("Invoice is incorrect", t1.invoice == 44648L);
-			assertTrue("Date is incorrect", t1.date.equals(new Timestamp(1410843600L)));
+			assertTrue("Date is incorrect", t1.date == 1410843600L);
 			assertTrue("Type is incorrect", t1.type.equals("payment"));
 			assertTrue("Method is incorrect", t1.method.equals("check"));
 			assertTrue("Status is succ", t1.status.equals("succeeded"));
@@ -214,9 +214,9 @@ public class TransactionTest {
 			assertTrue("Notes is incorrect", t1.notes == null);
 			assertTrue("Parent Transaction is incorrect", t1.parentTransaction == 0L);
 			assertTrue("PdfUrl is incorrect",
-					t1.pdfUrl.equals("https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
+			           t1.pdfUrl.equals("https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
 
-			assertTrue("CreatedAt is incorrect", t1.createdAt.equals(new Timestamp(1415228628L)));
+			assertTrue("CreatedAt is incorrect", t1.createdAt == 1415228628L);
 			assertTrue("Metadata is incorrect", t1.metadata != null);
 
 		} catch (JsonGenerationException e) {

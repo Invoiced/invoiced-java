@@ -1,6 +1,5 @@
 package com.invoiced.entity;
 
-import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,6 +20,6 @@ public class SubscriptionAddOn extends AbstractItem {
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("created_at")
-	public Timestamp created_at;
+	public long created_at;
 
 }

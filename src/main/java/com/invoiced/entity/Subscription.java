@@ -1,7 +1,5 @@
 package com.invoiced.entity;
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -71,9 +69,9 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("plan")
 	public String plan;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("start_date")
-	public Timestamp startDate;
+	public long startDate;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("quantity")
@@ -83,21 +81,21 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("cycles")
 	public int cycles;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("period_start")
-	public Timestamp periodStart;
+	public long periodStart;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("period_end")
-	public Timestamp periodEnd;
+	public long periodEnd;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("cancel_at_period_end")
 	public boolean cancelAtPeriodEnd;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("canceled_at")
-	public Timestamp canceledAt;
+	public long canceledAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("status")
@@ -119,9 +117,9 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("url")
 	public String url;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("created_at")
-	public Timestamp createdAt;
+	public long createdAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("metadata")

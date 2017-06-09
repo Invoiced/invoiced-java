@@ -1,7 +1,5 @@
 package com.invoiced.entity;
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -112,29 +110,29 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("chase")
 	public boolean chase;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("next_chase_on")
-	public Timestamp nextChaseOn;
+	public long nextChaseOn;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("attempt_count")
 	public long attemptCount;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("next_payment_attempt")
-	public Timestamp nextPaymentAttempt;
+	public long nextPaymentAttempt;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("subscription")
 	public long subscription;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("date")
-	public Timestamp date;
+	public long date;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("due_date")
-	public Timestamp dueDate;
+	public long dueDate;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("payment_terms")
@@ -184,9 +182,9 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("pdf_url")
 	public String pdfUrl;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("created_at")
-	public Timestamp createdAt;
+	public long createdAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("metadata")
@@ -196,7 +194,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-				+ String.valueOf(this.getEntityId()) + "/emails";
+		             + String.valueOf(this.getEntityId()) + "/emails";
 
 		Email[] emails = null;
 
@@ -221,7 +219,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	public void pay() throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-				+ String.valueOf(this.getEntityId()) + "/pay";
+		             + String.valueOf(this.getEntityId()) + "/pay";
 
 		try {
 
@@ -244,7 +242,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	public Attachment[] listAttachments() throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-				+ String.valueOf(this.getEntityId()) + "/attachments";
+		             + String.valueOf(this.getEntityId()) + "/attachments";
 
 		Attachment[] attachments = null;
 

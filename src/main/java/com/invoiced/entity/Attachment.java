@@ -1,6 +1,6 @@
 package com.invoiced.entity;
 
-import java.sql.Timestamp;
+
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +15,7 @@ public class Attachment extends AbstractItem {
 	@JsonProperty("file")
 	public File file;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("created_at")
-	public Timestamp createdAt;
+	public long createdAt;
 }

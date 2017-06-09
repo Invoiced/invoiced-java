@@ -1,7 +1,5 @@
 package com.invoiced.entity;
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -72,9 +70,9 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonProperty("invoice")
 	public long invoice;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("date")
-	public Timestamp date;
+	public long date;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("type")
@@ -128,9 +126,9 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonProperty("pdf_url")
 	public String pdfUrl;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("created_at")
-	public Timestamp createdAt;
+	public long createdAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("metadata")
@@ -140,7 +138,7 @@ public class Transaction extends AbstractEntity<Transaction> {
 	public Transaction refund(double amount) throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-				+ String.valueOf(this.getEntityId()) + "/refunds";
+		             + String.valueOf(this.getEntityId()) + "/refunds";
 
 		RefundRequest refundRequest = new RefundRequest(amount);
 
@@ -169,7 +167,7 @@ public class Transaction extends AbstractEntity<Transaction> {
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-				+ String.valueOf(this.getEntityId()) + "/emails";
+		             + String.valueOf(this.getEntityId()) + "/emails";
 
 		Email[] emails = null;
 

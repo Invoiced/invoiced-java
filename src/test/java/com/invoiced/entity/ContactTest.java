@@ -140,7 +140,7 @@ public class ContactTest {
 			assertTrue("State is incorrect", c1.state.equals("OK"));
 			assertTrue("PostalCode is incorrect", c1.postalCode.equals("73102"));
 			assertTrue("Country is incorrect", c1.country == null);
-			assertTrue("CreatedAt is incorrect", c1.createdAt.equals(new Timestamp(1463510889L)));
+			assertTrue("CreatedAt is incorrect", c1.createdAt == 1463510889L);
 
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();

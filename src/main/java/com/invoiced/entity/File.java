@@ -1,7 +1,5 @@
 package com.invoiced.entity;
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -85,8 +83,8 @@ public class File extends AbstractEntity<File> {
 	@JsonProperty("url")
 	public String url;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("created_at")
-	public Timestamp createdAt;
+	public long createdAt;
 
 }

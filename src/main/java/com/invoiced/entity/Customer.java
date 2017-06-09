@@ -1,6 +1,5 @@
 package com.invoiced.entity;
 
-import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -143,9 +142,9 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonProperty("statement_pdf_url")
 	public String statementPdfUrl;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("created_at")
-	public Timestamp createdAt;
+	public long createdAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("metadata")
@@ -155,7 +154,7 @@ public class Customer extends AbstractEntity<Customer> {
 	public Balance getBalance() throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-				+ String.valueOf(this.getEntityId()) + "/balance";
+		             + String.valueOf(this.getEntityId()) + "/balance";
 
 		Balance balance = null;
 
@@ -177,7 +176,7 @@ public class Customer extends AbstractEntity<Customer> {
 	public Email[] sendStatement(EmailRequest emailRequest) throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-				+ String.valueOf(this.getEntityId()) + "/emails";
+		             + String.valueOf(this.getEntityId()) + "/emails";
 
 		Email[] emails = null;
 
@@ -202,7 +201,7 @@ public class Customer extends AbstractEntity<Customer> {
 	public Invoice invoice() throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-				+ String.valueOf(this.getEntityId()) + "/invoices";
+		             + String.valueOf(this.getEntityId()) + "/invoices";
 
 		Invoice invoice = null;
 

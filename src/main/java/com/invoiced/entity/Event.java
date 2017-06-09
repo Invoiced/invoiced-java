@@ -1,7 +1,5 @@
 package com.invoiced.entity;
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -69,9 +67,9 @@ public class Event extends AbstractEntity<Event> {
 	@JsonProperty("type")
 	public String type;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("timestamp")
-	public Timestamp timestamp;
+	public long timestamp;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("data")

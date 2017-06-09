@@ -141,18 +141,18 @@ public class SubscriptionTest {
 			assertTrue("Plan is incorrect", s1.plan.equals("starter"));
 			assertTrue("Cycles is incorrect", s1.cycles == 0);
 			assertTrue("Quantity is incorrect", s1.quantity == 1);
-			assertTrue("Start Date is incorrect", s1.startDate.equals(new Timestamp(1420391704L)));
-			assertTrue("Period Start is incorrect", s1.periodStart.equals(new Timestamp(1446657304L)));
-			assertTrue("Period End is incorrect", s1.periodEnd.equals(new Timestamp(1449249304L)));
+			assertTrue("Start Date is incorrect", s1.startDate == 1420391704L);
+			assertTrue("Period Start is incorrect", s1.periodStart == 1446657304L);
+			assertTrue("Period End is incorrect", s1.periodEnd == 1449249304L);
 			assertTrue("Cancel At Period End is incorrect", s1.cancelAtPeriodEnd == false);
-			assertTrue("Canceled At incorrect", s1.canceledAt == null);
+			assertTrue("Canceled At incorrect", s1.canceledAt == 0);
 			assertTrue("Status is incorrect", s1.status.equals("active"));
 			assertTrue("Addons is incorrect", s1.addons.length > 0);
 			assertTrue("Discounts is incorrect", s1.discounts.length == 0);
 			assertTrue("Taxes is incorrect", s1.taxes.length == 0);
 			assertTrue("Url is incorrect",
-					s1.url.equals("https://dundermifflin.invoiced.com/subscriptions/o2mAd2wWVfYy16XZto7xHwXX"));
-			assertTrue("Created At is incorrect", s1.createdAt.equals(new Timestamp(1420391704)));
+			           s1.url.equals("https://dundermifflin.invoiced.com/subscriptions/o2mAd2wWVfYy16XZto7xHwXX"));
+			assertTrue("Created At is incorrect", s1.createdAt == 1420391704);
 			assertTrue("Metadata is incorrect", s1.metadata != null);
 
 			assertTrue("Addon id is incorrect", s1.addons[0].id == 3);

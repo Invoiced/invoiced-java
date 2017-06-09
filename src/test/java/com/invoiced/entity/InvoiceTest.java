@@ -90,7 +90,7 @@ public class InvoiceTest {
 		try {
 			invoice = invoice.retrieve(46225);
 			assertTrue("Invoice url is incorrect",
-					invoice.url.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY"));
+			           invoice.url.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY"));
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -257,18 +257,18 @@ public class InvoiceTest {
 			assertTrue("Paid is incorrect", i1.paid == false);
 			assertTrue("Status is incorrect", i1.status.equals("not_sent"));
 			assertTrue("Chase is incorrect", i1.chase == false);
-			assertTrue("Next Chase On is incorrect", i1.nextChaseOn == null);
+			assertTrue("Next Chase On is incorrect", i1.nextChaseOn == 0);
 			assertTrue("Collection Mode is incorrect", i1.collectionMode.equals("manual"));
 
 			assertTrue("Attempt count is incorrect", i1.attemptCount == 0);
-			assertTrue("Next Payment Attempt is incorrect", i1.nextPaymentAttempt == null);
+			assertTrue("Next Payment Attempt is incorrect", i1.nextPaymentAttempt == 0);
 
 			assertTrue("Subscription is incorrect", i1.subscription == 0L);
 
 			assertTrue("Number is incorrect", i1.number.equals("INV-0016"));
 
-			assertTrue("Date is incorrect", i1.date.equals(new Timestamp(1416290400L)));
-			assertTrue("Due Date is incorrect", i1.dueDate.equals(new Timestamp(1417500000L)));
+			assertTrue("Date is incorrect", i1.date == 1416290400L);
+			assertTrue("Due Date is incorrect", i1.dueDate == 1417500000L);
 
 			assertTrue("Payment Terms is incorrect", i1.paymentTerms.equals("NET 14"));
 
@@ -285,15 +285,15 @@ public class InvoiceTest {
 			assertTrue("Tags is incorrect", i1.tags.length == 0);
 
 			assertTrue("Url is incorrect",
-					i1.url.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY"));
+			           i1.url.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY"));
 
 			assertTrue("Payment Url is incorrect", i1.paymentUrl
-					.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY/payment"));
+			           .equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY/payment"));
 
 			assertTrue("Pdf Url is Incorrect",
-					i1.pdfUrl.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
+			           i1.pdfUrl.equals("https://dundermifflin.invoiced.com/invoices/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
 
-			assertTrue("Create At is incorrect", i1.createdAt.equals(new Timestamp(1415229884L)));
+			assertTrue("Create At is incorrect", i1.createdAt == 1415229884L);
 
 			assertTrue("Metadata is incorrect", i1.metadata != null);
 
