@@ -203,7 +203,7 @@ public class Customer extends AbstractEntity<Customer> {
 
 		try {
 
-			String response = this.getConnection().post(url, null, "");
+			String response = this.getConnection().post(url, null, "{}");
 
 			invoice = Util.getMapper().readValue(response, Invoice.class);
 			invoice.setConnection(this.getConnection());
