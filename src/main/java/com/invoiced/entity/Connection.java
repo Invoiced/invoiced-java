@@ -21,19 +21,22 @@ public class Connection {
 	private final static String baseEndPointLocal = "http://localhost:8080";
 
 	private boolean testMode;
+	private boolean autoRefresh;
 
 	protected String post(String url, HashMap<String, Object> queryParms, String jsonBody)
-			throws ApiException, AuthException, ConnException {
+	throws ApiException, AuthException, ConnException {
 
 		String responseString = "";
 		int responseCode = -1;
 
-		this.refreshUnirestConnection();
+		if (this.autoRefresh) {
+			this.refreshUnirestConnection();
+		}
 
 		try {
 			HttpResponse<String> response = Unirest.post(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json")
-					.queryString(queryParms).body(jsonBody).asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
+			                                .queryString(queryParms).body(jsonBody).asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
@@ -63,12 +66,14 @@ public class Connection {
 		String responseString = "";
 		int responseCode = -1;
 
-		this.refreshUnirestConnection();
+		if (this.autoRefresh) {
+			this.refreshUnirestConnection();
+		}
 
 		try {
 			HttpResponse<String> response = Unirest.patch(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json").body(jsonBody)
-					.asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").body(jsonBody)
+			                                .asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
@@ -86,17 +91,19 @@ public class Connection {
 	}
 
 	protected String get(String url, HashMap<String, Object> queryParms)
-			throws ApiException, AuthException, ConnException {
+	throws ApiException, AuthException, ConnException {
 
 		String responseString = "";
 		int responseCode = -1;
 
-		this.refreshUnirestConnection();
+		if (this.autoRefresh) {
+			this.refreshUnirestConnection();
+		}
 
 		try {
 			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json")
-					.queryString(queryParms).asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
+			                                .queryString(queryParms).asString();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
@@ -117,19 +124,21 @@ public class Connection {
 	}
 
 	protected ListResponse getList(String url, HashMap<String, Object> queryParms)
-			throws ApiException, AuthException, ConnException {
+	throws ApiException, AuthException, ConnException {
 
 		String responseString = "";
 		int responseCode = -1;
 
-		this.refreshUnirestConnection();
+		if (this.autoRefresh) {
+			this.refreshUnirestConnection();
+		}
 
 		ListResponse apiResult = null;
 
 		try {
 			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json")
-					.queryString(queryParms).asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
+			                                .queryString(queryParms).asString();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
@@ -160,11 +169,13 @@ public class Connection {
 		int responseCode = -1;
 		String responseString = "";
 
-		this.refreshUnirestConnection();
+		if (this.autoRefresh) {
+			this.refreshUnirestConnection();
+		}
 
 		try {
 			HttpResponse<String> response = Unirest.delete(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json").asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").asString();
 
 			responseCode = response.getStatus();
 
@@ -197,6 +208,11 @@ public class Connection {
 		this.apiKey = apiKey;
 		this.sandBox = sandBox;
 		this.testMode = false;
+		this.autoRefresh = true;
+	}
+
+	protected void autoRefreshOff() {
+		this.autoRefresh = false;
 	}
 
 	public final Invoice newInvoice() {
