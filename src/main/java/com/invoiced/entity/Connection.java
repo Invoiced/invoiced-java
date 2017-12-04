@@ -5,6 +5,9 @@ import java.util.HashMap;
 import com.invoiced.exception.ApiException;
 import com.invoiced.exception.AuthException;
 import com.invoiced.exception.ConnException;
+import com.invoiced.exception.InvalidRequestException;
+import com.invoiced.exception.InvoicedException;
+import com.invoiced.exception.RateLimitException;
 import com.invoiced.util.ListResponse;
 import com.invoiced.util.Util;
 import com.mashape.unirest.http.HttpResponse;
@@ -23,8 +26,7 @@ public class Connection {
 	private boolean testMode;
 	private boolean autoRefresh;
 
-	protected String post(String url, HashMap<String, Object> queryParms, String jsonBody)
-	throws ApiException, AuthException, ConnException {
+	protected String post(String url, HashMap<String, Object> queryParms, String jsonBody) throws InvoicedException {
 
 		String responseString = "";
 		int responseCode = -1;
@@ -35,8 +37,8 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.post(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
-			                                .queryString(queryParms).body(jsonBody).asString();
+					.header("accept", Connection.Accept).header("Content-Type", "application/json")
+					.queryString(queryParms).body(jsonBody).asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
@@ -44,10 +46,8 @@ public class Connection {
 			throw new ConnException(c);
 		}
 
-		if (responseCode == 401) {
-			throw new AuthException(responseString);
-		} else if (responseCode == 400 || responseCode == 403 || responseCode == 404) {
-			throw new ApiException(responseString);
+		if (responseCode >= 400) {
+			throw this.handleApiError(responseCode, responseString);
 		}
 
 		return responseString;
@@ -61,7 +61,7 @@ public class Connection {
 		}
 	}
 
-	protected String patch(String url, String jsonBody) throws ApiException, AuthException, ConnException {
+	protected String patch(String url, String jsonBody) throws InvoicedException {
 
 		String responseString = "";
 		int responseCode = -1;
@@ -72,8 +72,8 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.patch(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").body(jsonBody)
-			                                .asString();
+					.header("accept", Connection.Accept).header("Content-Type", "application/json").body(jsonBody)
+					.asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
@@ -81,17 +81,14 @@ public class Connection {
 			throw new ConnException(c);
 		}
 
-		if (responseCode == 401) {
-			throw new AuthException(responseString);
-		} else if (responseCode == 400 || responseCode == 403 || responseCode == 404) {
-			throw new ApiException(responseString);
+		if (responseCode >= 400) {
+			throw this.handleApiError(responseCode, responseString);
 		}
 
 		return responseString;
 	}
 
-	protected String get(String url, HashMap<String, Object> queryParms)
-	throws ApiException, AuthException, ConnException {
+	protected String get(String url, HashMap<String, Object> queryParms) throws InvoicedException {
 
 		String responseString = "";
 		int responseCode = -1;
@@ -102,8 +99,8 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
-			                                .queryString(queryParms).asString();
+					.header("accept", Connection.Accept).header("Content-Type", "application/json")
+					.queryString(queryParms).asString();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
@@ -112,19 +109,14 @@ public class Connection {
 			throw new ConnException(c);
 		}
 
-		if (responseCode == 401) {
-			throw new AuthException(responseString);
-		} else if (responseCode == 400 || responseCode == 403 || responseCode == 404) {
-			throw new ApiException(responseString);
-		} else if (responseCode != 200 && responseCode != 204 && responseCode != 204) {
-			throw new ApiException(responseString);
+		if (responseCode >= 400) {
+			throw this.handleApiError(responseCode, responseString);
 		}
 
 		return responseString;
 	}
 
-	protected ListResponse getList(String url, HashMap<String, Object> queryParms)
-	throws ApiException, AuthException, ConnException {
+	protected ListResponse getList(String url, HashMap<String, Object> queryParms) throws InvoicedException {
 
 		String responseString = "";
 		int responseCode = -1;
@@ -137,8 +129,8 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
-			                                .queryString(queryParms).asString();
+					.header("accept", Connection.Accept).header("Content-Type", "application/json")
+					.queryString(queryParms).asString();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
@@ -155,16 +147,14 @@ public class Connection {
 			throw new ConnException(c);
 		}
 
-		if (responseCode == 401) {
-			throw new AuthException(responseString);
-		} else if (responseCode == 400 || responseCode == 403 || responseCode == 404) {
-			throw new ApiException(responseString);
+		if (responseCode >= 400) {
+			throw this.handleApiError(responseCode, responseString);
 		}
 
 		return apiResult;
 	}
 
-	protected void delete(String url) throws ApiException, AuthException, ConnException {
+	protected void delete(String url) throws InvoicedException {
 
 		int responseCode = -1;
 		String responseString = "";
@@ -175,7 +165,7 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.delete(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").asString();
+					.header("accept", Connection.Accept).header("Content-Type", "application/json").asString();
 
 			responseCode = response.getStatus();
 
@@ -187,14 +177,8 @@ public class Connection {
 			throw new ConnException(c);
 		}
 
-		if (responseCode == 401) {
-			throw new AuthException(responseString);
-		} else if (responseCode == 400 || responseCode == 403 || responseCode == 404) {
-			throw new ApiException(responseString);
-		}
-
-		if (responseCode != 204) {
-			throw new ApiException("Object not deleted");
+		if (responseCode >= 400) {
+			throw this.handleApiError(responseCode, responseString);
 		}
 	}
 
@@ -258,4 +242,15 @@ public class Connection {
 		return baseEndPointProduction;
 	}
 
+	protected final InvoicedException handleApiError(int responseCode, String responseBody) {
+		if (responseCode == 401) {
+			return new AuthException(responseBody);
+		} else if (responseCode == 400) {
+			return new InvalidRequestException(responseBody);
+		} else if (responseCode == 429) {
+			return new RateLimitException(responseBody);
+		}
+
+		return new ApiException(responseBody);
+	}
 }
