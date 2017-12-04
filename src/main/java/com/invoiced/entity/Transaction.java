@@ -71,6 +71,10 @@ public class Transaction extends AbstractEntity<Transaction> {
 	public long invoice;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("credit_note")
+	public long creditNote;
+
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("date")
 	public long date;
 
@@ -118,16 +122,13 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonProperty("failure_reason")
 	public String failureReason;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("parent_transaction")
+	@JsonProperty(value = "parent_transaction", access = JsonProperty.Access.WRITE_ONLY)
 	public long parentTransaction;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("pdf_url")
+	@JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
 	public String pdfUrl;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("created_at")
+	@JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
 	public long createdAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)

@@ -4,7 +4,7 @@
     "url": "/transactions/20939",
     "bodyPatterns": [
       {
-        "equalToJson": "{\"id\":20939,\"customer\":15460,\"invoice\":44648,\"date\":1410843600,\"type\":\"payment\",\"method\":\"check\",\"status\":\"succeeded\",\"currency\":\"usd\",\"amount\":800.0,\"notes\":\"Check was received by Jan\",\"pdf_url\":\"https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf\",\"created_at\":1415228628}"
+        "equalToJson": "{\"id\":20939,\"customer\":15460,\"invoice\":44648,\"date\":1410843600,\"type\":\"payment\",\"method\":\"check\",\"status\":\"succeeded\",\"currency\":\"usd\",\"amount\":800.0,\"notes\":\"Check was received by Jan\"}"
       }
     ]
   },

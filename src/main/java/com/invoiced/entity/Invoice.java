@@ -3,9 +3,12 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
+//@JsonIgnoreProperties(value = { "paid" }, allowSetters = true)
 public class Invoice extends AbstractEntity<Invoice> {
 
 	public Invoice(Connection conn) {
@@ -94,12 +97,10 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("closed")
 	public boolean closed;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("paid")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public boolean paid;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("status")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public String status;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -118,12 +119,10 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("attempt_count")
 	public long attemptCount;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("next_payment_attempt")
+	@JsonProperty(value = "next_payment_attempt", access = JsonProperty.Access.WRITE_ONLY)
 	public long nextPaymentAttempt;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("subscription")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public long subscription;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -158,32 +157,26 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("taxes")
 	public Tax[] taxes;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("total")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public double total;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("balance")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public double balance;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("tags")
 	public Object[] tags;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("url")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public String url;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("payment_url")
+	@JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)
 	public String paymentUrl;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("pdf_url")
+	@JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
 	public String pdfUrl;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("created_at")
+	@JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
 	public long createdAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)

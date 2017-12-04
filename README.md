@@ -16,6 +16,12 @@ You can build the jar file by doing
 gradle jar
 ```
 
+or build the complete all in one jar file by doing
+
+```
+gradle fatJar
+```
+
 ## Requirements
 
 - Gradle 3.0

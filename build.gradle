@@ -8,6 +8,11 @@ cobertura.coverageFormats = ['html', 'xml']
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -16,7 +21,7 @@ repositories {
     jcenter()
 }
 
-version = '1.1.2'
+version = '2.0.0'
 
 // coveralls plugin depends on xml format report
 

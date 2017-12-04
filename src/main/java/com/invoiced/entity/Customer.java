@@ -92,12 +92,20 @@ public class Customer extends AbstractEntity<Customer> {
 	public Tax[] taxes;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("disabled_payment_methods")
+	public String[] disabledPaymentMethods;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("type")
 	public String type;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("attention_to")
 	public String attentionTo;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("stripe_token")
+	public String stripeToken;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("address1")
@@ -135,12 +143,10 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonProperty("notes")
 	public String notes;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("statement_pdf_url")
+	@JsonProperty(value = "statement_pdf_url", access = JsonProperty.Access.WRITE_ONLY)
 	public String statementPdfUrl;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("created_at")
+	@JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
 	public long createdAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
