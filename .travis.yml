@@ -3,7 +3,7 @@ jdk:
 - oraclejdk8
 - oraclejdk7
 script:
-- gradle -i check
+- ./gradlew -i check
 after_success:
 - ./gradlew cobertura coveralls
 notifications:
