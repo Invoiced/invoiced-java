@@ -12,6 +12,8 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.invoiced.exception.ApiException;
 import com.invoiced.exception.AuthException;
 import com.invoiced.exception.ConnException;
+import com.invoiced.exception.InvalidRequestException;
+import com.invoiced.exception.RateLimitException;
 import com.invoiced.util.Util;
 
 public class ConnectionTest {
@@ -68,10 +70,6 @@ public class ConnectionTest {
 				fail(e1.getMessage());
 			}
 			return;
-		} catch (AuthException e) {
-			fail(e.getMessage());
-		} catch (ConnException e) {
-			fail(e.getMessage());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -113,10 +111,6 @@ public class ConnectionTest {
 			conn.delete(url);
 		} catch (ApiException e) {
 			return;
-		} catch (AuthException e) {
-			fail(e.getMessage());
-		} catch (ConnException e) {
-			fail(e.getMessage());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -151,7 +145,7 @@ public class ConnectionTest {
 
 	@Test
 	public void testMockUpdateFail() {
-		// references connection_rr_5.json
+		// references connection_rr_6.json
 
 		String expectedJson = "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Customer was not found: 77777\"\n}";
 
@@ -209,18 +203,110 @@ public class ConnectionTest {
 	}
 
 	@Test
-	public void testCreateFail() {
+	public void testCreateFailInvalidRequest() {
+
+		// references connection_rr_8.json
 
 		String expectedJson = "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Name missing\",\n    \"param\": \"name\"\n}";
 
-		String jsonBody = "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"collection_mode\":\"manual\",\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\" \n }";
+		String jsonBody = "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"collection_mode\":\"manual\",\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"invalid_request\":true \n }";
 
 		Connection conn = new Connection("", true);
 
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/" + "customers";
+			String url = conn.baseUrl() + "/customers";
+
+			conn.post(url, null, jsonBody);
+
+		} catch (InvalidRequestException e) {
+			try {
+				assertTrue("Response is incorrect", Util.jsonEqual(expectedJson, e.getMessage()));
+			} catch (IOException e1) {
+				fail(e1.getMessage());
+			}
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testCreateFailRateLimit() {
+
+		// references connection_rr_55.json
+
+		String expectedJson = "{\n    \"type\": \"rate_limit_error\",\n    \"message\": \"You have reached your rate limit\"}";
+
+		String jsonBody = "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"collection_mode\":\"manual\",\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"rate_limit\":true \n }";
+
+		Connection conn = new Connection("", true);
+
+		conn.testModeOn();
+
+		try {
+			String url = conn.baseUrl() + "/customers";
+
+			conn.post(url, null, jsonBody);
+
+		} catch (RateLimitException e) {
+			try {
+				assertTrue("Response is incorrect", Util.jsonEqual(expectedJson, e.getMessage()));
+			} catch (IOException e1) {
+				fail(e1.getMessage());
+			}
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testCreateFailAuthenticationError() {
+
+		// references connection_rr_56.json
+
+		String expectedJson = "{\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid API key: XXXX\",\n    \"param\": \"name\"\n}";
+
+		String jsonBody = "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"collection_mode\":\"manual\",\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"auth_error\":true \n }";
+
+		Connection conn = new Connection("", true);
+
+		conn.testModeOn();
+
+		try {
+			String url = conn.baseUrl() + "/customers";
+
+			conn.post(url, null, jsonBody);
+
+		} catch (AuthException e) {
+			try {
+				assertTrue("Response is incorrect", Util.jsonEqual(expectedJson, e.getMessage()));
+			} catch (IOException e1) {
+				fail(e1.getMessage());
+			}
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testCreateFailServerError() {
+
+		// references connection_rr_57.json
+
+		String expectedJson = "{\n    \"type\": \"server_error\",\n    \"message\": \"Internal Server Error\"\n}";
+
+		String jsonBody = "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"collection_mode\":\"manual\",\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"server_error\":true \n }";
+
+		Connection conn = new Connection("", true);
+
+		conn.testModeOn();
+
+		try {
+			String url = conn.baseUrl() + "/customers";
 
 			conn.post(url, null, jsonBody);
 
@@ -230,10 +316,6 @@ public class ConnectionTest {
 			} catch (IOException e1) {
 				fail(e1.getMessage());
 			}
-		} catch (AuthException e) {
-			fail(e.getMessage());
-		} catch (ConnException e) {
-			fail(e.getMessage());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

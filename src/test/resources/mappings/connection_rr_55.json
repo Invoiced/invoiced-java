@@ -1,0 +1,19 @@
+ {
+    "request": {
+        "method": "POST",
+        "url": "/customers",
+        "bodyPatterns": [
+      {
+        "equalToJson": "{ \"email\":\"billing@acmecorp.com\",\n  \"collection_mode\":\"manual\",\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"rate_limit\":true \n }"
+      }
+    ]
+
+    },
+    "response": {
+        "status": 429,
+        "body": "{\n    \"type\": \"rate_limit_error\",\n    \"message\": \"You have reached your rate limit\"}",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}
