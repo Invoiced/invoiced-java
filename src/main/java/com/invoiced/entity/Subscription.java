@@ -9,10 +9,12 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	public Subscription(Connection conn) {
 		super(conn, Subscription.class);
+
 	}
 
 	Subscription() {
 		super(Subscription.class);
+
 	}
 
 	@Override
@@ -81,21 +83,31 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("cycles")
 	public int cycles;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("period_start")
+	@JsonProperty(value = "period_start", access = JsonProperty.Access.WRITE_ONLY)
 	public long periodStart;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("period_end")
+	@JsonProperty(value = "period_end", access = JsonProperty.Access.WRITE_ONLY)
 	public long periodEnd;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("snap_to_nth_day")
+	public long snapToNthDay;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("cancel_at_period_end")
-	public boolean cancelAtPeriodEnd;
+	public Boolean cancelAtPeriodEnd;
+
+	@JsonProperty(value = "canceled_at", access = JsonProperty.Access.WRITE_ONLY)
+	public long canceledAt;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("prorate")
+	public Boolean prorate;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("canceled_at")
-	public long canceledAt;
+	@JsonProperty("proration_date")
+	public long prorationDate;
+
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("status")
@@ -113,12 +125,10 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("taxes")
 	public String[] taxes;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("url")
+	@JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
 	public String url;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("created_at")
+	@JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
 	public long createdAt;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)

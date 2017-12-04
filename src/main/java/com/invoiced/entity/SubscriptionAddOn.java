@@ -11,6 +11,15 @@ public class SubscriptionAddOn extends AbstractItem {
 	public long id;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("object")
+	public String object;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("description")
+	public String description;
+
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("catalog_item")
 	public String catalogItem;
 
