@@ -21,7 +21,7 @@ repositories {
     jcenter()
 }
 
-version = '2.0.0'
+version = '2.1.0'
 
 // coveralls plugin depends on xml format report
 
