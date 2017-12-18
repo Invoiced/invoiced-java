@@ -183,6 +183,10 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("metadata")
 	public Object metadata;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("ship_to")
+	public Object shipTo;
+
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
