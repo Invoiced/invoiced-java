@@ -27,10 +27,26 @@ public class EventListTest {
 		assertTrue("Event id is wrong", event.getParentID() == -1);
 		try {
 			event.create();
-			event.retrieve(23423);
 			event.delete();
 			event.setParentID(-1231);
 			assertTrue("Event id is wrong", event.getParentID() == -1);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	public void testForRetrieve() {
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+		Event event = conn.newEvent();
+		try {
+			event = event.retrieve(1228003);
+			assertTrue("Event type is wrong", event.type.equals("transaction.created"));
 
 		} catch (Exception e) {
 			e.printStackTrace();

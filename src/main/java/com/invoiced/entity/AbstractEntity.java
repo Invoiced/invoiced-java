@@ -173,10 +173,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	public T retrieve(long id, HashMap<String, Object> queryParms) throws EntityException {
 
-		if (!this.hasCRUD()) {
-			return null;
-		}
-
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(id);
 
 		T v1 = null;
@@ -267,7 +263,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			ListResponse response = this.conn.getList(url, queryParms);
 
 			JavaType collectionType = Util.getMapper().getTypeFactory().constructCollectionType(EntityList.class,
-					this.tClass);
+			                          this.tClass);
 
 			entities = Util.getMapper().readValue(response.getResult(), collectionType);
 
@@ -315,7 +311,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 				url = tmp.getLinkURLs().get("next");
 
 			} while (tmp.getLinkURLs().get("next") != null
-					&& !tmp.getLinkURLs().get("self").equals(tmp.getLinkURLs().get("last")));
+			         && !tmp.getLinkURLs().get("self").equals(tmp.getLinkURLs().get("last")));
 
 			entities.setLinkURLs(tmp.getLinkURLs());
 

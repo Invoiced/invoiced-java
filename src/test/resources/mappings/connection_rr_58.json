@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/events/1228003"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\r\n    \"id\": 1228003,\r\n    \"object\": \"event\",\r\n    \"type\": \"transaction.created\",\r\n    \"timestamp\": 1451500772,\r\n    \"data\": {\r\n        \"object\": {\r\n            \"amount\": 55,\r\n            \"created_at\": 1451500772,\r\n            \"credit_note\": null,\r\n            \"currency\": \"usd\",\r\n            \"customer\": {\r\n            },\r\n            \"date\": 1451500771,\r\n            \"gateway\": null,\r\n            \"gateway_id\": null,\r\n            \"payment_source\": null,\r\n            \"id\": 212047,\r\n            \"invoice\": {\r\n            },\r\n            \"metadata\": [],\r\n            \"method\": \"other\",\r\n            \"notes\": null,\r\n            \"object\": \"transaction\",\r\n            \"parent_transaction\": null,\r\n            \"status\": \"succeeded\",\r\n            \"type\": \"payment\",\r\n            \"pdf_url\": \"https:\/\/dundermifflin.invoiced.com\/payments\/59FHO96idoXFeiBDu1y5Zggg\/pdf\",\r\n            \"metadata\": {}\r\n        }\r\n    }\r\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
+
+
