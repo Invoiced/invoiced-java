@@ -37,8 +37,8 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.post(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json")
-					.queryString(queryParms).body(jsonBody).asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
+			                                .queryString(queryParms).body(jsonBody).asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
@@ -72,8 +72,8 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.patch(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json").body(jsonBody)
-					.asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").body(jsonBody)
+			                                .asString();
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
 
@@ -99,8 +99,8 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json")
-					.queryString(queryParms).asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
+			                                .queryString(queryParms).asString();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
@@ -129,8 +129,8 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json")
-					.queryString(queryParms).asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
+			                                .queryString(queryParms).asString();
 
 			responseString = response.getBody().toString();
 			responseCode = response.getStatus();
@@ -165,7 +165,7 @@ public class Connection {
 
 		try {
 			HttpResponse<String> response = Unirest.delete(url).basicAuth(this.apiKey, "")
-					.header("accept", Connection.Accept).header("Content-Type", "application/json").asString();
+			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").asString();
 
 			responseCode = response.getStatus();
 
@@ -213,6 +213,10 @@ public class Connection {
 
 	public final Subscription newSubscription() {
 		return new Subscription(this);
+	}
+
+	public final CreditNote newCreditNote() {
+		return new CreditNote(this);
 	}
 
 	public final Event newEvent() {
