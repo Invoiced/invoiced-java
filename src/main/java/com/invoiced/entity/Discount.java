@@ -6,10 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Discount extends AbstractItem {
 
-	Discount() {
-
-	}
-
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
 	public long id;
