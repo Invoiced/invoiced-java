@@ -75,7 +75,7 @@ public class Contact extends AbstractEntity<Contact> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("primary")
-	public boolean primary;
+	public Boolean primary;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("address1")

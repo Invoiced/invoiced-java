@@ -39,7 +39,7 @@ public class LineItem extends AbstractItem {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("discountable")
-	public boolean discountable;
+	public Boolean discountable;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("discounts")
@@ -47,7 +47,7 @@ public class LineItem extends AbstractItem {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("taxable")
-	public boolean taxable;
+	public Boolean taxable;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("taxes")

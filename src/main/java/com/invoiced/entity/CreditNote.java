@@ -90,14 +90,14 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("draft")
-	public boolean draft;
+	public Boolean draft;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("closed")
-	public boolean closed;
+	public Boolean closed;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	public boolean paid;
+	public Boolean paid;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public String status;

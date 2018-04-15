@@ -4,7 +4,7 @@
     "url": "/customers/11/contacts",
     "bodyPatterns": [
       {
-        "equalToJson": "{\"name\":\"Nancy Talty\",\"email\":\"nancy.talty@example.com\",\"primary\":false}"
+        "equalToJson": "{\"name\":\"Nancy Talty\",\"email\":\"nancy.talty@example.com\"}"
       }
     ]
   },

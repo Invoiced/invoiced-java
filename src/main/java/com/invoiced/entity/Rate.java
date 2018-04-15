@@ -11,7 +11,7 @@ public class Rate extends AbstractItem {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("is_percent")
-	public boolean isPercent;
+	public Boolean isPercent;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("name")
