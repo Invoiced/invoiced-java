@@ -82,8 +82,8 @@ public class Invoice extends AbstractEntity<Invoice> {
 	public String email;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("collection_mode")
-	public String collectionMode;
+	@JsonProperty("autopay")
+	public Boolean autopay;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("currency")

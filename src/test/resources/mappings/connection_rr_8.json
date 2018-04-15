@@ -4,7 +4,7 @@
         "url": "/customers",
         "bodyPatterns": [
       {
-        "equalToJson": "{ \"email\":\"billing@acmecorp.com\",\n  \"collection_mode\":\"manual\",\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"invalid_request\":true \n }"
+        "equalToJson": "{ \"email\":\"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"invalid_request\":true \n }"
       }
     ]
 

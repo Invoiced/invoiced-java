@@ -76,8 +76,8 @@ public class Customer extends AbstractEntity<Customer> {
 	public String email;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("collection_mode")
-	public String collectionMode;
+	@JsonProperty("autopay")
+	public Boolean autopay;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("payment_terms")
