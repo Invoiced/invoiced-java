@@ -115,7 +115,7 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("addons")
-	public SubscriptionAddOn[] addons;
+	public SubscriptionAddon[] addons;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("discounts")
