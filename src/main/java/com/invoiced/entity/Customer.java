@@ -83,8 +83,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonProperty("payment_terms")
 	public String paymentTerms;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("payment_source")
+	@JsonProperty(value = "payment_source", access = JsonProperty.Access.WRITE_ONLY)
 	public PaymentSource paymentSource;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
