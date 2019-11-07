@@ -9,14 +9,14 @@ import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
 //@JsonIgnoreProperties(value = { "paid" }, allowSetters = true)
-public class Invoice extends AbstractEntity<Invoice> {
+public class Estimate extends AbstractEntity<Estimate> {
 
-	public Invoice(Connection conn) {
-		super(conn, Invoice.class);
+	public Estimate(Connection conn) {
+		super(conn, Estimate.class);
 	}
 
-	Invoice() {
-		super(Invoice.class);
+	Estimate() {
+		super(Estimate.class);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@Override
 	@JsonIgnore
 	protected String getEntityName() {
-		return "invoices";
+		return "estimates";
 	}
 
 	@Override
@@ -71,7 +71,11 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("name")
-	public String name;
+    public String name;
+    
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("invoice")
+	public String invoice;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("number")
@@ -80,10 +84,6 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("email")
 	public String email;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("autopay")
-	public Boolean autopay;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("currency")
@@ -97,41 +97,19 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("closed")
 	public Boolean closed;
 
-	@JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
-	public Boolean paid;
+	@JsonProperty(value = "approved", access = JsonProperty.Access.WRITE_ONLY)
+	public Boolean approved;
 
 	@JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
 	public String status;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("sent")
-	public Boolean sent;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("chase")
-	public Boolean chase;
-
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("next_chase_on")
-	public long nextChaseOn;
-
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("attempt_count")
-	public long attemptCount;
-
-	@JsonProperty(value = "next_payment_attempt", access = JsonProperty.Access.WRITE_ONLY)
-	public long nextPaymentAttempt;
-
-	@JsonProperty(value = "subscription", access = JsonProperty.Access.WRITE_ONLY)
-	public long subscription;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("date")
 	public long date;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("due_date")
-	public long dueDate;
+	@JsonProperty("expiration_date")
+	public long expirationDate;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("payment_terms")
@@ -160,18 +138,8 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
 	public double total;
 
-	@JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
-	public double balance;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("tags")
-	public Object[] tags;
-
 	@JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
 	public String url;
-
-	@JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)
-	public String paymentUrl;
 
 	@JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
 	public String pdfUrl;
@@ -185,19 +153,11 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("ship_to")
-	public Object shipTo;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("attachments")
-	public long[] attachments;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("disabled_payment_methods")
-	public String[] disabledPaymentMethods;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+    public Object shipTo;
+    
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("calculate_taxes")
-	public String calculateTaxes;
+	public Boolean calculateTaxes;
 
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
@@ -222,49 +182,4 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 		return emails;
 	}
-
-	@JsonIgnore
-	public void pay() throws EntityException {
-
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/pay";
-
-		try {
-
-			String response = this.getConnection().post(url, null, "");
-
-			Invoice v1 = Util.getMapper().readValue(response, Invoice.class);
-
-			setFields(v1, this);
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return;
-	}
-
-	@JsonIgnore
-	public Attachment[] listAttachments() throws EntityException {
-
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/attachments";
-
-		Attachment[] attachments = null;
-
-		try {
-
-			String response = this.getConnection().post(url, null, "");
-
-			attachments = Util.getMapper().readValue(response, Attachment[].class);
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return attachments;
-	}
-
 }

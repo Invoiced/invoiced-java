@@ -148,6 +148,10 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonProperty("attachments")
 	public long[] attachments;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("calculate_taxes")
+	public String calculateTaxes;
+
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
