@@ -257,7 +257,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 		try {
 
-			String response = this.getConnection().post(url, null, null);
+			String response = this.getConnection().post(url, null, "{}");
 
 			letters = Util.getMapper().readValue(response, Letter[].class);
 
@@ -320,7 +320,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 		T v1 = null;
 
 		try {
-			String response = this.conn.post(url, null, null));
+			String response = this.conn.post(url, null, "{}"));
 
 			v1 = Util.getMapper().readValue(response, this.tClass);
 

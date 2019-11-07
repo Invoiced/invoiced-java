@@ -185,4 +185,28 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	}
 
+	public SubscriptionPreview preview() throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/preview";
+
+		SubscriptionPreview preview = null;
+
+		try {
+
+			String previewJson = this.toJsonString();
+
+			String response = this.getConnection().post(url, null, previewJson);
+
+			preview = Util.getMapper().readValue(response, SubscriptionPreview.class);
+			preview.setConnection(this.getConnection());
+			preview.setClass(SubscriptionPreview.class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return preview;
+	}
+
 }

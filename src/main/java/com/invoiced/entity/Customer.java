@@ -322,6 +322,40 @@ public class Customer extends AbstractEntity<Customer> {
 	}
 
 	@JsonIgnore
+	public Invoice consolidateInvoices() throws EntityException {
+		this.consolidateInvoices(null);
+	}
+
+	@JsonIgnore
+	public Invoice consolidateInvoices(Long cutoffDate) throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/consolidate_invoices";
+
+		if (cutoffDate != null) {
+			cutoffJson = "{\"cutoff_date\":" + String.valueOf(cutoffDate) + "}"
+		} else {
+			cutoffJson = "{}"
+		}
+
+		Invoice invoice = null;
+
+		try {
+
+			String response = this.getConnection().post(url, null, cutoffJson);
+
+			invoice = Util.getMapper().readValue(response, Invoice.class);
+			invoice.setConnection(this.getConnection());
+			invoice.setClass(Invoice.class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return invoice;
+	}
+
+	@JsonIgnore
 	public Contact newContact() {
 		return new Contact(this.getConnection(), this.id);
 	}
