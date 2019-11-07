@@ -331,4 +331,10 @@ public class Customer extends AbstractEntity<Customer> {
 		return new PendingLineItem(this.getConnection(), this.id);
 	}
 
+	@JsonIgnore
+	public Contact newNote() {
+		return new Note(this.getConnection(), this.id, null);
+	}
+
 }
+

@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Note extends AbstractEntity<Note> {
 
-	public Note(Connection conn) {
+	public Note(Connection conn, long customerId, long invoiceId) {
 		super(conn, Note.class);
+		this.customerId = customerId;
+		this.invoiceId = invoiceId;
 	}
 
 	Note() {
@@ -35,6 +37,12 @@ public class Note extends AbstractEntity<Note> {
 	@Override
 	@JsonIgnore
 	protected String getEntityName() {
+		if (customerId) {
+			return "customers/" + String.valueOf(this.customerId) + "/notes";
+		}
+		if (invoiceId) {
+			return "invoices/" + String.valueOf(this.invoiceId) + "/notes";	
+		}
 		return "notes";
 	}
 

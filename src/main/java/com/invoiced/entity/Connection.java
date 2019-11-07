@@ -219,12 +219,40 @@ public class Connection {
 		return new CreditNote(this);
 	}
 
+	public final Estimate newEstimate() {
+		return new Estimate(this);
+	}
+
 	public final Event newEvent() {
 		return new Event(this);
 	}
 
 	public final File newFile() {
 		return new File(this);
+	}
+
+	public final Note newNote() {
+		return new Note(this, null, null);
+	}
+
+	public final CatalogItem newCatalogItem() {
+		return new CatalogItem(this);
+	}
+
+	public final Coupon newCoupon() {
+		return new Coupon(this);
+	}
+
+	public final Plan newPlan() {
+		return new Plan(this);
+	}
+
+	public final Task newTask() {
+		return new Task(this);
+	}
+
+	public final TaxRate newTaxRate() {
+		return new TaxRate(this);
 	}
 
 	protected final void testModeOn() {

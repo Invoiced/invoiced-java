@@ -331,4 +331,9 @@ public class Invoice extends AbstractEntity<Invoice> {
 		}
 	}
 
+	@JsonIgnore
+	public Contact newNote() {
+		return new Note(this.getConnection(), null, this.id);
+	}
+
 }
