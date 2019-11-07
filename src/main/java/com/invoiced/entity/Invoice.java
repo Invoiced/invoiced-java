@@ -224,6 +224,52 @@ public class Invoice extends AbstractEntity<Invoice> {
 	}
 
 	@JsonIgnore
+	public TextMessage[] sendText(TextRequest textRequest) throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+		             + String.valueOf(this.getEntityId()) + "/text_messages";
+
+		TextMessage[] textMessages = null;
+
+		try {
+
+			String textRequestJson = textRequest.toJsonString();
+
+			String response = this.getConnection().post(url, null, textRequestJson);
+
+			textMessages = Util.getMapper().readValue(response, TextMessage[].class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return textMessages;
+	}
+
+	@JsonIgnore
+	public Letter[] sendLetter() throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+		             + String.valueOf(this.getEntityId()) + "/letters";
+
+		Letter[] letters = null;
+
+		try {
+
+			String response = this.getConnection().post(url, null, null);
+
+			letters = Util.getMapper().readValue(response, Letter[].class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return letters;
+	}
+
+	@JsonIgnore
 	public void pay() throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
