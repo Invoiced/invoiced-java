@@ -76,6 +76,10 @@ public class Subscription extends AbstractEntity<Subscription> {
 	public long startDate;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("bill_in")
+	public String billIn;
+
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("quantity")
 	public int quantity;
 
@@ -108,10 +112,39 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("proration_date")
 	public long prorationDate;
 
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("paused")
+	public Boolean paused;
+
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("contract_period_start")
+	public long contractPeriodStart;
+
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("contract_period_end")
+	public long contractPeriodEnd;
+
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("contract_renewal_cycles")
+	public long contractRenewalCycles;
+
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("contract_renewal_mode")
+	public String contractRenewalMode;
+
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("start_date")
+	public long startDate;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("status")
 	public String status;
+
+	@JsonProperty(value = "recurring_total", access = JsonProperty.Access.WRITE_ONLY)
+	public long recurringTotal;
+	
+	@JsonProperty(value = "mrr", access = JsonProperty.Access.WRITE_ONLY)
+	public long mrr;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("addons")
@@ -124,6 +157,10 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("taxes")
 	public String[] taxes;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("pending_line_items")
+	public String[] pendingLineItems;
 
 	@JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
 	public String url;

@@ -97,10 +97,10 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("closed")
 	public Boolean closed;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
 	public Boolean paid;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
 	public String status;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -122,7 +122,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty(value = "next_payment_attempt", access = JsonProperty.Access.WRITE_ONLY)
 	public long nextPaymentAttempt;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "subscription", access = JsonProperty.Access.WRITE_ONLY)
 	public long subscription;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -157,17 +157,17 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("taxes")
 	public Tax[] taxes;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
 	public double total;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
 	public double balance;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("tags")
 	public Object[] tags;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
 	public String url;
 
 	@JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)

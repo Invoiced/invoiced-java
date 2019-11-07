@@ -105,4 +105,20 @@ public class Contact extends AbstractEntity<Contact> {
 	@JsonProperty("created_at")
 	public long createdAt;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("title")
+	public String title;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("phone")
+	public String phone;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("sms_enabled")
+	public Boolean SmsEnabled;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("department")
+	public String department;
+
 }

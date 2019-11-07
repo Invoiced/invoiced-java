@@ -80,6 +80,10 @@ public class Customer extends AbstractEntity<Customer> {
 	public Boolean autopay;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("autopay_delay_days")
+	public long autopayDelayDays;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("payment_terms")
 	public String paymentTerms;
 
@@ -131,6 +135,22 @@ public class Customer extends AbstractEntity<Customer> {
 	public String country;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("language")
+	public String language;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("chase")
+	public Boolean chase;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("chasing_cadence")
+	public long chasingCadence;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("next_chase_step")
+	public long nextChaseStep;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("tax_id")
 	public String taxId;
 
@@ -139,8 +159,39 @@ public class Customer extends AbstractEntity<Customer> {
 	public String phone;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("notes")
-	public String notes;
+	@JsonProperty("credit_hold")
+	public Boolean creditHold;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("credit_limit")
+	public long creditLimit;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("owner")
+	public long owner;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("taxable")
+	public Boolean taxable;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("avalara_entity_use_code")
+	public String avalaraEntityUseCode;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("avalara_exemption_number")
+	public String avalaraExemptionNumber;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("parent_customer")
+	public long parentCustomer;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("sign_up_page")
+	public long signUpPage;
+
+	@JsonProperty(value = "sign_up_url", access = JsonProperty.Access.WRITE_ONLY)
+	public String signUpUrl;
 
 	@JsonProperty(value = "statement_pdf_url", access = JsonProperty.Access.WRITE_ONLY)
 	public String statementPdfUrl;

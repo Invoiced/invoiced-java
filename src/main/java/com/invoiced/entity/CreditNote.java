@@ -65,8 +65,7 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonProperty("id")
 	public long id;
 
-
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
 	public String object;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -74,6 +73,7 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	public long customer;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("invoice")
 	public long invoice;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -96,10 +96,10 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonProperty("closed")
 	public Boolean closed;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
 	public Boolean paid;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
 	public String status;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -114,7 +114,7 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonProperty("notes")
 	public String notes;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "subtotal", access = JsonProperty.Access.WRITE_ONLY)
 	public double subtotal;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -125,15 +125,13 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonProperty("taxes")
 	public Tax[] taxes;
 
-
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
 	public double total;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
 	public double balance;
 
-
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
 	public String url;
 
 	@JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
@@ -149,7 +147,6 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("attachments")
 	public long[] attachments;
-
 
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
