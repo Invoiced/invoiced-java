@@ -250,7 +250,7 @@ public class Customer extends AbstractEntity<Customer> {
 	}
 
 	@JsonIgnore
-	public Email[] sendStatementText(TextRequest textRequest) throws EntityException {
+	public TextMessage[] sendStatementText(TextRequest textRequest) throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
 		             + String.valueOf(this.getEntityId()) + "/text_messages";
@@ -274,7 +274,7 @@ public class Customer extends AbstractEntity<Customer> {
 	}
 
 	@JsonIgnore
-	public Email[] sendStatementLetter() throws EntityException {
+	public Letter[] sendStatementLetter(LetterRequest letterRequest) throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
 		             + String.valueOf(this.getEntityId()) + "/letters";
@@ -283,7 +283,9 @@ public class Customer extends AbstractEntity<Customer> {
 
 		try {
 
-			String response = this.getConnection().post(url, null, null);
+			String letterRequestJson = letterRequest.toJsonString();
+
+			String response = this.getConnection().post(url, null, letterRequest);
 
 			letters = Util.getMapper().readValue(response, Letter[].class);
 
