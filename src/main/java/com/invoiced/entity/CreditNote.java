@@ -199,4 +199,22 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 		return attachments;
 	}
 
+	public void void() throws EntityException {
+
+		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		
+		T v1 = null;
+
+		try {
+			String response = this.conn.post(url, null, null));
+
+			v1 = Util.getMapper().readValue(response, this.tClass);
+
+			setFields(v1, this);
+
+		} catch (Throwable c) {
+			throw new EntityException(c);
+		}
+	}
+
 }
