@@ -37,11 +37,11 @@ public class Note extends AbstractEntity<Note> {
 	@Override
 	@JsonIgnore
 	protected String getEntityName() {
-		if (customerId) {
-			return "customers/" + String.valueOf(this.customerId) + "/notes";
-		}
 		if (invoiceId) {
 			return "invoices/" + String.valueOf(this.invoiceId) + "/notes";	
+		}
+		if (customerId) {
+			return "customers/" + String.valueOf(this.customerId) + "/notes";
 		}
 		return "notes";
 	}
