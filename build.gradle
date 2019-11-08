@@ -2,6 +2,7 @@
 plugins {
     id 'net.saliman.cobertura' version '2.6.1'
     id 'com.github.kt3k.coveralls' version '2.6.3'
+    id 'jacoco'
 }
 
 cobertura.coverageFormats = ['html', 'xml']
@@ -49,4 +50,13 @@ dependencies {
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
+}
+
+jacocoTestReport {
+    group = "Reporting"
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/reports/coverage/report.html")
+    }
 }
