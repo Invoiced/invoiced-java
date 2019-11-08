@@ -200,4 +200,26 @@ public class Estimate extends AbstractEntity<Estimate> {
 			throw new EntityException(c);
 		}
 	}
+
+	@JsonIgnore
+	public Invoice invoice() {
+
+		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/invoice";
+		
+		Invoice invoice = null;
+
+		try {
+
+			String response = this.getConnection().post(url, null, "{}");
+
+			invoice = Util.getMapper().readValue(response, Invoice.class);
+			invoice.setConnection(this.getConnection());
+			invoice.setClass(Invoice.class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return invoice;
 }
