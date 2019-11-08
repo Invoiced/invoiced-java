@@ -81,7 +81,7 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("autopay_delay_days")
-	public long autopayDelayDays;
+	public Long autopayDelayDays;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("payment_terms")
@@ -144,11 +144,11 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("chasing_cadence")
-	public long chasingCadence;
+	public Long chasingCadence;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("next_chase_step")
-	public long nextChaseStep;
+	public Long nextChaseStep;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("tax_id")
@@ -164,11 +164,11 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("credit_limit")
-	public long creditLimit;
+	public Long creditLimit;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("owner")
-	public long owner;
+	public Long owner;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("taxable")
@@ -188,11 +188,11 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("parent_customer")
-	public long parentCustomer;
+	public Long parentCustomer;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("sign_up_page")
-	public long signUpPage;
+	public Long signUpPage;
 
 	@JsonProperty(value = "sign_up_url", access = JsonProperty.Access.WRITE_ONLY)
 	public String signUpUrl;

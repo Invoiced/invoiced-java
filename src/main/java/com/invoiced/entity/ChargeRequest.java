@@ -35,7 +35,7 @@ public class ChargeRequest extends AbstractItem {
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("payment_source_id")
-    public long paymentSourceId;
+    public Long paymentSourceId;
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("vault_method")

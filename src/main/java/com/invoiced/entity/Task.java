@@ -70,15 +70,15 @@ public class Task extends AbstractEntity<Task> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("customer_id")
-    public long customerId;
+    public Long customerId;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("user_id")
-    public long userId;
+    public Long userId;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("due_date")
-    public long dueDate;
+    public Long dueDate;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("complete")
@@ -86,15 +86,15 @@ public class Task extends AbstractEntity<Task> {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("completed_date")
-    public long completedDate;
+    public Long completedDate;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("completed_by_user_id")
-    public long completedByUserId;
+    public Long completedByUserId;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("chase_step_id")
-    public long chaseStepId;
+    public Long chaseStepId;
 
 	@JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public long createdAt;

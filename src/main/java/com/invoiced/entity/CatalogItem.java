@@ -74,7 +74,7 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("unit_cost")
-    public long unitCost;
+    public Long unitCost;
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("description")

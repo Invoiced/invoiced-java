@@ -74,7 +74,7 @@ public class TaxRate extends AbstractEntity<TaxRate> {
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("value")
-    public long value;
+    public Long value;
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("inclusive")

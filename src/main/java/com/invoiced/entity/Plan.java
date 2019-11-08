@@ -78,7 +78,7 @@ public class Plan extends AbstractEntity<Plan> {
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("amount")
-    public long amount;
+    public Long amount;
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("pricing_mode")
@@ -94,7 +94,7 @@ public class Plan extends AbstractEntity<Plan> {
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("interval_count")
-    public long intervalCount;
+    public Long intervalCount;
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("tiers")

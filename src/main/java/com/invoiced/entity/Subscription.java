@@ -119,15 +119,15 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("contract_period_start")
-	public long contractPeriodStart;
+	public Long contractPeriodStart;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("contract_period_end")
-	public long contractPeriodEnd;
+	public Long contractPeriodEnd;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("contract_renewal_cycles")
-	public long contractRenewalCycles;
+	public Long contractRenewalCycles;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("contract_renewal_mode")

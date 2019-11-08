@@ -78,15 +78,15 @@ public class Note extends AbstractEntity<Note> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("customer")
-	public long customer;
+	public Long customer;
 	
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("customer_id")
-	public long customerId;
+	public Long customerId;
 	
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("invoice_id")
-    public long invoiceId;
+    public Long invoiceId;
 
 	@JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public long createdAt;

@@ -74,7 +74,7 @@ public class Coupon extends AbstractEntity<Coupon> {
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("value")
-    public long value;
+    public Long value;
     
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("is_percent")
@@ -86,11 +86,11 @@ public class Coupon extends AbstractEntity<Coupon> {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("expiration_date")
-    public long expirationDate;
+    public Long expirationDate;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("max_redemptions")
-    public long maxRedemptions;
+    public Long maxRedemptions;
     
 	@JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public long createdAt;
