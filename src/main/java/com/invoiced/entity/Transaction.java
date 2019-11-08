@@ -187,4 +187,27 @@ public class Transaction extends AbstractEntity<Transaction> {
 		return emails;
 	}
 
+	@JsonIgnore
+	public Transaction initiateCharge(ChargeRequest chargeRequest) throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/charges";
+
+		Transaction transaction = null;
+
+		try {
+
+			String chargeRequestJson = chargeRequest.toJsonString();
+
+			String response = this.getConnection().post(url, null, chargeRequestJson);
+
+			transaction = Util.getMapper().readValue(response, Transaction.class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return transaction;
+	}
+
 }
