@@ -232,7 +232,7 @@ public class Connection {
 	}
 
 	public final Note newNote() {
-		return new Note(this, null, null);
+		return new Note(this, 0, 0);
 	}
 
 	public final CatalogItem newCatalogItem() {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
+import com.invoiced.util.Util;
 
 public class Subscription extends AbstractEntity<Subscription> {
 
@@ -132,10 +133,6 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("contract_renewal_mode")
 	public String contractRenewalMode;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("start_date")
-	public long startDate;
-
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("status")
 	public String status;
@@ -188,10 +185,11 @@ public class Subscription extends AbstractEntity<Subscription> {
 	public SubscriptionPreview preview() throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/preview";
-
+		
 		SubscriptionPreview preview = null;
 
 		try {
+
 
 			String previewJson = this.toJsonString();
 

@@ -313,16 +313,16 @@ public class Invoice extends AbstractEntity<Invoice> {
 		return attachments;
 	}
 
-	public void void() throws EntityException {
+	public void voidInvoice() throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
 		
-		T v1 = null;
+		Invoice v1 = null;
 
 		try {
-			String response = this.conn.post(url, null, "{}"));
+			String response = this.conn.post(url, null, "{}");
 
-			v1 = Util.getMapper().readValue(response, this.tClass);
+			v1 = Util.getMapper().readValue(response, Invoice.class);
 
 			setFields(v1, this);
 
@@ -332,8 +332,8 @@ public class Invoice extends AbstractEntity<Invoice> {
 	}
 
 	@JsonIgnore
-	public Contact newNote() {
-		return new Note(this.getConnection(), null, this.id);
+	public Note newNote() {
+		return new Note(this.getConnection(), 0, this.id);
 	}
 
 }

@@ -183,16 +183,16 @@ public class Estimate extends AbstractEntity<Estimate> {
 		return emails;
 	}
 
-	public void void() throws EntityException {
+	public void voidEstimate() throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
 		
-		T v1 = null;
+		Estimate v1 = null;
 
 		try {
-			String response = this.conn.post(url, null, null));
+			String response = this.conn.post(url, null, "{}");
 
-			v1 = Util.getMapper().readValue(response, this.tClass);
+			v1 = Util.getMapper().readValue(response, Estimate.class);
 
 			setFields(v1, this);
 
@@ -202,7 +202,7 @@ public class Estimate extends AbstractEntity<Estimate> {
 	}
 
 	@JsonIgnore
-	public Invoice invoice() {
+	public Invoice invoice() throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/invoice";
 		
@@ -222,4 +222,5 @@ public class Estimate extends AbstractEntity<Estimate> {
 		}
 
 		return invoice;
+	}
 }

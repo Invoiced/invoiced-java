@@ -12,8 +12,8 @@ import com.invoiced.util.Util;
 
 public abstract class AbstractEntity<T extends AbstractEntity> {
 
-	private Connection conn;
-	private Class<T> tClass;
+	public Connection conn;
+	public Class<T> tClass;
 	private boolean entityCreated;
 
 	public AbstractEntity(Connection conn, Class<T> tClass) {

@@ -175,6 +175,10 @@ public class Customer extends AbstractEntity<Customer> {
 	public Boolean taxable;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("notes")
+	public String notes;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("avalara_entity_use_code")
 	public String avalaraEntityUseCode;
 
@@ -285,7 +289,7 @@ public class Customer extends AbstractEntity<Customer> {
 
 			String letterRequestJson = letterRequest.toJsonString();
 
-			String response = this.getConnection().post(url, null, letterRequest);
+			String response = this.getConnection().post(url, null, letterRequestJson);
 
 			letters = Util.getMapper().readValue(response, Letter[].class);
 
@@ -323,7 +327,9 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@JsonIgnore
 	public Invoice consolidateInvoices() throws EntityException {
-		this.consolidateInvoices(null);
+		Invoice invoice = this.consolidateInvoices(null);
+
+		return invoice;
 	}
 
 	@JsonIgnore
@@ -331,10 +337,12 @@ public class Customer extends AbstractEntity<Customer> {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/consolidate_invoices";
 
+		String cutoffJson = null;
+
 		if (cutoffDate != null) {
-			cutoffJson = "{\"cutoff_date\":" + String.valueOf(cutoffDate) + "}"
+			cutoffJson = "{\"cutoff_date\":" + String.valueOf(cutoffDate) + "}";
 		} else {
-			cutoffJson = "{}"
+			cutoffJson = "{}";
 		}
 
 		Invoice invoice = null;
@@ -366,8 +374,8 @@ public class Customer extends AbstractEntity<Customer> {
 	}
 
 	@JsonIgnore
-	public Contact newNote() {
-		return new Note(this.getConnection(), this.id, null);
+	public Note newNote() {
+		return new Note(this.getConnection(), this.id, 0);
 	}
 
 }

@@ -20,7 +20,7 @@ public class SubscriptionPreview extends AbstractEntity<SubscriptionPreview> {
 	@Override
 	@JsonIgnore
 	protected long getEntityId() {
-		return this.id;
+		return -1;
 	}
 
 	@Override
