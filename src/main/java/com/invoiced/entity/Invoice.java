@@ -313,6 +313,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 		return attachments;
 	}
 
+	@JsonIgnore
 	public void voidInvoice() throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";

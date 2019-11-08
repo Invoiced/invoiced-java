@@ -115,7 +115,7 @@ public class Contact extends AbstractEntity<Contact> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("sms_enabled")
-	public Boolean SmsEnabled;
+	public Boolean smsEnabled;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("department")

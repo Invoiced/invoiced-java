@@ -76,7 +76,7 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("start_date")
 	public long startDate;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("bill_in")
 	public String billIn;
 
@@ -113,23 +113,23 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("proration_date")
 	public long prorationDate;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("paused")
 	public Boolean paused;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("contract_period_start")
 	public long contractPeriodStart;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("contract_period_end")
 	public long contractPeriodEnd;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("contract_renewal_cycles")
 	public long contractRenewalCycles;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("contract_renewal_mode")
 	public String contractRenewalMode;
 

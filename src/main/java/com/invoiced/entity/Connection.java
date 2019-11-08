@@ -231,10 +231,6 @@ public class Connection {
 		return new File(this);
 	}
 
-	public final Note newNote() {
-		return new Note(this, 0, 0);
-	}
-
 	public final CatalogItem newCatalogItem() {
 		return new CatalogItem(this);
 	}
