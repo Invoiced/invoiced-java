@@ -1,0 +1,13 @@
+{
+    "request": {
+      "method": "POST",
+      "url": "/invoices/46225/text_messages"
+    },
+    "response": {
+      "status": 201,
+      "body": "[{\n  \"id\": \"d4e5f6\",\n  \"state\": \"sent\"\n}]",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  }
