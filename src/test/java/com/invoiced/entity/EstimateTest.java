@@ -171,4 +171,85 @@ public class EstimateTest {
 
 	}
 
+	@Test
+	public void testSendEstimateEmail() {
+
+		// references connection_rr_72.json
+		// references connection_rr_73.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Estimate estimate = conn.newEstimate();
+
+		EmailRequest emailRequest = new EmailRequest();
+
+		EmailRecipient[] emailRecipients = new EmailRecipient[1];
+		emailRecipients[0] = new EmailRecipient();
+
+		emailRecipients[0].name = "Client";
+		emailRecipients[0].email = "client@example.com";
+
+		emailRequest.to = emailRecipients;
+		emailRequest.subject = "test";
+		emailRequest.message = "estimate email example";
+
+		try {
+			estimate = estimate.retrieve(11641);
+			Email[] emails = estimate.send(emailRequest);
+
+			assertTrue("Email id is incorrect", emails[0].id.equals("30e4ffaf5a426bf0a381c4d4e32f6f4f"));
+
+			assertTrue("Email message is incorrect", emails[0].message.equals(emailRequest.message));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+	
+	@Test
+	public void testVoidEstimate() {
+
+		// references connection_rr_71.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Estimate estimate = conn.newEstimate();
+		estimate.id = 11641;
+
+		try {
+			estimate.voidEstimate();
+
+			assertTrue("Estimate status should be voided", estimate.status.equals("voided"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testConvertToInvoice() {
+
+		// references connection_rr_74.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Estimate estimate = conn.newEstimate();
+		estimate.id = 11641;
+
+		try {
+			Invoice invoice = estimate.invoice();
+
+			assertTrue("Invoice id is incorrect", invoice.id == 2339090);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
 }

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/estimates/11641"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"approval\":null,\"approved\":null,\"closed\":false,\"created_at\":1573509136,\"currency\":\"usd\",\"customer\":576124,\"date\":1573509115,\"deposit\":0,\"deposit_paid\":false,\"discounts\":[],\"draft\":false,\"expiration_date\":null,\"id\":11641,\"invoice\":null,\"items\":[{\"amount\":123,\"catalog_item\":null,\"created_at\":1573509136,\"description\":\"\",\"discountable\":true,\"id\":22847737,\"name\":\"Line Item 1\",\"quantity\":1,\"taxable\":true,\"type\":null,\"unit_cost\":123,\"object\":\"line_item\",\"metadata\":{},\"discounts\":[],\"taxes\":[]}],\"metadata\":{},\"name\":\"Estimate\",\"notes\":null,\"number\":\"EST-00001\",\"object\":\"estimate\",\"payment_terms\":\"Due on Receipt\",\"pdf_url\":\"https:\/\/ajwt.sandbox.invoiced.com\/estimates\/ze1zaGzD1ExHgQhds2dhA6ou\/pdf\",\"purchase_order\":null,\"shipping\":[],\"status\":\"not_sent\",\"subtotal\":123,\"taxes\":[],\"total\":123,\"url\":\"https:\/\/ajwt.sandbox.invoiced.com\/estimates\/ze1zaGzD1ExHgQhds2dhA6ou\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
