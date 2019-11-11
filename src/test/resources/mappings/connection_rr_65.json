@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "/estimates/46999"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\n  \"id\": 46999,\n  \"name\": \"July Paper Delivery\",\n  \"currency\": \"usd\",\n  \"status\": \"sent\",\n  \"items\": [\n    {\n      \"id\": 7\n    },\n    {\n      \"id\": 8\n    }\n  ],\n  \"taxes\": [\n    {\n      \"id\": 20554\n    }\n  ]\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

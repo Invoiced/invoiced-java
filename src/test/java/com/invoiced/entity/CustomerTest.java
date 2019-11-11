@@ -316,7 +316,6 @@ public class CustomerTest {
 	@Test
 	public void testConsolidateInvoicesNoArg() {
 
-		// references connection_rr_13.json
 		// references connection_rr_59.json
 
 		Connection conn = new Connection("", true);
@@ -334,5 +333,114 @@ public class CustomerTest {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	@Test
+	public void testConsolidateInvoicesWithArg() {
+
+		// references connection_rr_59.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer cust = conn.newCustomer();
+		cust.id = 15444L;
+		
+		try {
+
+			Invoice consolInvoice = cust.consolidateInvoices(1234567890L);
+
+			assertTrue("Invoice id is incorrect", consolInvoice.id == 46226);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testSendStatementText() {
+
+		// references connection_rr_11.json
+		// references connection_rr_60.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer cust = conn.newCustomer();
+		cust.id = 11L;
+
+		TextRequest textRequest = new TextRequest();
+
+		TextRecipient[] textRecipients = new TextRecipient[1];
+		textRecipients[0] = new TextRecipient();
+
+		textRecipients[0].name = "Bob Smith";
+		textRecipients[0].phone = "+15125551212";
+
+		textRequest.to = textRecipients;
+		textRequest.message = "Texting!";
+
+		try {
+			TextMessage[] textMessages = cust.sendStatementText(textRequest);
+
+			assertTrue("Text id is incorrect", textMessages[0].id.equals("a1b2c3"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testSendStatementLetter() {
+
+		// references connection_rr_11.json
+		// references connection_rr_61.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer cust = conn.newCustomer();
+		cust.id = 11L;
+
+		LetterRequest letterRequest = new LetterRequest();
+
+		letterRequest.type = "open_item";
+
+		try {
+			Letter[] letters = cust.sendStatementLetter(letterRequest);
+
+			assertTrue("Letter id is incorrect", letters[0].id.equals("c3b2a1"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testNewNote() {
+
+		// references connection_rr_62.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer cust = conn.newCustomer();
+		cust.id = 11L;
+
+		Note note = cust.newNote();
+		note.notes = "example note";
+
+		try {
+			note.create();
+
+			assertTrue("Note id is incorrect", note.id == 1212);
+			assertTrue("Note customer id is incorrect", note.customerId == 11);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
 	}
 }

@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/estimates",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"customer\":15444,\"payment_terms\":\"NET 30\",\"items\":[{\"name\":\"Copy paper, Case\",\"quantity\":1.0,\"unit_cost\":50.0},{\"catalog_item\":\"delivery\",\"quantity\":1.0}],\"taxes\":[{\"amount\":3.85}]}"
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "body": "{\n  \"id\": 46999,\n  \"name\": null,\n  \"currency\": \"usd\",\n  \"status\": \"not_sent\",\n  \"items\": [\n    {\n      \"id\": 7\n    },\n    {\n      \"id\": 8\n    }\n  ],\n  \"taxes\": [\n    {\n      \"id\": 20554\n    }\n  ]\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

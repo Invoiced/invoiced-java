@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/estimates"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Link": "<http://localhost:8080/estimates?page=1&per_page=100>; rel=\"self\",\n<http://localhost:8080/estimates?page=1&per_page=100>; rel=\"first\",\n <http://localhost:8080/estimates?page=1&per_page=100>; rel=\"previous\",\n<http://localhost:8080/estimates?page=1&per_page=100>; rel=\"next\",\n <http://localhost:8080/estimates?page=1&per_page=100>; rel=\"last\"",
+      "X-Total-Count": "2"
+    },
+    "body": "[{\"id\":46999,\"name\":null,\"currency\":\"usd\",\"status\":\"not_sent\",\"items\":[{\"id\":7},{\"id\":8}],\"taxes\":[{\"id\":20554}]},{\"id\":46700,\"name\":null,\"currency\":\"usd\",\"status\":\"not_sent\",\"items\":[{\"id\":9},{\"id\":10}],\"taxes\":[{\"id\":20555}]}]"
+  }
+}
