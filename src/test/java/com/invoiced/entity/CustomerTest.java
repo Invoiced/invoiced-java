@@ -312,4 +312,45 @@ public class CustomerTest {
 			fail();
 		}
 	}
+
+	@Test
+	public void testConsolidateInvoicesNoArg() {
+
+		// references connection_rr_13.json
+		// references connection_rr_60.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Customer cust = conn.newCustomer();
+		cust.id = 15444L;
+
+		Invoice invoice = new Invoice();
+		invoice.customer = 15444L;
+		invoice.paymentTerms = "NET 14";
+		LineItem[] items = new LineItem[2];
+		items[0] = new LineItem();
+		items[0].name = "Copy paper, Case";
+		items[0].quantity = 1D;
+		items[0].unitCost = 45D;
+		items[1] = new LineItem();
+		items[1].catalogItem = "delivery";
+		items[1].quantity = 1D;
+		Tax[] taxes = new Tax[1];
+		taxes[0] = new Tax();
+		taxes[0].amount = 3.85D;
+		invoice.items = items;
+		invoice.taxes = taxes;
+		
+		try {
+			invoice.create();
+
+			Invoice consolInvoice = cust.consolidateInvoices();
+
+			assertTrue("Invoice id is incorrect", consolInvoice.id == 46226);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
 }

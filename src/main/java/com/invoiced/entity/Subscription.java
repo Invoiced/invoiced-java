@@ -196,8 +196,6 @@ public class Subscription extends AbstractEntity<Subscription> {
 			String response = this.getConnection().post(url, null, previewJson);
 
 			preview = Util.getMapper().readValue(response, SubscriptionPreview.class);
-			preview.setConnection(this.getConnection());
-			preview.setClass(SubscriptionPreview.class);
 
 		} catch (Throwable c) {
 
