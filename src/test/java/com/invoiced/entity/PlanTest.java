@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
-public class CatalogItemTest {
+public class PlanTest {
 
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
@@ -23,21 +23,24 @@ public class CatalogItemTest {
 	@Test
 	public void testCreate() {
 
-		// references connection_rr_95.json
+		// references connection_rr_100.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
-        CatalogItem catalogItem = conn.newCatalogItem();
-        catalogItem.id = "delivery";
-        catalogItem.name = "Delivery";
-        catalogItem.type = "service";
-        catalogItem.unitCost = 100L;
+        Plan plan = conn.newPlan();
+        plan.id = "starter";
+        plan.name = "Starter";
+        plan.catalogItem = "software-subscription";
+        plan.amount = 49L;
+        plan.interval = "month";
+        plan.intervalCount = 1L;
+        plan.pricingMode = "per_unit";
 
 		try {
-			catalogItem.create();
+			plan.create();
 
-			assertTrue("CatalogItem id is incorrect", catalogItem.id.equals("delivery"));
+			assertTrue("Plan id is incorrect", plan.id.equals("starter"));
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -48,15 +51,15 @@ public class CatalogItemTest {
 	@Test
 	public void testRetrieve() {
 
-		// references connection_rr_96.json
+		// references connection_rr_101.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		try {
-			CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
+			Plan plan = conn.newPlan().retrieve("starter");
 
-			assertTrue("Catalog item type is incorrect", catalogItem.type.equals("service"));
+			assertTrue("Plan pricing mode is incorrect", plan.pricingMode.equals("per_unit"));
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -67,19 +70,20 @@ public class CatalogItemTest {
 	@Test
 	public void testSave() {
 
-		// references connection_rr_97.json
+		// references connection_rr_101.json
+		// references connection_rr_102.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		try {
 
-			CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
-			catalogItem.name = "Updated";
+			Plan plan = conn.newPlan().retrieve("starter");
+			plan.name = "Updated";
 
-			catalogItem.save();
+			plan.save();
 
-			assertTrue("Catalog item name is incorrect", catalogItem.name.equals("Updated"));
+			assertTrue("Plan name is incorrect", plan.name.equals("Updated"));
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -90,14 +94,15 @@ public class CatalogItemTest {
 	@Test
 	public void testDelete() {
 
-		// references connection_rr_98.json
+		// references connection_rr_101.json
+		// references connection_rr_103.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		try {
-			CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
-			catalogItem.delete();
+			Plan plan = conn.newPlan().retrieve("starter");
+			plan.delete();
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -108,17 +113,17 @@ public class CatalogItemTest {
 	@Test
 	public void testList() {
 
-		// references connection_rr_99.json
+		// references connection_rr_104.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
 		try {
-			EntityList<CatalogItem> catalogItems = conn.newCatalogItem().listAll();
+			EntityList<Plan> plans = conn.newPlan().listAll();
 
-			assertTrue("Id 1 is incorrect", catalogItems.get(0).id.equals("delivery"));
+			assertTrue("Id 1 is incorrect", plans.get(0).id.equals("starter"));
 
-			assertTrue("Id 2 is incorrect", catalogItems.get(1).id .equals("delivery2"));
+			assertTrue("Id 2 is incorrect", plans.get(1).id .equals("starter2"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
