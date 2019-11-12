@@ -20,11 +20,11 @@ import com.mashape.unirest.http.options.Options;
 
 public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
-	protected long invoiceID;
+	protected long invoiceId;
 
 	PaymentPlan(Connection conn, long invoiceId) {
 		super(conn, PaymentPlan.class);
-		this.invoiceID = invoiceId;
+		this.invoiceId = invoiceId;
 	}
 
 	PaymentPlan() {
@@ -52,7 +52,7 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 	@Override
 	@JsonIgnore
 	protected String getEntityName() {
-		return "invoices" + "/" + String.valueOf(this.invoiceID) + "/payment_plan";
+		return "invoices" + "/" + String.valueOf(this.invoiceId) + "/payment_plan";
 	}
 
 	@Override
@@ -64,13 +64,13 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 	@Override
 	@JsonIgnore
 	protected void setParentID(long parentID) {
-		this.invoiceID = parentID;
+		this.invoiceId = parentID;
 	}
 
 	@Override
 	@JsonIgnore
 	protected long getParentID() {
-		return this.invoiceID;
+		return this.invoiceId;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -98,7 +98,7 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
 	public void cancel() throws EntityException {
 		
-			String url = this.conn.baseUrl() + "/invoices/" + String.valueOf(this.invoiceID) + "/payment_plan";
+			String url = this.conn.baseUrl() + "/invoices/" + String.valueOf(this.invoiceId) + "/payment_plan";
 	
 			try {
 	
