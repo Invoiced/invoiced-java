@@ -39,6 +39,18 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	@Override
 	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() {
+		return null;
+	}
+
+	@Override
+	@JsonIgnore
 	protected boolean hasList() {
 		return true;
 	}

@@ -28,8 +28,20 @@ public class Coupon extends AbstractEntity<Coupon> {
 
 	@Override
 	@JsonIgnore
-	protected long getEntityId() {
+	protected boolean idIsString() {
+		return true;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() {
 		return this.id;
+	}
+
+	@Override
+	@JsonIgnore
+	protected long getEntityId() {
+		return -1;
 	}
 
 	@Override
@@ -58,7 +70,7 @@ public class Coupon extends AbstractEntity<Coupon> {
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
-	public long id;
+	public String id;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("object")

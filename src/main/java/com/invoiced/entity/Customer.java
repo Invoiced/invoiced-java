@@ -37,6 +37,18 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@Override
 	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() {
+		return null;
+	}
+
+	@Override
+	@JsonIgnore
 	protected boolean hasList() {
 		return true;
 	}

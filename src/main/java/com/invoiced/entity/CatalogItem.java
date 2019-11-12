@@ -22,6 +22,18 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
 
 	@Override
 	@JsonIgnore
+	protected boolean idIsString() {
+		return true;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() {
+		return this.id;
+	}
+
+	@Override
+	@JsonIgnore
 	protected boolean hasList() {
 		return true;
 	}
@@ -29,7 +41,7 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
 	@Override
 	@JsonIgnore
 	protected long getEntityId() {
-		return this.id;
+		return -1;
 	}
 
 	@Override
@@ -58,7 +70,7 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
-	public long id;
+	public String id;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("object")

@@ -33,6 +33,18 @@ public class Transaction extends AbstractEntity<Transaction> {
 	protected boolean hasCRUD() {
 		return true;
 	}
+	
+	@Override
+	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() {
+		return null;
+	}
 
 	@Override
 	@JsonIgnore

@@ -28,6 +28,18 @@ public class File extends AbstractEntity<File> {
 
 	@Override
 	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() {
+		return null;
+	}
+
+	@Override
+	@JsonIgnore
 	protected long getEntityId() {
 		return this.id;
 	}

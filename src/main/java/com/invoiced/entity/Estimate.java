@@ -39,6 +39,18 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	@Override
 	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() {
+		return null;
+	}
+
+	@Override
+	@JsonIgnore
 	protected boolean hasList() {
 		return true;
 	}
