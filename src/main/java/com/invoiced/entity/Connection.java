@@ -247,12 +247,12 @@ public class Connection {
 		return new Plan(this);
 	}
 
-	public final Task newTask() {
-		return new Task(this);
-	}
-
 	public final TaxRate newTaxRate() {
 		return new TaxRate(this);
+	}
+
+	public final Task newTask() {
+		return new Task(this);
 	}
 
 	protected final void testModeOn() {

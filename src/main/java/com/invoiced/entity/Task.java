@@ -10,6 +10,11 @@ public class Task extends AbstractEntity<Task> {
 		super(conn, Task.class);
 	}
 
+	public Task(Connection conn, long customerId) {
+		super(conn, Task.class);
+		this.customerId = customerId;
+	}
+
 	Task() {
 		super(Task.class);
 	}

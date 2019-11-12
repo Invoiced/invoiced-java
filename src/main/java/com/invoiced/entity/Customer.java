@@ -378,5 +378,10 @@ public class Customer extends AbstractEntity<Customer> {
 		return new Note(this.getConnection(), this.id, 0);
 	}
 
+	@JsonIgnore
+	public Task newTask() {
+		return new Task(this.getConnection(), this.id);
+	}
+
 }
 
