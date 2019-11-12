@@ -51,6 +51,6 @@ public class ChargeRequest extends AbstractItem {
     
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("splits")
-	public Object[] splits;
+	public ChargeSplit[] splits;
 
 }

@@ -227,6 +227,10 @@ public class Connection {
 		return new Event(this);
 	}
 
+	public final Note newNote() {
+		return new Note(this);
+	}
+
 	public final File newFile() {
 		return new File(this);
 	}

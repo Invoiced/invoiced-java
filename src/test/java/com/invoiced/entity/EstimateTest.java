@@ -162,7 +162,7 @@ public class EstimateTest {
 
 			assertTrue("Estimate 1 id is incorrect", estimates.get(0).id == 46999L);
 
-			assertTrue("Estimate 1 id is incorrect", estimates.get(1).id == 46700L);
+			assertTrue("Estimate 2 id is incorrect", estimates.get(1).id == 46700L);
 
 		} catch (Exception e) {
 			e.printStackTrace();
