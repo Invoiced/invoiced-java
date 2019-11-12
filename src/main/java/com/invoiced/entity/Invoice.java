@@ -337,4 +337,9 @@ public class Invoice extends AbstractEntity<Invoice> {
 		return new Note(this.getConnection(), 0, this.id);
 	}
 
+	@JsonIgnore
+	public PaymentPlan newPaymentPlan() {
+		return new PaymentPlan(this.getConnection(), this.id);
+	}
+
 }

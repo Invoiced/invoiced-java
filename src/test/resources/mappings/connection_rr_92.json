@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/invoices/998/payment_plan"
+  },
+  "response": {
+    "status": 201,
+    "body": "{\"approval\":{\"id\":12,\"ip\":\"192.168.1.1\",\"timestamp\":1234567893,\"user_agent\":\"Mozilla\/5.0 (Macintosh; Intel Mac OS X 10.12; rv:50.0) Gecko\/20100101 Firefox\/50.0\"},\"created_at\":1234564892,\"id\":99,\"installments\":[{\"amount\":1000,\"balance\":1000,\"date\":1234567890,\"id\":23},{\"amount\":1000,\"balance\":1000,\"date\":1234567891,\"id\":24}],\"object\":\"payment_plan\",\"status\":\"active\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

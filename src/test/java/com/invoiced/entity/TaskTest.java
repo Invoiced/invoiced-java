@@ -127,7 +127,7 @@ public class TaskTest {
             assertTrue("Task Entity id is wrong", task.getEntityId() == 222);
             assertTrue("Task id is wrong", task.getParentID() == -1);
 			task.setParentID(-1231);
-			assertTrue("Note id is wrong", task.getParentID() == -1);
+			assertTrue("Task id is wrong", task.getParentID() == -1);
 
 		} catch (Exception e) {
 			e.printStackTrace();

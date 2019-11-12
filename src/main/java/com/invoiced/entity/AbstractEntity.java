@@ -155,6 +155,32 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 	}
 
+	public T retrieve() throws EntityException {
+
+		String url = this.conn.baseUrl() + "/" + this.getEntityName();
+
+		T v1 = null;
+
+		try {
+
+			String response = this.conn.get(url, null);
+
+			v1 = Util.getMapper().readValue(response, this.tClass);
+			v1.setConnection(this.conn);
+			v1.setClass(this.tClass);
+
+			if (this.isSubEntity()) {
+				v1.setParentID(this.getParentID());
+			}
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return v1;
+	}
+
 	public T retrieve(long id) throws EntityException {
 
 		T v1 = null;
