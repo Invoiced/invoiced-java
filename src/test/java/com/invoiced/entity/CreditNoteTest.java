@@ -204,22 +204,46 @@ public class CreditNoteTest {
 		}
 
 	}
-	
-	@Test
-	public void testVoidCreditNote() {
 
-		// references connection_rr_71.json
+	@Test
+	public void testListAttachments() {
+
+		// references connection_rr_79.json
+		// references connection_rr_84.json
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
-		Estimate estimate = conn.newEstimate();
-		estimate.id = 11641;
+		CreditNote creditNote = conn.newCreditNote();
 
 		try {
-			estimate.voidEstimate();
+			creditNote = creditNote.retrieve(2048);
 
-			assertTrue("Credit note status should be voided", estimate.status.equals("voided"));
+			Attachment[] attachments = creditNote.listAttachments();
+
+			assertTrue("Attachment 0 id is incorrect", attachments[0].id == 14);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+	
+	@Test
+	public void testVoidCreditNote() {
+
+		// references connection_rr_85.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		CreditNote creditNote = conn.newCreditNote();
+		creditNote.id = 2048;
+
+		try {
+			creditNote.voidCreditNote();
+
+			assertTrue("Credit note status should be voided", creditNote.status.equals("voided"));
 
 		} catch (Exception e) {
 			fail(e.getMessage());
