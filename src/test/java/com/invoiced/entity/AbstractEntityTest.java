@@ -18,16 +18,4 @@ public class AbstractEntityTest {
 
 	}
 
-	@Test
-	public void testRate() {
-
-		Rate rate = new Rate();
-		rate.id = "3231";
-
-		String rateString = rate.toString();
-
-		assertTrue("Rate Id is incorrect", rateString.contains("3231"));
-
-	}
-
 }
