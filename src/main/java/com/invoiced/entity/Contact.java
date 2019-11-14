@@ -4,6 +4,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.invoiced.exception.EntityException;
 
 public class Contact extends AbstractEntity<Contact> {
 
@@ -45,8 +46,8 @@ public class Contact extends AbstractEntity<Contact> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityIdString() {
-		return null;
+	protected String getEntityIdString() throws EntityException {
+		throw new EntityException(new Throwable());
 	}
 
 	@Override

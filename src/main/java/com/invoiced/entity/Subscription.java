@@ -44,8 +44,8 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityIdString() {
-		return null;
+	protected String getEntityIdString() throws EntityException {
+		throw new EntityException(new Throwable());
 	}
 
 	@Override

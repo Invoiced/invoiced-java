@@ -43,8 +43,8 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityIdString() {
-		return null;
+	protected String getEntityIdString() throws EntityException {
+		throw new EntityException(new Throwable());
 	}
 
 	@Override

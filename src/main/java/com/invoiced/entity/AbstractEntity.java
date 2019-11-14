@@ -405,9 +405,9 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		return entities;
 	}
 
-	abstract long getEntityId();
+	abstract long getEntityId() throws EntityException;
 
-	abstract String getEntityIdString();
+	abstract String getEntityIdString() throws EntityException;
 
 	abstract String getEntityName();
 

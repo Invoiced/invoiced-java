@@ -3,6 +3,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.invoiced.exception.EntityException;
 
 public class TaxRate extends AbstractEntity<TaxRate> {
 
@@ -40,8 +41,8 @@ public class TaxRate extends AbstractEntity<TaxRate> {
 
 	@Override
 	@JsonIgnore
-	protected long getEntityId() {
-		return -1;
+	protected long getEntityId() throws EntityException {
+		throw new EntityException(new Throwable());
 	}
 
 	@Override

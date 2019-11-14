@@ -45,8 +45,8 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityIdString() {
-		return null;
+	protected String getEntityIdString() throws EntityException {
+		throw new EntityException(new Throwable());
 	}
 
 	@Override
@@ -209,7 +209,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("calculate_taxes")
-	public String calculateTaxes;
+	public Boolean calculateTaxes;
 
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
