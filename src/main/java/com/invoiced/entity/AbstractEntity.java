@@ -140,11 +140,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 		String url = null;
 
-		if (this.idIsString()) {
-			url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityIdString());
-		} else {
-			url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
-		}
+		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
 
 		T v1 = null;
 
@@ -279,11 +275,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 		String url = null;
 
-		if (this.idIsString()) {
-			url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityIdString());
-		} else {
-			url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
-		}
+		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
 
 
 		try {

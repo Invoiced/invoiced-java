@@ -46,7 +46,7 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@Override
 	@JsonIgnore
 	protected String getEntityIdString() throws EntityException {
-		throw new EntityException(new Throwable());
+		return String.valueOf(this.id);
 	}
 
 	@Override

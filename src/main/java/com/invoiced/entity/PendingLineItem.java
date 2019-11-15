@@ -45,7 +45,7 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 	@Override
 	@JsonIgnore
 	protected String getEntityIdString() throws EntityException {
-		throw new EntityException(new Throwable());
+		return String.valueOf(this.id);
 	}
 
 	@Override

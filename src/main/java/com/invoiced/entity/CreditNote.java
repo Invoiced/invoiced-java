@@ -46,7 +46,7 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@Override
 	@JsonIgnore
 	protected String getEntityIdString() throws EntityException {
-		throw new EntityException(new Throwable());
+		return String.valueOf(this.id);
 	}
 
 	@Override
