@@ -5,6 +5,10 @@ jdk:
 - oraclejdk7
 script:
 - ./gradlew -i check
+
+before_install:
+# needed to use TLSv1.2 on Java 7
+- export _JAVA_OPTIONS=-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
 after_success:
 - ./gradlew cobertura coveralls
 notifications:
