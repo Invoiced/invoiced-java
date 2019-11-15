@@ -25,7 +25,7 @@ gradle fatJar
 ## Requirements
 
 - Gradle 5.6.4
-- Java 8+
+- Java 9+
 
 ## Usage
 
