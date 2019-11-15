@@ -2,8 +2,12 @@ language: java
 dist: precise
 jdk:
 - oraclejdk8
+- oraclejdk9
+- oraclejdk10
 - oraclejdk11
 - oraclejdk12
+- openjdk11
+- openjdk12
 script:
 - ./gradlew -i check
 after_success:
