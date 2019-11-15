@@ -49,3 +49,13 @@ dependencies {
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
 }
+
+jacocoTestReport {
+    group = "Reporting"
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/reports/coverage/report.html")
+    }
+}

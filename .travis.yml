@@ -6,7 +6,7 @@ jdk:
 script:
 - ./gradlew -i check
 after_success:
-- ./gradlew cobertura coveralls
+- ./gradlew test jacocoTestReport coveralls
 notifications:
   email: false
   slack:
