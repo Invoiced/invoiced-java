@@ -1,8 +1,11 @@
 
 plugins {
+    id 'net.saliman.cobertura' version '2.3.1'
     id 'com.github.kt3k.coveralls' version '2.6.3'
     id 'jacoco'
 }
+
+ cobertura.coverageFormats = ['html', 'xml']
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
