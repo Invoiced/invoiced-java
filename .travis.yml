@@ -1,5 +1,4 @@
 language: java
-dist: precise
 jdk:
 - openjdk9
 - openjdk10
