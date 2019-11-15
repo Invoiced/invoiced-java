@@ -16,7 +16,7 @@ public class Discount extends AbstractItem {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("coupon")
-	public Rate coupon;
+	public Coupon coupon;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("expires")

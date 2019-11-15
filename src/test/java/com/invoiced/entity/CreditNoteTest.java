@@ -33,7 +33,223 @@ public class CreditNoteTest {
 
 	}
 
+	@Test
+	public void testCreate() {
 
+		// references connection_rr_78.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		CreditNote creditNote = conn.newCreditNote();
+
+		creditNote.customer = 15444L;
+		creditNote.invoice = 46225L;
+		LineItem[] items = new LineItem[2];
+		items[0] = new LineItem();
+		items[0].name = "Copy paper, Case";
+		items[0].quantity = 1D;
+		items[0].unitCost = 45D;
+		items[1] = new LineItem();
+		items[1].catalogItem = "delivery";
+		items[1].quantity = 1D;
+		Tax[] taxes = new Tax[1];
+		taxes[0] = new Tax();
+		taxes[0].amount = 3.85D;
+		creditNote.items = items;
+		creditNote.taxes = taxes;
+
+		try {
+
+			creditNote.create();
+
+			assertTrue("Credit note Id is incorrect", creditNote.id == 2048L);
+
+			assertTrue("Credit note Item Id is incorrect", creditNote.items[0].id == 7);
+
+			assertTrue("Credit note Item Id is incorrect", creditNote.items[1].id == 8);
+
+			assertTrue("Tax Id is incorrect", creditNote.taxes[0].id == 20554);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testRetrieve() {
+
+		// references connection_rr_79.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		CreditNote creditNote = conn.newCreditNote();
+
+		try {
+			creditNote = creditNote.retrieve(2048);
+			assertTrue("Credit note currency is incorrect",
+			creditNote.currency.equals("usd"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testSave() {
+
+		// references connection_rr_79.json
+		// references connection_rr_80.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		CreditNote creditNote = conn.newCreditNote();
+
+		try {
+			creditNote = creditNote.retrieve(2048);
+			creditNote.name = "Comp";
+
+			creditNote.save();
+
+			assertTrue("Credit note name should have changed", creditNote.name.equals("Comp"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	// }
+
+	@Test
+	public void testDelete() {
+
+		// references connection_rr_79.json
+		// references connection_rr_81.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		CreditNote creditNote = conn.newCreditNote();
+
+		try {
+			creditNote = creditNote.retrieve(2048);
+			creditNote.delete();
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testList() {
+
+		// references connection_rr_82.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		try {
+			EntityList<CreditNote> creditNotes = conn.newCreditNote().listAll();
+
+			assertTrue("Credit note 1 id is incorrect", creditNotes.get(0).id == 2048L);
+
+			assertTrue("Credit note 2 id is incorrect", creditNotes.get(1).id == 2049L);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	public void testSendCreditNoteEmail() {
+
+		// references connection_rr_79.json
+		// references connection_rr_83.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		CreditNote creditNote = conn.newCreditNote();
+
+		EmailRequest emailRequest = new EmailRequest();
+
+		EmailRecipient[] emailRecipients = new EmailRecipient[1];
+		emailRecipients[0] = new EmailRecipient();
+
+		emailRecipients[0].name = "Client";
+		emailRecipients[0].email = "client@example.com";
+
+		emailRequest.to = emailRecipients;
+		emailRequest.subject = "test";
+		emailRequest.message = "credit note email example";
+
+		try {
+			creditNote = creditNote.retrieve(2048);
+			Email[] emails = creditNote.send(emailRequest);
+
+			assertTrue("Email id is incorrect", emails[0].id.equals("30e4ffaf5a426bf0a381c4d4e32f6f4g"));
+
+			assertTrue("Email message is incorrect", emails[0].message.equals(emailRequest.message));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testListAttachments() {
+
+		// references connection_rr_79.json
+		// references connection_rr_84.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		CreditNote creditNote = conn.newCreditNote();
+
+		try {
+			creditNote = creditNote.retrieve(2048);
+
+			Attachment[] attachments = creditNote.listAttachments();
+
+			assertTrue("Attachment 0 id is incorrect", attachments[0].id == 14);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+	
+	@Test
+	public void testVoidCreditNote() {
+
+		// references connection_rr_85.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		CreditNote creditNote = conn.newCreditNote();
+		creditNote.id = 2048;
+
+		try {
+			creditNote.voidCreditNote();
+
+			assertTrue("Credit note status should be voided", creditNote.status.equals("voided"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
 
 	@Test
 	public void testJsonSerialization() {

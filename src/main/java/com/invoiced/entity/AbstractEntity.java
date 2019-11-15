@@ -12,8 +12,8 @@ import com.invoiced.util.Util;
 
 public abstract class AbstractEntity<T extends AbstractEntity> {
 
-	private Connection conn;
-	private Class<T> tClass;
+	protected Connection conn;
+	protected Class<T> tClass;
 	private boolean entityCreated;
 
 	public AbstractEntity(Connection conn, Class<T> tClass) {
@@ -138,7 +138,9 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			return;
 		}
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
+		String url = null;
+
+		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
 
 		T v1 = null;
 
@@ -153,6 +155,32 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		} catch (Throwable c) {
 			throw new EntityException(c);
 		}
+	}
+
+	public T retrieve() throws EntityException {
+
+		String url = this.conn.baseUrl() + "/" + this.getEntityName();
+
+		T v1 = null;
+
+		try {
+
+			String response = this.conn.get(url, null);
+
+			v1 = Util.getMapper().readValue(response, this.tClass);
+			v1.setConnection(this.conn);
+			v1.setClass(this.tClass);
+
+			if (this.isSubEntity()) {
+				v1.setParentID(this.getParentID());
+			}
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return v1;
 	}
 
 	public T retrieve(long id) throws EntityException {
@@ -197,13 +225,58 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		return v1;
 	}
 
+	public T retrieve(String id) throws EntityException {
+
+		T v1 = null;
+
+		try {
+
+			v1 = this.retrieve(id, null);
+
+		} catch (EntityException e) {
+
+			throw e;
+		}
+
+		return v1;
+	}
+
+	public T retrieve(String id, HashMap<String, Object> queryParms) throws EntityException {
+
+		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + id;
+
+		T v1 = null;
+
+		try {
+
+			String response = this.conn.get(url, queryParms);
+
+			v1 = Util.getMapper().readValue(response, this.tClass);
+			v1.setConnection(this.conn);
+			v1.setClass(this.tClass);
+
+			if (this.isSubEntity()) {
+				v1.setParentID(this.getParentID());
+			}
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return v1;
+	}
+
 	public void delete() throws EntityException {
 
 		if (!this.hasCRUD()) {
 			return;
 		}
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId());
+		String url = null;
+
+		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
+
 
 		try {
 
@@ -324,7 +397,9 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		return entities;
 	}
 
-	abstract long getEntityId();
+	abstract long getEntityId() throws EntityException;
+
+	abstract String getEntityIdString() throws EntityException;
 
 	abstract String getEntityName();
 
@@ -333,6 +408,8 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	abstract boolean hasList();
 
 	abstract boolean isSubEntity();
+
+	abstract boolean idIsString();
 
 	abstract void setParentID(long parentID);
 

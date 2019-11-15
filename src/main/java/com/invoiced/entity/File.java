@@ -3,6 +3,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.invoiced.exception.EntityException;
 
 public class File extends AbstractEntity<File> {
 
@@ -24,6 +25,18 @@ public class File extends AbstractEntity<File> {
 	@JsonIgnore
 	protected boolean hasList() {
 		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() throws EntityException {
+		return String.valueOf(this.id);
 	}
 
 	@Override

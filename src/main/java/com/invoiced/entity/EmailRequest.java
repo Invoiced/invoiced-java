@@ -21,4 +21,20 @@ public class EmailRequest extends AbstractItem {
 	@JsonProperty("message")
 	public String message;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("type")
+	public String type;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("start")
+	public Long start;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("end")
+	public Long end;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("items")
+	public String items;
+
 }

@@ -1,0 +1,13 @@
+  {
+    "request": {
+      "method": "POST",
+      "url": "/invoices/46225/letters"
+    },
+    "response": {
+      "status": 201,
+      "body": "[{\n  \"id\": \"f6e5d4\",\n  \"state\": \"queued\"\n}]",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  }

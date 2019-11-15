@@ -1,0 +1,13 @@
+{
+    "request": {
+      "method": "POST",
+      "url": "/customers/15444/consolidate_invoices"
+    },
+    "response": {
+      "status": 201,
+      "body": "{\n  \"id\": 46226,\n  \"customer\": 15444\n}",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  }

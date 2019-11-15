@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/catalog_items"
+  },
+  "response": {
+    "status": 201,
+    "body": "{\"avalara_tax_code\":null,\"created_at\":1477327516,\"currency\":\"usd\",\"description\":null,\"discountable\":true,\"gl_account\":null,\"id\":\"delivery\",\"metadata\":{},\"name\":\"Delivery\",\"object\":\"catalog_item\",\"taxable\":true,\"taxes\":[],\"type\":\"service\",\"unit_cost\":100}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

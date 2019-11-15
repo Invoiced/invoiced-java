@@ -188,6 +188,41 @@ public class TransactionTest {
 	}
 
 	@Test
+	public void testInitiateCharge() {
+
+		// references connection_rr_76.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		ChargeRequest chargeRequest = new ChargeRequest();
+
+		chargeRequest.customer = 401558;
+		chargeRequest.currency = "usd";
+		chargeRequest.amount = 2000;
+
+		ChargeSplit[] splits = new ChargeSplit[1];
+		splits[0] = new ChargeSplit();
+		
+		splits[0].type = "invoice";
+		splits[0].invoice = 1234;
+		splits[0].amount = 2000;
+
+		chargeRequest.splits = splits;
+
+		try {
+
+			Transaction charge = conn.newTransaction().initiateCharge(chargeRequest);
+
+			assertTrue("Charge transaction id is incorrect", charge.id == 1234);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
 	public void testJsonSerialization() {
 		new Transaction(null);
 

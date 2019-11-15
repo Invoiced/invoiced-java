@@ -238,6 +238,111 @@ public class InvoiceTest {
 	}
 
 	@Test
+	public void testSendText() {
+
+		// references connection_rr_14.json
+		// references connection_rr_68.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Invoice invoice = conn.newInvoice();
+
+		TextRequest textRequest = new TextRequest();
+
+		TextRecipient[] textRecipients = new TextRecipient[1];
+		textRecipients[0] = new TextRecipient();
+
+		textRecipients[0].name = "Bob Smith";
+		textRecipients[0].phone = "+15125551212";
+
+		textRequest.to = textRecipients;
+		textRequest.message = "Texting!";
+
+		try {
+			invoice = invoice.retrieve(46225);
+			TextMessage[] textMessages = invoice.sendText(textRequest);
+
+			assertTrue("Text id is incorrect", textMessages[0].id.equals("d4e5f6"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testSendLetter() {
+
+		// references connection_rr_14.json
+		// references connection_rr_69.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Invoice invoice = conn.newInvoice();
+
+		try {
+			invoice = invoice.retrieve(46225);
+			Letter[] letters = invoice.sendLetter();
+
+			assertTrue("Letter id is incorrect", letters[0].id.equals("f6e5d4"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testNewNote() {
+
+		// references connection_rr_62.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Invoice invoice = conn.newInvoice();
+		invoice.customer = 11L;
+		
+		Note note = invoice.newNote();
+		note.notes = "example note";
+
+		try {
+			note.create();
+
+			assertTrue("Note id is incorrect", note.id == 1212);
+			assertTrue("Note customer id is incorrect", note.customerId == 11);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testVoidInvoice() {
+
+		// references connection_rr_70.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Invoice invoice = conn.newInvoice();
+		invoice.id = 46701;
+
+		try {
+			invoice.voidInvoice();
+
+			assertTrue("Invoice should be voided", invoice.status.equals("voided"));
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
 	public void testJsonSerialization() {
 		new Invoice(null);
 

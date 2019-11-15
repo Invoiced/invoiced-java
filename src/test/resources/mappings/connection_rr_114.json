@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/tax_rates"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Link": "<http://localhost:8080/tax_rates?page=1&per_page=100>; rel=\"self\",\n<http://localhost:8080//tax_rates?page=1&per_page=100>; rel=\"first\",\n <http://localhost:8080/tax_rates?page=1&per_page=100>; rel=\"previous\",\n<http://localhost:8080/tax_rates?page=1&per_page=100>; rel=\"next\",\n <http://localhost:8080/tax_rates?page=1&per_page=100>; rel=\"last\"",
+      "X-Total-Count": "2"
+
+    },
+    "body": "[{\"created_at\":1477418268,\"currency\":null,\"id\":\"vat\",\"inclusive\":false,\"is_percent\":true,\"metadata\":{},\"name\":\"VAT\",\"object\":\"tax_rate\",\"value\":5},{\"created_at\":1477418268,\"currency\":null,\"id\":\"vat2\",\"inclusive\":false,\"is_percent\":true,\"metadata\":{},\"name\":\"VAT\",\"object\":\"tax_rate\",\"value\":5}]"
+  }
+}

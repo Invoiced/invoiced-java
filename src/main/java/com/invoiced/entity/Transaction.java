@@ -33,6 +33,18 @@ public class Transaction extends AbstractEntity<Transaction> {
 	protected boolean hasCRUD() {
 		return true;
 	}
+	
+	@Override
+	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() throws EntityException {
+		return String.valueOf(this.id);
+	}
 
 	@Override
 	@JsonIgnore
@@ -185,6 +197,29 @@ public class Transaction extends AbstractEntity<Transaction> {
 		}
 
 		return emails;
+	}
+
+	@JsonIgnore
+	public Transaction initiateCharge(ChargeRequest chargeRequest) throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/charges";
+
+		Transaction transaction = null;
+
+		try {
+
+			String chargeRequestJson = chargeRequest.toJsonString();
+
+			String response = this.getConnection().post(url, null, chargeRequestJson);
+
+			transaction = Util.getMapper().readValue(response, Transaction.class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return transaction;
 	}
 
 }

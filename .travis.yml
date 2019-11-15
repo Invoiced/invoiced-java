@@ -7,6 +7,7 @@ jdk:
 - openjdk12
 script:
 - ./gradlew -i check
+
 after_success:
 - ./gradlew test jacocoTestReport coveralls
 notifications:

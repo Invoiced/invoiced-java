@@ -3,6 +3,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.invoiced.exception.EntityException;
 
 public class Event extends AbstractEntity<Event> {
 
@@ -18,6 +19,18 @@ public class Event extends AbstractEntity<Event> {
 	@JsonIgnore
 	protected boolean hasCRUD() {
 		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() throws EntityException {
+		return String.valueOf(this.id);
 	}
 
 	@Override

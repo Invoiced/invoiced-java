@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
+import com.invoiced.util.Util;
 
 public class Subscription extends AbstractEntity<Subscription> {
 
@@ -33,6 +34,18 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonIgnore
 	protected boolean hasCRUD() {
 		return true;
+	}
+
+	@Override
+	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() throws EntityException {
+		return String.valueOf(this.id);
 	}
 
 	@Override
@@ -75,6 +88,10 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("start_date")
 	public long startDate;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("bill_in")
+	public String billIn;
+
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("quantity")
 	public int quantity;
@@ -108,10 +125,35 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonProperty("proration_date")
 	public long prorationDate;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("paused")
+	public Boolean paused;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("contract_period_start")
+	public Long contractPeriodStart;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("contract_period_end")
+	public Long contractPeriodEnd;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("contract_renewal_cycles")
+	public Long contractRenewalCycles;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("contract_renewal_mode")
+	public String contractRenewalMode;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("status")
 	public String status;
+
+	@JsonProperty(value = "recurring_total", access = JsonProperty.Access.WRITE_ONLY)
+	public long recurringTotal;
+	
+	@JsonProperty(value = "mrr", access = JsonProperty.Access.WRITE_ONLY)
+	public long mrr;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("addons")
@@ -124,6 +166,10 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("taxes")
 	public String[] taxes;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("pending_line_items")
+	public String[] pendingLineItems;
 
 	@JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
 	public String url;
@@ -146,6 +192,29 @@ public class Subscription extends AbstractEntity<Subscription> {
 			throw new EntityException(c);
 		}
 
+	}
+
+	public SubscriptionPreview preview() throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/preview";
+		
+		SubscriptionPreview preview = null;
+
+		try {
+
+
+			String previewJson = this.toJsonString();
+
+			String response = this.getConnection().post(url, null, previewJson);
+
+			preview = Util.getMapper().readValue(response, SubscriptionPreview.class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return preview;
 	}
 
 }

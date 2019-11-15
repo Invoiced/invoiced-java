@@ -1,0 +1,13 @@
+{
+    "request": {
+      "method": "POST",
+      "url": "/tax_rates"
+    },
+    "response": {
+      "status": 201,
+      "body": "{\"created_at\":1477418268,\"currency\":null,\"id\":\"vat\",\"inclusive\":false,\"is_percent\":true,\"metadata\":{},\"name\":\"VAT\",\"object\":\"tax_rate\",\"value\":5}",
+      "headers": {
+        "Content-Type": "application/json"
+        }
+    }
+}

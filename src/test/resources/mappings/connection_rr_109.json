@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/coupons"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Link": "<http://localhost:8080/coupons?page=1&per_page=100>; rel=\"self\",\n<http://localhost:8080//coupons?page=1&per_page=100>; rel=\"first\",\n <http://localhost:8080/coupons?page=1&per_page=100>; rel=\"previous\",\n<http://localhost:8080/coupons?page=1&per_page=100>; rel=\"next\",\n <http://localhost:8080/coupons?page=1&per_page=100>; rel=\"last\"",
+      "X-Total-Count": "2"
+
+    },
+    "body": "[{\"created_at\":1477415090,\"currency\":null,\"exclusive\":false,\"expiration_date\":null,\"id\":\"S8L47J\",\"is_percent\":true,\"max_redemptions\":0,\"metadata\":{},\"name\":\"Non-profit Discount\",\"object\":\"coupon\",\"value\":20},{\"created_at\":1477415090,\"currency\":null,\"exclusive\":false,\"expiration_date\":null,\"id\":\"S8L47J2\",\"is_percent\":true,\"max_redemptions\":0,\"metadata\":{},\"name\":\"Non-profit Discount\",\"object\":\"coupon\",\"value\":20}]"
+  }
+}

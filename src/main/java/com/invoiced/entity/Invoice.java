@@ -39,6 +39,18 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	@Override
 	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() throws EntityException {
+		return String.valueOf(this.id);
+	}
+
+	@Override
+	@JsonIgnore
 	protected boolean hasList() {
 		return true;
 	}
@@ -97,10 +109,10 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("closed")
 	public Boolean closed;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
 	public Boolean paid;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
 	public String status;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -122,7 +134,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty(value = "next_payment_attempt", access = JsonProperty.Access.WRITE_ONLY)
 	public long nextPaymentAttempt;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "subscription", access = JsonProperty.Access.WRITE_ONLY)
 	public long subscription;
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -157,17 +169,17 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("taxes")
 	public Tax[] taxes;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
 	public double total;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
 	public double balance;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("tags")
 	public Object[] tags;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
 	public String url;
 
 	@JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)
@@ -195,6 +207,10 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonProperty("disabled_payment_methods")
 	public String[] disabledPaymentMethods;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("calculate_taxes")
+	public Boolean calculateTaxes;
+
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
@@ -217,6 +233,52 @@ public class Invoice extends AbstractEntity<Invoice> {
 		}
 
 		return emails;
+	}
+
+	@JsonIgnore
+	public TextMessage[] sendText(TextRequest textRequest) throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+		             + String.valueOf(this.getEntityId()) + "/text_messages";
+
+		TextMessage[] textMessages = null;
+
+		try {
+
+			String textRequestJson = textRequest.toJsonString();
+
+			String response = this.getConnection().post(url, null, textRequestJson);
+
+			textMessages = Util.getMapper().readValue(response, TextMessage[].class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return textMessages;
+	}
+
+	@JsonIgnore
+	public Letter[] sendLetter() throws EntityException {
+
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
+		             + String.valueOf(this.getEntityId()) + "/letters";
+
+		Letter[] letters = null;
+
+		try {
+
+			String response = this.getConnection().post(url, null, "{}");
+
+			letters = Util.getMapper().readValue(response, Letter[].class);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+
+		return letters;
 	}
 
 	@JsonIgnore
@@ -261,6 +323,35 @@ public class Invoice extends AbstractEntity<Invoice> {
 		}
 
 		return attachments;
+	}
+
+	@JsonIgnore
+	public void voidInvoice() throws EntityException {
+
+		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		
+		Invoice v1 = null;
+
+		try {
+			String response = this.conn.post(url, null, "{}");
+
+			v1 = Util.getMapper().readValue(response, Invoice.class);
+
+			setFields(v1, this);
+
+		} catch (Throwable c) {
+			throw new EntityException(c);
+		}
+	}
+
+	@JsonIgnore
+	public Note newNote() {
+		return new Note(this.getConnection(), 0, this.id);
+	}
+
+	@JsonIgnore
+	public PaymentPlan newPaymentPlan() {
+		return new PaymentPlan(this.getConnection(), this.id);
 	}
 
 }

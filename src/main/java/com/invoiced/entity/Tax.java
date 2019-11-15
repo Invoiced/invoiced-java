@@ -15,6 +15,6 @@ public class Tax extends AbstractItem {
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("tax_rate")
-	public Rate taxRate;
+	public TaxRate taxRate;
 
 }

@@ -126,6 +126,30 @@ public class SubscriptionTest {
 	}
 
 	@Test
+	public void testPreviewSubscription() {
+
+		// references connection_rr_75.json
+
+		Connection conn = new Connection("", true);
+		conn.testModeOn();
+
+		Subscription subscription = conn.newSubscription();
+
+		subscription.customer = 481594;
+		subscription.plan = "starter";
+
+		try {
+
+			SubscriptionPreview preview = subscription.preview();
+			assertTrue("Preview MRR is incorrect", preview.mrr == 49);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
 	public void testJsonSerialization() {
 		new Subscription(null);
 

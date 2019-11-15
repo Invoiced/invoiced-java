@@ -4,6 +4,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.invoiced.exception.EntityException;
 
 public class Contact extends AbstractEntity<Contact> {
 
@@ -35,6 +36,18 @@ public class Contact extends AbstractEntity<Contact> {
 	@JsonIgnore
 	protected boolean hasCRUD() {
 		return true;
+	}
+
+	@Override
+	@JsonIgnore
+	protected boolean idIsString() {
+		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String getEntityIdString() throws EntityException {
+		return String.valueOf(this.id);
 	}
 
 	@Override
@@ -104,5 +117,21 @@ public class Contact extends AbstractEntity<Contact> {
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("created_at")
 	public long createdAt;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("title")
+	public String title;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("phone")
+	public String phone;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("sms_enabled")
+	public Boolean smsEnabled;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("department")
+	public String department;
 
 }
