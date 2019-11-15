@@ -5,7 +5,7 @@ plugins {
     id 'jacoco'
 }
 
- cobertura.coverageFormats = ['html', 'xml']
+- cobertura.coverageFormats = ['html', 'xml']
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
