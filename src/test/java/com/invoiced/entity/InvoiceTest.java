@@ -284,9 +284,9 @@ public class InvoiceTest {
 
 		try {
 			invoice = invoice.retrieve(46225);
-			Letter[] letters = invoice.sendLetter();
+			Letter letter = invoice.sendLetter();
 
-			assertTrue("Letter id is incorrect", letters[0].id.equals("f6e5d4"));
+			assertTrue("Letter id is incorrect", letter.id.equals("f6e5d4"));
 
 		} catch (Exception e) {
 			fail(e.getMessage());

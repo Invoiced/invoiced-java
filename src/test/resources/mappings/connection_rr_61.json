@@ -5,7 +5,7 @@
     },
     "response": {
       "status": 201,
-      "body": "[{\n  \"id\": \"c3b2a1\",\n  \"state\": \"queued\"\n}]",
+      "body": "{\n  \"id\": \"c3b2a1\",\n  \"state\": \"queued\"\n}",
       "headers": {
         "Content-Type": "application/json"
       }

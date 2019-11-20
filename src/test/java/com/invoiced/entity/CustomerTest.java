@@ -408,9 +408,9 @@ public class CustomerTest {
 		letterRequest.type = "open_item";
 
 		try {
-			Letter[] letters = cust.sendStatementLetter(letterRequest);
+			Letter letter = cust.sendStatementLetter(letterRequest);
 
-			assertTrue("Letter id is incorrect", letters[0].id.equals("c3b2a1"));
+			assertTrue("Letter id is incorrect", letter.id.equals("c3b2a1"));
 
 		} catch (Exception e) {
 			fail(e.getMessage());

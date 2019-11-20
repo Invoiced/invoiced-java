@@ -290,12 +290,12 @@ public class Customer extends AbstractEntity<Customer> {
 	}
 
 	@JsonIgnore
-	public Letter[] sendStatementLetter(LetterRequest letterRequest) throws EntityException {
+	public Letter sendStatementLetter(LetterRequest letterRequest) throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
 		             + String.valueOf(this.getEntityId()) + "/letters";
 
-		Letter[] letters = null;
+		Letter letter = null;
 
 		try {
 
@@ -303,14 +303,14 @@ public class Customer extends AbstractEntity<Customer> {
 
 			String response = this.getConnection().post(url, null, letterRequestJson);
 
-			letters = Util.getMapper().readValue(response, Letter[].class);
+			letter = Util.getMapper().readValue(response, Letter.class);
 
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
 
-		return letters;
+		return letter;
 	}
 
 	@JsonIgnore

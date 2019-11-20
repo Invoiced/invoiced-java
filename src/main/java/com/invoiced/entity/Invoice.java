@@ -260,25 +260,25 @@ public class Invoice extends AbstractEntity<Invoice> {
 	}
 
 	@JsonIgnore
-	public Letter[] sendLetter() throws EntityException {
+	public Letter sendLetter() throws EntityException {
 
 		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
 		             + String.valueOf(this.getEntityId()) + "/letters";
 
-		Letter[] letters = null;
+		Letter letter = null;
 
 		try {
 
 			String response = this.getConnection().post(url, null, "{}");
 
-			letters = Util.getMapper().readValue(response, Letter[].class);
+			letter = Util.getMapper().readValue(response, Letter.class);
 
 		} catch (Throwable c) {
 
 			throw new EntityException(c);
 		}
 
-		return letters;
+		return letter;
 	}
 
 	@JsonIgnore
