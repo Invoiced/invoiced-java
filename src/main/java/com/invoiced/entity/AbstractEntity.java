@@ -14,6 +14,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	protected Connection conn;
 	protected Class<T> tClass;
+	protected String currentOperation;
 	private boolean entityCreated;
 
 	public AbstractEntity(Connection conn, Class<T> tClass) {
@@ -363,6 +364,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public EntityList<T> listAll(HashMap<String, Object> queryParms) throws EntityException {
 		EntityList<T> entities = null;
 		EntityList<T> tmp = null;
+		this.currentOperation = "listAll";
 
 		if (!this.hasList()) {
 			return null;
@@ -389,11 +391,14 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			entities.setLinkURLs(tmp.getLinkURLs());
 
 		} catch (EntityException e) {
+			this.currentOperation = null;
 			throw e;
 		} catch (Throwable c) {
+			this.currentOperation = null;
 			throw new EntityException(c);
 		}
 
+		this.currentOperation = null;
 		return entities;
 	}
 
