@@ -7,8 +7,6 @@ import com.invoiced.exception.EntityException;
 
 public class Note extends AbstractEntity<Note> {
 
-	private String subAssociation = null;
-
 	public Note(Connection conn) {
 		super(conn, Note.class);
 	}
@@ -17,11 +15,9 @@ public class Note extends AbstractEntity<Note> {
 		super(conn, Note.class);
 		if (invoiceId > 0) {
 			this.invoiceId = invoiceId;
-			this.subAssociation = "invoice";
 		}
 		else if (customerId > 0) {
 			this.customerId = customerId;
-			this.subAssociation = "customer";
 		}
 	}
 
@@ -62,18 +58,14 @@ public class Note extends AbstractEntity<Note> {
 	@Override
 	@JsonIgnore
 	protected String getEntityName() {
-		if (this.currentOperation == "listAll" && this.subAssociation != null) {
-			return listAllEntityName();
-			}
-		else {
-			return "notes";
-		}
+		return "notes";
 	}
 
+	@Override
 	@JsonIgnore
-	private String listAllEntityName() {
-		if (this.subAssociation == "invoice") return "invoices/" + String.valueOf(this.invoiceId) + "/notes";
-		else if (this.subAssociation == "customer") return "customers/" + String.valueOf(this.customerId) + "/notes";
+	protected String getListUrl() {
+		if (this.invoiceId != null) return "invoices/" + String.valueOf(this.invoiceId) + "/notes";
+		else if (this.customerId != null) return "customers/" + String.valueOf(this.customerId) + "/notes";
 		else return "notes";
 	}
 

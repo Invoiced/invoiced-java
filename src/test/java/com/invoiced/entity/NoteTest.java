@@ -76,12 +76,6 @@ public class NoteTest {
 
 			assertTrue("note customerId not set", note.customerId == 11);
 
-			// test if endpoint generates correctly in the abstract
-			note.currentOperation = "listAll";
-			assertTrue("endpoint is incorrect", note.getEntityName().equals("customers/11/notes"));
-			note.currentOperation = null;
-
-			// test an actual call
 			EntityList<Note> notes = note.listAll();
 
 			assertTrue("Total count is incorrect", notes.getTotalCount() == 2);
@@ -110,12 +104,6 @@ public class NoteTest {
 
 			assertTrue("note invoiceId not set", note.invoiceId == 46225);
 
-			// test if endpoint generates correctly in the abstract
-			note.currentOperation = "listAll";
-			assertTrue("endpoint is incorrect", note.getEntityName().equals("invoices/46225/notes"));
-			note.currentOperation = null;
-
-			// test an actual call
 			EntityList<Note> notes = note.listAll();
 
 			assertTrue("Total count is incorrect", notes.getTotalCount() == 2);

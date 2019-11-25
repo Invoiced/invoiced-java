@@ -14,7 +14,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	protected Connection conn;
 	protected Class<T> tClass;
-	protected String currentOperation;
 	private boolean entityCreated;
 
 	public AbstractEntity(Connection conn, Class<T> tClass) {
@@ -324,7 +323,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			return null;
 		}
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName();
+		String url = this.conn.baseUrl() + "/" + this.getListUrl();
 
 		if (nextURL != null && nextURL.length() > 0) {
 			url = nextURL;
@@ -364,7 +363,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public EntityList<T> listAll(HashMap<String, Object> queryParms) throws EntityException {
 		EntityList<T> entities = null;
 		EntityList<T> tmp = null;
-		this.currentOperation = "listAll";
 
 		if (!this.hasList()) {
 			return null;
@@ -391,15 +389,17 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			entities.setLinkURLs(tmp.getLinkURLs());
 
 		} catch (EntityException e) {
-			this.currentOperation = null;
 			throw e;
 		} catch (Throwable c) {
-			this.currentOperation = null;
 			throw new EntityException(c);
 		}
 
-		this.currentOperation = null;
 		return entities;
+	}
+
+	// for almost all objects, list endpoints are solely the entity name
+	protected String getListUrl() {
+		return getEntityName();
 	}
 
 	abstract long getEntityId() throws EntityException;
