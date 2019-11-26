@@ -197,6 +197,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			if (this.isSubEntity()) {
 				v1.setParentID(this.getParentID());
 				v1.setParentName(this.getParentName());
+				v1.setEntityName();
 			}
 
 		} catch (Throwable c) {
