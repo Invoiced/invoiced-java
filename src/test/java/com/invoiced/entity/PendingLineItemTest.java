@@ -125,8 +125,6 @@ public class PendingLineItemTest {
 			assertTrue("Type is incorrect", c1.type.equals("service"));
 
 			assertTrue("Description is incorrect", c1.description == "");
-			// TODO TEST PAYMENT SOURCE MORE
-
 			assertTrue("Quantity is incorrect", c1.quantity == 1);
 			assertTrue("Unit Cost is incorrect", c1.unitCost == 10);
 			assertTrue("Amount is incorrect", c1.amount == 10);

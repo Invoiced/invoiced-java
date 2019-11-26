@@ -376,8 +376,6 @@ public class InvoiceTest {
 			assertTrue("Due Date is incorrect", i1.dueDate == 1417500000L);
 
 			assertTrue("Payment Terms is incorrect", i1.paymentTerms.equals("NET 14"));
-
-			// TODO Also test embedded objects in items, taxes
 			assertTrue("Items is incorrect", i1.items.length > 0);
 
 			assertTrue("Notes is incorrect", i1.notes == null);

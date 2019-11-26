@@ -132,8 +132,6 @@ public class ContactTest {
 			assertTrue("Name is incorrect", c1.name.equals("Nancy Talty"));
 			assertTrue("Email is incorrect", c1.email.equals("nancy.talty@example.com"));
 			assertTrue("Primary is incorrect", c1.primary == true);
-			// TODO TEST PAYMENT SOURCE MORE
-
 			assertTrue("Address1 is incorrect", c1.address1.equals("507 Grove Avenue"));
 			assertTrue("Address2 is incorrect", c1.address2 == null);
 			assertTrue("City is incorrect", c1.city.equals("Oklahoma City"));

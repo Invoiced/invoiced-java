@@ -104,7 +104,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName();
-		System.out.print("Create URL: " + url + System.lineSeparator()); // TODO remove this test line
 		T v1 = null;
 
 		try {
@@ -165,7 +164,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		String url = null;
 
 		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
-		System.out.print("Save URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		T v1 = null;
 
@@ -185,7 +183,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public T retrieve() throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName();
-		System.out.print("Retrieve (No Args) URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		T v1 = null;
 
@@ -229,7 +226,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public T retrieve(long id, HashMap<String, Object> queryParms) throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(id);
-		System.out.print("Retrieve (With Args) URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		T v1 = null;
 
@@ -274,7 +270,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public T retrieve(String id, HashMap<String, Object> queryParms) throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + id;
-		System.out.print("Retrieve (With String Arg) URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		T v1 = null;
 
@@ -309,7 +304,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		String url = null;
 
 		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
-		System.out.print("Delete URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 
 		try {
@@ -358,7 +352,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		String url = this.conn.baseUrl() + "/" + this.getListUrl();
-		System.out.print("List URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		if (nextURL != null && nextURL.length() > 0) {
 			url = nextURL;

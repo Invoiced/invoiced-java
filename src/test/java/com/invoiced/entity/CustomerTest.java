@@ -279,7 +279,6 @@ public class CustomerTest {
 			assertTrue("Number is incorrect", c1.number.equals("CUST-0001"));
 			assertTrue("Email is incorrect", c1.email.equals("billing@acmecorp.com"));
 			assertTrue("PaymentTerms is incorrect", c1.paymentTerms == null);
-			// TODO TEST PAYMENT SOURCE MORE
 			assertTrue("PaymentSource is incorrect", c1.paymentSource != null);
 			assertTrue("Taxes is incorrect", c1.taxes.length == 0);
 			assertTrue("Type is incorrect", c1.type.equals("company"));
