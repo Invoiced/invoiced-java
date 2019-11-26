@@ -24,8 +24,8 @@ public class Transaction extends AbstractEntity<Transaction> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "transactions";
+	protected void setEntityName() {
+		this.entityName = "transactions";
 	}
 
 	@Override
@@ -56,18 +56,6 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

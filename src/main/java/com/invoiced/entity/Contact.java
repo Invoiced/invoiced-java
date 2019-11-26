@@ -8,12 +8,12 @@ import com.invoiced.exception.EntityException;
 
 public class Contact extends AbstractEntity<Contact> {
 
-	private long customerId;
-
 	Contact(Connection conn, long customerId) {
 
 		super(conn, Contact.class);
-		this.customerId = customerId;
+		this.setParentName("customers");
+		this.setParentID(String.valueOf(customerId));
+		setEntityName();
 	}
 
 	Contact() {
@@ -28,8 +28,10 @@ public class Contact extends AbstractEntity<Contact> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "customers" + "/" + String.valueOf(this.customerId) + "/contacts";
+	protected void setEntityName() {
+		if (this.getParentID() != null) {
+			this.entityName = this.getParentName() + "/" + this.getParentID() + "/contacts";
+		}
 	}
 
 	@Override
@@ -60,18 +62,6 @@ public class Contact extends AbstractEntity<Contact> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-		this.customerId = parentID;
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return this.customerId;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

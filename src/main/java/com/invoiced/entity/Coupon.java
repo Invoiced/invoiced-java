@@ -47,26 +47,14 @@ public class Coupon extends AbstractEntity<Coupon> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "coupons";
+	protected void setEntityName() {
+		this.entityName = "coupons";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

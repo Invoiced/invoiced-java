@@ -7,11 +7,11 @@ import com.invoiced.exception.EntityException;
 
 public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 
-	private long customerId;
-
 	PendingLineItem(Connection conn, long customerId) {
 		super(conn, PendingLineItem.class);
-		this.customerId = customerId;
+		this.setParentName("customers");
+		this.setParentID(String.valueOf(customerId));
+		this.setEntityName();
 	}
 
 	PendingLineItem() {
@@ -26,8 +26,8 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "customers" + "/" + String.valueOf(this.customerId) + "/line_items";
+	protected void setEntityName() {
+		this.entityName = this.getParentName() + "/" + this.getParentID() + "/line_items";
 	}
 
 	@Override
@@ -58,18 +58,6 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-		this.customerId = parentID;
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return this.customerId;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

@@ -125,9 +125,9 @@ public class TaskTest {
             Task task = cust.newTask();
             task.id = 222;
             assertTrue("Task Entity id is wrong", task.getEntityId() == 222);
-            assertTrue("Task id is wrong", task.getParentID() == -1);
-			task.setParentID(-1231);
-			assertTrue("Task id is wrong", task.getParentID() == -1);
+            assertTrue("Task id is wrong", task.getParentID() == null);
+			task.setParentID("-1231");
+			assertTrue("Task id is wrong", task.getParentID() == null);
 
 		} catch (Exception e) {
 			e.printStackTrace();

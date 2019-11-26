@@ -47,26 +47,14 @@ public class File extends AbstractEntity<File> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "files";
+	protected void setEntityName() {
+		this.entityName = "files";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

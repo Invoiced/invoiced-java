@@ -27,8 +27,8 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "credit_notes";
+	protected void setEntityName() {
+		this.entityName = "credit_notes";
 	}
 
 	@Override
@@ -59,18 +59,6 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -217,12 +205,12 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	public void voidCreditNote() throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
 		
 		CreditNote v1 = null;
 
 		try {
-			String response = this.conn.post(url, null, "{}");
+			String response = this.getConnection().post(url, null, "{}");
 
 			v1 = Util.getMapper().readValue(response, CreditNote.class);
 

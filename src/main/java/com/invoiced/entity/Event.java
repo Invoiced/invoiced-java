@@ -47,26 +47,14 @@ public class Event extends AbstractEntity<Event> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "events";
+	protected void setEntityName() {
+		this.entityName = "events";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

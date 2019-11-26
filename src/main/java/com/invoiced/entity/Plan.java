@@ -47,26 +47,14 @@ public class Plan extends AbstractEntity<Plan> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "plans";
+	protected void setEntityName() {
+		this.entityName = "plans";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

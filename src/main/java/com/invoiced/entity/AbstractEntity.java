@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
+import javax.swing.text.html.parser.Entity;
+
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.invoiced.exception.EntityException;
@@ -12,19 +14,25 @@ import com.invoiced.util.Util;
 
 public abstract class AbstractEntity<T extends AbstractEntity> {
 
-	protected Connection conn;
+	private Connection conn;
 	protected Class<T> tClass;
+	protected String entityName;
 	private boolean entityCreated;
+	private String listUrl;
+	private String parentId;
+	private String parentName;
 
 	public AbstractEntity(Connection conn, Class<T> tClass) {
 		this.conn = conn;
 		this.tClass = tClass;
 		this.entityCreated = false;
+		this.setEntityName();
 	}
 
 	public AbstractEntity(Class<T> tClass) {
 		this.tClass = tClass;
 		this.entityCreated = false;
+		this.setEntityName();
 	}
 
 	protected void setConnection(Connection conn) {
@@ -37,6 +45,21 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	protected void setClass(Class<T> tClass) {
 		this.tClass = tClass;
+	}
+
+	protected String getEntityName() {
+		return this.entityName;
+	}
+
+	protected String getListUrl() {
+		if (this.listUrl != null) return this.listUrl;
+		else return this.getEntityName();
+	}
+
+	protected void setListUrl() {
+		if (this.isSubEntity() && this.parentId != null) {
+			this.listUrl = this.getParentName() + "/" + this.getParentID() + "/" + this.getEntityName();
+		}
 	}
 
 	protected static void setFields(Object from, Object to) throws EntityException {
@@ -81,6 +104,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName();
+		System.out.print("Create URL: " + url + System.lineSeparator()); // TODO remove this test line
 		T v1 = null;
 
 		try {
@@ -141,6 +165,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		String url = null;
 
 		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
+		System.out.print("Save URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		T v1 = null;
 
@@ -160,6 +185,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public T retrieve() throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName();
+		System.out.print("Retrieve (No Args) URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		T v1 = null;
 
@@ -173,6 +199,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 			if (this.isSubEntity()) {
 				v1.setParentID(this.getParentID());
+				v1.setParentName(this.getParentName());
 			}
 
 		} catch (Throwable c) {
@@ -202,6 +229,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public T retrieve(long id, HashMap<String, Object> queryParms) throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(id);
+		System.out.print("Retrieve (With Args) URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		T v1 = null;
 
@@ -215,6 +243,8 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 			if (this.isSubEntity()) {
 				v1.setParentID(this.getParentID());
+				v1.setParentName(this.getParentName());
+				v1.setEntityName();
 			}
 
 		} catch (Throwable c) {
@@ -244,6 +274,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public T retrieve(String id, HashMap<String, Object> queryParms) throws EntityException {
 
 		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + id;
+		System.out.print("Retrieve (With String Arg) URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		T v1 = null;
 
@@ -257,6 +288,8 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 			if (this.isSubEntity()) {
 				v1.setParentID(this.getParentID());
+				v1.setParentName(this.getParentName());
+				v1.setEntityName();
 			}
 
 		} catch (Throwable c) {
@@ -276,6 +309,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		String url = null;
 
 		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
+		System.out.print("Delete URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 
 		try {
@@ -324,6 +358,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		}
 
 		String url = this.conn.baseUrl() + "/" + this.getListUrl();
+		System.out.print("List URL: " + url + System.lineSeparator()); // TODO remove this test line
 
 		if (nextURL != null && nextURL.length() > 0) {
 			url = nextURL;
@@ -349,6 +384,8 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 				entity.setClass(this.tClass);
 				if (this.isSubEntity()) {
 					entity.setParentID(this.getParentID());
+					entity.setParentName(this.getParentName());
+					entity.setEntityName();
 				}
 
 			}
@@ -397,16 +434,11 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		return entities;
 	}
 
-	// for almost all objects, list endpoints are solely the entity name
-	protected String getListUrl() {
-		return getEntityName();
-	}
-
 	abstract long getEntityId() throws EntityException;
 
 	abstract String getEntityIdString() throws EntityException;
 
-	abstract String getEntityName();
+	abstract void setEntityName();
 
 	abstract boolean hasCRUD();
 
@@ -416,8 +448,27 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	abstract boolean idIsString();
 
-	abstract void setParentID(long parentID);
+	// on most objects, parent entities do not exist
+	protected void setParentID(String parentID) {
+		if (this.isSubEntity()) {
+			this.parentId = parentID;
+		}
+	}
+	
+	protected void setParentName(String parentName) {
+		if (this.isSubEntity()) {
+			this.parentName = parentName;
+		}
+	}
+	
+	protected String getParentID() {
+		if (this.isSubEntity()) return this.parentId;
+		else return null;
+	}
 
-	abstract long getParentID();
+	protected String getParentName() {
+		if (this.isSubEntity()) return this.parentName;
+		else return null;
+	}
 
 }

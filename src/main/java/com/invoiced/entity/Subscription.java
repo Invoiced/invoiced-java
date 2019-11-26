@@ -26,8 +26,8 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "subscriptions";
+	protected void setEntityName() {
+		this.entityName = "subscriptions";
 	}
 
 	@Override
@@ -58,18 +58,6 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

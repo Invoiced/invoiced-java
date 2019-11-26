@@ -20,11 +20,11 @@ import com.mashape.unirest.http.options.Options;
 
 public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
-	protected long invoiceId;
-
 	PaymentPlan(Connection conn, long invoiceId) {
 		super(conn, PaymentPlan.class);
-		this.invoiceId = invoiceId;
+		this.setParentID(String.valueOf(invoiceId));
+		this.setParentName("invoices");
+		this.setEntityName();
 	}
 
 	PaymentPlan() {
@@ -63,26 +63,14 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "invoices" + "/" + String.valueOf(this.invoiceId) + "/payment_plan";
+	protected void setEntityName() {
+		this.entityName = this.getParentName() + "/" + this.getParentID() + "/payment_plan";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-		this.invoiceId = parentID;
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return this.invoiceId;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -110,11 +98,11 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
 	public void cancel() throws EntityException {
 		
-			String url = this.conn.baseUrl() + "/invoices/" + String.valueOf(this.invoiceId) + "/payment_plan";
+			String url = this.getConnection().baseUrl() + "/invoices/" + this.getParentID() + "/payment_plan";
 	
 			try {
 	
-				this.conn.delete(url);
+				this.getConnection().delete(url);
 	
 			} catch (Throwable c) {
 	

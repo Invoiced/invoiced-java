@@ -14,11 +14,14 @@ public class Note extends AbstractEntity<Note> {
 	public Note(Connection conn, long customerId, long invoiceId) {
 		super(conn, Note.class);
 		if (invoiceId > 0) {
-			this.invoiceId = invoiceId;
+			this.setParentName("invoices");
+			this.setParentID(String.valueOf(invoiceId));
 		}
 		else if (customerId > 0) {
-			this.customerId = customerId;
+			this.setParentName("customers");
+			this.setParentID(String.valueOf(customerId));
 		}
+		setListUrl();
 	}
 
 	Note() {
@@ -57,34 +60,14 @@ public class Note extends AbstractEntity<Note> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "notes";
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getListUrl() {
-		if (this.invoiceId != null) return "invoices/" + String.valueOf(this.invoiceId) + "/notes";
-		else if (this.customerId != null) return "customers/" + String.valueOf(this.customerId) + "/notes";
-		else return "notes";
+	protected void setEntityName() {
+		this.entityName = "notes";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
+		return true;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

@@ -47,26 +47,14 @@ public class TaxRate extends AbstractEntity<TaxRate> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "tax_rates";
+	protected void setEntityName() {
+		this.entityName = "tax_rates";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

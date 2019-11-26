@@ -25,8 +25,8 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "customers";
+	protected void setEntityName() {
+		this.entityName = "customers";
 	}
 
 	@Override
@@ -57,18 +57,6 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

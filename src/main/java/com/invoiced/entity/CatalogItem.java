@@ -47,26 +47,14 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "catalog_items";
+	protected void setEntityName() {
+		this.entityName = "catalog_items";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

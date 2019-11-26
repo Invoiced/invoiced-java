@@ -52,26 +52,14 @@ public class Task extends AbstractEntity<Task> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "tasks";
+	protected void setEntityName() {
+		this.entityName = "tasks";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

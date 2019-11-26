@@ -27,8 +27,8 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "estimates";
+	protected void setEntityName() {
+		this.entityName = "estimates";
 	}
 
 	@Override
@@ -59,18 +59,6 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setParentID(long parentID) {
-
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getParentID() {
-		return -1;
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -197,12 +185,12 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	public void voidEstimate() throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
 		
 		Estimate v1 = null;
 
 		try {
-			String response = this.conn.post(url, null, "{}");
+			String response = this.getConnection().post(url, null, "{}");
 
 			v1 = Util.getMapper().readValue(response, Estimate.class);
 
@@ -216,7 +204,7 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonIgnore
 	public Invoice invoice() throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/invoice";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/invoice";
 		
 		Invoice invoice = null;
 

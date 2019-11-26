@@ -24,11 +24,9 @@ public class NoteTest {
 		Note note = conn.newNote();
 		note.id = 312;
 		assertTrue("Note Entity id is wrong", note.getEntityId() == 312);
-		assertTrue("Note id is wrong", note.getParentID() == -1);
 		try {
-			note.setParentID(-1231);
-			assertTrue("Note id is wrong", note.getParentID() == -1);
-
+			note.setParentID("-1231");
+			assertTrue("Note id is wrong", note.getParentID().equals("-1231"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -74,7 +72,7 @@ public class NoteTest {
 			Customer cust = conn.newCustomer().retrieve(11);			
 			Note note = cust.newNote();
 
-			assertTrue("note customerId not set", note.customerId == 11);
+			assertTrue("note customerId not set", note.getParentID().equals("11"));
 
 			EntityList<Note> notes = note.listAll();
 
@@ -102,7 +100,7 @@ public class NoteTest {
 			Invoice invoice = conn.newInvoice().retrieve(46225);			
 			Note note = invoice.newNote();
 
-			assertTrue("note invoiceId not set", note.invoiceId == 46225);
+			assertTrue("note parent id not set", note.getParentID().equals("46225"));
 
 			EntityList<Note> notes = note.listAll();
 

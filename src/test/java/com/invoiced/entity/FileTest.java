@@ -25,9 +25,9 @@ public class FileTest {
 		conn.testModeOn();
 
 		File file = conn.newFile();
-		assertTrue("File Parent Id is incorrect", file.getParentID() == -1);
-		file.setParentID(-4);
-		assertTrue("File Parent Id is incorrect", file.getParentID() == -1);
+		assertTrue("File Parent Id is incorrect", file.getParentID() == null);
+		file.setParentID("-1");
+		assertTrue("File Parent Id is incorrect", file.getParentID() == null);
 
 		assertTrue("File hasList is incorrect", !file.hasList());
 
