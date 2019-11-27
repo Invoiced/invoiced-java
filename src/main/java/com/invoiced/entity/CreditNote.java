@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
@@ -14,22 +12,12 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	public CreditNote(Connection conn) {
 		super(conn, CreditNote.class);
+		this.entityName = "/credit_notes";
 	}
 
 	CreditNote() {
 		super(CreditNote.class);
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "credit_notes";
+		this.entityName = "/credit_notes";
 	}
 
 	@Override
@@ -38,15 +26,9 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 		return true;
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
 	}
 
@@ -54,12 +36,6 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonIgnore
 	protected boolean hasList() {
 		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override
@@ -172,10 +148,9 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/emails";
+		String url = this.getEndpoint(true, true) + "/emails";
 
-		Email[] emails = null;
+		Email[] emails;
 
 		try {
 
@@ -197,10 +172,9 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonIgnore
 	public Attachment[] listAttachments() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/attachments";
+		String url = this.getEndpoint(true, true) + "/attachments";
 
-		Attachment[] attachments = null;
+		Attachment[] attachments;
 
 		try {
 
@@ -218,9 +192,9 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	public void voidCreditNote() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		String url = this.getEndpoint(true, true) + "/void";
 		
-		CreditNote v1 = null;
+		CreditNote v1;
 
 		try {
 			String response = this.getConnection().post(url, null, "{}");

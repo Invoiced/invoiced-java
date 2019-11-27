@@ -11,10 +11,12 @@ public class Plan extends AbstractEntity<Plan> {
 
 	public Plan(Connection conn) {
 		super(conn, Plan.class);
+		this.entityName = "/plans";
 	}
 
 	Plan() {
 		super(Plan.class);
+		this.entityName = "/plans";
 	}
 
 	@Override
@@ -23,15 +25,9 @@ public class Plan extends AbstractEntity<Plan> {
 		return true;
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected boolean idIsString() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() {
+	protected String getEntityId() {
 		return this.id;
 	}
 
@@ -39,24 +35,6 @@ public class Plan extends AbstractEntity<Plan> {
 	@JsonIgnore
 	protected boolean hasList() {
 		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getEntityId() throws EntityException {
-		throw new EntityException(new Throwable());
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "plans";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override

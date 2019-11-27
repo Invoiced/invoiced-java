@@ -11,15 +11,12 @@ public class Task extends AbstractEntity<Task> {
 
 	public Task(Connection conn) {
 		super(conn, Task.class);
-	}
-
-	public Task(Connection conn, long customerId) {
-		super(conn, Task.class);
-		this.customerId = customerId;
+		this.entityName = "/tasks";
 	}
 
 	Task() {
 		super(Task.class);
+		this.entityName = "/tasks";
 	}
 
 	@Override
@@ -28,15 +25,9 @@ public class Task extends AbstractEntity<Task> {
 		return true;
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
 	}
 
@@ -44,24 +35,6 @@ public class Task extends AbstractEntity<Task> {
 	@JsonIgnore
 	protected boolean hasList() {
 		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "tasks";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override

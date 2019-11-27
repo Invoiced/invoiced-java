@@ -9,27 +9,14 @@ import com.invoiced.exception.EntityException;
 @JsonFilter("customFilter")
 public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 
-	PendingLineItem(Connection conn, long customerId) {
+	PendingLineItem(Connection conn) {
 		super(conn, PendingLineItem.class);
-		this.setParentName("customers");
-		this.setParentID(String.valueOf(customerId));
-		this.setEntityName();
+		this.entityName = "/line_items";
 	}
 
 	PendingLineItem() {
 		super(PendingLineItem.class);
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = this.getParentName() + "/" + this.getParentID() + "/line_items";
+		this.entityName = "/line_items";
 	}
 
 	@Override
@@ -38,27 +25,15 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 		return true;
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
 		return true;
 	}
 

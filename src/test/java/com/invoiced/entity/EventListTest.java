@@ -23,13 +23,10 @@ public class EventListTest {
 		conn.testModeOn();
 		Event event = conn.newEvent();
 		event.id = 231;
-		assertTrue("Event Entity id is wrong", event.getEntityId() == 231);
-		assertTrue("Event id is wrong", event.getParentID() == null);
+		assertTrue("Event Entity id is wrong", event.getEntityId().equals("231"));
 		try {
 			event.create();
 			event.delete();
-			event.setParentID("-1231");
-			assertTrue("Event id is wrong", event.getParentID() == null);
 
 		} catch (Exception e) {
 			e.printStackTrace();
