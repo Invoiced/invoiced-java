@@ -1,7 +1,12 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "/customers/11/contacts/10403"
+    "url": "/customers/11/contacts/10403",
+    "bodyPatterns": [
+      {
+        "equalToJson":"{\"id\":10403,\"name\":\"Nancy Talty\",\"email\":\"nancy.talty@example.com\",\"primary\":true,\"address1\":\"507 Grove Avenue\",\"city\":\"Oklahoma City\",\"state\":\"OK\",\"postal_code\":\"73102\",\"created_at\":1463510889}"      
+      }
+    ]
   },
   "response": {
     "status": 200,
