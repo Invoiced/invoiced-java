@@ -1,7 +1,12 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "/subscriptions/595"
+    "url": "/subscriptions/595",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"plan\":\"pro\",\"start_date\":1420391704,\"cancel_at_period_end\":false,\"quantity\":1,\"addons\":[{\"id\":3,\"catalog_item\":\"ipad-license\",\"quantity\":11}]}"
+      }
+    ]
   },
   "response": {
     "status": 200,

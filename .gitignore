@@ -9,6 +9,9 @@ build
 #vscode folder
 .vscode/
 
+#idea folder
+.idea/
+
 #gradle folder
 .gradle/
 
