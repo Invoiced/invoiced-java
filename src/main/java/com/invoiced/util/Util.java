@@ -6,11 +6,24 @@ import java.util.HashMap;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
 public class Util {
 
 	private static final ObjectMapper mapper = new ObjectMapper()
-			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).setFilterProvider(new SimpleFilterProvider().addFilter("customFilter", null).setFailOnUnknownId(false));
+
+	// generates mapper which filters out properties from `exclusions` list
+	public static final ObjectMapper getFilteredMapper(String[] exclusions) {
+		ObjectMapper filteredMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+		filterProvider.addFilter("customFilter", SimpleBeanPropertyFilter.serializeAllExcept(exclusions));
+
+		filteredMapper.setFilterProvider(filterProvider.setFailOnUnknownId(false));
+		return filteredMapper;
+	}
 
 	public static final ObjectMapper getMapper() {
 		return mapper;

@@ -81,9 +81,6 @@ public class PendingLineItemTest {
 
 			pli.save();
 
-			// assertTrue("Customer City is incorrect",
-			// contact.city.equals("Oklahoma City"));
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

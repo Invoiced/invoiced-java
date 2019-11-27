@@ -1,10 +1,12 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
+@JsonFilter("customFilter")
 public class TaxRate extends AbstractEntity<TaxRate> {
 
 	public TaxRate(Connection conn) {
@@ -55,6 +57,18 @@ public class TaxRate extends AbstractEntity<TaxRate> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getCreateExclusions() {
+		return new String[] {"object", "created_at"};
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "object", "currency", "value", "inclusive", "is_percent", "created_at"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

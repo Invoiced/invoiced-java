@@ -1,12 +1,7 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "/customers/11/line_items/8",
-    "bodyPatterns": [
-      {
-        "equalToJson":"{\"id\":8,\"catalog_item\":\"delivery\",\"type\":\"service\",\"name\":\"Delivery\",\"quantity\":2.0,\"amount\":10.0,\"unit_cost\":10.0,\"discountable\":true,\"taxable\":true}"     
-      }
-    ]
+    "url": "/customers/11/line_items/8"
   },
   "response": {
     "status": 200,

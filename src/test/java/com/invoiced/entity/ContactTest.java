@@ -29,10 +29,8 @@ public class ContactTest {
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 
-		Customer cust = conn.newCustomer();
-
 		try {
-			cust = cust.retrieve(11);
+			Customer cust = conn.newCustomer().retrieve(11);
 			Contact contact = cust.newContact();
 			contact.name = "Nancy Talty";
 			contact.email = "nancy.talty@example.com";

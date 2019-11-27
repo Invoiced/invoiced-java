@@ -57,6 +57,18 @@ public class Event extends AbstractEntity<Event> {
 		return false;
 	}
 
+	@Override
+	@JsonIgnore
+	protected String[] getCreateExclusions() {
+		return new String[] {};
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getSaveExclusions() {
+		return new String[] {};
+	}
+
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonProperty("id")
 	public long id;

@@ -1,11 +1,12 @@
 package com.invoiced.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
+@JsonFilter("customFilter")
 public class Contact extends AbstractEntity<Contact> {
 
 	Contact(Connection conn, long customerId) {
@@ -13,7 +14,7 @@ public class Contact extends AbstractEntity<Contact> {
 		super(conn, Contact.class);
 		this.setParentName("customers");
 		this.setParentID(String.valueOf(customerId));
-		setEntityName();
+		this.setEntityName();
 	}
 
 	Contact() {
@@ -62,6 +63,18 @@ public class Contact extends AbstractEntity<Contact> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return true;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "created_at"};
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "created_at"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

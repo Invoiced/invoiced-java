@@ -3,6 +3,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
@@ -18,6 +19,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.options.Options;
 
+@JsonFilter("customFilter")
 public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
 	PaymentPlan(Connection conn, long invoiceId) {
@@ -71,6 +73,18 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return true;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "object", "status", "approval", "created_at"};
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getSaveExclusions() {
+		return new String[] {};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

@@ -107,7 +107,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		T v1 = null;
 
 		try {
-			String jsonRequest = this.toJsonString();
+			String jsonRequest = this.toJsonString("create");
 			String response = this.conn.post(url, null, jsonRequest);
 
 			v1 = Util.getMapper().readValue(response, this.tClass);
@@ -155,6 +155,26 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		return s;
 	}
 
+	private String toJsonString(String operation) throws EntityException {
+
+		String s = "Entity";
+
+		String[] exclusions = null;
+
+		try {
+
+			if (operation == "create") exclusions = this.getCreateExclusions();
+			else if (operation == "update") exclusions = this.getSaveExclusions();
+
+			s = Util.getFilteredMapper(exclusions).enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
+
+		} catch (Throwable c) {
+			throw new EntityException(c);
+		}
+
+		return s;
+	}
+
 	public void save() throws EntityException {
 
 		if (!this.hasCRUD()) {
@@ -168,7 +188,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		T v1 = null;
 
 		try {
-			String jsonRequest = this.toJsonString();
+			String jsonRequest = this.toJsonString("update");
 			String response = this.conn.patch(url, jsonRequest);
 
 			v1 = Util.getMapper().readValue(response, this.tClass);
@@ -441,6 +461,10 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	abstract boolean isSubEntity();
 
 	abstract boolean idIsString();
+
+	abstract String[] getCreateExclusions();
+	
+	abstract String[] getSaveExclusions();
 
 	// on most objects, parent entities do not exist
 	protected void setParentID(String parentID) {

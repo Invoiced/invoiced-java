@@ -1,10 +1,12 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
+@JsonFilter("customFilter")
 public class File extends AbstractEntity<File> {
 
 	public File(Connection conn) {
@@ -55,6 +57,18 @@ public class File extends AbstractEntity<File> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "object", "created_at"};
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getSaveExclusions() {
+		return new String[] {};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

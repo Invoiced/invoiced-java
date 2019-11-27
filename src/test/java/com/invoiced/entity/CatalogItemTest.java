@@ -29,7 +29,8 @@ public class CatalogItemTest {
 		conn.testModeOn();
 
         CatalogItem catalogItem = conn.newCatalogItem();
-        catalogItem.id = "delivery";
+		catalogItem.id = "delivery";
+		catalogItem.object = "failure_condition";
         catalogItem.name = "Delivery";
         catalogItem.type = "service";
         catalogItem.unitCost = 100L;
@@ -38,7 +39,8 @@ public class CatalogItemTest {
 			catalogItem.create();
 
 			assertTrue("CatalogItem id is incorrect", catalogItem.id.equals("delivery"));
-
+			assertTrue("createdAt is not populated", catalogItem.createdAt == 1477327516);
+			
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

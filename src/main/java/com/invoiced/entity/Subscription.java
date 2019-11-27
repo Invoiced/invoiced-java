@@ -1,11 +1,13 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
+@JsonFilter("customFilter")
 public class Subscription extends AbstractEntity<Subscription> {
 
 	public Subscription(Connection conn) {
@@ -58,6 +60,18 @@ public class Subscription extends AbstractEntity<Subscription> {
 	@JsonIgnore
 	protected boolean isSubEntity() {
 		return false;
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "period_start", "period_end", "canceled_at", "prorate", "proration_date", "contract_period_start", "contract_period_end", "status", "recurring_total", "mrr", "url", "created_at"};
+	}
+
+	@Override
+	@JsonIgnore
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "customer", "bill_in", "cycles", "snap_to_nth_day", "period_start", "period_end", "canceled_at", "contract_period_start", "contract_period_end", "status", "recurring_total", "mrr", "url", "created_at"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
