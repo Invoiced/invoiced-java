@@ -1,7 +1,12 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "/transactions/20939"
+    "url": "/transactions/20939",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"id\":20939,\"customer\":15460,\"invoice\":44648,\"date\":1410843600,\"type\":\"payment\",\"method\":\"check\",\"status\":\"succeeded\",\"currency\":\"usd\",\"amount\":800.0,\"notes\":\"Check was received by Jan\"}"
+      }
+    ]
   },
   "response": {
     "status": 200,
