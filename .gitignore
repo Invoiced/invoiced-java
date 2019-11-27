@@ -10,7 +10,7 @@ build
 .vscode/
 
 #idea folder
-.idea/
+.idea
 
 #gradle folder
 .gradle/
