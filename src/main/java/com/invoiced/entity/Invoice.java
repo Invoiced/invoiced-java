@@ -3,12 +3,13 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-//@JsonIgnoreProperties(value = { "paid" }, allowSetters = true)
+@JsonFilter("customFilter")
 public class Invoice extends AbstractEntity<Invoice> {
 
 	public Invoice(Connection conn) {
@@ -27,8 +28,8 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "invoices";
+	protected void setEntityName() {
+		this.entityName = "invoices";
 	}
 
 	@Override
@@ -63,14 +64,14 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "paid", "status", "total", "url", "pdf_url", "object", "created_at", "attempt_count", "next_payment_attempt", "subscription", "subtotal", "balance", "payment_url"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return -1;
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "paid", "status", "total", "url", "pdf_url", "object", "created_at", "attempt_count", "next_payment_attempt", "subscription", "subtotal", "balance", "payment_url"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -328,12 +329,12 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public void voidInvoice() throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
 		
 		Invoice v1 = null;
 
 		try {
-			String response = this.conn.post(url, null, "{}");
+			String response = this.getConnection().post(url, null, "{}");
 
 			v1 = Util.getMapper().readValue(response, Invoice.class);
 

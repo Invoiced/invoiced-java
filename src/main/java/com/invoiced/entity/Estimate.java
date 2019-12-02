@@ -1,14 +1,14 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-//@JsonIgnoreProperties(value = { "paid" }, allowSetters = true)
+@JsonFilter("customFilter")
 public class Estimate extends AbstractEntity<Estimate> {
 
 	public Estimate(Connection conn) {
@@ -27,8 +27,8 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "estimates";
+	protected void setEntityName() {
+		this.entityName = "estimates";
 	}
 
 	@Override
@@ -63,14 +63,14 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "approved", "status", "subtotal", "total", "url", "pdf_url", "object", "created_at"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return -1;
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "approved", "status", "subtotal", "total", "url", "pdf_url", "object", "created_at", "invoice", "customer"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -123,6 +123,14 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonProperty("expiration_date")
 	public long expirationDate;
 
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("deposit")
+	public long deposit;
+
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonProperty("deposit_paid")
+	public Boolean depositPaid;
+
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("payment_terms")
 	public String paymentTerms;
@@ -142,6 +150,10 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("discounts")
 	public Discount[] discounts;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JsonProperty("disabled_payment_methods")
+	public String[] disabledPaymentMethods;
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JsonProperty("taxes")
@@ -197,12 +209,12 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	public void voidEstimate() throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
 		
 		Estimate v1 = null;
 
 		try {
-			String response = this.conn.post(url, null, "{}");
+			String response = this.getConnection().post(url, null, "{}");
 
 			v1 = Util.getMapper().readValue(response, Estimate.class);
 
@@ -216,7 +228,7 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonIgnore
 	public Invoice invoice() throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/invoice";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/invoice";
 		
 		Invoice invoice = null;
 

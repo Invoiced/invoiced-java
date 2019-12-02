@@ -1,19 +1,20 @@
 package com.invoiced.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
+@JsonFilter("customFilter")
 public class Contact extends AbstractEntity<Contact> {
-
-	private long customerId;
 
 	Contact(Connection conn, long customerId) {
 
 		super(conn, Contact.class);
-		this.customerId = customerId;
+		this.setParentName("customers");
+		this.setParentID(String.valueOf(customerId));
+		this.setEntityName();
 	}
 
 	Contact() {
@@ -28,8 +29,10 @@ public class Contact extends AbstractEntity<Contact> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "customers" + "/" + String.valueOf(this.customerId) + "/contacts";
+	protected void setEntityName() {
+		if (this.getParentID() != null) {
+			this.entityName = this.getParentName() + "/" + this.getParentID() + "/contacts";
+		}
 	}
 
 	@Override
@@ -64,14 +67,14 @@ public class Contact extends AbstractEntity<Contact> {
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-		this.customerId = parentID;
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "created_at"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return this.customerId;
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "created_at"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

@@ -27,9 +27,9 @@ public class EstimateTest {
 		conn.testModeOn();
 
 		Estimate estimate = conn.newEstimate();
-		assertTrue("Estimate Parent Id is incorrect", estimate.getParentID() == -1);
-		estimate.setParentID(-4);
-		assertTrue("Estimate Parent Id is incorrect", estimate.getParentID() == -1);
+		assertTrue("Parent Id is incorrect", estimate.getParentID() == null);
+		estimate.setParentID("-4");
+		assertTrue("Parent Id is incorrect", estimate.getParentID() == null);
 
 	}
 

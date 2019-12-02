@@ -1,10 +1,12 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
+@JsonFilter("customFilter")
 public class Note extends AbstractEntity<Note> {
 
 	public Note(Connection conn) {
@@ -13,8 +15,15 @@ public class Note extends AbstractEntity<Note> {
 
 	public Note(Connection conn, long customerId, long invoiceId) {
 		super(conn, Note.class);
-		this.customerId = customerId;
-		this.invoiceId = invoiceId;
+		if (invoiceId > 0) {
+			this.setParentName("invoices");
+			this.setParentID(String.valueOf(invoiceId));
+		}
+		else if (customerId > 0) {
+			this.setParentName("customers");
+			this.setParentID(String.valueOf(customerId));
+		}
+		setListUrl();
 	}
 
 	Note() {
@@ -53,26 +62,26 @@ public class Note extends AbstractEntity<Note> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "notes";
+	protected void setEntityName() {
+		this.entityName = "notes";
 	}
 
 	@Override
 	@JsonIgnore
 	protected boolean isSubEntity() {
-		return false;
+		return true;
 	}
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "object", "created_at"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return -1;
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "object", "customer", "customer_id", "invoice_id", "created_at"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

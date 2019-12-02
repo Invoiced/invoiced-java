@@ -27,9 +27,9 @@ public class InvoiceTest {
 		conn.testModeOn();
 
 		Invoice invoice = conn.newInvoice();
-		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == -1);
-		invoice.setParentID(-4);
-		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == -1);
+		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == null);
+		invoice.setParentID("-4");
+		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == null);
 
 	}
 
@@ -376,8 +376,6 @@ public class InvoiceTest {
 			assertTrue("Due Date is incorrect", i1.dueDate == 1417500000L);
 
 			assertTrue("Payment Terms is incorrect", i1.paymentTerms.equals("NET 14"));
-
-			// TODO Also test embedded objects in items, taxes
 			assertTrue("Items is incorrect", i1.items.length > 0);
 
 			assertTrue("Notes is incorrect", i1.notes == null);

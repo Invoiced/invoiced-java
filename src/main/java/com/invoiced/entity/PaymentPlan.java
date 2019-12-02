@@ -3,6 +3,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
@@ -18,13 +19,14 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.options.Options;
 
+@JsonFilter("customFilter")
 public class PaymentPlan extends AbstractEntity<PaymentPlan> {
-
-	protected long invoiceId;
 
 	PaymentPlan(Connection conn, long invoiceId) {
 		super(conn, PaymentPlan.class);
-		this.invoiceId = invoiceId;
+		this.setParentID(String.valueOf(invoiceId));
+		this.setParentName("invoices");
+		this.setEntityName();
 	}
 
 	PaymentPlan() {
@@ -63,8 +65,8 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "invoices" + "/" + String.valueOf(this.invoiceId) + "/payment_plan";
+	protected void setEntityName() {
+		this.entityName = this.getParentName() + "/" + this.getParentID() + "/payment_plan";
 	}
 
 	@Override
@@ -75,14 +77,14 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-		this.invoiceId = parentID;
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "object", "status", "approval", "created_at"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return this.invoiceId;
+	protected String[] getSaveExclusions() {
+		return new String[] {};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -110,11 +112,11 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
 	public void cancel() throws EntityException {
 		
-			String url = this.conn.baseUrl() + "/invoices/" + String.valueOf(this.invoiceId) + "/payment_plan";
+			String url = this.getConnection().baseUrl() + "/invoices/" + this.getParentID() + "/payment_plan";
 	
 			try {
 	
-				this.conn.delete(url);
+				this.getConnection().delete(url);
 	
 			} catch (Throwable c) {
 	

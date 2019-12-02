@@ -1,5 +1,6 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-
+@JsonFilter("customFilter")
 public class CreditNote extends AbstractEntity<CreditNote> {
 
 	public CreditNote(Connection conn) {
@@ -27,8 +28,8 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "credit_notes";
+	protected void setEntityName() {
+		this.entityName = "credit_notes";
 	}
 
 	@Override
@@ -63,14 +64,14 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "paid", "status", "total", "balance", "url", "pdf_url", "object", "created_at"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return -1;
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "paid", "status", "total", "balance", "url", "pdf_url", "object", "created_at", "invoice", "customer"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -217,12 +218,12 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	public void voidCreditNote() throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
 		
 		CreditNote v1 = null;
 
 		try {
-			String response = this.conn.post(url, null, "{}");
+			String response = this.getConnection().post(url, null, "{}");
 
 			v1 = Util.getMapper().readValue(response, CreditNote.class);
 

@@ -4,7 +4,7 @@
     "url": "/subscriptions/595",
     "bodyPatterns": [
       {
-        "equalToJson": "{\"id\":595,\"customer\":15444,\"plan\":\"pro\",\"start_date\":1420391704,\"cancel_at_period_end\":false,\"quantity\":1,\"status\":\"active\",\"addons\":[{\"id\":3,\"catalog_item\":\"ipad-license\",\"quantity\":11}]}"
+        "equalToJson": "{\"plan\":\"pro\",\"start_date\":1420391704,\"cancel_at_period_end\":false,\"quantity\":1,\"addons\":[{\"id\":3,\"catalog_item\":\"ipad-license\",\"quantity\":11}]}"
       }
     ]
   },

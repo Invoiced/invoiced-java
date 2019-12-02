@@ -1,17 +1,19 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
+@JsonFilter("customFilter")
 public class PendingLineItem extends AbstractEntity<PendingLineItem> {
-
-	private long customerId;
 
 	PendingLineItem(Connection conn, long customerId) {
 		super(conn, PendingLineItem.class);
-		this.customerId = customerId;
+		this.setParentName("customers");
+		this.setParentID(String.valueOf(customerId));
+		this.setEntityName();
 	}
 
 	PendingLineItem() {
@@ -26,8 +28,8 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "customers" + "/" + String.valueOf(this.customerId) + "/line_items";
+	protected void setEntityName() {
+		this.entityName = this.getParentName() + "/" + this.getParentID() + "/line_items";
 	}
 
 	@Override
@@ -62,14 +64,14 @@ public class PendingLineItem extends AbstractEntity<PendingLineItem> {
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-		this.customerId = parentID;
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "plan"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return this.customerId;
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "plan", "catalog_item"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

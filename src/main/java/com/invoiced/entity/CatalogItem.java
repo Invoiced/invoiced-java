@@ -1,10 +1,13 @@
 package com.invoiced.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
+@JsonFilter("customFilter")
 public class CatalogItem extends AbstractEntity<CatalogItem> {
 
 	public CatalogItem(Connection conn) {
@@ -47,8 +50,8 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "catalog_items";
+	protected void setEntityName() {
+		this.entityName = "catalog_items";
 	}
 
 	@Override
@@ -59,14 +62,14 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-
+	protected String[] getCreateExclusions() {
+		return new String[] {"object", "created_at"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return -1;
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "currency", "object", "unit_cost", "taxable", "taxes", "avalara_tax_code", "discountable", "gl_account", "created_at"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)

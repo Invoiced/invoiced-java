@@ -24,12 +24,12 @@ public class EventListTest {
 		Event event = conn.newEvent();
 		event.id = 231;
 		assertTrue("Event Entity id is wrong", event.getEntityId() == 231);
-		assertTrue("Event id is wrong", event.getParentID() == -1);
+		assertTrue("Event id is wrong", event.getParentID() == null);
 		try {
 			event.create();
 			event.delete();
-			event.setParentID(-1231);
-			assertTrue("Event id is wrong", event.getParentID() == -1);
+			event.setParentID("-1231");
+			assertTrue("Event id is wrong", event.getParentID() == null);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,10 +1,12 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
+@JsonFilter("customFilter")
 public class Task extends AbstractEntity<Task> {
 
 	public Task(Connection conn) {
@@ -52,8 +54,8 @@ public class Task extends AbstractEntity<Task> {
 
 	@Override
 	@JsonIgnore
-	protected String getEntityName() {
-		return "tasks";
+	protected void setEntityName() {
+		this.entityName = "tasks";
 	}
 
 	@Override
@@ -64,14 +66,14 @@ public class Task extends AbstractEntity<Task> {
 
 	@Override
 	@JsonIgnore
-	protected void setParentID(long parentID) {
-
+	protected String[] getCreateExclusions() {
+		return new String[] {"id", "complete", "completed_date", "completed_by_user_id", "chase_step_id", "created_at"};
 	}
 
 	@Override
 	@JsonIgnore
-	protected long getParentID() {
-		return -1;
+	protected String[] getSaveExclusions() {
+		return new String[] {"id", "customer_id", "complete", "completed_date", "completed_by_user_id", "chase_step_id", "created_at"};
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
