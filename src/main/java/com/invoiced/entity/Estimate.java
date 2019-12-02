@@ -163,7 +163,7 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/emails";
+		String url = this.getEndpoint(true) + "/emails";
 
 		Email[] emails;
 
@@ -185,7 +185,7 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	public void voidEstimate() throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/void";
+		String url = this.getEndpoint(true) + "/void";
 		
 		Estimate v1;
 
@@ -204,7 +204,7 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonIgnore
 	public Invoice invoice() throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/invoice";
+		String url = this.getEndpoint(true) + "/invoice";
 		
 		Invoice invoice;
 

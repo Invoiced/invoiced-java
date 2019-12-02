@@ -22,12 +22,8 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		this.endpointBase = base;
 	}
 
-	protected String getEndpoint(boolean includeId, boolean includeBaseUrl) {
-		String url = "";
-
-		if (includeBaseUrl) url += this.conn.baseUrl();
-
-		url += this.getEndpointBase() + this.getEntityName();
+	protected String getEndpoint(boolean includeId) {
+		String url = this.getEndpointBase() + this.getEntityName();
 
 		if (this.getEntityId() != null && includeId) {
 			url += "/" + this.getEntityId();
@@ -108,7 +104,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			throw new EntityException(new Throwable("Create operation not available on object."));
 		}
 
-		String url = this.getEndpoint(false, true);
+		String url = this.getEndpoint(false);
 		T v1 = null;
 
 		try {
@@ -188,7 +184,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 		String url = null;
 
-		url = this.getEndpoint(true, true);
+		url = this.getEndpoint(true);
 
 		T v1 = null;
 
@@ -227,7 +223,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	public T retrieve(String id, HashMap<String, Object> queryParams) throws EntityException {
 
-		String url = this.getEndpoint(false, true);
+		String url = this.getEndpoint(false);
 		if (id.length() > 0) url += "/" + id;
 
 		T v1 = null;
@@ -255,7 +251,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			throw new EntityException(new Throwable("Delete operation not available on object."));
 		}
 
-		String url = this.getEndpoint(true, true);
+		String url = this.getEndpoint(true);
 
 
 		try {
@@ -274,7 +270,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			throw new EntityException(new Throwable("Delete operation not available on object."));
 		}
 
-		String url = this.getEndpoint(includeId, true);
+		String url = this.getEndpoint(includeId);
 
 		try {
 
@@ -321,7 +317,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 			throw new EntityException(new Throwable("List operation not available on object."));
 		}
 
-		String url = this.getEndpoint(false, true);
+		String url = this.getEndpoint(false);
 
 		if (nextURL != null && nextURL.length() > 0) {
 			url = nextURL;

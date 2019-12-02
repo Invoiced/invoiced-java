@@ -130,7 +130,7 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonIgnore
 	public Transaction refund(long amount) throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/refunds";
+		String url = this.getEndpoint(true) + "/refunds";
 
 		RefundRequest refundRequest = new RefundRequest(amount);
 
@@ -157,7 +157,7 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/emails";
+		String url = this.getEndpoint(true) + "/emails";
 
 		Email[] emails = null;
 
@@ -180,7 +180,7 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonIgnore
 	public Transaction initiateCharge(ChargeRequest chargeRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/charges";
+		String url = "/charges";
 
 		Transaction transaction = null;
 

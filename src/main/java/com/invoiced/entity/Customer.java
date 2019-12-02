@@ -202,7 +202,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Balance getBalance() throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/balance";
+		String url = this.getEndpoint(true) + "/balance";
 
 		Balance balance = null;
 
@@ -223,7 +223,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Email[] sendStatement(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/emails";
+		String url = this.getEndpoint(true) + "/emails";
 
 		Email[] emails = null;
 
@@ -246,7 +246,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public TextMessage[] sendStatementText(TextRequest textRequest) throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/text_messages";
+		String url = this.getEndpoint(true) + "/text_messages";
 
 		TextMessage[] textMessages = null;
 
@@ -269,7 +269,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Letter sendStatementLetter(LetterRequest letterRequest) throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/letters";
+		String url = this.getEndpoint(true) + "/letters";
 
 		Letter letter = null;
 
@@ -292,7 +292,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Invoice invoice() throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/invoices";
+		String url = this.getEndpoint(true) + "/invoices";
 
 		Invoice invoice = null;
 
@@ -322,7 +322,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Invoice consolidateInvoices(Long cutoffDate) throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/consolidate_invoices";
+		String url = this.getEndpoint(true) + "/consolidate_invoices";
 
 		String cutoffJson = null;
 
@@ -353,21 +353,21 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Contact newContact() {
 		Contact contact = new Contact(this.getConnection());
-		contact.setEndpointBase(this.getEndpoint(true, false));
+		contact.setEndpointBase(this.getEndpoint(true));
 		return contact;
 	}
 
 	@JsonIgnore
 	public PendingLineItem newPendingLineItem() {
 		PendingLineItem pli = new PendingLineItem(this.getConnection());
-		pli.setEndpointBase(this.getEndpoint(true, false));
+		pli.setEndpointBase(this.getEndpoint(true));
 		return pli;
 	}
 
 	@JsonIgnore
 	public Note newNote() {
 		Note note = new Note(this.getConnection());
-		note.setEndpointBase(this.getEndpoint(true, false));
+		note.setEndpointBase(this.getEndpoint(true));
 		return note;
 	}
 

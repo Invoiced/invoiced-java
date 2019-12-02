@@ -175,7 +175,7 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	public SubscriptionPreview preview() throws EntityException {
 
-		String url = this.getEndpoint(false, true) + "/preview";
+		String url = "/subscriptions/preview";
 		
 		SubscriptionPreview preview = null;
 

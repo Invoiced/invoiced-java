@@ -148,7 +148,7 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/emails";
+		String url = this.getEndpoint(true) + "/emails";
 
 		Email[] emails;
 
@@ -172,7 +172,7 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 	@JsonIgnore
 	public Attachment[] listAttachments() throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/attachments";
+		String url = this.getEndpoint(true) + "/attachments";
 
 		Attachment[] attachments;
 
@@ -192,7 +192,7 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
 	public void voidCreditNote() throws EntityException {
 
-		String url = this.getEndpoint(true, true) + "/void";
+		String url = this.getEndpoint(true) + "/void";
 		
 		CreditNote v1;
 

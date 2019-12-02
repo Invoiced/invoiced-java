@@ -33,7 +33,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/" + "customers/15444";
+			String url = "/customers/15444";
 
 			String tmp = conn.get(url, null);
 
@@ -59,7 +59,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/customers/51123223";
+			String url = "/customers/51123223";
 
 			conn.get(url, null);
 
@@ -86,7 +86,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/" + "customers" + "/21123";
+			String url = "/" + "customers" + "/21123";
 
 			conn.delete(url);
 
@@ -105,7 +105,7 @@ public class ConnectionTest {
 
 		conn.testModeOn();
 
-		String url = conn.baseUrl() + "/" + "customers" + "/21121";
+		String url = "/" + "customers" + "/21121";
 
 		try {
 			conn.delete(url);
@@ -131,7 +131,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/" + "customers" + "/15444";
+			String url = "/" + "customers" + "/15444";
 
 			String tmp = conn.patch(url, jsonBody);
 
@@ -156,7 +156,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/" + "customers" + "/77777";
+			String url = "/" + "customers" + "/77777";
 
 			conn.patch(url, jsonBody);
 
@@ -190,7 +190,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/" + "customers";
+			String url = "/" + "customers";
 
 			String tmp = conn.post(url, null, jsonBody);
 
@@ -216,7 +216,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/customers";
+			String url = "/customers";
 
 			conn.post(url, null, jsonBody);
 
@@ -246,7 +246,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/customers";
+			String url = "/customers";
 
 			conn.post(url, null, jsonBody);
 
@@ -276,7 +276,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/customers";
+			String url = "/customers";
 
 			conn.post(url, null, jsonBody);
 
@@ -306,7 +306,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/customers";
+			String url = "/customers";
 
 			conn.post(url, null, jsonBody);
 
@@ -344,7 +344,7 @@ public class ConnectionTest {
 		conn.testModeOn();
 
 		try {
-			String url = conn.baseUrl() + "/" + "delayed";
+			String url = "/" + "delayed";
 
 			conn.get(url, null);
 
