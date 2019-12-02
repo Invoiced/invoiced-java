@@ -76,11 +76,7 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
 	@Override
 	public void delete() throws EntityException {
-		try {
 			super.delete(false);
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
 	}
 
 	public void cancel() throws EntityException {

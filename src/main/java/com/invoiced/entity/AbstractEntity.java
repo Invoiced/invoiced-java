@@ -14,7 +14,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	private Connection conn;
 	protected Class<T> tClass;
-	protected boolean entityCreated;
+	private boolean entityCreated;
 	protected String entityName;
 	private String endpointBase = "";
 
@@ -101,11 +101,11 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public void create() throws EntityException {
 
 		if (this.entityCreated) {
-			return;
+			throw new EntityException(new Throwable("Object has already been created."));
 		}
 
 		if (!this.hasCRUD()) {
-			return;
+			throw new EntityException(new Throwable("Create operation not available on object."));
 		}
 
 		String url = this.getEndpoint(false, true);
@@ -183,7 +183,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public void save() throws EntityException {
 
 		if (!this.hasCRUD()) {
-			return;
+			throw new EntityException(new Throwable("Save operation not available on object."));
 		}
 
 		String url = null;
@@ -207,85 +207,28 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	public T retrieve() throws EntityException {
 
-		String url = this.getEndpoint(false, true);
-
-		T v1 = null;
-
-		try {
-
-			String response = this.conn.get(url, null);
-
-			v1 = Util.getMapper().readValue(response, this.tClass);
-			v1.setConnection(this.conn);
-			v1.setClass(this.tClass);
-			v1.setEndpointBase(this.endpointBase);
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return v1;
+		return this.retrieve("", null);
 	}
 
 	public T retrieve(long id) throws EntityException {
 
-		T v1 = null;
-
-		try {
-
-			v1 = this.retrieve(id, null);
-
-		} catch (EntityException e) {
-
-			throw e;
-		}
-
-		return v1;
-	}
-
-	public T retrieve(long id, HashMap<String, Object> queryParams) throws EntityException {
-
-		String url = this.getEndpoint(false, true) + "/" + String.valueOf(id);
-
-		T v1;
-
-		try {
-
-			String response = this.conn.get(url, queryParams);
-
-			v1 = Util.getMapper().readValue(response, this.tClass);
-			v1.setConnection(this.conn);
-			v1.setClass(this.tClass);
-			v1.setEndpointBase(this.endpointBase);
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return v1;
+		return this.retrieve(String.valueOf(id), null);
 	}
 
 	public T retrieve(String id) throws EntityException {
 
-		T v1;
+		return this.retrieve(id, null);
+	}
 
-		try {
+	public T retrieve(long id, HashMap<String, Object> queryParams) throws EntityException {
 
-			v1 = this.retrieve(id, null);
-
-		} catch (EntityException e) {
-
-			throw e;
-		}
-
-		return v1;
+		return this.retrieve(String.valueOf(id), queryParams);
 	}
 
 	public T retrieve(String id, HashMap<String, Object> queryParams) throws EntityException {
 
-		String url = this.getEndpoint(false, true) + "/" + id;
+		String url = this.getEndpoint(false, true);
+		if (id.length() > 0) url += "/" + id;
 
 		T v1 = null;
 
@@ -309,7 +252,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public void delete() throws EntityException {
 
 		if (!this.hasCRUD()) {
-			return;
+			throw new EntityException(new Throwable("Delete operation not available on object."));
 		}
 
 		String url = this.getEndpoint(true, true);
@@ -328,17 +271,10 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public void delete(boolean includeId) throws EntityException {
 
 		if (!this.hasCRUD()) {
-			return;
+			throw new EntityException(new Throwable("Delete operation not available on object."));
 		}
 
-		String url = null;
-
-		if (includeId) {
-			url = this.getEndpoint(true, true);
-		} else {
-			url = this.getEndpoint(false, true);
-		}
-
+		String url = this.getEndpoint(includeId, true);
 
 		try {
 
@@ -382,7 +318,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public EntityList<T> list(String nextURL, HashMap<String, Object> queryParms) throws EntityException {
 
 		if (!this.hasList()) {
-			return null;
+			throw new EntityException(new Throwable("List operation not available on object."));
 		}
 
 		String url = this.getEndpoint(false, true);
@@ -424,7 +360,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		EntityList<T> tmp = null;
 
 		if (!this.hasList()) {
-			return null;
+			throw new EntityException(new Throwable("List operation not available on object."));
 		}
 
 		String url = null;

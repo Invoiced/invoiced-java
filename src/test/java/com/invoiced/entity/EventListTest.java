@@ -16,8 +16,8 @@ public class EventListTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test
-	public void testForCoverage() {
+	@Test(expected = Exception.class)
+	public void testForCoverage() throws Exception {
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
@@ -29,8 +29,7 @@ public class EventListTest {
 			event.delete();
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			throw new Exception(e);
 		}
 
 	}
