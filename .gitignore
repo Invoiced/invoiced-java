@@ -10,7 +10,11 @@ build
 .vscode/
 
 #idea folder
+<<<<<<< HEAD
 .idea
+=======
+.idea/
+>>>>>>> master
 
 #gradle folder
 .gradle/
