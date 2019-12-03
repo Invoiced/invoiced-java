@@ -5,12 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TextRecipient extends AbstractItem {
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("name")
-	public String name;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("name")
+  public String name;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("phone")
-	public String phone;
-
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("phone")
+  public String phone;
 }

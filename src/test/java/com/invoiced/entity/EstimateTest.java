@@ -1,252 +1,231 @@
-
 package com.invoiced.entity;
+
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.Rule;
+import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-
-import org.junit.Rule;
-import org.junit.Test;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
-
 public class EstimateTest {
 
-	@Rule
-	public WireMockRule wireMockRule = new WireMockRule();
+  @Rule public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test
-	public void testParentID() {
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+  @Test
+  public void testParentID() {
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		Estimate estimate = conn.newEstimate();
+    Estimate estimate = conn.newEstimate();
+  }
 
-	}
+  @Test
+  public void testCreate() {
 
-	@Test
-	public void testCreate() {
+    // references connection_rr_63.json
 
-		// references connection_rr_63.json
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    Estimate estimate = conn.newEstimate();
 
-		Estimate estimate = conn.newEstimate();
+    estimate.customer = 15444L;
+    estimate.paymentTerms = "NET 30";
+    LineItem[] items = new LineItem[2];
+    items[0] = new LineItem();
+    items[0].name = "Copy paper, Case";
+    items[0].quantity = 1D;
+    items[0].unitCost = 50D;
+    items[1] = new LineItem();
+    items[1].catalogItem = "delivery";
+    items[1].quantity = 1D;
+    Tax[] taxes = new Tax[1];
+    taxes[0] = new Tax();
+    taxes[0].amount = 3.85D;
+    estimate.items = items;
+    estimate.taxes = taxes;
 
-		estimate.customer = 15444L;
-		estimate.paymentTerms = "NET 30";
-		LineItem[] items = new LineItem[2];
-		items[0] = new LineItem();
-		items[0].name = "Copy paper, Case";
-		items[0].quantity = 1D;
-		items[0].unitCost = 50D;
-		items[1] = new LineItem();
-		items[1].catalogItem = "delivery";
-		items[1].quantity = 1D;
-		Tax[] taxes = new Tax[1];
-		taxes[0] = new Tax();
-		taxes[0].amount = 3.85D;
-		estimate.items = items;
-		estimate.taxes = taxes;
+    try {
 
-		try {
+      estimate.create();
 
-			estimate.create();
+      assertTrue("Estimate Id is incorrect", estimate.id == 46999L);
 
-			assertTrue("Estimate Id is incorrect", estimate.id == 46999L);
+      assertTrue("Estimate Item Id is incorrect", estimate.items[0].id == 7);
 
-			assertTrue("Estimate Item Id is incorrect", estimate.items[0].id == 7);
+      assertTrue("Estimate Item Id is incorrect", estimate.items[1].id == 8);
 
-			assertTrue("Estimate Item Id is incorrect", estimate.items[1].id == 8);
+      assertTrue("Tax Id is incorrect", estimate.taxes[0].id == 20554);
 
-			assertTrue("Tax Id is incorrect", estimate.taxes[0].id == 20554);
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+  @Test
+  public void testRetrieve() {
 
-	}
+    // references connection_rr_64.json
 
-	@Test
-	public void testRetrieve() {
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		// references connection_rr_64.json
+    Estimate estimate = conn.newEstimate();
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    try {
+      estimate = estimate.retrieve(46999);
+      assertTrue("Estimate currency is incorrect", estimate.currency.equals("usd"));
 
-		Estimate estimate = conn.newEstimate();
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-		try {
-			estimate = estimate.retrieve(46999);
-			assertTrue("Estimate currency is incorrect",
-			           estimate.currency.equals("usd"));
+  @Test
+  public void testSave() {
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+    // references connection_rr_64.json
+    // references connection_rr_65.json
 
-	}
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-	@Test
-	public void testSave() {
+    Estimate estimate = conn.newEstimate();
 
-		// references connection_rr_64.json
-		// references connection_rr_65.json
+    try {
+      estimate = estimate.retrieve(46999);
+      estimate.name = "July Paper Delivery";
+      estimate.status = "sent";
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+      estimate.save();
 
-		Estimate estimate = conn.newEstimate();
+      assertTrue("Estimate status should be sent", estimate.status.equals("sent"));
 
-		try {
-			estimate = estimate.retrieve(46999);
-			estimate.name = "July Paper Delivery";
-			estimate.status = "sent";
+      assertTrue("Estimate name should be updated", estimate.name.equals("July Paper Delivery"));
 
-			estimate.save();
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-			assertTrue("Estimate status should be sent", estimate.status.equals("sent"));
+  // }
 
-			assertTrue("Estimate name should be updated", estimate.name.equals("July Paper Delivery"));
+  @Test
+  public void testDelete() {
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+    // references connection_rr_64.json
+    // references connection_rr_66.json
 
-	}
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-	// }
+    Estimate estimate = conn.newEstimate();
 
-	@Test
-	public void testDelete() {
+    try {
+      estimate = estimate.retrieve(46999);
+      estimate.delete();
 
-		// references connection_rr_64.json
-		// references connection_rr_66.json
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+  @Test
+  public void testList() {
 
-		Estimate estimate = conn.newEstimate();
+    // references connection_rr_67.json
 
-		try {
-			estimate = estimate.retrieve(46999);
-			estimate.delete();
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+    try {
+      EntityList<Estimate> estimates = conn.newEstimate().listAll();
 
-	}
+      assertTrue("Estimate 1 id is incorrect", estimates.get(0).id == 46999L);
 
-	@Test
-	public void testList() {
+      assertTrue("Estimate 2 id is incorrect", estimates.get(1).id == 46700L);
 
-		// references connection_rr_67.json
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+  @Test
+  public void testSendEstimateEmail() {
 
-		try {
-			EntityList<Estimate> estimates = conn.newEstimate().listAll();
+    // references connection_rr_72.json
+    // references connection_rr_73.json
 
-			assertTrue("Estimate 1 id is incorrect", estimates.get(0).id == 46999L);
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-			assertTrue("Estimate 2 id is incorrect", estimates.get(1).id == 46700L);
+    Estimate estimate = conn.newEstimate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+    EmailRequest emailRequest = new EmailRequest();
 
-	}
+    EmailRecipient[] emailRecipients = new EmailRecipient[1];
+    emailRecipients[0] = new EmailRecipient();
 
-	@Test
-	public void testSendEstimateEmail() {
+    emailRecipients[0].name = "Client";
+    emailRecipients[0].email = "client@example.com";
 
-		// references connection_rr_72.json
-		// references connection_rr_73.json
+    emailRequest.to = emailRecipients;
+    emailRequest.subject = "test";
+    emailRequest.message = "estimate email example";
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    try {
+      estimate = estimate.retrieve(11641);
+      Email[] emails = estimate.send(emailRequest);
 
-		Estimate estimate = conn.newEstimate();
+      assertTrue("Email id is incorrect", emails[0].id.equals("30e4ffaf5a426bf0a381c4d4e32f6f4f"));
 
-		EmailRequest emailRequest = new EmailRequest();
+      assertTrue("Email message is incorrect", emails[0].message.equals(emailRequest.message));
 
-		EmailRecipient[] emailRecipients = new EmailRecipient[1];
-		emailRecipients[0] = new EmailRecipient();
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-		emailRecipients[0].name = "Client";
-		emailRecipients[0].email = "client@example.com";
+  @Test
+  public void testVoidEstimate() {
 
-		emailRequest.to = emailRecipients;
-		emailRequest.subject = "test";
-		emailRequest.message = "estimate email example";
+    // references connection_rr_71.json
 
-		try {
-			estimate = estimate.retrieve(11641);
-			Email[] emails = estimate.send(emailRequest);
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-			assertTrue("Email id is incorrect", emails[0].id.equals("30e4ffaf5a426bf0a381c4d4e32f6f4f"));
+    Estimate estimate = conn.newEstimate();
+    estimate.id = 11641;
 
-			assertTrue("Email message is incorrect", emails[0].message.equals(emailRequest.message));
+    try {
+      estimate.voidEstimate();
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+      assertTrue("Estimate status should be voided", estimate.status.equals("voided"));
 
-	}
-	
-	@Test
-	public void testVoidEstimate() {
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-		// references connection_rr_71.json
+  @Test
+  public void testConvertToInvoice() {
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    // references connection_rr_74.json
 
-		Estimate estimate = conn.newEstimate();
-		estimate.id = 11641;
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		try {
-			estimate.voidEstimate();
+    Estimate estimate = conn.newEstimate();
+    estimate.id = 11641;
 
-			assertTrue("Estimate status should be voided", estimate.status.equals("voided"));
+    try {
+      Invoice invoice = estimate.invoice();
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+      assertTrue("Invoice id is incorrect", invoice.id == 2339090);
 
-	}
-
-	@Test
-	public void testConvertToInvoice() {
-
-		// references connection_rr_74.json
-
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
-
-		Estimate estimate = conn.newEstimate();
-		estimate.id = 11641;
-
-		try {
-			Invoice invoice = estimate.invoice();
-
-			assertTrue("Invoice id is incorrect", invoice.id == 2339090);
-
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-
-	}
-
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 }

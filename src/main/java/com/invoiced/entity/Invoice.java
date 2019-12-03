@@ -1,321 +1,314 @@
 package com.invoiced.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
 @JsonFilter("customFilter")
 public class Invoice extends AbstractEntity<Invoice> {
 
-	public Invoice(Connection conn) {
-		super(conn, Invoice.class);
-		this.entityName = "/invoices";
-	}
-
-	Invoice() {
-		super(Invoice.class);
-		this.entityName = "/invoices";
-	}
-
-    @Override
-	@JsonIgnore
-	protected String getEntityId() {
-		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected String[] getCreateExclusions() {
-		return new String[] {"id", "paid", "status", "total", "url", "pdf_url", "object", "created_at", "attempt_count", "next_payment_attempt", "subscription", "subtotal", "balance", "payment_url"};
-	}
-
-	@Override
-	@JsonIgnore
-	protected String[] getSaveExclusions() {
-		return new String[] {"id", "paid", "status", "total", "url", "pdf_url", "object", "created_at", "attempt_count", "next_payment_attempt", "subscription", "subtotal", "balance", "payment_url"};
-	}
-
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("id")
-	public long id;
-
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("customer")
-	public long customer;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("name")
-	public String name;
-
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("number")
-	public String number;
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("id")
+  public long id;
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("customer")
+  public long customer;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("name")
+  public String name;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("number")
+  public String number;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("email")
+  public String email;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("autopay")
+  public Boolean autopay;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("currency")
+  public String currency;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("draft")
+  public Boolean draft;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("closed")
+  public Boolean closed;
+  @JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
+  public Boolean paid;
+  @JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
+  public String status;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("sent")
+  public Boolean sent;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("chase")
+  public Boolean chase;
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("next_chase_on")
+  public long nextChaseOn;
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("attempt_count")
+  public long attemptCount;
+  @JsonProperty(value = "next_payment_attempt", access = JsonProperty.Access.WRITE_ONLY)
+  public long nextPaymentAttempt;
+  @JsonProperty(value = "subscription", access = JsonProperty.Access.WRITE_ONLY)
+  public long subscription;
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("date")
+  public long date;
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("due_date")
+  public long dueDate;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("payment_terms")
+  public String paymentTerms;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("items")
+  public LineItem[] items;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("notes")
+  public String notes;
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("subtotal")
+  public double subtotal;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("discounts")
+  public Discount[] discounts;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("taxes")
+  public Tax[] taxes;
+  @JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
+  public double total;
+  @JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
+  public double balance;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("tags")
+  public Object[] tags;
+  @JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
+  public String url;
+  @JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)
+  public String paymentUrl;
+  @JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
+  public String pdfUrl;
+  @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
+  public long createdAt;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("metadata")
+  public Object metadata;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("ship_to")
+  public Object shipTo;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("attachments")
+  public long[] attachments;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("disabled_payment_methods")
+  public String[] disabledPaymentMethods;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("calculate_taxes")
+  public Boolean calculateTaxes;
+
+  public Invoice(Connection conn) {
+    super(conn, Invoice.class);
+    this.entityName = "/invoices";
+  }
+
+  Invoice() {
+    super(Invoice.class);
+    this.entityName = "/invoices";
+  }
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("email")
-	public String email;
+  @Override
+  @JsonIgnore
+  protected String getEntityId() {
+    return String.valueOf(this.id);
+  }
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("autopay")
-	public Boolean autopay;
+  @Override
+  @JsonIgnore
+  protected String[] getCreateExclusions() {
+    return new String[] {
+      "id",
+      "paid",
+      "status",
+      "total",
+      "url",
+      "pdf_url",
+      "object",
+      "created_at",
+      "attempt_count",
+      "next_payment_attempt",
+      "subscription",
+      "subtotal",
+      "balance",
+      "payment_url"
+    };
+  }
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("currency")
-	public String currency;
+  @Override
+  @JsonIgnore
+  protected String[] getSaveExclusions() {
+    return new String[] {
+      "id",
+      "paid",
+      "status",
+      "total",
+      "url",
+      "pdf_url",
+      "object",
+      "created_at",
+      "attempt_count",
+      "next_payment_attempt",
+      "subscription",
+      "subtotal",
+      "balance",
+      "payment_url"
+    };
+  }
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("draft")
-	public Boolean draft;
+  @JsonIgnore
+  public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("closed")
-	public Boolean closed;
+    String url = this.getEndpoint(true) + "/emails";
 
-	@JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
-	public Boolean paid;
+    Email[] emails = null;
 
-	@JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
-	public String status;
+    try {
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("sent")
-	public Boolean sent;
+      String emailRequestJson = emailRequest.toJsonString();
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("chase")
-	public Boolean chase;
+      String response = this.getConnection().post(url, null, emailRequestJson);
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("next_chase_on")
-	public long nextChaseOn;
+      emails = Util.getMapper().readValue(response, Email[].class);
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("attempt_count")
-	public long attemptCount;
+    } catch (Throwable c) {
 
-	@JsonProperty(value = "next_payment_attempt", access = JsonProperty.Access.WRITE_ONLY)
-	public long nextPaymentAttempt;
+      throw new EntityException(c);
+    }
 
-	@JsonProperty(value = "subscription", access = JsonProperty.Access.WRITE_ONLY)
-	public long subscription;
+    return emails;
+  }
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("date")
-	public long date;
+  @JsonIgnore
+  public TextMessage[] sendText(TextRequest textRequest) throws EntityException {
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("due_date")
-	public long dueDate;
+    String url = this.getEndpoint(true) + "/text_messages";
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("payment_terms")
-	public String paymentTerms;
+    TextMessage[] textMessages = null;
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("items")
-	public LineItem[] items;
+    try {
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("notes")
-	public String notes;
+      String textRequestJson = textRequest.toJsonString();
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonProperty("subtotal")
-	public double subtotal;
+      String response = this.getConnection().post(url, null, textRequestJson);
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("discounts")
-	public Discount[] discounts;
+      textMessages = Util.getMapper().readValue(response, TextMessage[].class);
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("taxes")
-	public Tax[] taxes;
+    } catch (Throwable c) {
 
-	@JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
-	public double total;
+      throw new EntityException(c);
+    }
 
-	@JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
-	public double balance;
+    return textMessages;
+  }
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("tags")
-	public Object[] tags;
+  @JsonIgnore
+  public Letter sendLetter() throws EntityException {
 
-	@JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
-	public String url;
+    String url = this.getEndpoint(true) + "/letters";
 
-	@JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)
-	public String paymentUrl;
+    Letter letter = null;
 
-	@JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
-	public String pdfUrl;
+    try {
 
-	@JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-	public long createdAt;
+      String response = this.getConnection().post(url, null, "{}");
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("metadata")
-	public Object metadata;
+      letter = Util.getMapper().readValue(response, Letter.class);
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("ship_to")
-	public Object shipTo;
+    } catch (Throwable c) {
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("attachments")
-	public long[] attachments;
+      throw new EntityException(c);
+    }
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("disabled_payment_methods")
-	public String[] disabledPaymentMethods;
+    return letter;
+  }
 
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@JsonProperty("calculate_taxes")
-	public Boolean calculateTaxes;
+  @JsonIgnore
+  public void pay() throws EntityException {
 
-	@JsonIgnore
-	public Email[] send(EmailRequest emailRequest) throws EntityException {
+    String url = this.getEndpoint(true) + "/pay";
 
-		String url = this.getEndpoint(true) + "/emails";
+    try {
 
-		Email[] emails = null;
+      String response = this.getConnection().post(url, null, "");
 
-		try {
+      Invoice v1 = Util.getMapper().readValue(response, Invoice.class);
 
-			String emailRequestJson = emailRequest.toJsonString();
+      setFields(v1, this);
 
-			String response = this.getConnection().post(url, null, emailRequestJson);
+    } catch (Throwable c) {
 
-			emails = Util.getMapper().readValue(response, Email[].class);
+      throw new EntityException(c);
+    }
 
-		} catch (Throwable c) {
+    return;
+  }
 
-			throw new EntityException(c);
-		}
+  @JsonIgnore
+  public Attachment[] listAttachments() throws EntityException {
 
-		return emails;
-	}
+    String url = this.getEndpoint(true) + "/attachments";
 
-	@JsonIgnore
-	public TextMessage[] sendText(TextRequest textRequest) throws EntityException {
+    Attachment[] attachments = null;
 
-		String url = this.getEndpoint(true) + "/text_messages";
+    try {
 
-		TextMessage[] textMessages = null;
+      String response = this.getConnection().post(url, null, "");
 
-		try {
+      attachments = Util.getMapper().readValue(response, Attachment[].class);
 
-			String textRequestJson = textRequest.toJsonString();
+    } catch (Throwable c) {
 
-			String response = this.getConnection().post(url, null, textRequestJson);
+      throw new EntityException(c);
+    }
 
-			textMessages = Util.getMapper().readValue(response, TextMessage[].class);
+    return attachments;
+  }
 
-		} catch (Throwable c) {
+  @JsonIgnore
+  public void voidInvoice() throws EntityException {
 
-			throw new EntityException(c);
-		}
+    String url = this.getEndpoint(true) + "/void";
 
-		return textMessages;
-	}
+    Invoice v1 = null;
 
-	@JsonIgnore
-	public Letter sendLetter() throws EntityException {
+    try {
+      String response = this.getConnection().post(url, null, "{}");
 
-		String url = this.getEndpoint(true) + "/letters";
+      v1 = Util.getMapper().readValue(response, Invoice.class);
 
-		Letter letter = null;
+      setFields(v1, this);
 
-		try {
+    } catch (Throwable c) {
+      throw new EntityException(c);
+    }
+  }
 
-			String response = this.getConnection().post(url, null, "{}");
+  @JsonIgnore
+  public Note newNote() {
+    Note note = new Note(this.getConnection());
+    note.setEndpointBase(this.getEndpoint(true));
+    return note;
+  }
 
-			letter = Util.getMapper().readValue(response, Letter.class);
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return letter;
-	}
-
-	@JsonIgnore
-	public void pay() throws EntityException {
-
-		String url = this.getEndpoint(true) + "/pay";
-
-		try {
-
-			String response = this.getConnection().post(url, null, "");
-
-			Invoice v1 = Util.getMapper().readValue(response, Invoice.class);
-
-			setFields(v1, this);
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return;
-	}
-
-	@JsonIgnore
-	public Attachment[] listAttachments() throws EntityException {
-
-		String url = this.getEndpoint(true) + "/attachments";
-
-		Attachment[] attachments = null;
-
-		try {
-
-			String response = this.getConnection().post(url, null, "");
-
-			attachments = Util.getMapper().readValue(response, Attachment[].class);
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return attachments;
-	}
-
-	@JsonIgnore
-	public void voidInvoice() throws EntityException {
-
-		String url = this.getEndpoint(true) + "/void";
-		
-		Invoice v1 = null;
-
-		try {
-			String response = this.getConnection().post(url, null, "{}");
-
-			v1 = Util.getMapper().readValue(response, Invoice.class);
-
-			setFields(v1, this);
-
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
-	}
-
-	@JsonIgnore
-	public Note newNote() {
-		Note note = new Note(this.getConnection());
-		note.setEndpointBase(this.getEndpoint(true));
-		return note;
-	}
-
-	@JsonIgnore
-	public PaymentPlan newPaymentPlan() {
-		PaymentPlan paymentPlan = new PaymentPlan(this.getConnection());
-		paymentPlan.setEndpointBase(this.getEndpoint(true));
-		return paymentPlan;
-	}
-
+  @JsonIgnore
+  public PaymentPlan newPaymentPlan() {
+    PaymentPlan paymentPlan = new PaymentPlan(this.getConnection());
+    paymentPlan.setEndpointBase(this.getEndpoint(true));
+    return paymentPlan;
+  }
 }

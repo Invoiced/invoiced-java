@@ -4,9 +4,10 @@
     "urlPattern": "/subscriptions/595"
   },
   "response": {
-    "status": 204,
+    "status": 200,
     "headers": {
       "Content-Type": "application/json"
-    }
+    },
+    "body": "{\"id\":595,\"status\":\"canceled\"}"
   }
 }

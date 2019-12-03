@@ -1,67 +1,64 @@
 package com.invoiced.entity;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import org.junit.Rule;
-import org.junit.Test;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.Rule;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class PendingLineItemListTest {
 
-	@Rule
-	public WireMockRule wireMockRule = new WireMockRule();
+  @Rule public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test
-	public void testList() {
+  @Test
+  public void testList() {
 
-		// references connection_rr_11.json
-		// references connection_rr_50.json
+    // references connection_rr_11.json
+    // references connection_rr_50.json
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		try {
+    try {
 
-			Customer cust = conn.newCustomer().retrieve(11);
-			PendingLineItem pli = cust.newPendingLineItem();
-			EntityList<PendingLineItem> plis = pli.listAll();
+      Customer cust = conn.newCustomer().retrieve(11);
+      PendingLineItem pli = cust.newPendingLineItem();
+      EntityList<PendingLineItem> plis = pli.listAll();
 
-			assertTrue("PendingLineItem 1 id is incorrect", plis.get(0).id == 8);
+      assertTrue("PendingLineItem 1 id is incorrect", plis.get(0).id == 8);
 
-			assertTrue("PendingLineItem 1 id is incorrect", plis.get(1).id == 9);
+      assertTrue("PendingLineItem 1 id is incorrect", plis.get(1).id == 9);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 
-	}
+  @Test
+  public void testJsonSerialization() {
 
-	@Test
-	public void testJsonSerialization() {
+    ObjectMapper mapper =
+        new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    try {
+      String jsonInString =
+          "[{\n  \"id\": 8,\n  \"catalog_item\": \"delivery\",\n  \"type\": \"service\",\n  \"name\": \"Delivery\",\n  \"description\": \"\",\n  \"quantity\": 1,\n  \"unit_cost\": 10,\n  \"amount\": 10,\n  \"discountable\": true,\n  \"discounts\": [],\n  \"taxable\": true,\n  \"taxes\": [],\n  \"metadata\": {}\n},{\n  \"id\": 9,\n  \"catalog_item\": \"delivery\",\n  \"type\": \"service\",\n  \"name\": \"Delivery\",\n  \"description\": \"\",\n  \"quantity\": 1,\n  \"unit_cost\": 10,\n  \"amount\": 10,\n  \"discountable\": true,\n  \"discounts\": [],\n  \"taxable\": true,\n  \"taxes\": [],\n  \"metadata\": {}\n}]";
 
-		try {
-			String jsonInString = "[{\n  \"id\": 8,\n  \"catalog_item\": \"delivery\",\n  \"type\": \"service\",\n  \"name\": \"Delivery\",\n  \"description\": \"\",\n  \"quantity\": 1,\n  \"unit_cost\": 10,\n  \"amount\": 10,\n  \"discountable\": true,\n  \"discounts\": [],\n  \"taxable\": true,\n  \"taxes\": [],\n  \"metadata\": {}\n},{\n  \"id\": 9,\n  \"catalog_item\": \"delivery\",\n  \"type\": \"service\",\n  \"name\": \"Delivery\",\n  \"description\": \"\",\n  \"quantity\": 1,\n  \"unit_cost\": 10,\n  \"amount\": 10,\n  \"discountable\": true,\n  \"discounts\": [],\n  \"taxable\": true,\n  \"taxes\": [],\n  \"metadata\": {}\n}]";
+      EntityList<PendingLineItem> c1 =
+          mapper.readValue(jsonInString, new TypeReference<EntityList<PendingLineItem>>() {});
 
-			EntityList<PendingLineItem> c1 = mapper.readValue(jsonInString,
-					new TypeReference<EntityList<PendingLineItem>>() {
-					});
+      assertTrue("Size is incorrect", c1.size() == 2);
+      assertTrue("Id1 is incorrect", c1.get(0).id == 8);
+      assertTrue("Id2 is incorrect", c1.get(1).id == 9);
 
-			assertTrue("Size is incorrect", c1.size() == 2);
-			assertTrue("Id1 is incorrect", c1.get(0).id == 8);
-			assertTrue("Id2 is incorrect", c1.get(1).id == 9);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 }

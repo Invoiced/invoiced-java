@@ -1,198 +1,190 @@
 package com.invoiced.entity;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.io.IOException;
-import java.sql.Timestamp;
-
-import org.junit.Rule;
-import org.junit.Test;
-
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.Rule;
+import org.junit.Test;
+
+import java.io.IOException;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class SubscriptionTest {
-	@Rule
-	public WireMockRule wireMockRule = new WireMockRule();
+  @Rule public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test
-	public void testParentID() {
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+  @Test
+  public void testParentID() {
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		Subscription subscription = conn.newSubscription();
+    Subscription subscription = conn.newSubscription();
+  }
 
-	}
+  @Test
+  public void testCreate() {
 
-	@Test
-	public void testCreate() {
+    // references connection_rr_17.json
 
-		// references connection_rr_17.json
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    Subscription subscription = conn.newSubscription();
 
-		Subscription subscription = conn.newSubscription();
+    subscription.customer = 15444;
+    subscription.plan = "starter";
+    subscription.addons = new SubscriptionAddon[1];
+    subscription.addons[0] = new SubscriptionAddon();
+    subscription.addons[0].catalogItem = "ipad-license";
+    subscription.addons[0].quantity = 11;
 
-		subscription.customer = 15444;
-		subscription.plan = "starter";
-		subscription.addons = new SubscriptionAddon[1];
-		subscription.addons[0] = new SubscriptionAddon();
-		subscription.addons[0].catalogItem = "ipad-license";
-		subscription.addons[0].quantity = 11;
+    try {
 
-		try {
+      subscription.create();
+      assertTrue("Subscription id is incorrect", subscription.id == 595);
 
-			subscription.create();
-			assertTrue("Subscription id is incorrect", subscription.id == 595);
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+  @Test
+  public void testRetrieve() {
 
-	}
+    // references connection_rr_18.json
 
-	@Test
-	public void testRetrieve() {
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		// references connection_rr_18.json
+    Subscription subscription = conn.newSubscription();
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    try {
+      subscription = subscription.retrieve(595);
 
-		Subscription subscription = conn.newSubscription();
+      assertTrue("Subscription customer number is incorrect", subscription.customer == 15444);
 
-		try {
-			subscription = subscription.retrieve(595);
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-			assertTrue("Subscription customer number is incorrect", subscription.customer == 15444);
+  @Test
+  public void testSave() {
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+    // references connection_rr_18.json
+    // references connection_rr_19.json
 
-	}
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-	@Test
-	public void testSave() {
+    Subscription subscription = conn.newSubscription();
 
-		// references connection_rr_18.json
-		// references connection_rr_19.json
+    try {
+      subscription = subscription.retrieve(595);
+      subscription.plan = "pro";
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+      subscription.save();
 
-		Subscription subscription = conn.newSubscription();
+      assertTrue("Subscription should have been updated", subscription.plan.equals("pro"));
 
-		try {
-			subscription = subscription.retrieve(595);
-			subscription.plan = "pro";
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-			subscription.save();
+  @Test
+  public void testCancel() {
 
-			assertTrue("Subscription should have been updated", subscription.plan.equals("pro"));
+    // references connection_rr_20.json
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-	}
+    Subscription subscription = conn.newSubscription();
 
-	@Test
-	public void testDelete() {
+    try {
+      subscription = subscription.retrieve(595).cancel();
+      assertTrue("Subscription status is incorrect", subscription.status.equals("canceled"));
 
-		// references connection_rr_20.json
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+  @Test
+  public void testPreviewSubscription() {
 
-		Subscription subscription = conn.newSubscription();
+    // references connection_rr_75.json
 
-		try {
-			subscription = subscription.retrieve(595);
-			subscription.cancel();
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+    Subscription subscription = conn.newSubscription();
 
-	}
+    subscription.customer = 481594;
+    subscription.plan = "starter";
 
-	@Test
-	public void testPreviewSubscription() {
+    try {
 
-		// references connection_rr_75.json
+      SubscriptionPreview preview = subscription.preview();
+      assertTrue("Preview MRR is incorrect", preview.mrr == 49);
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 
-		Subscription subscription = conn.newSubscription();
+  @Test
+  public void testJsonSerialization() {
+    new Subscription(null);
 
-		subscription.customer = 481594;
-		subscription.plan = "starter";
+    ObjectMapper mapper =
+        new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		try {
+    try {
+      String jsonString =
+          "{\n    \"id\": 595,\n    \"customer\": 15444,\n    \"plan\": \"starter\",\n    \"cycles\": null,\n    \"quantity\": 1,\n    \"start_date\": 1420391704,\n    \"period_start\": 1446657304,\n    \"period_end\": 1449249304,\n    \"cancel_at_period_end\": false,\n    \"canceled_at\": null,\n    \"status\": \"active\",\n    \"addons\": [\n        {\n            \"id\": 3,\n            \"catalog_item\": \"ipad-license\",\n            \"quantity\": 11,\n            \"created_at\": 1420391704\n        }\n    ],\n    \"discounts\": [],\n    \"taxes\": [],\n    \"url\": \"https://dundermifflin.invoiced.com/subscriptions/o2mAd2wWVfYy16XZto7xHwXX\",\n    \"created_at\": 1420391704,\n    \"metadata\": {}\n}";
 
-			SubscriptionPreview preview = subscription.preview();
-			assertTrue("Preview MRR is incorrect", preview.mrr == 49);
+      Subscription s1 = mapper.readValue(jsonString, Subscription.class);
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+      assertTrue("Id is incorrect", s1.id == 595L);
+      assertTrue("Customer is incorrect", s1.customer == 15444L);
+      assertTrue("Plan is incorrect", s1.plan.equals("starter"));
+      assertTrue("Cycles is incorrect", s1.cycles == 0);
+      assertTrue("Quantity is incorrect", s1.quantity == 1);
+      assertTrue("Start Date is incorrect", s1.startDate == 1420391704L);
+      assertTrue("Period Start is incorrect", s1.periodStart == 1446657304L);
+      assertTrue("Period End is incorrect", s1.periodEnd == 1449249304L);
+      assertTrue("Cancel At Period End is incorrect", s1.cancelAtPeriodEnd == false);
+      assertTrue("Canceled At incorrect", s1.canceledAt == 0);
+      assertTrue("Status is incorrect", s1.status.equals("active"));
+      assertTrue("Addons is incorrect", s1.addons.length > 0);
+      assertTrue("Discounts is incorrect", s1.discounts.length == 0);
+      assertTrue("Taxes is incorrect", s1.taxes.length == 0);
+      assertTrue(
+          "Url is incorrect",
+          s1.url.equals(
+              "https://dundermifflin.invoiced.com/subscriptions/o2mAd2wWVfYy16XZto7xHwXX"));
+      assertTrue("Created At is incorrect", s1.createdAt == 1420391704);
+      assertTrue("Metadata is incorrect", s1.metadata != null);
 
-	}
+      assertTrue("Addon id is incorrect", s1.addons[0].id == 3);
 
-	@Test
-	public void testJsonSerialization() {
-		new Subscription(null);
+    } catch (JsonGenerationException e) {
+      e.printStackTrace();
+      fail();
+    } catch (JsonMappingException e) {
+      e.printStackTrace();
+      fail();
+    } catch (IOException e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 
-		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-		try {
-			String jsonString = "{\n    \"id\": 595,\n    \"customer\": 15444,\n    \"plan\": \"starter\",\n    \"cycles\": null,\n    \"quantity\": 1,\n    \"start_date\": 1420391704,\n    \"period_start\": 1446657304,\n    \"period_end\": 1449249304,\n    \"cancel_at_period_end\": false,\n    \"canceled_at\": null,\n    \"status\": \"active\",\n    \"addons\": [\n        {\n            \"id\": 3,\n            \"catalog_item\": \"ipad-license\",\n            \"quantity\": 11,\n            \"created_at\": 1420391704\n        }\n    ],\n    \"discounts\": [],\n    \"taxes\": [],\n    \"url\": \"https://dundermifflin.invoiced.com/subscriptions/o2mAd2wWVfYy16XZto7xHwXX\",\n    \"created_at\": 1420391704,\n    \"metadata\": {}\n}";
-
-			Subscription s1 = mapper.readValue(jsonString, Subscription.class);
-
-			assertTrue("Id is incorrect", s1.id == 595L);
-			assertTrue("Customer is incorrect", s1.customer == 15444L);
-			assertTrue("Plan is incorrect", s1.plan.equals("starter"));
-			assertTrue("Cycles is incorrect", s1.cycles == 0);
-			assertTrue("Quantity is incorrect", s1.quantity == 1);
-			assertTrue("Start Date is incorrect", s1.startDate == 1420391704L);
-			assertTrue("Period Start is incorrect", s1.periodStart == 1446657304L);
-			assertTrue("Period End is incorrect", s1.periodEnd == 1449249304L);
-			assertTrue("Cancel At Period End is incorrect", s1.cancelAtPeriodEnd == false);
-			assertTrue("Canceled At incorrect", s1.canceledAt == 0);
-			assertTrue("Status is incorrect", s1.status.equals("active"));
-			assertTrue("Addons is incorrect", s1.addons.length > 0);
-			assertTrue("Discounts is incorrect", s1.discounts.length == 0);
-			assertTrue("Taxes is incorrect", s1.taxes.length == 0);
-			assertTrue("Url is incorrect",
-			           s1.url.equals("https://dundermifflin.invoiced.com/subscriptions/o2mAd2wWVfYy16XZto7xHwXX"));
-			assertTrue("Created At is incorrect", s1.createdAt == 1420391704);
-			assertTrue("Metadata is incorrect", s1.metadata != null);
-
-			assertTrue("Addon id is incorrect", s1.addons[0].id == 3);
-
-		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-			fail();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			fail();
-		} catch (IOException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
-	@Test
-	public void testJsonDeserialization() {
-
-	}
-
+  @Test
+  public void testJsonDeserialization() {}
 }
