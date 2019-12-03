@@ -9,60 +9,21 @@ import com.invoiced.exception.EntityException;
 @JsonFilter("customFilter")
 public class Contact extends AbstractEntity<Contact> {
 
-	Contact(Connection conn, long customerId) {
+	Contact(Connection conn) {
 
 		super(conn, Contact.class);
-		this.setParentName("customers");
-		this.setParentID(String.valueOf(customerId));
-		this.setEntityName();
+		this.entityName = "/contacts";
 	}
 
 	Contact() {
 		super(Contact.class);
+		this.entityName = "/contacts";
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		if (this.getParentID() != null) {
-			this.entityName = this.getParentName() + "/" + this.getParentID() + "/contacts";
-		}
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return true;
 	}
 
 	@Override

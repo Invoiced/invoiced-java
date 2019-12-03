@@ -12,52 +12,18 @@ public class Transaction extends AbstractEntity<Transaction> {
 
 	public Transaction(Connection conn) {
 		super(conn, Transaction.class);
+		this.entityName = "/transactions";
 	}
 
 	Transaction() {
 		super(Transaction.class);
+		this.entityName = "/transactions";
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "transactions";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-	
-	@Override
-	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override
@@ -150,10 +116,9 @@ public class Transaction extends AbstractEntity<Transaction> {
 	public Object metadata;
 
 	@JsonIgnore
-	public Transaction refund(double amount) throws EntityException {
+	public Transaction refund(long amount) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/refunds";
+		String url = this.getEndpoint(true) + "/refunds";
 
 		RefundRequest refundRequest = new RefundRequest(amount);
 
@@ -180,8 +145,7 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/emails";
+		String url = this.getEndpoint(true) + "/emails";
 
 		Email[] emails = null;
 
@@ -204,7 +168,7 @@ public class Transaction extends AbstractEntity<Transaction> {
 	@JsonIgnore
 	public Transaction initiateCharge(ChargeRequest chargeRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/charges";
+		String url = "/charges";
 
 		Transaction transaction = null;
 

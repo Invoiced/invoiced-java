@@ -13,52 +13,18 @@ public class Customer extends AbstractEntity<Customer> {
 
 	public Customer(Connection conn) {
 		super(conn, Customer.class);
+		this.entityName = "/customers";
 	}
 
 	Customer() {
 		super(Customer.class);
+		this.entityName = "/customers";
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "customers";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override
@@ -224,8 +190,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Balance getBalance() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/balance";
+		String url = this.getEndpoint(true) + "/balance";
 
 		Balance balance = null;
 
@@ -246,8 +211,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Email[] sendStatement(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/emails";
+		String url = this.getEndpoint(true) + "/emails";
 
 		Email[] emails = null;
 
@@ -270,8 +234,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public TextMessage[] sendStatementText(TextRequest textRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/text_messages";
+		String url = this.getEndpoint(true) + "/text_messages";
 
 		TextMessage[] textMessages = null;
 
@@ -294,8 +257,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Letter sendStatementLetter(LetterRequest letterRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/letters";
+		String url = this.getEndpoint(true) + "/letters";
 
 		Letter letter = null;
 
@@ -318,8 +280,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Invoice invoice() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/invoices";
+		String url = this.getEndpoint(true) + "/invoices";
 
 		Invoice invoice = null;
 
@@ -349,7 +310,7 @@ public class Customer extends AbstractEntity<Customer> {
 	@JsonIgnore
 	public Invoice consolidateInvoices(Long cutoffDate) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/consolidate_invoices";
+		String url = this.getEndpoint(true) + "/consolidate_invoices";
 
 		String cutoffJson = null;
 
@@ -379,22 +340,30 @@ public class Customer extends AbstractEntity<Customer> {
 
 	@JsonIgnore
 	public Contact newContact() {
-		return new Contact(this.getConnection(), this.id);
+		Contact contact = new Contact(this.getConnection());
+		contact.setEndpointBase(this.getEndpoint(true));
+		return contact;
 	}
 
 	@JsonIgnore
 	public PendingLineItem newPendingLineItem() {
-		return new PendingLineItem(this.getConnection(), this.id);
+		PendingLineItem pli = new PendingLineItem(this.getConnection());
+		pli.setEndpointBase(this.getEndpoint(true));
+		return pli;
 	}
 
 	@JsonIgnore
 	public Note newNote() {
-		return new Note(this.getConnection(), this.id, 0);
+		Note note = new Note(this.getConnection());
+		note.setEndpointBase(this.getEndpoint(true));
+		return note;
 	}
 
 	@JsonIgnore
 	public Task newTask() {
-		return new Task(this.getConnection(), this.id);
+		Task task = new Task(this.getConnection());
+		task.customerId = this.id;
+		return task;
 	}
 
 }

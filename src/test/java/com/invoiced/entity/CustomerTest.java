@@ -26,9 +26,6 @@ public class CustomerTest {
 		conn.testModeOn();
 
 		Customer customer = conn.newCustomer();
-		assertTrue("Customer Parent Id is incorrect", customer.getParentID() == null);
-		customer.setParentID("-4");
-		assertTrue("Customer Parent Id is incorrect", customer.getParentID() == null);
 
 	}
 

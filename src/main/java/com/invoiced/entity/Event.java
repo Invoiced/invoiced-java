@@ -9,10 +9,12 @@ public class Event extends AbstractEntity<Event> {
 
 	public Event(Connection conn) {
 		super(conn, Event.class);
+		this.entityName = "/events";
 	}
 
 	Event() {
 		super(Event.class);
+		this.entityName = "/events";
 	}
 
 	@Override
@@ -21,40 +23,10 @@ public class Event extends AbstractEntity<Event> {
 		return false;
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "events";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override

@@ -11,16 +11,12 @@ public class File extends AbstractEntity<File> {
 
 	public File(Connection conn) {
 		super(conn, File.class);
+		this.entityName = "/files";
 	}
 
 	File() {
 		super(File.class);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
+		this.entityName = "/files";
 	}
 
 	@Override
@@ -29,34 +25,10 @@ public class File extends AbstractEntity<File> {
 		return false;
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "files";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override

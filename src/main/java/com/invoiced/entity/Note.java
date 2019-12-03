@@ -11,65 +11,18 @@ public class Note extends AbstractEntity<Note> {
 
 	public Note(Connection conn) {
 		super(conn, Note.class);
-	}
-
-	public Note(Connection conn, long customerId, long invoiceId) {
-		super(conn, Note.class);
-		if (invoiceId > 0) {
-			this.setParentName("invoices");
-			this.setParentID(String.valueOf(invoiceId));
-		}
-		else if (customerId > 0) {
-			this.setParentName("customers");
-			this.setParentID(String.valueOf(customerId));
-		}
-		setListUrl();
+		this.entityName = "/notes";
 	}
 
 	Note() {
 		super(Note.class);
+		this.entityName = "/notes";
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "notes";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return true;
 	}
 
 	@Override
@@ -115,4 +68,27 @@ public class Note extends AbstractEntity<Note> {
 	@JsonProperty("metadata")
 	public Object metadata;
 
+	@Override
+	public void create() throws EntityException {
+		String endpointBase = this.getEndpointBase();
+		this.setEndpointBase("");
+		super.create();
+		this.setEndpointBase(endpointBase);
+	}
+
+	@Override
+	public void save() throws EntityException {
+		String endpointBase = this.getEndpointBase();
+		this.setEndpointBase("");
+		super.save();
+		this.setEndpointBase(endpointBase);
+	}
+
+	@Override
+	public void delete() throws EntityException {
+		String endpointBase = this.getEndpointBase();
+		this.setEndpointBase("");
+		super.delete();
+		this.setEndpointBase(endpointBase);
+	}
 }

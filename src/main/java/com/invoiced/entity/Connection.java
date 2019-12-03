@@ -35,6 +35,8 @@ public class Connection {
 			this.refreshUnirestConnection();
 		}
 
+		url = this.baseUrl() + url;
+
 		try {
 			HttpResponse<String> response = Unirest.post(url).basicAuth(this.apiKey, "")
 			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
@@ -70,6 +72,8 @@ public class Connection {
 			this.refreshUnirestConnection();
 		}
 
+		url = this.baseUrl() + url;
+
 		try {
 			HttpResponse<String> response = Unirest.patch(url).basicAuth(this.apiKey, "")
 			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").body(jsonBody)
@@ -96,6 +100,8 @@ public class Connection {
 		if (this.autoRefresh) {
 			this.refreshUnirestConnection();
 		}
+
+		url = this.baseUrl() + url;
 
 		try {
 			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
@@ -124,6 +130,8 @@ public class Connection {
 		if (this.autoRefresh) {
 			this.refreshUnirestConnection();
 		}
+
+		url = this.baseUrl() + url;
 
 		ListResponse apiResult = null;
 
@@ -162,6 +170,8 @@ public class Connection {
 		if (this.autoRefresh) {
 			this.refreshUnirestConnection();
 		}
+
+		url = this.baseUrl() + url;
 
 		try {
 			HttpResponse<String> response = Unirest.delete(url).basicAuth(this.apiKey, "")

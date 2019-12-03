@@ -16,24 +16,20 @@ public class EventListTest {
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test
-	public void testForCoverage() {
+	@Test(expected = Exception.class)
+	public void testForCoverage() throws Exception {
 
 		Connection conn = new Connection("", true);
 		conn.testModeOn();
 		Event event = conn.newEvent();
 		event.id = 231;
-		assertTrue("Event Entity id is wrong", event.getEntityId() == 231);
-		assertTrue("Event id is wrong", event.getParentID() == null);
+		assertTrue("Event Entity id is wrong", event.getEntityId().equals("231"));
 		try {
 			event.create();
 			event.delete();
-			event.setParentID("-1231");
-			assertTrue("Event id is wrong", event.getParentID() == null);
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			throw new Exception(e);
 		}
 
 	}

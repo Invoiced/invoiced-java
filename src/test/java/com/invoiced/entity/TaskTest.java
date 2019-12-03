@@ -124,10 +124,7 @@ public class TaskTest {
             Customer cust = conn.newCustomer().retrieve(11);
             Task task = cust.newTask();
             task.id = 222;
-            assertTrue("Task Entity id is wrong", task.getEntityId() == 222);
-            assertTrue("Task id is wrong", task.getParentID() == null);
-			task.setParentID("-1231");
-			assertTrue("Task id is wrong", task.getParentID() == null);
+            assertTrue("Task Entity id is wrong", task.getEntityId().equals("222"));
 
 		} catch (Exception e) {
 			e.printStackTrace();

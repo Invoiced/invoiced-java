@@ -12,54 +12,19 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	public Subscription(Connection conn) {
 		super(conn, Subscription.class);
+		this.entityName = "/subscriptions";
 
 	}
 
 	Subscription() {
 		super(Subscription.class);
-
+		this.entityName = "/subscriptions";
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "subscriptions";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override
@@ -198,7 +163,7 @@ public class Subscription extends AbstractEntity<Subscription> {
 
 	public SubscriptionPreview preview() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/preview";
+		String url = "/subscriptions/preview";
 		
 		SubscriptionPreview preview = null;
 

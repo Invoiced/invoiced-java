@@ -25,10 +25,6 @@ public class TransactionTest {
 		conn.testModeOn();
 
 		Transaction transaction = conn.newTransaction();
-		assertTrue("Invoice Parent Id is incorrect", transaction.getParentID() == null);
-		transaction.setParentID("-4");
-		assertTrue("Invoice Parent Id is incorrect", transaction.getParentID() == null);
-
 	}
 
 	@Test

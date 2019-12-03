@@ -27,9 +27,6 @@ public class InvoiceTest {
 		conn.testModeOn();
 
 		Invoice invoice = conn.newInvoice();
-		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == null);
-		invoice.setParentID("-4");
-		assertTrue("Invoice Parent Id is incorrect", invoice.getParentID() == null);
 
 	}
 

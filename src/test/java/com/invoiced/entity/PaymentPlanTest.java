@@ -101,11 +101,8 @@ public class PaymentPlanTest {
 		try {
             Invoice invoice = conn.newInvoice().retrieve(998);
             PaymentPlan paymentPlan = invoice.newPaymentPlan();
-            paymentPlan.id = 444;
-            assertTrue("Payment plan Entity id is wrong", paymentPlan.getEntityId() == 444);
-            assertTrue("Payment plan id is wrong", paymentPlan.getParentID().equals("998"));
-			paymentPlan.setParentID("445");
-            assertTrue("Payment plan id is wrong", paymentPlan.getParentID().equals("445"));
+            paymentPlan.id = 444L;
+            assertTrue("Payment plan Entity id is wrong", paymentPlan.getEntityId().equals("444"));
             assertTrue("hasList property is wrong", paymentPlan.hasList() == false);
 
 		} catch (Exception e) {

@@ -27,9 +27,6 @@ public class CreditNoteTest {
 		conn.testModeOn();
 
 		CreditNote creditNote = conn.newCreditNote();
-		assertTrue("Credit Note Parent Id is incorrect", creditNote.getParentID() == null);
-		creditNote.setParentID("-4");
-		assertTrue("Credit Note Parent Id is incorrect", creditNote.getParentID() == null);
 
 	}
 

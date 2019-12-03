@@ -117,7 +117,7 @@ public class ContactTest {
 
 	@Test
 	public void testJsonSerialization() {
-		new Contact(null, -1);
+		new Contact(null);
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 

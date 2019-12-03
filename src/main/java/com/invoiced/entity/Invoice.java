@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
@@ -14,52 +12,18 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	public Invoice(Connection conn) {
 		super(conn, Invoice.class);
+		this.entityName = "/invoices";
 	}
 
 	Invoice() {
 		super(Invoice.class);
+		this.entityName = "/invoices";
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "invoices";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override
@@ -215,8 +179,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/emails";
+		String url = this.getEndpoint(true) + "/emails";
 
 		Email[] emails = null;
 
@@ -239,8 +202,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public TextMessage[] sendText(TextRequest textRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/text_messages";
+		String url = this.getEndpoint(true) + "/text_messages";
 
 		TextMessage[] textMessages = null;
 
@@ -263,8 +225,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public Letter sendLetter() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/letters";
+		String url = this.getEndpoint(true) + "/letters";
 
 		Letter letter = null;
 
@@ -285,8 +246,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public void pay() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/pay";
+		String url = this.getEndpoint(true) + "/pay";
 
 		try {
 
@@ -307,8 +267,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public Attachment[] listAttachments() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/attachments";
+		String url = this.getEndpoint(true) + "/attachments";
 
 		Attachment[] attachments = null;
 
@@ -329,7 +288,7 @@ public class Invoice extends AbstractEntity<Invoice> {
 	@JsonIgnore
 	public void voidInvoice() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		String url = this.getEndpoint(true) + "/void";
 		
 		Invoice v1 = null;
 
@@ -347,12 +306,16 @@ public class Invoice extends AbstractEntity<Invoice> {
 
 	@JsonIgnore
 	public Note newNote() {
-		return new Note(this.getConnection(), 0, this.id);
+		Note note = new Note(this.getConnection());
+		note.setEndpointBase(this.getEndpoint(true));
+		return note;
 	}
 
 	@JsonIgnore
 	public PaymentPlan newPaymentPlan() {
-		return new PaymentPlan(this.getConnection(), this.id);
+		PaymentPlan paymentPlan = new PaymentPlan(this.getConnection());
+		paymentPlan.setEndpointBase(this.getEndpoint(true));
+		return paymentPlan;
 	}
 
 }

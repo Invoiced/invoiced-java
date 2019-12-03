@@ -25,9 +25,6 @@ public class SubscriptionTest {
 		conn.testModeOn();
 
 		Subscription subscription = conn.newSubscription();
-		assertTrue("Parent Id is incorrect", subscription.getParentID() == null);
-		subscription.setParentID("-4");
-		assertTrue("Parent Id is incorrect", subscription.getParentID() == null);
 
 	}
 

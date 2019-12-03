@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
@@ -13,52 +12,18 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	public Estimate(Connection conn) {
 		super(conn, Estimate.class);
+		this.entityName = "/estimates";
 	}
 
 	Estimate() {
 		super(Estimate.class);
+		this.entityName = "/estimates";
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected long getEntityId() {
-		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "estimates";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean idIsString() {
-		return false;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() throws EntityException {
+	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override
@@ -186,10 +151,9 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonIgnore
 	public Email[] send(EmailRequest emailRequest) throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/"
-		             + String.valueOf(this.getEntityId()) + "/emails";
+		String url = this.getEndpoint(true) + "/emails";
 
-		Email[] emails = null;
+		Email[] emails;
 
 		try {
 
@@ -209,9 +173,9 @@ public class Estimate extends AbstractEntity<Estimate> {
 
 	public void voidEstimate() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/void";
+		String url = this.getEndpoint(true) + "/void";
 		
-		Estimate v1 = null;
+		Estimate v1;
 
 		try {
 			String response = this.getConnection().post(url, null, "{}");
@@ -228,9 +192,9 @@ public class Estimate extends AbstractEntity<Estimate> {
 	@JsonIgnore
 	public Invoice invoice() throws EntityException {
 
-		String url = this.getConnection().baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(this.getEntityId()) + "/invoice";
+		String url = this.getEndpoint(true) + "/invoice";
 		
-		Invoice invoice = null;
+		Invoice invoice;
 
 		try {
 

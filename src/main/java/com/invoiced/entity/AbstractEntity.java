@@ -4,8 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
-import javax.swing.text.html.parser.Entity;
-
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.invoiced.exception.EntityException;
@@ -16,23 +14,33 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	private Connection conn;
 	protected Class<T> tClass;
-	protected String entityName;
 	private boolean entityCreated;
-	private String listUrl;
-	private String parentId;
-	private String parentName;
+	protected String entityName;
+	private String endpointBase = "";
+
+	protected void setEndpointBase(String base) {
+		this.endpointBase = base;
+	}
+
+	protected String getEndpoint(boolean includeId) {
+		String url = this.getEndpointBase() + this.entityName;
+
+		if (this.getEntityId() != null && includeId) {
+			url += "/" + this.getEntityId();
+		}
+
+		return url;
+	}
 
 	public AbstractEntity(Connection conn, Class<T> tClass) {
 		this.conn = conn;
 		this.tClass = tClass;
 		this.entityCreated = false;
-		this.setEntityName();
 	}
 
 	public AbstractEntity(Class<T> tClass) {
 		this.tClass = tClass;
 		this.entityCreated = false;
-		this.setEntityName();
 	}
 
 	protected void setConnection(Connection conn) {
@@ -47,19 +55,8 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		this.tClass = tClass;
 	}
 
-	protected String getEntityName() {
-		return this.entityName;
-	}
-
-	protected String getListUrl() {
-		if (this.listUrl != null) return this.listUrl;
-		else return this.getEntityName();
-	}
-
-	protected void setListUrl() {
-		if (this.isSubEntity() && this.parentId != null) {
-			this.listUrl = this.getParentName() + "/" + this.getParentID() + "/" + this.getEntityName();
-		}
+	protected String getEndpointBase() {
+		return this.endpointBase;
 	}
 
 	protected static void setFields(Object from, Object to) throws EntityException {
@@ -96,14 +93,14 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public void create() throws EntityException {
 
 		if (this.entityCreated) {
-			return;
+			throw new EntityException(new Throwable("Object has already been created."));
 		}
 
 		if (!this.hasCRUD()) {
-			return;
+			throw new EntityException(new Throwable("Create operation not available on object."));
 		}
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName();
+		String url = this.getEndpoint(false);
 		T v1 = null;
 
 		try {
@@ -178,12 +175,12 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public void save() throws EntityException {
 
 		if (!this.hasCRUD()) {
-			return;
+			throw new EntityException(new Throwable("Save operation not available on object."));
 		}
 
 		String url = null;
 
-		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
+		url = this.getEndpoint(true);
 
 		T v1 = null;
 
@@ -202,111 +199,39 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	public T retrieve() throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName();
-
-		T v1 = null;
-
-		try {
-
-			String response = this.conn.get(url, null);
-
-			v1 = Util.getMapper().readValue(response, this.tClass);
-			v1.setConnection(this.conn);
-			v1.setClass(this.tClass);
-
-			if (this.isSubEntity()) {
-				v1.setParentID(this.getParentID());
-				v1.setParentName(this.getParentName());
-				v1.setEntityName();
-			}
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return v1;
+		return this.retrieve("", null);
 	}
 
 	public T retrieve(long id) throws EntityException {
 
-		T v1 = null;
-
-		try {
-
-			v1 = this.retrieve(id, null);
-
-		} catch (EntityException e) {
-
-			throw e;
-		}
-
-		return v1;
-	}
-
-	public T retrieve(long id, HashMap<String, Object> queryParms) throws EntityException {
-
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + String.valueOf(id);
-
-		T v1 = null;
-
-		try {
-
-			String response = this.conn.get(url, queryParms);
-
-			v1 = Util.getMapper().readValue(response, this.tClass);
-			v1.setConnection(this.conn);
-			v1.setClass(this.tClass);
-
-			if (this.isSubEntity()) {
-				v1.setParentID(this.getParentID());
-				v1.setParentName(this.getParentName());
-				v1.setEntityName();
-			}
-
-		} catch (Throwable c) {
-
-			throw new EntityException(c);
-		}
-
-		return v1;
+		return this.retrieve(String.valueOf(id), null);
 	}
 
 	public T retrieve(String id) throws EntityException {
 
-		T v1 = null;
-
-		try {
-
-			v1 = this.retrieve(id, null);
-
-		} catch (EntityException e) {
-
-			throw e;
-		}
-
-		return v1;
+		return this.retrieve(id, null);
 	}
 
-	public T retrieve(String id, HashMap<String, Object> queryParms) throws EntityException {
+	public T retrieve(long id, HashMap<String, Object> queryParams) throws EntityException {
 
-		String url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + id;
+		return this.retrieve(String.valueOf(id), queryParams);
+	}
+
+	public T retrieve(String id, HashMap<String, Object> queryParams) throws EntityException {
+
+		String url = this.getEndpoint(false);
+		if (id.length() > 0) url += "/" + id;
 
 		T v1 = null;
 
 		try {
 
-			String response = this.conn.get(url, queryParms);
+			String response = this.conn.get(url, queryParams);
 
 			v1 = Util.getMapper().readValue(response, this.tClass);
 			v1.setConnection(this.conn);
 			v1.setClass(this.tClass);
-
-			if (this.isSubEntity()) {
-				v1.setParentID(this.getParentID());
-				v1.setParentName(this.getParentName());
-				v1.setEntityName();
-			}
+			v1.setEndpointBase(this.endpointBase);
 
 		} catch (Throwable c) {
 
@@ -319,13 +244,29 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public void delete() throws EntityException {
 
 		if (!this.hasCRUD()) {
-			return;
+			throw new EntityException(new Throwable("Delete operation not available on object."));
 		}
 
-		String url = null;
+		String url = this.getEndpoint(true);
 
-		url = this.conn.baseUrl() + "/" + this.getEntityName() + "/" + this.getEntityIdString();
 
+		try {
+
+			this.conn.delete(url);
+
+		} catch (Throwable c) {
+
+			throw new EntityException(c);
+		}
+	}
+
+	public void delete(boolean includeId) throws EntityException {
+
+		if (!this.hasCRUD()) {
+			throw new EntityException(new Throwable("Delete operation not available on object."));
+		}
+
+		String url = this.getEndpoint(includeId);
 
 		try {
 
@@ -369,10 +310,10 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	public EntityList<T> list(String nextURL, HashMap<String, Object> queryParms) throws EntityException {
 
 		if (!this.hasList()) {
-			return null;
+			throw new EntityException(new Throwable("List operation not available on object."));
 		}
 
-		String url = this.conn.baseUrl() + "/" + this.getListUrl();
+		String url = this.getEndpoint(false);
 
 		if (nextURL != null && nextURL.length() > 0) {
 			url = nextURL;
@@ -396,11 +337,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 				entity.setConnection(this.conn);
 				entity.setClass(this.tClass);
-				if (this.isSubEntity()) {
-					entity.setParentID(this.getParentID());
-					entity.setParentName(this.getParentName());
-					entity.setEntityName();
-				}
 
 			}
 
@@ -416,7 +352,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		EntityList<T> tmp = null;
 
 		if (!this.hasList()) {
-			return null;
+			throw new EntityException(new Throwable("List operation not available on object."));
 		}
 
 		String url = null;
@@ -448,45 +384,18 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		return entities;
 	}
 
-	abstract long getEntityId() throws EntityException;
+	protected boolean hasCRUD() {
+		return true;
+	}
 
-	abstract String getEntityIdString() throws EntityException;
+	protected boolean hasList() {
+		return true;
+	}
 
-	abstract void setEntityName();
-
-	abstract boolean hasCRUD();
-
-	abstract boolean hasList();
-
-	abstract boolean isSubEntity();
-
-	abstract boolean idIsString();
+	abstract String getEntityId();
 
 	abstract String[] getCreateExclusions();
 	
 	abstract String[] getSaveExclusions();
-
-	// on most objects, parent entities do not exist
-	protected void setParentID(String parentID) {
-		if (this.isSubEntity()) {
-			this.parentId = parentID;
-		}
-	}
-	
-	protected void setParentName(String parentName) {
-		if (this.isSubEntity()) {
-			this.parentName = parentName;
-		}
-	}
-	
-	protected String getParentID() {
-		if (this.isSubEntity()) return this.parentId;
-		else return null;
-	}
-
-	protected String getParentName() {
-		if (this.isSubEntity()) return this.parentName;
-		else return null;
-	}
 
 }

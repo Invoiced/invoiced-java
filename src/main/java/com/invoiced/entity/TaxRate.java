@@ -11,52 +11,18 @@ public class TaxRate extends AbstractEntity<TaxRate> {
 
 	public TaxRate(Connection conn) {
 		super(conn, TaxRate.class);
+		this.entityName = "/tax_rates";
 	}
 
 	TaxRate() {
 		super(TaxRate.class);
+		this.entityName = "/tax_rates";
 	}
 
-	@Override
+    @Override
 	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean idIsString() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected String getEntityIdString() {
+	protected String getEntityId() {
 		return this.id;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected long getEntityId() throws EntityException {
-		throw new EntityException(new Throwable());
-	}
-
-	@Override
-	@JsonIgnore
-	protected void setEntityName() {
-		this.entityName = "tax_rates";
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean isSubEntity() {
-		return false;
 	}
 
 	@Override
