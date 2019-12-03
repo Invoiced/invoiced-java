@@ -31,12 +31,6 @@ public class Event extends AbstractEntity<Event> {
 
 	@Override
 	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
 	protected String[] getCreateExclusions() {
 		return new String[] {};
 	}

@@ -21,22 +21,10 @@ public class Customer extends AbstractEntity<Customer> {
 		this.entityName = "/customers";
 	}
 
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
     @Override
 	@JsonIgnore
 	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
 	}
 
 	@Override

@@ -19,18 +19,6 @@ public class Coupon extends AbstractEntity<Coupon> {
 		this.entityName = "/coupons";
 	}
 
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
-	}
-
     @Override
 	@JsonIgnore
 	protected String getEntityId() {

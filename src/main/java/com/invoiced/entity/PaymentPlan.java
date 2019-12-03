@@ -21,12 +21,6 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 		this.entityName = "/payment_plan";
 	}
 
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
     @Override
 	@JsonIgnore
 	protected String getEntityId() {

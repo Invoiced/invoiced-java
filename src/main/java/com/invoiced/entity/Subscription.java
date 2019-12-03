@@ -21,22 +21,10 @@ public class Subscription extends AbstractEntity<Subscription> {
 		this.entityName = "/subscriptions";
 	}
 
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
     @Override
 	@JsonIgnore
 	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
 	}
 
 	@Override

@@ -20,22 +20,10 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 		this.entityName = "/credit_notes";
 	}
 
-	@Override
-	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
     @Override
 	@JsonIgnore
 	protected String getEntityId() {
 		return String.valueOf(this.id);
-	}
-
-	@Override
-	@JsonIgnore
-	protected boolean hasList() {
-		return true;
 	}
 
 	@Override

@@ -21,12 +21,6 @@ public class File extends AbstractEntity<File> {
 
 	@Override
 	@JsonIgnore
-	protected boolean hasCRUD() {
-		return true;
-	}
-
-	@Override
-	@JsonIgnore
 	protected boolean hasList() {
 		return false;
 	}

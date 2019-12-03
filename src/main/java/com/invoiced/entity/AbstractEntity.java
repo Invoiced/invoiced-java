@@ -23,7 +23,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 	}
 
 	protected String getEndpoint(boolean includeId) {
-		String url = this.getEndpointBase() + this.getEntityName();
+		String url = this.getEndpointBase() + this.entityName;
 
 		if (this.getEntityId() != null && includeId) {
 			url += "/" + this.getEntityId();
@@ -53,10 +53,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
 	protected void setClass(Class<T> tClass) {
 		this.tClass = tClass;
-	}
-
-	protected String getEntityName() {
-		return this.entityName;
 	}
 
 	protected String getEndpointBase() {
@@ -388,11 +384,15 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 		return entities;
 	}
 
+	protected boolean hasCRUD() {
+		return true;
+	}
+
+	protected boolean hasList() {
+		return true;
+	}
+
 	abstract String getEntityId();
-
-	abstract boolean hasCRUD();
-
-	abstract boolean hasList();
 
 	abstract String[] getCreateExclusions();
 	
