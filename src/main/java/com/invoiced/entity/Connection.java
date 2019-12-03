@@ -1,298 +1,348 @@
 package com.invoiced.entity;
 
-import java.util.HashMap;
-
-import com.invoiced.exception.ApiException;
-import com.invoiced.exception.AuthException;
-import com.invoiced.exception.ConnException;
-import com.invoiced.exception.InvalidRequestException;
-import com.invoiced.exception.InvoicedException;
-import com.invoiced.exception.RateLimitException;
+import com.invoiced.exception.*;
 import com.invoiced.util.ListResponse;
 import com.invoiced.util.Util;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.options.Options;
 
+import java.util.HashMap;
+
 public class Connection {
 
-	private final String apiKey;
-	private final static String Accept = "application/json";
-	private boolean sandBox;
-	private final static String baseEndPointProduction = "https://api.invoiced.com";
-	private final static String baseEndPointSandbox = "https://api.sandbox.invoiced.com";
-	private final static String baseEndPointLocal = "http://localhost:8080";
+  private static final String Accept = "application/json";
+  private static final String baseEndPointProduction = "https://api.invoiced.com";
+  private static final String baseEndPointSandbox = "https://api.sandbox.invoiced.com";
+  private static final String baseEndPointLocal = "http://localhost:8080";
+  private final String apiKey;
+  private boolean sandBox;
+  private boolean testMode;
+  private boolean autoRefresh;
+
+  public Connection(String apiKey, boolean sandBox) {
+
+    this.apiKey = apiKey;
+    this.sandBox = sandBox;
+    this.testMode = false;
+    this.autoRefresh = true;
+  }
+
+  public static void closeAll() {
+    try {
+      Unirest.shutdown();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  protected String post(String url, HashMap<String, Object> queryParms, String jsonBody)
+      throws InvoicedException {
+
+    String responseString = "";
+    int responseCode = -1;
+
+    if (this.autoRefresh) {
+      this.refreshUnirestConnection();
+    }
+
+    url = this.baseUrl() + url;
+
+    try {
+      HttpResponse<String> response =
+          Unirest.post(url)
+              .basicAuth(this.apiKey, "")
+              .header("accept", Connection.Accept)
+              .header("Content-Type", "application/json")
+              .queryString(queryParms)
+              .body(jsonBody)
+              .asString();
+      responseString = response.getBody().toString();
+      responseCode = response.getStatus();
+
+    } catch (Throwable c) {
+      throw new ConnException(c);
+    }
+
+    if (responseCode >= 400) {
+      throw this.handleApiError(responseCode, responseString);
+    }
+
+    return responseString;
+  }
+
+  protected String patch(String url, String jsonBody) throws InvoicedException {
+
+    String responseString = "";
+    int responseCode = -1;
+
+    if (this.autoRefresh) {
+      this.refreshUnirestConnection();
+    }
+
+    url = this.baseUrl() + url;
+
+    try {
+      HttpResponse<String> response =
+          Unirest.patch(url)
+              .basicAuth(this.apiKey, "")
+              .header("accept", Connection.Accept)
+              .header("Content-Type", "application/json")
+              .body(jsonBody)
+              .asString();
+      responseString = response.getBody().toString();
+      responseCode = response.getStatus();
 
-	private boolean testMode;
-	private boolean autoRefresh;
+    } catch (Throwable c) {
+      throw new ConnException(c);
+    }
 
-	protected String post(String url, HashMap<String, Object> queryParms, String jsonBody) throws InvoicedException {
+    if (responseCode >= 400) {
+      throw this.handleApiError(responseCode, responseString);
+    }
+
+    return responseString;
+  }
 
-		String responseString = "";
-		int responseCode = -1;
+  protected String get(String url, HashMap<String, Object> queryParms) throws InvoicedException {
 
-		if (this.autoRefresh) {
-			this.refreshUnirestConnection();
-		}
+    String responseString = "";
+    int responseCode = -1;
 
-		url = this.baseUrl() + url;
+    if (this.autoRefresh) {
+      this.refreshUnirestConnection();
+    }
 
-		try {
-			HttpResponse<String> response = Unirest.post(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
-			                                .queryString(queryParms).body(jsonBody).asString();
-			responseString = response.getBody().toString();
-			responseCode = response.getStatus();
+    url = this.baseUrl() + url;
 
-		} catch (Throwable c) {
-			throw new ConnException(c);
-		}
+    try {
+      HttpResponse<String> response =
+          Unirest.get(url)
+              .basicAuth(this.apiKey, "")
+              .header("accept", Connection.Accept)
+              .header("Content-Type", "application/json")
+              .queryString(queryParms)
+              .asString();
 
-		if (responseCode >= 400) {
-			throw this.handleApiError(responseCode, responseString);
-		}
+      responseString = response.getBody().toString();
+      responseCode = response.getStatus();
 
-		return responseString;
-	}
+    } catch (Throwable c) {
+      throw new ConnException(c);
+    }
 
-	public static void closeAll() {
-		try {
-			Unirest.shutdown();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+    if (responseCode >= 400) {
+      throw this.handleApiError(responseCode, responseString);
+    }
 
-	protected String patch(String url, String jsonBody) throws InvoicedException {
+    return responseString;
+  }
 
-		String responseString = "";
-		int responseCode = -1;
+  protected ListResponse getList(String url, HashMap<String, Object> queryParms)
+      throws InvoicedException {
 
-		if (this.autoRefresh) {
-			this.refreshUnirestConnection();
-		}
+    String responseString = "";
+    int responseCode = -1;
 
-		url = this.baseUrl() + url;
+    if (this.autoRefresh) {
+      this.refreshUnirestConnection();
+    }
 
-		try {
-			HttpResponse<String> response = Unirest.patch(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").body(jsonBody)
-			                                .asString();
-			responseString = response.getBody().toString();
-			responseCode = response.getStatus();
+    url = this.baseUrl() + url;
 
-		} catch (Throwable c) {
-			throw new ConnException(c);
-		}
+    ListResponse apiResult = null;
 
-		if (responseCode >= 400) {
-			throw this.handleApiError(responseCode, responseString);
-		}
+    try {
+      HttpResponse<String> response =
+          Unirest.get(url)
+              .basicAuth(this.apiKey, "")
+              .header("accept", Connection.Accept)
+              .header("Content-Type", "application/json")
+              .queryString(queryParms)
+              .asString();
 
-		return responseString;
-	}
+      responseString = response.getBody().toString();
+      responseCode = response.getStatus();
 
-	protected String get(String url, HashMap<String, Object> queryParms) throws InvoicedException {
+      String linkString = (response.getHeaders().get("Link")).get(0);
 
-		String responseString = "";
-		int responseCode = -1;
+      int totalCount = Integer.parseInt((response.getHeaders().get("X-Total-Count")).get(0));
 
-		if (this.autoRefresh) {
-			this.refreshUnirestConnection();
-		}
+      HashMap<String, String> links = Util.parseLinks(linkString);
 
-		url = this.baseUrl() + url;
+      apiResult = new ListResponse(responseString, links, totalCount);
 
-		try {
-			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
-			                                .queryString(queryParms).asString();
+    } catch (Throwable c) {
+      throw new ConnException(c);
+    }
 
-			responseString = response.getBody().toString();
-			responseCode = response.getStatus();
+    if (responseCode >= 400) {
+      throw this.handleApiError(responseCode, responseString);
+    }
 
-		} catch (Throwable c) {
-			throw new ConnException(c);
-		}
+    return apiResult;
+  }
 
-		if (responseCode >= 400) {
-			throw this.handleApiError(responseCode, responseString);
-		}
+  protected void delete(String url) throws InvoicedException {
 
-		return responseString;
-	}
+    int responseCode = -1;
+    String responseString = "";
 
-	protected ListResponse getList(String url, HashMap<String, Object> queryParms) throws InvoicedException {
+    if (this.autoRefresh) {
+      this.refreshUnirestConnection();
+    }
 
-		String responseString = "";
-		int responseCode = -1;
+    url = this.baseUrl() + url;
 
-		if (this.autoRefresh) {
-			this.refreshUnirestConnection();
-		}
+    try {
+      HttpResponse<String> response =
+          Unirest.delete(url)
+              .basicAuth(this.apiKey, "")
+              .header("accept", Connection.Accept)
+              .header("Content-Type", "application/json")
+              .asString();
 
-		url = this.baseUrl() + url;
+      responseCode = response.getStatus();
 
-		ListResponse apiResult = null;
+      if (response.getBody() != null) {
+        responseString = response.getBody().toString();
+      }
 
-		try {
-			HttpResponse<String> response = Unirest.get(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json")
-			                                .queryString(queryParms).asString();
+    } catch (Throwable c) {
+      throw new ConnException(c);
+    }
 
-			responseString = response.getBody().toString();
-			responseCode = response.getStatus();
+    if (responseCode >= 400) {
+      throw this.handleApiError(responseCode, responseString);
+    }
+  }
 
-			String linkString = (response.getHeaders().get("Link")).get(0);
+  // not all delete requests return 204 so alternate delete is needed for these
+  protected String deleteWithResponse(String url) throws InvoicedException {
 
-			int totalCount = Integer.parseInt((response.getHeaders().get("X-Total-Count")).get(0));
+    String responseString = "";
+    int responseCode = -1;
 
-			HashMap<String, String> links = Util.parseLinks(linkString);
+    if (this.autoRefresh) {
+      this.refreshUnirestConnection();
+    }
 
-			apiResult = new ListResponse(responseString, links, totalCount);
+    url = this.baseUrl() + url;
 
-		} catch (Throwable c) {
-			throw new ConnException(c);
-		}
+    try {
+      HttpResponse<String> response =
+          Unirest.delete(url)
+              .basicAuth(this.apiKey, "")
+              .header("accept", Connection.Accept)
+              .header("Content-Type", "application/json")
+              .asString();
 
-		if (responseCode >= 400) {
-			throw this.handleApiError(responseCode, responseString);
-		}
+      responseString = response.getBody().toString();
+      responseCode = response.getStatus();
 
-		return apiResult;
-	}
+    } catch (Throwable c) {
+      throw new ConnException(c);
+    }
 
-	protected void delete(String url) throws InvoicedException {
+    if (responseCode >= 400) {
+      throw this.handleApiError(responseCode, responseString);
+    }
 
-		int responseCode = -1;
-		String responseString = "";
+    return responseString;
+  }
 
-		if (this.autoRefresh) {
-			this.refreshUnirestConnection();
-		}
+  private void refreshUnirestConnection() {
+    Connection.closeAll();
+    Options.refresh();
+  }
 
-		url = this.baseUrl() + url;
+  public void autoRefreshOff() {
+    this.autoRefresh = false;
+  }
 
-		try {
-			HttpResponse<String> response = Unirest.delete(url).basicAuth(this.apiKey, "")
-			                                .header("accept", Connection.Accept).header("Content-Type", "application/json").asString();
+  public final Invoice newInvoice() {
+    return new Invoice(this);
+  }
 
-			responseCode = response.getStatus();
+  public final Customer newCustomer() {
+    return new Customer(this);
+  }
 
-			if (response.getBody() != null) {
-				responseString = response.getBody().toString();
-			}
+  public final Transaction newTransaction() {
+    return new Transaction(this);
+  }
 
-		} catch (Throwable c) {
-			throw new ConnException(c);
-		}
+  public final Subscription newSubscription() {
+    return new Subscription(this);
+  }
 
-		if (responseCode >= 400) {
-			throw this.handleApiError(responseCode, responseString);
-		}
-	}
+  public final CreditNote newCreditNote() {
+    return new CreditNote(this);
+  }
 
-	private void refreshUnirestConnection() {
-		Connection.closeAll();
-		Options.refresh();
-	}
+  public final Estimate newEstimate() {
+    return new Estimate(this);
+  }
 
-	public Connection(String apiKey, boolean sandBox) {
+  public final Event newEvent() {
+    return new Event(this);
+  }
 
-		this.apiKey = apiKey;
-		this.sandBox = sandBox;
-		this.testMode = false;
-		this.autoRefresh = true;
-	}
+  public final Note newNote() {
+    return new Note(this);
+  }
 
-	public void autoRefreshOff() {
-		this.autoRefresh = false;
-	}
+  public final File newFile() {
+    return new File(this);
+  }
 
-	public final Invoice newInvoice() {
-		return new Invoice(this);
-	}
+  public final CatalogItem newCatalogItem() {
+    return new CatalogItem(this);
+  }
 
-	public final Customer newCustomer() {
-		return new Customer(this);
-	}
+  public final Coupon newCoupon() {
+    return new Coupon(this);
+  }
 
-	public final Transaction newTransaction() {
-		return new Transaction(this);
-	}
+  public final Plan newPlan() {
+    return new Plan(this);
+  }
 
-	public final Subscription newSubscription() {
-		return new Subscription(this);
-	}
+  public final TaxRate newTaxRate() {
+    return new TaxRate(this);
+  }
 
-	public final CreditNote newCreditNote() {
-		return new CreditNote(this);
-	}
+  public final Task newTask() {
+    return new Task(this);
+  }
 
-	public final Estimate newEstimate() {
-		return new Estimate(this);
-	}
+  protected final void testModeOn() {
+    this.testMode = true;
+  }
 
-	public final Event newEvent() {
-		return new Event(this);
-	}
+  protected final String baseUrl() {
 
-	public final Note newNote() {
-		return new Note(this);
-	}
+    if (this.testMode == true) {
+      return baseEndPointLocal;
+    }
 
-	public final File newFile() {
-		return new File(this);
-	}
+    if (this.sandBox == true) {
 
-	public final CatalogItem newCatalogItem() {
-		return new CatalogItem(this);
-	}
+      return baseEndPointSandbox;
+    }
 
-	public final Coupon newCoupon() {
-		return new Coupon(this);
-	}
+    return baseEndPointProduction;
+  }
 
-	public final Plan newPlan() {
-		return new Plan(this);
-	}
+  protected final InvoicedException handleApiError(int responseCode, String responseBody) {
+    if (responseCode == 401) {
+      return new AuthException(responseBody);
+    } else if (responseCode == 400) {
+      return new InvalidRequestException(responseBody);
+    } else if (responseCode == 429) {
+      return new RateLimitException(responseBody);
+    }
 
-	public final TaxRate newTaxRate() {
-		return new TaxRate(this);
-	}
-
-	public final Task newTask() {
-		return new Task(this);
-	}
-
-	protected final void testModeOn() {
-		this.testMode = true;
-	}
-
-	protected final String baseUrl() {
-
-		if (this.testMode == true) {
-			return baseEndPointLocal;
-		}
-
-		if (this.sandBox == true) {
-
-			return baseEndPointSandbox;
-
-		}
-
-		return baseEndPointProduction;
-	}
-
-	protected final InvoicedException handleApiError(int responseCode, String responseBody) {
-		if (responseCode == 401) {
-			return new AuthException(responseBody);
-		} else if (responseCode == 400) {
-			return new InvalidRequestException(responseBody);
-		} else if (responseCode == 429) {
-			return new RateLimitException(responseBody);
-		}
-
-		return new ApiException(responseBody);
-	}
+    return new ApiException(responseBody);
+  }
 }

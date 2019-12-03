@@ -1,107 +1,98 @@
 package com.invoiced.entity;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class NoteTest {
 
-	@Rule
-	public WireMockRule wireMockRule = new WireMockRule();
+  @Rule public WireMockRule wireMockRule = new WireMockRule();
 
-	@Test
-	public void testProtectedMethods() {
+  @Test
+  public void testProtectedMethods() {
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
-		Note note = conn.newNote();
-		note.id = 312;
-		assertTrue("Note Entity id is wrong", note.getEntityId().equals("312"));
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
+    Note note = conn.newNote();
+    note.id = 312;
+    assertTrue("Note Entity id is wrong", note.getEntityId().equals("312"));
+  }
 
-	}
+  @Test
+  public void testList() {
 
-	@Test
-	public void testList() {
+    // references connection_rr_77.json
 
-		// references connection_rr_77.json
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+    try {
 
-		try {
+      Note note = conn.newNote();
+      EntityList<Note> notes = note.listAll();
 
-			Note note = conn.newNote();
-			EntityList<Note> notes = note.listAll();
+      assertTrue("Total count is incorrect", notes.getTotalCount() == 2);
+      assertTrue("Id1 is incorrect", notes.get(0).id == 501L);
+      assertTrue("Id2 is incorrect", notes.get(1).id == 502L);
 
-			assertTrue("Total count is incorrect", notes.getTotalCount() == 2);
-			assertTrue("Id1 is incorrect", notes.get(0).id == 501L);
-			assertTrue("Id2 is incorrect", notes.get(1).id == 502L);
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+  @Test
+  public void testRetrieveCustomerNotes() {
 
-	}
+    // references connection_rr_11.json
+    // references connection_rr_115.json
 
-	@Test
-	public void testRetrieveCustomerNotes() {
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		// references connection_rr_11.json
-		// references connection_rr_115.json
+    try {
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+      Customer cust = conn.newCustomer().retrieve(11);
+      Note note = cust.newNote();
 
-		try {
+      EntityList<Note> notes = note.listAll();
 
-			Customer cust = conn.newCustomer().retrieve(11);			
-			Note note = cust.newNote();
+      assertTrue("Total count is incorrect", notes.getTotalCount() == 2);
+      assertTrue("Id1 is incorrect", notes.get(0).id == 50001L);
+      assertTrue("Id2 is incorrect", notes.get(1).id == 50004L);
 
-			EntityList<Note> notes = note.listAll();
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 
-			assertTrue("Total count is incorrect", notes.getTotalCount() == 2);
-			assertTrue("Id1 is incorrect", notes.get(0).id == 50001L);
-			assertTrue("Id2 is incorrect", notes.get(1).id == 50004L);
+  @Test
+  public void testRetrieveInvoiceNotes() {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+    // references connection_rr_14.json
+    // references connection_rr_116.json
 
-	@Test
-	public void testRetrieveInvoiceNotes() {
+    Connection conn = new Connection("", true);
+    conn.testModeOn();
 
-		// references connection_rr_14.json
-		// references connection_rr_116.json
+    try {
 
-		Connection conn = new Connection("", true);
-		conn.testModeOn();
+      Invoice invoice = conn.newInvoice().retrieve(46225);
+      Note note = invoice.newNote();
 
-		try {
+      EntityList<Note> notes = note.listAll();
 
-			Invoice invoice = conn.newInvoice().retrieve(46225);			
-			Note note = invoice.newNote();
+      assertTrue("Total count is incorrect", notes.getTotalCount() == 2);
+      assertTrue("Id1 is incorrect", notes.get(0).id == 50011L);
+      assertTrue("Id2 is incorrect", notes.get(1).id == 50013L);
 
-			EntityList<Note> notes = note.listAll();
-
-			assertTrue("Total count is incorrect", notes.getTotalCount() == 2);
-			assertTrue("Id1 is incorrect", notes.get(0).id == 50011L);
-			assertTrue("Id2 is incorrect", notes.get(1).id == 50013L);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-
-	}
-
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 }

@@ -1,401 +1,427 @@
 package com.invoiced.entity;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.ListResponse;
 import com.invoiced.util.Util;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+
 public abstract class AbstractEntity<T extends AbstractEntity> {
 
-	private Connection conn;
-	protected Class<T> tClass;
-	private boolean entityCreated;
-	protected String entityName;
-	private String endpointBase = "";
-
-	protected void setEndpointBase(String base) {
-		this.endpointBase = base;
-	}
-
-	protected String getEndpoint(boolean includeId) {
-		String url = this.getEndpointBase() + this.entityName;
+  protected Class<T> tClass;
+  protected String entityName;
+  private Connection conn;
+  private boolean entityCreated;
+  private String endpointBase = "";
+
+  public AbstractEntity(Connection conn, Class<T> tClass) {
+    this.conn = conn;
+    this.tClass = tClass;
+    this.entityCreated = false;
+  }
 
-		if (this.getEntityId() != null && includeId) {
-			url += "/" + this.getEntityId();
-		}
+  public AbstractEntity(Class<T> tClass) {
+    this.tClass = tClass;
+    this.entityCreated = false;
+  }
 
-		return url;
-	}
+  protected static void setFields(Object from, Object to) throws EntityException {
+    Field[] fields = from.getClass().getDeclaredFields();
+    for (Field field : fields) {
+      try {
+        Field fieldFrom = from.getClass().getDeclaredField(field.getName());
 
-	public AbstractEntity(Connection conn, Class<T> tClass) {
-		this.conn = conn;
-		this.tClass = tClass;
-		this.entityCreated = false;
-	}
+        if (Modifier.isPrivate(field.getModifiers())) {
+          continue;
+        }
 
-	public AbstractEntity(Class<T> tClass) {
-		this.tClass = tClass;
-		this.entityCreated = false;
-	}
+        if (Modifier.isPrivate(fieldFrom.getModifiers())) {
+          continue;
+        }
 
-	protected void setConnection(Connection conn) {
-		this.conn = conn;
-	}
+        if (Modifier.isFinal(field.getModifiers())) {
+          continue;
+        }
 
-	protected Connection getConnection() {
-		return this.conn;
-	}
+        if (Modifier.isFinal(fieldFrom.getModifiers())) {
+          continue;
+        }
 
-	protected void setClass(Class<T> tClass) {
-		this.tClass = tClass;
-	}
+        Object value = fieldFrom.get(from);
+        to.getClass().getDeclaredField(field.getName()).set(to, value);
 
-	protected String getEndpointBase() {
-		return this.endpointBase;
-	}
+      } catch (Throwable c) {
+        throw new EntityException(c);
+      }
+    }
+  }
 
-	protected static void setFields(Object from, Object to) throws EntityException {
-		Field[] fields = from.getClass().getDeclaredFields();
-		for (Field field : fields) {
-			try {
-				Field fieldFrom = from.getClass().getDeclaredField(field.getName());
+  protected String getEndpoint(boolean includeId) {
+    String url = this.getEndpointBase() + this.entityName;
 
-				if (Modifier.isPrivate(field.getModifiers())) {
-					continue;
-				}
+    if (this.getEntityId() != null && includeId) {
+      url += "/" + this.getEntityId();
+    }
 
-				if (Modifier.isPrivate(fieldFrom.getModifiers())) {
-					continue;
-				}
+    return url;
+  }
 
-				if (Modifier.isFinal(field.getModifiers())) {
-					continue;
-				}
+  protected Connection getConnection() {
+    return this.conn;
+  }
 
-				if (Modifier.isFinal(fieldFrom.getModifiers())) {
-					continue;
-				}
+  protected void setConnection(Connection conn) {
+    this.conn = conn;
+  }
 
-				Object value = fieldFrom.get(from);
-				to.getClass().getDeclaredField(field.getName()).set(to, value);
+  protected void setClass(Class<T> tClass) {
+    this.tClass = tClass;
+  }
 
-			} catch (Throwable c) {
-				throw new EntityException(c);
-			}
-		}
-	}
+  protected String getEndpointBase() {
+    return this.endpointBase;
+  }
 
-	public void create() throws EntityException {
+  protected void setEndpointBase(String base) {
+    this.endpointBase = base;
+  }
 
-		if (this.entityCreated) {
-			throw new EntityException(new Throwable("Object has already been created."));
-		}
+  public void create() throws EntityException {
 
-		if (!this.hasCRUD()) {
-			throw new EntityException(new Throwable("Create operation not available on object."));
-		}
+    if (this.entityCreated) {
+      throw new EntityException(new Throwable("Object has already been created."));
+    }
 
-		String url = this.getEndpoint(false);
-		T v1 = null;
+    if (!this.hasCRUD()) {
+      throw new EntityException(new Throwable("Create operation not available on object."));
+    }
 
-		try {
-			String jsonRequest = this.toJsonString("create");
-			String response = this.conn.post(url, null, jsonRequest);
+    String url = this.getEndpoint(false);
+    T v1 = null;
 
-			v1 = Util.getMapper().readValue(response, this.tClass);
-			v1.setConnection(this.conn);
-			v1.setClass(this.tClass);
+    try {
+      String jsonRequest = this.toJsonString("create");
+      String response = this.conn.post(url, null, jsonRequest);
 
-			setFields(v1, this);
+      v1 = Util.getMapper().readValue(response, this.tClass);
+      v1.setConnection(this.conn);
+      v1.setClass(this.tClass);
 
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
+      setFields(v1, this);
 
-		this.entityCreated = true;
-	}
+    } catch (Throwable c) {
+      throw new EntityException(c);
+    }
 
-	@Override
-	public String toString() {
+    this.entityCreated = true;
+  }
 
-		String s1 = super.toString();
+  @Override
+  public String toString() {
 
-		try {
+    String s1 = super.toString();
 
-			String jsonString = this.toJsonString();
-			s1 = s1 + " JSON: " + jsonString;
+    try {
 
-		} catch (Throwable c) {
-			throw new RuntimeException(c);
-		}
+      String jsonString = this.toJsonString();
+      s1 = s1 + " JSON: " + jsonString;
 
-		return s1;
-	}
+    } catch (Throwable c) {
+      throw new RuntimeException(c);
+    }
 
-	public String toJsonString() throws EntityException {
+    return s1;
+  }
 
-		String s = "Entity";
+  public String toJsonString() throws EntityException {
 
-		try {
+    String s = "Entity";
 
-			s = Util.getMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
+    try {
 
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
+      s = Util.getMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
 
-		return s;
-	}
+    } catch (Throwable c) {
+      throw new EntityException(c);
+    }
 
-	private String toJsonString(String operation) throws EntityException {
+    return s;
+  }
 
-		String s = "Entity";
+  private String toJsonString(String operation) throws EntityException {
 
-		String[] exclusions = null;
+    String s = "Entity";
 
-		try {
+    String[] exclusions = null;
 
-			if (operation == "create") exclusions = this.getCreateExclusions();
-			else if (operation == "update") exclusions = this.getSaveExclusions();
+    try {
 
-			s = Util.getFilteredMapper(exclusions).enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
+      if (operation == "create") exclusions = this.getCreateExclusions();
+      else if (operation == "update") exclusions = this.getSaveExclusions();
 
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
+      s =
+          Util.getFilteredMapper(exclusions)
+              .enable(SerializationFeature.INDENT_OUTPUT)
+              .writeValueAsString(this);
 
-		return s;
-	}
+    } catch (Throwable c) {
+      throw new EntityException(c);
+    }
 
-	public void save() throws EntityException {
+    return s;
+  }
 
-		if (!this.hasCRUD()) {
-			throw new EntityException(new Throwable("Save operation not available on object."));
-		}
+  public void save() throws EntityException {
 
-		String url = null;
+    if (!this.hasCRUD()) {
+      throw new EntityException(new Throwable("Save operation not available on object."));
+    }
 
-		url = this.getEndpoint(true);
+    String url = null;
 
-		T v1 = null;
+    url = this.getEndpoint(true);
 
-		try {
-			String jsonRequest = this.toJsonString("update");
-			String response = this.conn.patch(url, jsonRequest);
+    T v1 = null;
 
-			v1 = Util.getMapper().readValue(response, this.tClass);
+    try {
+      String jsonRequest = this.toJsonString("update");
+      String response = this.conn.patch(url, jsonRequest);
 
-			setFields(v1, this);
+      v1 = Util.getMapper().readValue(response, this.tClass);
 
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
-	}
+      setFields(v1, this);
 
-	public T retrieve() throws EntityException {
+    } catch (Throwable c) {
+      throw new EntityException(c);
+    }
+  }
 
-		return this.retrieve("", null);
-	}
+  public T retrieve() throws EntityException {
 
-	public T retrieve(long id) throws EntityException {
+    return this.retrieve("", null);
+  }
 
-		return this.retrieve(String.valueOf(id), null);
-	}
+  public T retrieve(long id) throws EntityException {
 
-	public T retrieve(String id) throws EntityException {
+    return this.retrieve(String.valueOf(id), null);
+  }
 
-		return this.retrieve(id, null);
-	}
+  public T retrieve(String id) throws EntityException {
 
-	public T retrieve(long id, HashMap<String, Object> queryParams) throws EntityException {
+    return this.retrieve(id, null);
+  }
 
-		return this.retrieve(String.valueOf(id), queryParams);
-	}
+  public T retrieve(long id, HashMap<String, Object> queryParams) throws EntityException {
 
-	public T retrieve(String id, HashMap<String, Object> queryParams) throws EntityException {
+    return this.retrieve(String.valueOf(id), queryParams);
+  }
 
-		String url = this.getEndpoint(false);
-		if (id.length() > 0) url += "/" + id;
+  public T retrieve(String id, HashMap<String, Object> queryParams) throws EntityException {
 
-		T v1 = null;
+    String url = this.getEndpoint(false);
+    if (id.length() > 0) url += "/" + id;
 
-		try {
+    T v1 = null;
 
-			String response = this.conn.get(url, queryParams);
+    try {
 
-			v1 = Util.getMapper().readValue(response, this.tClass);
-			v1.setConnection(this.conn);
-			v1.setClass(this.tClass);
-			v1.setEndpointBase(this.endpointBase);
+      String response = this.conn.get(url, queryParams);
 
-		} catch (Throwable c) {
+      v1 = Util.getMapper().readValue(response, this.tClass);
+      v1.setConnection(this.conn);
+      v1.setClass(this.tClass);
+      v1.setEndpointBase(this.endpointBase);
 
-			throw new EntityException(c);
-		}
+    } catch (Throwable c) {
 
-		return v1;
-	}
+      throw new EntityException(c);
+    }
 
-	public void delete() throws EntityException {
+    return v1;
+  }
 
-		if (!this.hasCRUD()) {
-			throw new EntityException(new Throwable("Delete operation not available on object."));
-		}
+  public void delete() throws EntityException {
 
-		String url = this.getEndpoint(true);
+    if (!this.hasCRUD()) {
+      throw new EntityException(new Throwable("Delete operation not available on object."));
+    }
 
+    String url = this.getEndpoint(true);
 
-		try {
+    try {
 
-			this.conn.delete(url);
+      this.conn.delete(url);
 
-		} catch (Throwable c) {
+    } catch (Throwable c) {
 
-			throw new EntityException(c);
-		}
-	}
+      throw new EntityException(c);
+    }
+  }
 
-	public void delete(boolean includeId) throws EntityException {
+  public void delete(boolean includeId) throws EntityException {
 
-		if (!this.hasCRUD()) {
-			throw new EntityException(new Throwable("Delete operation not available on object."));
-		}
+    if (!this.hasCRUD()) {
+      throw new EntityException(new Throwable("Delete operation not available on object."));
+    }
 
-		String url = this.getEndpoint(includeId);
+    String url = this.getEndpoint(includeId);
 
-		try {
+    try {
 
-			this.conn.delete(url);
+      this.conn.delete(url);
 
-		} catch (Throwable c) {
+    } catch (Throwable c) {
 
-			throw new EntityException(c);
-		}
-	}
+      throw new EntityException(c);
+    }
+  }
 
-	public EntityList<T> list(String nextURL) throws EntityException {
+  public T deleteWithResponse() throws EntityException {
 
-		EntityList<T> entities = null;
+    if (!this.hasCRUD()) {
+      throw new EntityException(new Throwable("Delete operation not available on object."));
+    }
 
-		try {
+    String url = this.getEndpoint(true);
+    T v1 = null;
 
-			entities = this.list(nextURL, null);
+    try {
 
-		} catch (EntityException e) {
-			throw e;
-		}
+      String response = this.conn.deleteWithResponse(url);
 
-		return entities;
-	}
+      v1 = Util.getMapper().readValue(response, this.tClass);
+      v1.setConnection(this.conn);
+      v1.setClass(this.tClass);
+      v1.setEndpointBase(this.endpointBase);
 
-	public EntityList<T> listAll() throws EntityException {
-		EntityList<T> entities = null;
+    } catch (Throwable c) {
 
-		try {
+      throw new EntityException(c);
+    }
+    return v1;
+  }
 
-			entities = this.listAll(null);
+  public EntityList<T> list(String nextURL) throws EntityException {
 
-		} catch (EntityException e) {
-			throw e;
-		}
+    EntityList<T> entities = null;
 
-		return entities;
-	}
+    try {
 
-	public EntityList<T> list(String nextURL, HashMap<String, Object> queryParms) throws EntityException {
+      entities = this.list(nextURL, null);
 
-		if (!this.hasList()) {
-			throw new EntityException(new Throwable("List operation not available on object."));
-		}
+    } catch (EntityException e) {
+      throw e;
+    }
 
-		String url = this.getEndpoint(false);
+    return entities;
+  }
 
-		if (nextURL != null && nextURL.length() > 0) {
-			url = nextURL;
-		}
+  public EntityList<T> listAll() throws EntityException {
+    EntityList<T> entities = null;
 
-		EntityList<T> entities = null;
+    try {
 
-		try {
+      entities = this.listAll(null);
 
-			ListResponse response = this.conn.getList(url, queryParms);
+    } catch (EntityException e) {
+      throw e;
+    }
 
-			JavaType collectionType = Util.getMapper().getTypeFactory().constructCollectionType(EntityList.class,
-			                          this.tClass);
+    return entities;
+  }
 
-			entities = Util.getMapper().readValue(response.getResult(), collectionType);
+  public EntityList<T> list(String nextURL, HashMap<String, Object> queryParms)
+      throws EntityException {
 
-			entities.setLinkURLs(response.getLinks());
-			entities.setTotalCount(response.getTotalCount());
+    if (!this.hasList()) {
+      throw new EntityException(new Throwable("List operation not available on object."));
+    }
 
-			for (T entity : entities) {
+    String url = this.getEndpoint(false);
 
-				entity.setConnection(this.conn);
-				entity.setClass(this.tClass);
+    if (nextURL != null && nextURL.length() > 0) {
+      url = nextURL;
+    }
 
-			}
+    EntityList<T> entities = null;
 
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
+    try {
 
-		return entities;
-	}
+      ListResponse response = this.conn.getList(url, queryParms);
 
-	public EntityList<T> listAll(HashMap<String, Object> queryParms) throws EntityException {
-		EntityList<T> entities = null;
-		EntityList<T> tmp = null;
+      JavaType collectionType =
+          Util.getMapper().getTypeFactory().constructCollectionType(EntityList.class, this.tClass);
 
-		if (!this.hasList()) {
-			throw new EntityException(new Throwable("List operation not available on object."));
-		}
+      entities = Util.getMapper().readValue(response.getResult(), collectionType);
 
-		String url = null;
+      entities.setLinkURLs(response.getLinks());
+      entities.setTotalCount(response.getTotalCount());
 
-		try {
+      for (T entity : entities) {
 
-			do {
+        entity.setConnection(this.conn);
+        entity.setClass(this.tClass);
+      }
 
-				tmp = this.list(url, queryParms);
-				if (entities == null) {
-					entities = tmp;
-				} else {
-					entities.addAll(tmp);
-				}
+    } catch (Throwable c) {
+      throw new EntityException(c);
+    }
 
-				url = tmp.getLinkURLs().get("next");
+    return entities;
+  }
 
-			} while (tmp.getLinkURLs().get("next") != null
-			         && !tmp.getLinkURLs().get("self").equals(tmp.getLinkURLs().get("last")));
+  public EntityList<T> listAll(HashMap<String, Object> queryParms) throws EntityException {
+    EntityList<T> entities = null;
+    EntityList<T> tmp = null;
 
-			entities.setLinkURLs(tmp.getLinkURLs());
+    if (!this.hasList()) {
+      throw new EntityException(new Throwable("List operation not available on object."));
+    }
 
-		} catch (EntityException e) {
-			throw e;
-		} catch (Throwable c) {
-			throw new EntityException(c);
-		}
+    String url = null;
 
-		return entities;
-	}
+    try {
 
-	protected boolean hasCRUD() {
-		return true;
-	}
+      do {
 
-	protected boolean hasList() {
-		return true;
-	}
+        tmp = this.list(url, queryParms);
+        if (entities == null) {
+          entities = tmp;
+        } else {
+          entities.addAll(tmp);
+        }
 
-	abstract String getEntityId();
+        url = tmp.getLinkURLs().get("next");
 
-	abstract String[] getCreateExclusions();
-	
-	abstract String[] getSaveExclusions();
+      } while (tmp.getLinkURLs().get("next") != null
+          && !tmp.getLinkURLs().get("self").equals(tmp.getLinkURLs().get("last")));
 
+      entities.setLinkURLs(tmp.getLinkURLs());
+
+    } catch (EntityException e) {
+      throw e;
+    } catch (Throwable c) {
+      throw new EntityException(c);
+    }
+
+    return entities;
+  }
+
+  protected boolean hasCRUD() {
+    return true;
+  }
+
+  protected boolean hasList() {
+    return true;
+  }
+
+  abstract String getEntityId();
+
+  abstract String[] getCreateExclusions();
+
+  abstract String[] getSaveExclusions();
 }
