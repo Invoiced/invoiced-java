@@ -42,7 +42,7 @@ public class Transaction extends AbstractEntity<Transaction> {
   public String gatewayId;
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("payment_source")
-  public PaymentSource paymentSource;
+  public Object paymentSource;
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("currency")
   public String currency;

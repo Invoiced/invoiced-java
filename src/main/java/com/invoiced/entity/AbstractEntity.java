@@ -374,7 +374,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
     return entities;
   }
 
-  public EntityList<T> listAll(HashMap<String, Object> queryParms) throws EntityException {
+  public EntityList<T> listAll(HashMap<String, Object> queryParams) throws EntityException {
     EntityList<T> entities = null;
     EntityList<T> tmp = null;
 
@@ -388,7 +388,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
       do {
 
-        tmp = this.list(url, queryParms);
+        tmp = this.list(url, queryParams);
         if (entities == null) {
           entities = tmp;
         } else {

@@ -32,7 +32,7 @@ public class Customer extends AbstractEntity<Customer> {
   @JsonProperty("payment_terms")
   public String paymentTerms;
   @JsonProperty(value = "payment_source", access = JsonProperty.Access.WRITE_ONLY)
-  public PaymentSource paymentSource;
+  public Object paymentSource;
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("taxes")
   public Tax[] taxes;
@@ -342,5 +342,15 @@ public class Customer extends AbstractEntity<Customer> {
     Task task = new Task(this.getConnection());
     task.customerId = this.id;
     return task;
+  }
+
+  @JsonIgnore
+  public PaymentSource createPaymentSource(SourceRequest sourceRequest) {
+    return null;
+  }
+
+  @JsonIgnore
+  public EntityList<PaymentSource> listPaymentSources() {
+    return null;
   }
 }
