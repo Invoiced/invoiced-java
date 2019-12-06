@@ -345,12 +345,35 @@ public class Customer extends AbstractEntity<Customer> {
   }
 
   @JsonIgnore
-  public PaymentSource createPaymentSource(SourceRequest sourceRequest) {
-    return null;
+  public PaymentSource createPaymentSource(SourceRequest sourceRequest) throws EntityException {
+
+    String url = this.getEndpoint(true) + "/payment_sources";
+    PaymentSource v1 = null;
+
+    try {
+
+      String sourceRequestJson = sourceRequest.toJsonString();
+      String response = this.getConnection().post(url, null, sourceRequestJson);
+
+      v1 = Util.getMapper().readValue(response, PaymentSource.class);
+
+      // only need to set connection and base; setClass is called by constructors.
+      v1.setConnection(this.getConnection());
+      v1.setEndpointBase(this.getEndpoint(true));
+
+    } catch (Throwable c) {
+
+      throw new EntityException(c);
+    }
+
+    return v1;
+
   }
 
   @JsonIgnore
-  public EntityList<PaymentSource> listPaymentSources() {
-    return null;
+  public EntityList<PaymentSource> listPaymentSources() throws EntityException {
+    PaymentSource source = new PaymentSource(this.getConnection());
+    source.setEndpointBase(this.getEndpoint(true));
+    return source.listAll();
   }
 }

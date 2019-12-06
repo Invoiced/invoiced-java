@@ -1,39 +1,26 @@
 package com.invoiced.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.*;
 
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property = "object")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value=Card.class, name="Card"),
-        @JsonSubTypes.Type(value=BankAccount.class, name="BankAccount"),
+        @JsonSubTypes.Type(value=Card.class, name = "card"),
+        @JsonSubTypes.Type(value=BankAccount.class, name = "bank_account")
 })
 public class PaymentSource extends AbstractEntity {
 
-  PaymentSource(Connection conn, Card card) {
-    super(conn, Card.class);
+  PaymentSource(Connection conn) {
+    super(conn, PaymentSource.class);
+    this.entityName = "/payment_sources";
   }
 
-  PaymentSource(Connection conn, BankAccount account) {
-    super(conn, BankAccount.class);
-  }
-
-  PaymentSource(Card card) {
-    super(Card.class);
-  }
-
-  PaymentSource(BankAccount account) {
-    super(BankAccount.class);
+  PaymentSource() {
+    super(PaymentSource.class);
+    this.entityName = "/payment_sources";
   }
 
   @Override
   protected boolean hasCRUD() {
-    return false;
-  }
-
-  @Override
-  protected boolean hasList() {
     return false;
   }
 

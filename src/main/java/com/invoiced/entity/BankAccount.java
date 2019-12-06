@@ -2,16 +2,15 @@ package com.invoiced.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.invoiced.exception.EntityException;
 
 public class BankAccount extends PaymentSource {
 
   BankAccount() {
-    super(new BankAccount());
-  }
-
-  BankAccount(Connection conn) {
-    super(conn, new BankAccount());
+    super();
+    setClass(BankAccount.class);
+    this.entityName = "/bank_accounts";
   }
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
