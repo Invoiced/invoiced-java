@@ -32,7 +32,7 @@ public class Customer extends AbstractEntity<Customer> {
   @JsonProperty("payment_terms")
   public String paymentTerms;
   @JsonProperty(value = "payment_source", access = JsonProperty.Access.WRITE_ONLY)
-  public Object paymentSource;
+  public PaymentSource paymentSource;
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("taxes")
   public Tax[] taxes;
