@@ -12,23 +12,30 @@ public class Note extends AbstractEntity<Note> {
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
   public long id;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("object")
   public String object;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("notes")
   public String notes;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("customer")
   public Long customer;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("customer_id")
   public Long customerId;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("invoice_id")
   public Long invoiceId;
+
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public long createdAt;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")
   public Object metadata;

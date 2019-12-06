@@ -9,12 +9,15 @@ public class Event extends AbstractEntity<Event> {
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
   public long id;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("type")
   public String type;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("timestamp")
   public long timestamp;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("data")
   public Object data;

@@ -5,10 +5,7 @@ import com.invoiced.exception.EntityException;
 import org.junit.Rule;
 import org.junit.Test;
 
-import javax.xml.transform.Source;
-
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class PaymentSourceTest {
 
@@ -34,7 +31,6 @@ public class PaymentSourceTest {
     assertTrue("Source type is not bank account", BankAccount.class.isInstance(source));
 
     source.delete();
-
   }
 
   @Test
@@ -57,7 +53,6 @@ public class PaymentSourceTest {
     assertTrue("Source type is not card", Card.class.isInstance(source));
 
     source.delete();
-
   }
 
   @Test
@@ -78,6 +73,5 @@ public class PaymentSourceTest {
     assertTrue("Source type is not card", Card.class.isInstance(sources.get(0)));
     assertTrue("Id2 is incorrect", sources.get(1).id == 102L);
     assertTrue("Source type is not bank account", BankAccount.class.isInstance(sources.get(1)));
-
   }
 }

@@ -13,66 +13,90 @@ public class CreditNote extends AbstractEntity<CreditNote> {
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
   public long id;
+
   @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
   public String object;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("customer")
   public long customer;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("invoice")
   public long invoice;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("name")
   public String name;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("number")
   public String number;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("currency")
   public String currency;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("draft")
   public Boolean draft;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("closed")
   public Boolean closed;
+
   @JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
   public Boolean paid;
+
   @JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
   public String status;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("date")
   public long date;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("items")
   public LineItem[] items;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("notes")
   public String notes;
+
   @JsonProperty(value = "subtotal", access = JsonProperty.Access.WRITE_ONLY)
   public double subtotal;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("discounts")
   public Discount[] discounts;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("taxes")
   public Tax[] taxes;
+
   @JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
   public double total;
+
   @JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
   public double balance;
+
   @JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
   public String url;
+
   @JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
   public String pdfUrl;
+
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public long createdAt;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")
   public Object metadata;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("attachments")
   public long[] attachments;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("calculate_taxes")
   public Boolean calculateTaxes;

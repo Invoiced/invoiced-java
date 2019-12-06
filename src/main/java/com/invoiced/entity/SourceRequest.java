@@ -20,5 +20,4 @@ public class SourceRequest extends AbstractItem {
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("gateway_token")
   public String gatewayToken;
-
 }

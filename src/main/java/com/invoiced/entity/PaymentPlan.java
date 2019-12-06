@@ -12,18 +12,23 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
   public Long id;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("object")
   public String object;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("status")
   public String status;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("installments")
   public Installment[] installments;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("approval")
   public Object approval;
+
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public long createdAt;
 
