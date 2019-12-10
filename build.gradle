@@ -1,11 +1,16 @@
-
 plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
     id 'jacoco'
+    id 'com.bmuschko.nexus' version '2.3.1'
+    id 'io.codearte.nexus-staging' version '0.11.0'
 }
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
+apply plugin: 'com.bmuschko.nexus'
+
+archivesBaseName = 'invoiced'
+group = 'com.invoiced.invoiced-java'
 
 task fatJar(type: Jar) {
     baseName = project.name + '-all'
@@ -19,6 +24,8 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+
 
 version = '3.2.0'
 
@@ -58,4 +65,50 @@ jacocoTestReport {
         csv.enabled false
         html.destination file("${buildDir}/reports/coverage/report.html")
     }
+}
+
+modifyPom {
+    project {
+        name 'invoiced-java'
+        description 'Official Java client library for the Invoiced API'
+        url 'https://github.com/Invoiced/invoiced-java'
+
+        scm {
+            url 'https://github.com/Invoiced/invoiced-java'
+            connection 'scm:https://github.com/invoiced/invoiced-java.git'
+            developerConnection 'scm:git://github.com/invoiced/invoiced-java.git'
+        }
+
+        licenses {
+            license {
+                name 'The MIT License'
+                url 'https://opensource.org/licenses/MIT'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'invoiced'
+                name 'Invoiced Inc'
+                email 'support@invoiced.com'
+            }
+        }
+    }
+}
+
+extraArchive {
+    sources = true
+    tests = true
+    javadoc = true
+}
+
+nexus {
+    sign = true
+    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+}
+
+nexusStaging {
+    packageGroup = 'com.invoiced'
 }

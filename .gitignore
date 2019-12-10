@@ -15,6 +15,10 @@ build
 #gradle folder
 .gradle/
 
+#deployment-related files
+gradle.properties
+secret-keys.gpg
+
 #java integration test files
 *IntegrationTest.java
 
