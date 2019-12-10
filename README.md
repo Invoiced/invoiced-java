@@ -62,3 +62,7 @@ Connection invoiced = new Connection("{YOUR_API_KEY}",true);
 
 
 The test suite can be ran with `gradle test`
+
+## Deployment
+
+Here is a useful [guide](http://www.albertgao.xyz/2018/01/18/how-to-publish-artifact-to-maven-central-via-gradle/) for deploying to Maven.
