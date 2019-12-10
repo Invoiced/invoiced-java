@@ -11,21 +11,27 @@ public class File extends AbstractEntity<File> {
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
   public long id;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("name")
   public String name;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("object")
   public String object;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("size")
   public long size;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("type")
   public String type;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("url")
   public String url;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("created_at")
   public long createdAt;

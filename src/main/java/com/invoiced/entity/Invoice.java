@@ -13,101 +13,137 @@ public class Invoice extends AbstractEntity<Invoice> {
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
   public long id;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("customer")
   public long customer;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("name")
   public String name;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("number")
   public String number;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("email")
   public String email;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("autopay")
   public Boolean autopay;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("currency")
   public String currency;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("draft")
   public Boolean draft;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("closed")
   public Boolean closed;
+
   @JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
   public Boolean paid;
+
   @JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
   public String status;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("sent")
   public Boolean sent;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("chase")
   public Boolean chase;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("next_chase_on")
   public long nextChaseOn;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("attempt_count")
   public long attemptCount;
+
   @JsonProperty(value = "next_payment_attempt", access = JsonProperty.Access.WRITE_ONLY)
   public long nextPaymentAttempt;
+
   @JsonProperty(value = "subscription", access = JsonProperty.Access.WRITE_ONLY)
   public long subscription;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("date")
   public long date;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("due_date")
   public long dueDate;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("payment_terms")
   public String paymentTerms;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("items")
   public LineItem[] items;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("notes")
   public String notes;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("subtotal")
   public double subtotal;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("discounts")
   public Discount[] discounts;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("taxes")
   public Tax[] taxes;
+
   @JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
   public double total;
+
   @JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
   public double balance;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("tags")
   public Object[] tags;
+
   @JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
   public String url;
+
   @JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)
   public String paymentUrl;
+
   @JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
   public String pdfUrl;
+
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public long createdAt;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")
   public Object metadata;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("ship_to")
   public Object shipTo;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("attachments")
   public long[] attachments;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("disabled_payment_methods")
   public String[] disabledPaymentMethods;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("calculate_taxes")
   public Boolean calculateTaxes;

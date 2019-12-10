@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/customers/11/payment_sources",
+    "bodyPatterns": [
+      {
+        "equalToJson":"{\"method\":\"ach\"}"
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "body": "{\"id\":454545,\"object\":\"bank_account\",\"verified\":true}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

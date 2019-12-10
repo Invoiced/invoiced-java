@@ -1,51 +1,51 @@
 package com.invoiced.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
-public class PaymentSource extends AbstractItem {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "object")
+@JsonSubTypes({
+  @JsonSubTypes.Type(value = Card.class, name = "card"),
+  @JsonSubTypes.Type(value = BankAccount.class, name = "bank_account")
+})
+public class PaymentSource extends AbstractEntity {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
   public long id;
-
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("object")
   public String object;
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("brand")
-  public String brand;
+  PaymentSource(Connection conn) {
+    super(conn, PaymentSource.class);
+    this.entityName = "/payment_sources";
+  }
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("bank_name")
-  public String bankName;
+  PaymentSource() {
+    super(PaymentSource.class);
+    this.entityName = "/payment_sources";
+  }
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("last4")
-  public String last4;
+  @Override
+  protected boolean hasCRUD() {
+    return false;
+  }
 
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("exp_month")
-  public int expMonth;
+  @Override
+  @JsonIgnore
+  protected String getEntityId() {
+    return String.valueOf(this.id);
+  }
 
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("exp_year")
-  public int expYear;
+  @Override
+  @JsonIgnore
+  protected String[] getCreateExclusions() {
+    return new String[] {};
+  }
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("routing_number")
-  public String routingNumber;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("verified")
-  public boolean verified;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("funding")
-  public String funding;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("currency")
-  public String currency;
+  @Override
+  @JsonIgnore
+  protected String[] getSaveExclusions() {
+    return new String[] {};
+  }
 }
