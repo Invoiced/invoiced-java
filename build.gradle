@@ -9,8 +9,8 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'com.bmuschko.nexus'
 
-archivesBaseName = 'invoiced'
-group = 'com.invoiced.invoiced-java'
+archivesBaseName = 'invoiced-java'
+group = 'com.invoiced'
 
 task fatJar(type: Jar) {
     baseName = project.name + '-all'
