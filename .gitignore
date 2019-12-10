@@ -54,3 +54,7 @@ local.properties
 *.launch
 
 .DS_Store
+
+# Maven deploy config
+gradle.properties
+secret-keys.gpg
