@@ -7,6 +7,7 @@ You can find detailed API documentation along with java code snippets [here](htt
 
 [![Build Status](https://travis-ci.org/Invoiced/invoiced-java.svg?branch=master)](https://travis-ci.org/Invoiced/invoiced-java)
 [![Coverage Status](https://coveralls.io/repos/github/Invoiced/invoiced-java/badge.svg?branch=master)](https://coveralls.io/github/Invoiced/invoiced-java?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.invoiced/invoiced-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.invoiced/invoiced-java)
 
 ## Installing
 
