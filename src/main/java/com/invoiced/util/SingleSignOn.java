@@ -7,7 +7,7 @@ import com.invoiced.exception.SingleSignOnException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
-public class SingleSignOn {
+public final class SingleSignOn {
 
     private final String ssoKey;
 

@@ -2,7 +2,7 @@ package com.invoiced.util;
 
 import java.util.HashMap;
 
-public class ListResponse {
+public final class ListResponse {
 
     private final String result;
     private final HashMap<String, String> links;

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Util {
+public final class Util {
 
     private static final ObjectMapper mapper =
             new ObjectMapper()
