@@ -191,14 +191,14 @@ public class TransactionTest {
     chargeRequest.currency = "usd";
     chargeRequest.amount = 2000;
 
-    ChargeSplit[] splits = new ChargeSplit[1];
-    splits[0] = new ChargeSplit();
+    PaymentItem[] splits = new PaymentItem[1];
+    splits[0] = new PaymentItem();
 
     splits[0].type = "invoice";
     splits[0].invoice = 1234;
     splits[0].amount = 2000;
 
-    chargeRequest.splits = splits;
+    chargeRequest.appliedTo = splits;
 
     try {
 

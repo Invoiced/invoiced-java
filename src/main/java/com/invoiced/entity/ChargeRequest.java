@@ -50,6 +50,6 @@ public class ChargeRequest extends AbstractItem {
   public String receiptEmail;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("splits")
-  public ChargeSplit[] splits;
+  @JsonProperty("applied_to")
+  public PaymentItem[] appliedTo;
 }
