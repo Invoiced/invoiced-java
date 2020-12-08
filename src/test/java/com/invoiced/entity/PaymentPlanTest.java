@@ -25,11 +25,11 @@ public class PaymentPlanTest {
             Invoice invoice = conn.newInvoice().retrieve(998);
             PaymentPlan paymentPlan = invoice.newPaymentPlan();
 
-            Installment[] installments = new Installment[2];
-            installments[0] = new Installment();
+            PaymentPlanInstallment[] installments = new PaymentPlanInstallment[2];
+            installments[0] = new PaymentPlanInstallment();
             installments[0].date = 1234567890L;
             installments[0].amount = 1000L;
-            installments[1] = new Installment();
+            installments[1] = new PaymentPlanInstallment();
             installments[0].date = 1234567891L;
             installments[0].amount = 1000L;
             paymentPlan.installments = installments;

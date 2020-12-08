@@ -23,7 +23,7 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("installments")
-  public Installment[] installments;
+  public PaymentPlanInstallment[] installments;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("approval")
