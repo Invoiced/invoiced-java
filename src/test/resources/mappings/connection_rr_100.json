@@ -1,13 +1,13 @@
 {
-    "request": {
-      "method": "POST",
-      "url": "/plans"
-    },
-    "response": {
-      "status": 201,
-      "body": "{\"amount\":49,\"catalog_item\":\"software-subscription\",\"created_at\":1477418268,\"currency\":\"usd\",\"id\":\"starter\",\"interval\":\"month\",\"interval_count\":1,\"metadata\":{},\"name\":\"Starter\",\"object\":\"plan\",\"pricing_mode\":\"per_unit\",\"quantity_type\":\"constant\",\"tiers\":null}",
-      "headers": {
-        "Content-Type": "application/json"
-        }
+  "request": {
+    "method": "POST",
+    "url": "/plans"
+  },
+  "response": {
+    "status": 201,
+    "body": "{\"amount\":49,\"catalog_item\":\"software-subscription\",\"created_at\":1477418268,\"currency\":\"usd\",\"id\":\"starter\",\"interval\":\"month\",\"interval_count\":1,\"metadata\":{},\"name\":\"Starter\",\"object\":\"plan\",\"pricing_mode\":\"per_unit\",\"quantity_type\":\"constant\",\"tiers\":null}",
+    "headers": {
+      "Content-Type": "application/json"
     }
+  }
 }

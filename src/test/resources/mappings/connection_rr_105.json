@@ -1,13 +1,13 @@
 {
-    "request": {
-      "method": "POST",
-      "url": "/coupons"
-    },
-    "response": {
-      "status": 201,
-      "body": "{\"created_at\":1477415090,\"currency\":null,\"exclusive\":false,\"expiration_date\":null,\"id\":\"S8L47J\",\"is_percent\":true,\"max_redemptions\":0,\"metadata\":{},\"name\":\"Non-profit Discount\",\"object\":\"coupon\",\"value\":20}",
-      "headers": {
-        "Content-Type": "application/json"
-        }
+  "request": {
+    "method": "POST",
+    "url": "/coupons"
+  },
+  "response": {
+    "status": 201,
+    "body": "{\"created_at\":1477415090,\"currency\":null,\"exclusive\":false,\"expiration_date\":null,\"id\":\"S8L47J\",\"is_percent\":true,\"max_redemptions\":0,\"metadata\":{},\"name\":\"Non-profit Discount\",\"object\":\"coupon\",\"value\":20}",
+    "headers": {
+      "Content-Type": "application/json"
     }
+  }
 }

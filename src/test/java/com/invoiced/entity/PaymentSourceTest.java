@@ -9,69 +9,70 @@ import static org.junit.Assert.assertTrue;
 
 public class PaymentSourceTest {
 
-  @Rule public WireMockRule wireMockRule = new WireMockRule();
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule();
 
-  @Test
-  public void testCreateDeleteAccountSource() throws EntityException {
+    @Test
+    public void testCreateDeleteAccountSource() throws EntityException {
 
-    // references connection_rr_11.json
-    // references connection_rr_117.json
-    // references connection_rr_120.json
+        // references connection_rr_11.json
+        // references connection_rr_117.json
+        // references connection_rr_120.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer().retrieve(11);
+        Customer cust = conn.newCustomer().retrieve(11);
 
-    SourceRequest sourceRequest = new SourceRequest();
-    sourceRequest.method = "ach";
+        SourceRequest sourceRequest = new SourceRequest();
+        sourceRequest.method = "ach";
 
-    PaymentSource source = cust.createPaymentSource(sourceRequest);
+        PaymentSource source = cust.createPaymentSource(sourceRequest);
 
-    assertTrue("Source type is not bank account", BankAccount.class.isInstance(source));
+        assertTrue("Source type is not bank account", BankAccount.class.isInstance(source));
 
-    source.delete();
-  }
+        source.delete();
+    }
 
-  @Test
-  public void testCreateDeleteCardSource() throws EntityException {
+    @Test
+    public void testCreateDeleteCardSource() throws EntityException {
 
-    // references connection_rr_11.json
-    // references connection_rr_118.json
-    // references connection_rr_121.json
+        // references connection_rr_11.json
+        // references connection_rr_118.json
+        // references connection_rr_121.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer().retrieve(11);
+        Customer cust = conn.newCustomer().retrieve(11);
 
-    SourceRequest sourceRequest = new SourceRequest();
-    sourceRequest.method = "credit_card";
+        SourceRequest sourceRequest = new SourceRequest();
+        sourceRequest.method = "credit_card";
 
-    PaymentSource source = cust.createPaymentSource(sourceRequest);
+        PaymentSource source = cust.createPaymentSource(sourceRequest);
 
-    assertTrue("Source type is not card", Card.class.isInstance(source));
+        assertTrue("Source type is not card", Card.class.isInstance(source));
 
-    source.delete();
-  }
+        source.delete();
+    }
 
-  @Test
-  public void testListAllSources() throws EntityException {
+    @Test
+    public void testListAllSources() throws EntityException {
 
-    // references connection_rr_11.json
-    // references connection_rr_119.json
+        // references connection_rr_11.json
+        // references connection_rr_119.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer().retrieve(11);
+        Customer cust = conn.newCustomer().retrieve(11);
 
-    EntityList<PaymentSource> sources = cust.listPaymentSources();
+        EntityList<PaymentSource> sources = cust.listPaymentSources();
 
-    assertTrue("Total count is incorrect", sources.getTotalCount() == 2);
-    assertTrue("Id1 is incorrect", sources.get(0).id == 101L);
-    assertTrue("Source type is not card", Card.class.isInstance(sources.get(0)));
-    assertTrue("Id2 is incorrect", sources.get(1).id == 102L);
-    assertTrue("Source type is not bank account", BankAccount.class.isInstance(sources.get(1)));
-  }
+        assertTrue("Total count is incorrect", sources.getTotalCount() == 2);
+        assertTrue("Id1 is incorrect", sources.get(0).id == 101L);
+        assertTrue("Source type is not card", Card.class.isInstance(sources.get(0)));
+        assertTrue("Id2 is incorrect", sources.get(1).id == 102L);
+        assertTrue("Source type is not bank account", BankAccount.class.isInstance(sources.get(1)));
+    }
 }

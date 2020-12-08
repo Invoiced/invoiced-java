@@ -9,108 +9,109 @@ import static org.junit.Assert.fail;
 
 public class TaxRateTest {
 
-  @Rule public WireMockRule wireMockRule = new WireMockRule();
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule();
 
-  @Test
-  public void testCreate() {
+    @Test
+    public void testCreate() {
 
-    // references connection_rr_110.json
+        // references connection_rr_110.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    TaxRate taxRate = conn.newTaxRate();
-    taxRate.id = "vat";
-    taxRate.name = "VAT";
-    taxRate.value = 5L;
+        TaxRate taxRate = conn.newTaxRate();
+        taxRate.id = "vat";
+        taxRate.name = "VAT";
+        taxRate.value = 5L;
 
-    try {
-      taxRate.create();
+        try {
+            taxRate.create();
 
-      assertTrue("TaxRate id is incorrect", taxRate.id.equals("vat"));
+            assertTrue("TaxRate id is incorrect", taxRate.id.equals("vat"));
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testRetrieve() {
+    @Test
+    public void testRetrieve() {
 
-    // references connection_rr_111.json
+        // references connection_rr_111.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      TaxRate taxRate = conn.newTaxRate().retrieve("vat");
+        try {
+            TaxRate taxRate = conn.newTaxRate().retrieve("vat");
 
-      assertTrue("TaxRate value is incorrect", taxRate.value == 5);
+            assertTrue("TaxRate value is incorrect", taxRate.value == 5);
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testSave() {
+    @Test
+    public void testSave() {
 
-    // references connection_rr_111.json
-    // references connection_rr_112.json
+        // references connection_rr_111.json
+        // references connection_rr_112.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
+        try {
 
-      TaxRate taxRate = conn.newTaxRate().retrieve("vat");
-      taxRate.name = "Updated";
+            TaxRate taxRate = conn.newTaxRate().retrieve("vat");
+            taxRate.name = "Updated";
 
-      taxRate.save();
+            taxRate.save();
 
-      assertTrue("TaxRate name is incorrect", taxRate.name.equals("Updated"));
+            assertTrue("TaxRate name is incorrect", taxRate.name.equals("Updated"));
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testDelete() {
+    @Test
+    public void testDelete() {
 
-    // references connection_rr_111.json
-    // references connection_rr_113.json
+        // references connection_rr_111.json
+        // references connection_rr_113.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      TaxRate taxRate = conn.newTaxRate().retrieve("vat");
-      taxRate.delete();
+        try {
+            TaxRate taxRate = conn.newTaxRate().retrieve("vat");
+            taxRate.delete();
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testList() {
+    @Test
+    public void testList() {
 
-    // references connection_rr_114.json
+        // references connection_rr_114.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      EntityList<TaxRate> taxRates = conn.newTaxRate().listAll();
+        try {
+            EntityList<TaxRate> taxRates = conn.newTaxRate().listAll();
 
-      assertTrue("Id 1 is incorrect", taxRates.get(0).id.equals("vat"));
+            assertTrue("Id 1 is incorrect", taxRates.get(0).id.equals("vat"));
 
-      assertTrue("Id 2 is incorrect", taxRates.get(1).id.equals("vat2"));
+            assertTrue("Id 2 is incorrect", taxRates.get(1).id.equals("vat2"));
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
-  }
 }

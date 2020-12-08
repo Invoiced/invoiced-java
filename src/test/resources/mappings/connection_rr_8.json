@@ -1,19 +1,18 @@
- {
-    "request": {
-        "method": "POST",
-        "url": "/customers",
-        "bodyPatterns": [
+{
+  "request": {
+    "method": "POST",
+    "url": "/customers",
+    "bodyPatterns": [
       {
         "equalToJson": "{ \"email\":\"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"invalid_request\":true \n }"
       }
     ]
-
-    },
-    "response": {
-        "status": 400,
-        "body": "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Name missing\",\n    \"param\": \"name\"\n}",
-        "headers": {
-            "Content-Type": "application/json"
-        }
+  },
+  "response": {
+    "status": 400,
+    "body": "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Name missing\",\n    \"param\": \"name\"\n}",
+    "headers": {
+      "Content-Type": "application/json"
     }
+  }
 }

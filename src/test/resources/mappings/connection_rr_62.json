@@ -1,13 +1,13 @@
 {
-    "request": {
-      "method": "POST",
-      "url": "/notes"
-    },
-    "response": {
-      "status": 201,
-      "body": "{\n  \"customer_id\": 11,\n  \"id\": 1212,\n  \"notes\": \"example note\"\n}",
-      "headers": {
-        "Content-Type": "application/json"
-      }
+  "request": {
+    "method": "POST",
+    "url": "/notes"
+  },
+  "response": {
+    "status": 201,
+    "body": "{\n  \"customer_id\": 11,\n  \"id\": 1212,\n  \"notes\": \"example note\"\n}",
+    "headers": {
+      "Content-Type": "application/json"
     }
   }
+}

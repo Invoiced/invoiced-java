@@ -9,109 +9,110 @@ import static org.junit.Assert.fail;
 
 public class CatalogItemTest {
 
-  @Rule public WireMockRule wireMockRule = new WireMockRule();
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule();
 
-  @Test
-  public void testCreate() {
+    @Test
+    public void testCreate() {
 
-    // references connection_rr_95.json
+        // references connection_rr_95.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    CatalogItem catalogItem = conn.newCatalogItem();
-    catalogItem.id = "delivery";
-    catalogItem.object = "failure_condition";
-    catalogItem.name = "Delivery";
-    catalogItem.type = "service";
-    catalogItem.unitCost = 100L;
+        CatalogItem catalogItem = conn.newCatalogItem();
+        catalogItem.id = "delivery";
+        catalogItem.object = "failure_condition";
+        catalogItem.name = "Delivery";
+        catalogItem.type = "service";
+        catalogItem.unitCost = 100L;
 
-    try {
-      catalogItem.create();
+        try {
+            catalogItem.create();
 
-      assertTrue("CatalogItem id is incorrect", catalogItem.id.equals("delivery"));
-      assertTrue("createdAt is not populated", catalogItem.createdAt == 1477327516);
+            assertTrue("CatalogItem id is incorrect", catalogItem.id.equals("delivery"));
+            assertTrue("createdAt is not populated", catalogItem.createdAt == 1477327516);
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testRetrieve() {
+    @Test
+    public void testRetrieve() {
 
-    // references connection_rr_96.json
+        // references connection_rr_96.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
+        try {
+            CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
 
-      assertTrue("Catalog item type is incorrect", catalogItem.type.equals("service"));
+            assertTrue("Catalog item type is incorrect", catalogItem.type.equals("service"));
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testSave() {
+    @Test
+    public void testSave() {
 
-    // references connection_rr_97.json
+        // references connection_rr_97.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
+        try {
 
-      CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
-      catalogItem.name = "Updated";
+            CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
+            catalogItem.name = "Updated";
 
-      catalogItem.save();
+            catalogItem.save();
 
-      assertTrue("Catalog item name is incorrect", catalogItem.name.equals("Updated"));
+            assertTrue("Catalog item name is incorrect", catalogItem.name.equals("Updated"));
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testDelete() {
+    @Test
+    public void testDelete() {
 
-    // references connection_rr_98.json
+        // references connection_rr_98.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
-      catalogItem.delete();
+        try {
+            CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
+            catalogItem.delete();
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testList() {
+    @Test
+    public void testList() {
 
-    // references connection_rr_99.json
+        // references connection_rr_99.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      EntityList<CatalogItem> catalogItems = conn.newCatalogItem().listAll();
+        try {
+            EntityList<CatalogItem> catalogItems = conn.newCatalogItem().listAll();
 
-      assertTrue("Id 1 is incorrect", catalogItems.get(0).id.equals("delivery"));
+            assertTrue("Id 1 is incorrect", catalogItems.get(0).id.equals("delivery"));
 
-      assertTrue("Id 2 is incorrect", catalogItems.get(1).id.equals("delivery2"));
+            assertTrue("Id 2 is incorrect", catalogItems.get(1).id.equals("delivery2"));
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
-  }
 }

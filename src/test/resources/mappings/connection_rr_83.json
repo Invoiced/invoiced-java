@@ -3,7 +3,6 @@
     "method": "POST",
     "url": "/credit_notes/2048/emails"
   },
-
   "response": {
     "status": 201,
     "body": "[{\"created_at\":1573509601,\"customer\":\"576124\",\"email\":\"sherlock.holmes@example.com\",\"id\":\"30e4ffaf5a426bf0a381c4d4e32f6f4g\",\"message\":\"credit note email example\",\"object\":\"email\",\"opens\":null,\"opens_detail\":[],\"reject_reason\":null,\"state\":\"queued\",\"subject\":\"test\",\"template\":\"estimate_email\"}]",

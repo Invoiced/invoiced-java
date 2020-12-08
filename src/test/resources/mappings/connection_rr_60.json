@@ -1,13 +1,13 @@
 {
-    "request": {
-      "method": "POST",
-      "url": "/customers/11/text_messages"
-    },
-    "response": {
-      "status": 201,
-      "body": "[{\n  \"id\": \"a1b2c3\",\n  \"state\": \"sent\"\n}]",
-      "headers": {
-        "Content-Type": "application/json"
-      }
+  "request": {
+    "method": "POST",
+    "url": "/customers/11/text_messages"
+  },
+  "response": {
+    "status": 201,
+    "body": "[{\n  \"id\": \"a1b2c3\",\n  \"state\": \"sent\"\n}]",
+    "headers": {
+      "Content-Type": "application/json"
     }
   }
+}

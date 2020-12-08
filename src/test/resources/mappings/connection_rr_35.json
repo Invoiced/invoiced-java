@@ -4,7 +4,7 @@
     "url": "/customers/11/contacts/10403",
     "bodyPatterns": [
       {
-        "equalToJson":"{\"name\":\"Nancy Talty\",\"email\":\"nancy.talty@example.com\",\"primary\":true,\"address1\":\"507 Grove Avenue\",\"city\":\"Oklahoma City\",\"state\":\"OK\",\"postal_code\":\"73102\"}"
+        "equalToJson": "{\"name\":\"Nancy Talty\",\"email\":\"nancy.talty@example.com\",\"primary\":true,\"address1\":\"507 Grove Avenue\",\"city\":\"Oklahoma City\",\"state\":\"OK\",\"postal_code\":\"73102\"}"
       }
     ]
   },

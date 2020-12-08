@@ -4,7 +4,7 @@
     "url": "/customers/11/line_items",
     "bodyPatterns": [
       {
-        "equalToJson":" {\"catalog_item\":\"delivery\"}"      
+        "equalToJson": " {\"catalog_item\":\"delivery\"}"
       }
     ]
   },

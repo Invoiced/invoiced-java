@@ -4,7 +4,7 @@
     "url": "/customers/11/payment_sources",
     "bodyPatterns": [
       {
-        "equalToJson":"{\"method\":\"credit_card\"}"
+        "equalToJson": "{\"method\":\"credit_card\"}"
       }
     ]
   },

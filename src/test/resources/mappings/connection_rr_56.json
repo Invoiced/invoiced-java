@@ -1,19 +1,18 @@
- {
-    "request": {
-        "method": "POST",
-        "url": "/customers",
-        "bodyPatterns": [
+{
+  "request": {
+    "method": "POST",
+    "url": "/customers",
+    "bodyPatterns": [
       {
         "equalToJson": "{ \"email\":\"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"auth_error\":true \n }"
       }
     ]
-
-    },
-    "response": {
-        "status": 401,
-        "body": "{\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid API key: XXXX\",\n    \"param\": \"name\"\n}",
-        "headers": {
-            "Content-Type": "application/json"
-        }
+  },
+  "response": {
+    "status": 401,
+    "body": "{\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid API key: XXXX\",\n    \"param\": \"name\"\n}",
+    "headers": {
+      "Content-Type": "application/json"
     }
+  }
 }

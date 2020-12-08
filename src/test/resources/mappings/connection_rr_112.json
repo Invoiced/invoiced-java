@@ -1,13 +1,13 @@
 {
-    "request": {
-      "method": "PATCH",
-      "url": "/tax_rates/vat"
-    },
-    "response": {
-      "status": 200,
-      "body": "{\"created_at\":1477418268,\"currency\":null,\"id\":\"vat\",\"inclusive\":false,\"is_percent\":true,\"metadata\":{},\"name\":\"Updated\",\"object\":\"tax_rate\",\"value\":5}",
-      "headers": {
-        "Content-Type": "application/json"
-        }
+  "request": {
+    "method": "PATCH",
+    "url": "/tax_rates/vat"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"created_at\":1477418268,\"currency\":null,\"id\":\"vat\",\"inclusive\":false,\"is_percent\":true,\"metadata\":{},\"name\":\"Updated\",\"object\":\"tax_rate\",\"value\":5}",
+    "headers": {
+      "Content-Type": "application/json"
     }
+  }
 }

@@ -9,108 +9,109 @@ import static org.junit.Assert.fail;
 
 public class CouponTest {
 
-  @Rule public WireMockRule wireMockRule = new WireMockRule();
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule();
 
-  @Test
-  public void testCreate() {
+    @Test
+    public void testCreate() {
 
-    // references connection_rr_105.json
+        // references connection_rr_105.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Coupon coupon = conn.newCoupon();
-    coupon.id = "S8L47J";
-    coupon.name = "Non-profit Discount";
-    coupon.value = 20L;
+        Coupon coupon = conn.newCoupon();
+        coupon.id = "S8L47J";
+        coupon.name = "Non-profit Discount";
+        coupon.value = 20L;
 
-    try {
-      coupon.create();
+        try {
+            coupon.create();
 
-      assertTrue("Coupon id is incorrect", coupon.id.equals("S8L47J"));
+            assertTrue("Coupon id is incorrect", coupon.id.equals("S8L47J"));
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testRetrieve() {
+    @Test
+    public void testRetrieve() {
 
-    // references connection_rr_106.json
+        // references connection_rr_106.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      Coupon coupon = conn.newCoupon().retrieve("S8L47J");
+        try {
+            Coupon coupon = conn.newCoupon().retrieve("S8L47J");
 
-      assertTrue("Coupon value is incorrect", coupon.value == 20);
+            assertTrue("Coupon value is incorrect", coupon.value == 20);
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testSave() {
+    @Test
+    public void testSave() {
 
-    // references connection_rr_106.json
-    // references connection_rr_107.json
+        // references connection_rr_106.json
+        // references connection_rr_107.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
+        try {
 
-      Coupon coupon = conn.newCoupon().retrieve("S8L47J");
-      coupon.name = "Updated";
+            Coupon coupon = conn.newCoupon().retrieve("S8L47J");
+            coupon.name = "Updated";
 
-      coupon.save();
+            coupon.save();
 
-      assertTrue("Coupon name is incorrect", coupon.name.equals("Updated"));
+            assertTrue("Coupon name is incorrect", coupon.name.equals("Updated"));
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testDelete() {
+    @Test
+    public void testDelete() {
 
-    // references connection_rr_106.json
-    // references connection_rr_108.json
+        // references connection_rr_106.json
+        // references connection_rr_108.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      Coupon coupon = conn.newCoupon().retrieve("S8L47J");
-      coupon.delete();
+        try {
+            Coupon coupon = conn.newCoupon().retrieve("S8L47J");
+            coupon.delete();
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testList() {
+    @Test
+    public void testList() {
 
-    // references connection_rr_109.json
+        // references connection_rr_109.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      EntityList<Coupon> coupons = conn.newCoupon().listAll();
+        try {
+            EntityList<Coupon> coupons = conn.newCoupon().listAll();
 
-      assertTrue("Id 1 is incorrect", coupons.get(0).id.equals("S8L47J"));
+            assertTrue("Id 1 is incorrect", coupons.get(0).id.equals("S8L47J"));
 
-      assertTrue("Id 2 is incorrect", coupons.get(1).id.equals("S8L47J2"));
+            assertTrue("Id 2 is incorrect", coupons.get(1).id.equals("S8L47J2"));
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
-  }
 }

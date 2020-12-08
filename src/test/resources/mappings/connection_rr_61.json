@@ -1,13 +1,13 @@
 {
-    "request": {
-      "method": "POST",
-      "url": "/customers/11/letters"
-    },
-    "response": {
-      "status": 201,
-      "body": "{\n  \"id\": \"c3b2a1\",\n  \"state\": \"queued\"\n}",
-      "headers": {
-        "Content-Type": "application/json"
-      }
+  "request": {
+    "method": "POST",
+    "url": "/customers/11/letters"
+  },
+  "response": {
+    "status": 201,
+    "body": "{\n  \"id\": \"c3b2a1\",\n  \"state\": \"queued\"\n}",
+    "headers": {
+      "Content-Type": "application/json"
     }
   }
+}

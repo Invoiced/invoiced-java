@@ -15,131 +15,132 @@ import static org.junit.Assert.fail;
 
 public class PendingLineItemTest {
 
-  @Rule public WireMockRule wireMockRule = new WireMockRule();
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule();
 
-  @Test
-  public void testCreate() {
+    @Test
+    public void testCreate() {
 
-    // references connection_rr_11.json
-    // references connection_rr_37.json
+        // references connection_rr_11.json
+        // references connection_rr_37.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      Customer cust = conn.newCustomer().retrieve(11);
-      PendingLineItem pli = cust.newPendingLineItem();
-      pli.catalogItem = "delivery";
-      pli.create();
+        try {
+            Customer cust = conn.newCustomer().retrieve(11);
+            PendingLineItem pli = cust.newPendingLineItem();
+            pli.catalogItem = "delivery";
+            pli.create();
 
-      assertTrue("Pending Line Item id is incorrect", pli.id == 8);
+            assertTrue("Pending Line Item id is incorrect", pli.id == 8);
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testRetrieve() {
+    @Test
+    public void testRetrieve() {
 
-    // references connection_rr_11.json
-    // references connection_rr_38.json
+        // references connection_rr_11.json
+        // references connection_rr_38.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      Customer cust = conn.newCustomer().retrieve(11);
-      PendingLineItem pli = cust.newPendingLineItem().retrieve(8);
+        try {
+            Customer cust = conn.newCustomer().retrieve(11);
+            PendingLineItem pli = cust.newPendingLineItem().retrieve(8);
 
-      assertTrue("Catalog Item is incorrect", pli.catalogItem.equals("delivery"));
+            assertTrue("Catalog Item is incorrect", pli.catalogItem.equals("delivery"));
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testSave() {
+    @Test
+    public void testSave() {
 
-    // references connection_rr_11.json
-    // references connection_rr_39.json
+        // references connection_rr_11.json
+        // references connection_rr_39.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
+        try {
 
-      Customer cust = conn.newCustomer().retrieve(11);
-      PendingLineItem pli = cust.newPendingLineItem().retrieve(8);
+            Customer cust = conn.newCustomer().retrieve(11);
+            PendingLineItem pli = cust.newPendingLineItem().retrieve(8);
 
-      pli.quantity = 2;
+            pli.quantity = 2;
 
-      pli.save();
+            pli.save();
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testDelete() {
+    @Test
+    public void testDelete() {
 
-    // references connection_rr_40.json
+        // references connection_rr_40.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      Customer cust = conn.newCustomer().retrieve(11);
-      PendingLineItem pli = cust.newPendingLineItem().retrieve(8);
+        try {
+            Customer cust = conn.newCustomer().retrieve(11);
+            PendingLineItem pli = cust.newPendingLineItem().retrieve(8);
 
-      pli.delete();
+            pli.delete();
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testJsonSerialization() {
+    @Test
+    public void testJsonSerialization() {
 
-    ObjectMapper mapper =
-        new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        ObjectMapper mapper =
+                new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    try {
-      String jsonInString =
-          "{\n  \"id\": 8,\n  \"catalog_item\": \"delivery\",\n  \"type\": \"service\",\n  \"name\": \"Delivery\",\n  \"description\": \"\",\n  \"quantity\": 1,\n  \"unit_cost\": 10,\n  \"amount\": 10,\n  \"discountable\": true,\n  \"discounts\": [],\n  \"taxable\": true,\n  \"taxes\": [],\n  \"metadata\": {}\n}";
+        try {
+            String jsonInString =
+                    "{\n  \"id\": 8,\n  \"catalog_item\": \"delivery\",\n  \"type\": \"service\",\n  \"name\": \"Delivery\",\n  \"description\": \"\",\n  \"quantity\": 1,\n  \"unit_cost\": 10,\n  \"amount\": 10,\n  \"discountable\": true,\n  \"discounts\": [],\n  \"taxable\": true,\n  \"taxes\": [],\n  \"metadata\": {}\n}";
 
-      PendingLineItem c1 = mapper.readValue(jsonInString, PendingLineItem.class);
+            PendingLineItem c1 = mapper.readValue(jsonInString, PendingLineItem.class);
 
-      assertTrue("Id is incorrect", c1.id == 8);
-      assertTrue("Catalog Item is incorrect", c1.catalogItem.equals("delivery"));
-      assertTrue("Type is incorrect", c1.type.equals("service"));
+            assertTrue("Id is incorrect", c1.id == 8);
+            assertTrue("Catalog Item is incorrect", c1.catalogItem.equals("delivery"));
+            assertTrue("Type is incorrect", c1.type.equals("service"));
 
-      assertTrue("Description is incorrect", c1.description == "");
-      assertTrue("Quantity is incorrect", c1.quantity == 1);
-      assertTrue("Unit Cost is incorrect", c1.unitCost == 10);
-      assertTrue("Amount is incorrect", c1.amount == 10);
-      assertTrue("Discountable is incorrect", c1.discountable == true);
-      assertTrue("Discounts is incorrect", c1.discounts.length == 0);
-      assertTrue("Taxable is incorrect", c1.taxable == true);
-      assertTrue("Taxes is incorrect", c1.taxes.length == 0);
+            assertTrue("Description is incorrect", c1.description == "");
+            assertTrue("Quantity is incorrect", c1.quantity == 1);
+            assertTrue("Unit Cost is incorrect", c1.unitCost == 10);
+            assertTrue("Amount is incorrect", c1.amount == 10);
+            assertTrue("Discountable is incorrect", c1.discountable == true);
+            assertTrue("Discounts is incorrect", c1.discounts.length == 0);
+            assertTrue("Taxable is incorrect", c1.taxable == true);
+            assertTrue("Taxes is incorrect", c1.taxes.length == 0);
 
-      assertTrue("Metadata is incorrect", c1.metadata != null);
+            assertTrue("Metadata is incorrect", c1.metadata != null);
 
-    } catch (JsonGenerationException e) {
-      e.printStackTrace();
-      fail();
-    } catch (JsonMappingException e) {
-      e.printStackTrace();
-      fail();
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail();
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
-  }
 }

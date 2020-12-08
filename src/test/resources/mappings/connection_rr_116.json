@@ -9,7 +9,6 @@
       "Content-Type": "application/json",
       "Link": "<http://localhost:8080/invoices/46225/notes?page=1&per_page=100>; rel=\"self\",\n<http://localhost:8080/invoices/46225/notes?page=1&per_page=100>; rel=\"first\",\n <http://localhost:8080/invoices/46225/notes?page=1&per_page=100>; rel=\"previous\",\n<http://localhost:8080/invoices/46225/notes?page=1&per_page=100>; rel=\"next\",\n <http://localhost:8080/invoices/46225/notes?page=1&per_page=100>; rel=\"last\"",
       "X-Total-Count": "2"
-
     },
     "body": "[{\"created_at\":1571338027,\"customer\":11,\"id\":50011,\"notes\":\"example1\",\"object\":\"note\",\"user\":{\"created_at\":1563810757,\"email\":\"invoiced@example.com\",\"first_name\":\"Jacob\",\"id\":1947,\"last_name\":\"Smith\",\"registered\":true,\"two_factor_enabled\":true}},{\"created_at\":1571338028,\"customer\":11,\"id\":50013,\"notes\":\"example2\",\"object\":\"note\",\"user\":{\"created_at\":1563810757,\"email\":\"invoiced@example.com\",\"first_name\":\"John\",\"id\":1946,\"last_name\":\"Smith\",\"registered\":true,\"two_factor_enabled\":true}}]"
   }

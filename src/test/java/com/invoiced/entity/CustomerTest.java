@@ -15,416 +15,417 @@ import static org.junit.Assert.fail;
 
 public class CustomerTest {
 
-  @Rule public WireMockRule wireMockRule = new WireMockRule();
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule();
 
-  @Test
-  public void testParentID() {
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+    @Test
+    public void testParentID() {
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer customer = conn.newCustomer();
-  }
-
-  @Test
-  public void testCreate() {
-
-    // references connection_rr_9.json
-
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
-
-    Customer cust = conn.newCustomer();
-
-    cust.name = "Customer testCreate";
-    cust.email = "testcreate@testing.org";
-
-    try {
-      cust.create();
-      assertTrue("Customer Id is incorrect", cust.id == 131211L);
-
-    } catch (Exception e) {
-      fail(e.getMessage());
+        Customer customer = conn.newCustomer();
     }
-  }
 
-  @Test
-  public void testCustomerAPIException() {
+    @Test
+    public void testCreate() {
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        // references connection_rr_9.json
 
-    Customer cust = conn.newCustomer();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    try {
-      cust.retrieve(198971);
+        Customer cust = conn.newCustomer();
 
-    } catch (Exception e) {
-      assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
+        cust.name = "Customer testCreate";
+        cust.email = "testcreate@testing.org";
+
+        try {
+            cust.create();
+            assertTrue("Customer Id is incorrect", cust.id == 131211L);
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testCustomerAuthException() {
+    @Test
+    public void testCustomerAPIException() {
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
+        Customer cust = conn.newCustomer();
 
-    try {
-      cust.retrieve(198979);
+        try {
+            cust.retrieve(198971);
 
-    } catch (Exception e) {
-      assertTrue("Should have thrown a AuthException", e.getMessage().contains("AuthException"));
+        } catch (Exception e) {
+            assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
+        }
     }
-  }
 
-  @Test
-  public void testCustomerAPI2Exception() {
+    @Test
+    public void testCustomerAuthException() {
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
+        Customer cust = conn.newCustomer();
 
-    try {
-      cust.retrieve(198980);
+        try {
+            cust.retrieve(198979);
 
-    } catch (Exception e) {
-      assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
+        } catch (Exception e) {
+            assertTrue("Should have thrown a AuthException", e.getMessage().contains("AuthException"));
+        }
     }
-  }
 
-  @Test
-  public void testSave() {
+    @Test
+    public void testCustomerAPI2Exception() {
 
-    // references connection_rr_10.json
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Customer cust = conn.newCustomer();
 
-    Customer cust = conn.newCustomer();
+        try {
+            cust.retrieve(198980);
 
-    cust.name = "Customer testSave";
-    cust.email = "testcreate@testing.org";
-    cust.id = 10;
-    cust.city = "Austin";
-
-    try {
-      cust.save();
-
-      assertTrue("Customer City is incorrect", cust.city.equals("Austin"));
-
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            assertTrue("Should have thrown a ApiException", e.getMessage().contains("ApiException"));
+        }
     }
-  }
 
-  @Test
-  public void testRetrieve() {
+    @Test
+    public void testSave() {
 
-    // references connection_rr_11.json
+        // references connection_rr_10.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
+        Customer cust = conn.newCustomer();
 
-    try {
-      Customer cust2 = cust.retrieve(11);
-      assertTrue("Customer number is incorrect", cust2.number.equals("0111"));
+        cust.name = "Customer testSave";
+        cust.email = "testcreate@testing.org";
+        cust.id = 10;
+        cust.city = "Austin";
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        try {
+            cust.save();
+
+            assertTrue("Customer City is incorrect", cust.city.equals("Austin"));
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testDelete() {
+    @Test
+    public void testRetrieve() {
 
-    // references connection_rr_12.json
+        // references connection_rr_11.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
-    cust.id = 12;
+        Customer cust = conn.newCustomer();
 
-    try {
-      cust.delete();
+        try {
+            Customer cust2 = cust.retrieve(11);
+            assertTrue("Customer number is incorrect", cust2.number.equals("0111"));
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testBalance() {
+    @Test
+    public void testDelete() {
 
-    // references connection_rr_11.json
-    // references connection_rr_25.json
+        // references connection_rr_12.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
+        Customer cust = conn.newCustomer();
+        cust.id = 12;
 
-    try {
-      cust = cust.retrieve(11);
-      Balance balance = cust.getBalance();
+        try {
+            cust.delete();
 
-      assertTrue("Available Credits in incorrect in balance", balance.availableCredits == 50);
-
-      assertTrue("Available Credits in incorrect in balance", balance.totalOutstanding == 470);
-
-      BalanceHistory[] balanceHistories = balance.history;
-
-      assertTrue(
-          "Balance History timestamp 0 is incorrect", balanceHistories[0].timestamp == 1464041624L);
-
-      assertTrue(
-          "Balance History timestamp 1 is incorrect", balanceHistories[1].timestamp == 1464040550L);
-
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testSendStatement() {
+    @Test
+    public void testBalance() {
 
-    // references connection_rr_11.json
-    // references connection_rr_26.json
+        // references connection_rr_11.json
+        // references connection_rr_25.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
+        Customer cust = conn.newCustomer();
 
-    EmailRequest emailRequest = new EmailRequest();
+        try {
+            cust = cust.retrieve(11);
+            Balance balance = cust.getBalance();
 
-    EmailRecipient[] emailRecipients = new EmailRecipient[1];
-    emailRecipients[0] = new EmailRecipient();
+            assertTrue("Available Credits in incorrect in balance", balance.availableCredits == 50);
 
-    emailRecipients[0].name = "Client";
-    emailRecipients[0].email = "client@example.com";
+            assertTrue("Available Credits in incorrect in balance", balance.totalOutstanding == 470);
 
-    emailRequest.to = emailRecipients;
-    emailRequest.subject = "Statement from Dunder Mifflin, Inc.";
-    emailRequest.message =
-        "Dear Client, we have attached your latest account statement. Thank you!";
+            BalanceHistory[] balanceHistories = balance.history;
 
-    try {
-      cust = cust.retrieve(11);
-      Email[] emails = cust.sendStatement(emailRequest);
+            assertTrue(
+                    "Balance History timestamp 0 is incorrect", balanceHistories[0].timestamp == 1464041624L);
 
-      assertTrue("Email id is incorrect", emails[0].id.equals("f45382c6fbc44d44aa7f9a55eb2ce731"));
+            assertTrue(
+                    "Balance History timestamp 1 is incorrect", balanceHistories[1].timestamp == 1464040550L);
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testInvoice() {
+    @Test
+    public void testSendStatement() {
 
-    // references connection_rr_41.json
-    // references connection_rr_11.json
+        // references connection_rr_11.json
+        // references connection_rr_26.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Invoice invoice = null;
+        Customer cust = conn.newCustomer();
 
-    try {
-      Customer cust = conn.newCustomer().retrieve(11);
-      invoice = cust.invoice();
+        EmailRequest emailRequest = new EmailRequest();
 
-      assertTrue("Invoice id is incorrect", invoice.id == 46225L);
+        EmailRecipient[] emailRecipients = new EmailRecipient[1];
+        emailRecipients[0] = new EmailRecipient();
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        emailRecipients[0].name = "Client";
+        emailRecipients[0].email = "client@example.com";
+
+        emailRequest.to = emailRecipients;
+        emailRequest.subject = "Statement from Dunder Mifflin, Inc.";
+        emailRequest.message =
+                "Dear Client, we have attached your latest account statement. Thank you!";
+
+        try {
+            cust = cust.retrieve(11);
+            Email[] emails = cust.sendStatement(emailRequest);
+
+            assertTrue("Email id is incorrect", emails[0].id.equals("f45382c6fbc44d44aa7f9a55eb2ce731"));
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testJsonSerialization() {
-    new Customer(null);
+    @Test
+    public void testInvoice() {
 
-    ObjectMapper mapper =
-        new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        // references connection_rr_41.json
+        // references connection_rr_11.json
 
-    try {
-      String jsonInString =
-          "{\n  \"id\": 15444,\n  \"name\": \"Acme\",\n  \"number\": \"CUST-0001\",\n  \"email\": \"billing@acmecorp.com\",\n  \"autopay\": true,\n  \"payment_terms\": null,\n  \"payment_source\": {\n    \"id\": 850,\n    \"object\": \"card\",\n    \"brand\": \"Visa\",\n    \"last4\": \"4242\",\n    \"exp_month\": 2,\n    \"exp_year\": 20,\n    \"funding\": \"credit\"\n  },\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": null,\n  \"address1\": null,\n  \"address2\": null,\n  \"city\": null,\n  \"state\": null,\n  \"postal_code\": null,\n  \"country\": \"US\",\n  \"tax_id\": null,\n  \"phone\": null,\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-      Customer c1 = mapper.readValue(jsonInString, Customer.class);
+        Invoice invoice = null;
 
-      assertTrue("Id is incorrect", c1.id == 15444L);
-      assertTrue("Name is incorrect", c1.name.equals("Acme"));
-      assertTrue("Number is incorrect", c1.number.equals("CUST-0001"));
-      assertTrue("Email is incorrect", c1.email.equals("billing@acmecorp.com"));
-      assertTrue("PaymentTerms is incorrect", c1.paymentTerms == null);
-      assertTrue("PaymentSource is incorrect", c1.paymentSource != null);
-      assertTrue("Taxes is incorrect", c1.taxes.length == 0);
-      assertTrue("Type is incorrect", c1.type.equals("company"));
-      assertTrue("AttentionTo is incorrect", c1.attentionTo == null);
-      assertTrue("Address1 is incorrect", c1.address1 == null);
-      assertTrue("Address2 is incorrect", c1.address2 == null);
-      assertTrue("City is incorrect", c1.city == null);
-      assertTrue("State is incorrect", c1.state == null);
-      assertTrue("PostalCode is incorrect", c1.postalCode == null);
-      assertTrue("Country is incorrect", c1.country.equals("US"));
-      assertTrue("TaxID is incorrect", c1.taxId == null);
-      assertTrue("Phone is incorrect", c1.phone == null);
-      assertTrue("Notes is incorrect", c1.notes == null);
-      assertTrue(
-          "statementPdfUrl is incorrect",
-          c1.statementPdfUrl.equals(
-              "https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf"));
-      assertTrue("CreatedAt is incorrect", c1.createdAt == 1415222128L);
-      assertTrue("Metadata is incorrect", c1.metadata != null);
+        try {
+            Customer cust = conn.newCustomer().retrieve(11);
+            invoice = cust.invoice();
 
-    } catch (JsonGenerationException e) {
-      e.printStackTrace();
-      fail();
-    } catch (JsonMappingException e) {
-      e.printStackTrace();
-      fail();
-    } catch (IOException e) {
-      e.printStackTrace();
-      fail();
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
+            assertTrue("Invoice id is incorrect", invoice.id == 46225L);
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testConsolidateInvoicesNoArg() {
+    @Test
+    public void testJsonSerialization() {
+        new Customer(null);
 
-    // references connection_rr_59.json
+        ObjectMapper mapper =
+                new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        try {
+            String jsonInString =
+                    "{\n  \"id\": 15444,\n  \"name\": \"Acme\",\n  \"number\": \"CUST-0001\",\n  \"email\": \"billing@acmecorp.com\",\n  \"autopay\": true,\n  \"payment_terms\": null,\n  \"payment_source\": {\n    \"id\": 850,\n    \"object\": \"card\",\n    \"brand\": \"Visa\",\n    \"last4\": \"4242\",\n    \"exp_month\": 2,\n    \"exp_year\": 20,\n    \"funding\": \"credit\"\n  },\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": null,\n  \"address1\": null,\n  \"address2\": null,\n  \"city\": null,\n  \"state\": null,\n  \"postal_code\": null,\n  \"country\": \"US\",\n  \"tax_id\": null,\n  \"phone\": null,\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
 
-    Customer cust = conn.newCustomer();
-    cust.id = 15444L;
+            Customer c1 = mapper.readValue(jsonInString, Customer.class);
 
-    try {
+            assertTrue("Id is incorrect", c1.id == 15444L);
+            assertTrue("Name is incorrect", c1.name.equals("Acme"));
+            assertTrue("Number is incorrect", c1.number.equals("CUST-0001"));
+            assertTrue("Email is incorrect", c1.email.equals("billing@acmecorp.com"));
+            assertTrue("PaymentTerms is incorrect", c1.paymentTerms == null);
+            assertTrue("PaymentSource is incorrect", c1.paymentSource != null);
+            assertTrue("Taxes is incorrect", c1.taxes.length == 0);
+            assertTrue("Type is incorrect", c1.type.equals("company"));
+            assertTrue("AttentionTo is incorrect", c1.attentionTo == null);
+            assertTrue("Address1 is incorrect", c1.address1 == null);
+            assertTrue("Address2 is incorrect", c1.address2 == null);
+            assertTrue("City is incorrect", c1.city == null);
+            assertTrue("State is incorrect", c1.state == null);
+            assertTrue("PostalCode is incorrect", c1.postalCode == null);
+            assertTrue("Country is incorrect", c1.country.equals("US"));
+            assertTrue("TaxID is incorrect", c1.taxId == null);
+            assertTrue("Phone is incorrect", c1.phone == null);
+            assertTrue("Notes is incorrect", c1.notes == null);
+            assertTrue(
+                    "statementPdfUrl is incorrect",
+                    c1.statementPdfUrl.equals(
+                            "https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf"));
+            assertTrue("CreatedAt is incorrect", c1.createdAt == 1415222128L);
+            assertTrue("Metadata is incorrect", c1.metadata != null);
 
-      Invoice consolInvoice = cust.consolidateInvoices();
-
-      assertTrue("Invoice id is incorrect", consolInvoice.id == 46226);
-
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+            fail();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            fail();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
-  }
 
-  @Test
-  public void testConsolidateInvoicesWithArg() {
+    @Test
+    public void testConsolidateInvoicesNoArg() {
 
-    // references connection_rr_59.json
+        // references connection_rr_59.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
-    cust.id = 15444L;
+        Customer cust = conn.newCustomer();
+        cust.id = 15444L;
 
-    try {
+        try {
 
-      Invoice consolInvoice = cust.consolidateInvoices(1234567890L);
+            Invoice consolInvoice = cust.consolidateInvoices();
 
-      assertTrue("Invoice id is incorrect", consolInvoice.id == 46226);
+            assertTrue("Invoice id is incorrect", consolInvoice.id == 46226);
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testSendStatementText() {
+    @Test
+    public void testConsolidateInvoicesWithArg() {
 
-    // references connection_rr_11.json
-    // references connection_rr_60.json
+        // references connection_rr_59.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
-    cust.id = 11L;
+        Customer cust = conn.newCustomer();
+        cust.id = 15444L;
 
-    TextRequest textRequest = new TextRequest();
+        try {
 
-    TextRecipient[] textRecipients = new TextRecipient[1];
-    textRecipients[0] = new TextRecipient();
+            Invoice consolInvoice = cust.consolidateInvoices(1234567890L);
 
-    textRecipients[0].name = "Bob Smith";
-    textRecipients[0].phone = "+15125551212";
+            assertTrue("Invoice id is incorrect", consolInvoice.id == 46226);
 
-    textRequest.to = textRecipients;
-    textRequest.message = "Texting!";
-
-    try {
-      TextMessage[] textMessages = cust.sendStatementText(textRequest);
-
-      assertTrue("Text id is incorrect", textMessages[0].id.equals("a1b2c3"));
-
-    } catch (Exception e) {
-      fail(e.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testSendStatementLetter() {
+    @Test
+    public void testSendStatementText() {
 
-    // references connection_rr_11.json
-    // references connection_rr_61.json
+        // references connection_rr_11.json
+        // references connection_rr_60.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
-    cust.id = 11L;
+        Customer cust = conn.newCustomer();
+        cust.id = 11L;
 
-    LetterRequest letterRequest = new LetterRequest();
+        TextRequest textRequest = new TextRequest();
 
-    letterRequest.type = "open_item";
+        TextRecipient[] textRecipients = new TextRecipient[1];
+        textRecipients[0] = new TextRecipient();
 
-    try {
-      Letter letter = cust.sendStatementLetter(letterRequest);
+        textRecipients[0].name = "Bob Smith";
+        textRecipients[0].phone = "+15125551212";
 
-      assertTrue("Letter id is incorrect", letter.id.equals("c3b2a1"));
+        textRequest.to = textRecipients;
+        textRequest.message = "Texting!";
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+        try {
+            TextMessage[] textMessages = cust.sendStatementText(textRequest);
+
+            assertTrue("Text id is incorrect", textMessages[0].id.equals("a1b2c3"));
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
 
-  @Test
-  public void testNewNote() {
+    @Test
+    public void testSendStatementLetter() {
 
-    // references connection_rr_62.json
+        // references connection_rr_11.json
+        // references connection_rr_61.json
 
-    Connection conn = new Connection("", true);
-    conn.testModeOn();
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
 
-    Customer cust = conn.newCustomer();
-    cust.id = 11L;
+        Customer cust = conn.newCustomer();
+        cust.id = 11L;
 
-    Note note = cust.newNote();
-    note.notes = "example note";
+        LetterRequest letterRequest = new LetterRequest();
 
-    try {
-      note.create();
+        letterRequest.type = "open_item";
 
-      assertTrue("Note id is incorrect", note.id == 1212);
-      assertTrue("Note customer id is incorrect", note.customerId == 11);
+        try {
+            Letter letter = cust.sendStatementLetter(letterRequest);
 
-    } catch (Exception e) {
-      fail(e.getMessage());
+            assertTrue("Letter id is incorrect", letter.id.equals("c3b2a1"));
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
-  }
+
+    @Test
+    public void testNewNote() {
+
+        // references connection_rr_62.json
+
+        Connection conn = new Connection("", true);
+        conn.testModeOn();
+
+        Customer cust = conn.newCustomer();
+        cust.id = 11L;
+
+        Note note = cust.newNote();
+        note.notes = "example note";
+
+        try {
+            note.create();
+
+            assertTrue("Note id is incorrect", note.id == 1212);
+            assertTrue("Note customer id is incorrect", note.customerId == 11);
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }
