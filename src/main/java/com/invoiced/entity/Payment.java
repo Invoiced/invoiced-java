@@ -118,4 +118,8 @@ public class Payment extends AbstractEntity<Payment> {
       throw new EntityException(c);
     }
   }
+
+  public void voidPayment() throws EntityException {
+    this.deleteWithResponse();
+  }
 }
