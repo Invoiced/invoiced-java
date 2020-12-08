@@ -329,10 +329,6 @@ public final class Connection {
     return new TaxRate(this);
   }
 
-  public final Transaction newTransaction() {
-    return new Transaction(this);
-  }
-
   protected final String baseUrl() {
     return this.baseUrl;
   }

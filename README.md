@@ -1,3 +1,4 @@
+
 invoiced-java
 ========
 
@@ -47,12 +48,11 @@ Invoice invoice = invoiced.newInvoice().retrieve({INVOICE_ID});
 Payment payment = invoiced.newPayment();
 payment.amount = invoice.balance;
 payment.method = "check";
-PaymentItem[] appliedTo = new PaymentItem[1];
-appliedTo[0] = new PaymentItem();
-appliedTo[0].type = "invoice";
-appliedTo[0].invoice = invoice.id;
-appliedTo[0].amount = invoice.balance;
-payment.appliedTo = appliedTo;
+paymentItem = new PaymentItem();
+paymentItem.type = "invoice";
+paymentItem.invoice = invoice.id;
+paymentItem.amount = invoice.balance;
+payment.appliedTo = PaymentItem{paymentItem};
 payment.create();
 ```
 
