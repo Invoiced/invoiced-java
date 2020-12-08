@@ -9,7 +9,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'com.bmuschko.nexus'
 
-archivesBaseName = 'invoiced-java'
+archivesBaseName = 'invoiced'
 group = 'com.invoiced'
 
 task fatJar(type: Jar) {
@@ -69,7 +69,7 @@ jacocoTestReport {
 
 modifyPom {
     project {
-        name 'invoiced-java'
+        name 'invoiced'
         description 'Official Java client library for the Invoiced API'
         url 'https://github.com/Invoiced/invoiced-java'
 
