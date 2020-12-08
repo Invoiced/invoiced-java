@@ -273,29 +273,25 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
     }
   }
 
-  public T deleteWithResponse() throws EntityException {
-
+  public void deleteWithResponse() throws EntityException {
     if (!this.hasCRUD()) {
       throw new EntityException(new Throwable("Delete operation not available on object."));
     }
 
     String url = this.getEndpoint(true);
-    T v1;
 
     try {
-
       String response = this.conn.deleteWithResponse(url);
 
-      v1 = Util.getMapper().readValue(response, this.tClass);
-      v1.setConnection(this.conn);
-      v1.setClass(this.tClass);
-      v1.setEndpointBase(this.endpointBase);
+      T object = Util.getMapper().readValue(response, this.tClass);
+      object.setConnection(this.conn);
+      object.setClass(this.tClass);
+      object.setEndpointBase(this.endpointBase);
 
+      setFields(object, this);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-    return v1;
   }
 
   public EntityList<T> list(String nextURL) throws EntityException {

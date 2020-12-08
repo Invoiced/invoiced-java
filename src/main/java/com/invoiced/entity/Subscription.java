@@ -177,8 +177,8 @@ public class Subscription extends AbstractEntity<Subscription> {
     };
   }
 
-  public Subscription cancel() throws EntityException {
-    return this.deleteWithResponse();
+  public void cancel() throws EntityException {
+    this.deleteWithResponse();
   }
 
   public SubscriptionPreview preview() throws EntityException {

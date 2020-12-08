@@ -103,11 +103,9 @@ public class SubscriptionTest {
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
-
-        Subscription subscription = conn.newSubscription();
-
         try {
-            subscription = subscription.retrieve(595).cancel();
+            Subscription subscription = conn.newSubscription().retrieve(595);
+            subscription.cancel();
             assertTrue("Subscription status is incorrect", subscription.status.equals("canceled"));
 
         } catch (Exception e) {
