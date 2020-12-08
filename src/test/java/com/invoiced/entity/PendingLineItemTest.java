@@ -21,8 +21,8 @@ public class PendingLineItemTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_11.json
-        // references connection_rr_37.json
+        // references customers_retrieve_2.json
+        // references pending_line_items_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -43,8 +43,8 @@ public class PendingLineItemTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_11.json
-        // references connection_rr_38.json
+        // references customers_retrieve_2.json
+        // references pending_line_items_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -63,8 +63,8 @@ public class PendingLineItemTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_11.json
-        // references connection_rr_39.json
+        // references customers_retrieve_2.json
+        // references pending_line_items_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -86,7 +86,7 @@ public class PendingLineItemTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_40.json
+        // references pending_line_items_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

@@ -29,7 +29,7 @@ public class CreditNoteTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_78.json
+        // references credit_notes_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -72,7 +72,7 @@ public class CreditNoteTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_79.json
+        // references credit_notes_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -91,8 +91,8 @@ public class CreditNoteTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_79.json
-        // references connection_rr_80.json
+        // references credit_notes_retrieve.json
+        // references credit_notes_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -117,8 +117,8 @@ public class CreditNoteTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_79.json
-        // references connection_rr_81.json
+        // references credit_notes_retrieve.json
+        // references credit_notes_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -137,7 +137,7 @@ public class CreditNoteTest {
     @Test
     public void testList() {
 
-        // references connection_rr_82.json
+        // references credit_notes_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -158,8 +158,8 @@ public class CreditNoteTest {
     @Test
     public void testSendCreditNoteEmail() {
 
-        // references connection_rr_79.json
-        // references connection_rr_83.json
+        // references credit_notes_retrieve.json
+        // references credit_notes_send_email.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -194,8 +194,8 @@ public class CreditNoteTest {
     @Test
     public void testListAttachments() {
 
-        // references connection_rr_79.json
-        // references connection_rr_84.json
+        // references credit_notes_retrieve.json
+        // references credit_notes_list_attachments.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -217,7 +217,7 @@ public class CreditNoteTest {
     @Test
     public void testVoidCreditNote() {
 
-        // references connection_rr_85.json
+        // references credit_notes_void.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

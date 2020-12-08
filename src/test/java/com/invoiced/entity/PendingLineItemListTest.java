@@ -18,8 +18,8 @@ public class PendingLineItemListTest {
     @Test
     public void testList() {
 
-        // references connection_rr_11.json
-        // references connection_rr_50.json
+        // references customers_retrieve_2.json
+        // references pending_line_items_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

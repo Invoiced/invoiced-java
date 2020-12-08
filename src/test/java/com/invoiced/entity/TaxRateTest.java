@@ -15,7 +15,7 @@ public class TaxRateTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_110.json
+        // references tax_rates_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -38,7 +38,7 @@ public class TaxRateTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_111.json
+        // references tax_rates_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -56,8 +56,8 @@ public class TaxRateTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_111.json
-        // references connection_rr_112.json
+        // references tax_rates_retrieve.json
+        // references tax_rates_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -79,8 +79,8 @@ public class TaxRateTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_111.json
-        // references connection_rr_113.json
+        // references tax_rates_retrieve.json
+        // references tax_rates_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -97,7 +97,7 @@ public class TaxRateTest {
     @Test
     public void testList() {
 
-        // references connection_rr_114.json
+        // references tax_rates_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

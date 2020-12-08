@@ -29,7 +29,7 @@ public class CustomerTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_9.json
+        // references customers_create_2.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -99,7 +99,7 @@ public class CustomerTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_10.json
+        // references customers_edit_2.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -124,7 +124,7 @@ public class CustomerTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_11.json
+        // references customers_retrieve_2.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -143,7 +143,7 @@ public class CustomerTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_12.json
+        // references customers_delete_2.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -162,8 +162,8 @@ public class CustomerTest {
     @Test
     public void testBalance() {
 
-        // references connection_rr_11.json
-        // references connection_rr_25.json
+        // references customers_retrieve_2.json
+        // references customers_balance.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -194,8 +194,8 @@ public class CustomerTest {
     @Test
     public void testSendStatement() {
 
-        // references connection_rr_11.json
-        // references connection_rr_26.json
+        // references customers_retrieve_2.json
+        // references customers_send_email.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -229,8 +229,8 @@ public class CustomerTest {
     @Test
     public void testInvoice() {
 
-        // references connection_rr_41.json
-        // references connection_rr_11.json
+        // references customers_invoice.json
+        // references customers_retrieve_2.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -304,7 +304,7 @@ public class CustomerTest {
     @Test
     public void testConsolidateInvoicesNoArg() {
 
-        // references connection_rr_59.json
+        // references consolidate_invoices.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -326,7 +326,7 @@ public class CustomerTest {
     @Test
     public void testConsolidateInvoicesWithArg() {
 
-        // references connection_rr_59.json
+        // references consolidate_invoices.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -348,8 +348,8 @@ public class CustomerTest {
     @Test
     public void testSendStatementText() {
 
-        // references connection_rr_11.json
-        // references connection_rr_60.json
+        // references customers_retrieve_2.json
+        // references customers_send_text_message.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -381,8 +381,8 @@ public class CustomerTest {
     @Test
     public void testSendStatementLetter() {
 
-        // references connection_rr_11.json
-        // references connection_rr_61.json
+        // references customers_retrieve_2.json
+        // references customers_send_letter.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -407,7 +407,7 @@ public class CustomerTest {
     @Test
     public void testNewNote() {
 
-        // references connection_rr_62.json
+        // references notes_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

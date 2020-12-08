@@ -18,7 +18,7 @@ public class InvoiceListTest {
     @Test
     public void testList() {
 
-        // references connection_rr_46.json
+        // references invoices_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "DELETE",
+    "urlPattern": "/payments/20939"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\n    \"id\": 20939,\n    \"customer\": 15460,\n    \"date\": 1410843600,\n    \"method\": \"check\",\n    \"status\": \"applied\",\n    \"currency\": \"usd\",\n    \"amount\": 800,\n    \"notes\": null,\n    \"pdf_url\": \"https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf\",\n    \"created_at\": 1415228628,\"voided\":true\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

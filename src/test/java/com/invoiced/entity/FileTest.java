@@ -31,7 +31,7 @@ public class FileTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_42.json
+        // references files_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -57,7 +57,7 @@ public class FileTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_43.json
+        // references files_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -74,8 +74,8 @@ public class FileTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_43.json
-        // references connection_rr_44.json
+        // references files_retrieve.json
+        // references files_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

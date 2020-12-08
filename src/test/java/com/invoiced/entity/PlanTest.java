@@ -15,7 +15,7 @@ public class PlanTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_100.json
+        // references plans_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -42,7 +42,7 @@ public class PlanTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_101.json
+        // references plans_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -60,8 +60,8 @@ public class PlanTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_101.json
-        // references connection_rr_102.json
+        // references plans_retrieve.json
+        // references plans_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -83,8 +83,8 @@ public class PlanTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_101.json
-        // references connection_rr_103.json
+        // references plans_retrieve.json
+        // references plans_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -101,7 +101,7 @@ public class PlanTest {
     @Test
     public void testList() {
 
-        // references connection_rr_104.json
+        // references plans_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

@@ -51,8 +51,8 @@ public class EventListTest {
     @Test
     public void testList() {
 
-        // references connection_rr_11.json
-        // references connection_rr_51.json
+        // references customers_retrieve_2.json
+        // references events_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

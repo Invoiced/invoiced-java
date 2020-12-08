@@ -28,7 +28,7 @@ public class SubscriptionTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_17.json
+        // references subscriptions_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -55,7 +55,7 @@ public class SubscriptionTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_18.json
+        // references subscriptions_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -75,8 +75,8 @@ public class SubscriptionTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_18.json
-        // references connection_rr_19.json
+        // references subscriptions_retrieve.json
+        // references subscriptions_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -99,7 +99,7 @@ public class SubscriptionTest {
     @Test
     public void testCancel() {
 
-        // references connection_rr_20.json
+        // references subscriptions_cancel.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -116,7 +116,7 @@ public class SubscriptionTest {
     @Test
     public void testPreviewSubscription() {
 
-        // references connection_rr_75.json
+        // references subscriptions_preview.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

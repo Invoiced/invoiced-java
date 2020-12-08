@@ -15,9 +15,9 @@ public class PaymentSourceTest {
     @Test
     public void testCreateDeleteAccountSource() throws EntityException {
 
-        // references connection_rr_11.json
-        // references connection_rr_117.json
-        // references connection_rr_120.json
+        // references customers_retrieve_2.json
+        // references customers_create_bank_account.json
+        // references customers_delete_bank_account.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -37,9 +37,9 @@ public class PaymentSourceTest {
     @Test
     public void testCreateDeleteCardSource() throws EntityException {
 
-        // references connection_rr_11.json
-        // references connection_rr_118.json
-        // references connection_rr_121.json
+        // references customers_retrieve_2.json
+        // references customers_create_card.json
+        // references customers_delete_card.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -59,8 +59,8 @@ public class PaymentSourceTest {
     @Test
     public void testListAllSources() throws EntityException {
 
-        // references connection_rr_11.json
-        // references connection_rr_119.json
+        // references customers_retrieve_2.json
+        // references customers_list_payment_sources.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

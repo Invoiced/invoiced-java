@@ -13,36 +13,38 @@ import java.io.IOException;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class TransactionTest {
+public class PaymentTest {
     @Rule
     public WireMockRule wireMockRule = new WireMockRule();
 
     @Test
     public void testParentID() {
         Connection conn = new Connection("api_key", "http://localhost:8080");
-        Transaction transaction = conn.newTransaction();
+
+
+        Payment payment = conn.newPayment();
     }
 
     @Test
     public void testCreate() {
 
-        // references transactions_create.json
+        // references payments_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
-
-        Transaction transaction = conn.newTransaction();
-
-        transaction.invoice = 44648L;
-        transaction.method = "check";
-        transaction.gatewayId = "1450";
-        transaction.amount = 800D;
+        Payment payment = conn.newPayment();
+        payment.method = "check";
+        payment.reference = "1450";
+        payment.amount = 800D;
+        PaymentItem paymentItem = new PaymentItem();
+        paymentItem.type = "invoice";
+        paymentItem.amount = 800D;
+        paymentItem.invoice = 44648L;
+        payment.appliedTo = new PaymentItem[]{paymentItem};
 
         try {
-
-            transaction.create();
-            assertTrue("Transaction id is incorrect", transaction.id == 20939);
-
+            payment.create();
+            assertTrue("Payment id is incorrect", payment.id == 20939);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -51,17 +53,17 @@ public class TransactionTest {
     @Test
     public void testRetrieve() {
 
-        // references transactions_retrieve.json
+        // references payments_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
 
-        Transaction transaction = conn.newTransaction();
+        Payment payment = conn.newPayment();
 
         try {
-            transaction = transaction.retrieve(20939);
+            payment = payment.retrieve(20939);
 
-            assertTrue("Subscription customer number is incorrect", transaction.customer == 15460);
+            assertTrue("Subscription customer number is incorrect", payment.customer == 15460);
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -71,23 +73,23 @@ public class TransactionTest {
     @Test
     public void testSave() {
 
-        // references transactions_retrieve.json
-        // references transactions_edit.json
+        // references payments_retrieve.json
+        // references payments_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
 
-        Transaction transaction = conn.newTransaction();
+        Payment payment = conn.newPayment();
 
         try {
-            transaction = transaction.retrieve(20939);
-            transaction.notes = "Check was received by Jan";
+            payment = payment.retrieve(20939);
+            payment.notes = "Check was received by Jan";
 
-            transaction.save();
+            payment.save();
 
             assertTrue(
-                    "Transaction should have been updated",
-                    transaction.notes.equals("Check was received by Jan"));
+                    "Payment should have been updated",
+                    payment.notes.equals("Check was received by Jan"));
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -95,19 +97,19 @@ public class TransactionTest {
     }
 
     @Test
-    public void testDelete() {
+    public void testVoid() {
 
-        // references transactions_retrieve.json
-        // references transactions_delete.json
+        // references payments_retrieve.json
+        // references payments_void.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
 
-        Transaction transaction = conn.newTransaction();
+        Payment payment = conn.newPayment();
 
         try {
-            transaction = transaction.retrieve(20939);
-            transaction.delete();
+            payment = payment.retrieve(20939);
+            payment.voidPayment();
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -117,13 +119,13 @@ public class TransactionTest {
     @Test
     public void testSend() {
 
-        // references transactions_retrieve.json
-        // references transactions_send_email.json
+        // references payments_retrieve.json
+        // references payments_send_email.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
 
-        Transaction transaction = conn.newTransaction();
+        Payment payment = conn.newPayment();
 
         EmailRequest emailRequest = new EmailRequest();
 
@@ -140,8 +142,8 @@ public class TransactionTest {
 
         try {
 
-            transaction = transaction.retrieve(20939);
-            Email[] emails = transaction.send(emailRequest);
+            payment = payment.retrieve(20939);
+            Email[] emails = payment.send(emailRequest);
 
             assertTrue("Email id is incorrect", emails[0].id.equals("f45382c6fbc44d44aa7f9a55eb2ce731"));
 
@@ -153,63 +155,33 @@ public class TransactionTest {
     }
 
     @Test
-    public void testRefund() {
-
-        // references transactions_retrieve.json
-        // references transactions_refund.json
-
-        Connection conn = new Connection("api_key", "http://localhost:8080");
-
-
-        Transaction transaction = conn.newTransaction();
-
-        try {
-
-            transaction = transaction.retrieve(20939);
-
-            Transaction refund = transaction.refund(400);
-
-            assertTrue("Refund Transaction id is incorrect", refund.id == 20952);
-
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
     public void testJsonSerialization() {
-        new Transaction(null);
+        new Payment(null);
 
         ObjectMapper mapper =
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
             String jsonString =
-                    "{\n    \"id\": 20939,\n    \"customer\": 15460,\n    \"invoice\": 44648,\n    \"date\": 1410843600,\n    \"type\": \"payment\",\n    \"method\": \"check\",\n    \"status\": \"succeeded\",\n    \"gateway\": null,\n    \"gateway_id\": null,\n    \"payment_source\": null,\n    \"currency\": \"usd\",\n    \"amount\": 800,\n    \"notes\": null,\n    \"parent_transaction\": null,\n    \"pdf_url\": \"https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf\",\n    \"created_at\": 1415228628,\n    \"metadata\": {}\n}";
+                    "{\n    \"id\": 20939,\n    \"customer\": 15460,\n    \"invoice\": 44648,\n    \"date\": 1410843600,\n    \"type\": \"payment\",\n    \"method\": \"check\",\n    \"status\": \"applied\",\n    \"gateway\": null,\n    \"gateway_id\": null,\n    \"payment_source\": null,\n    \"currency\": \"usd\",\n    \"amount\": 800,\n    \"notes\": null,\n    \"parent_payment\": null,\n    \"pdf_url\": \"https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf\",\n    \"created_at\": 1415228628,\n    \"metadata\": {}\n}";
 
-            Transaction t1 = mapper.readValue(jsonString, Transaction.class);
+            Payment t1 = mapper.readValue(jsonString, Payment.class);
 
             assertTrue("Id is incorrect", t1.id == 20939L);
             assertTrue("Customer is incorrect", t1.customer == 15460L);
-            assertTrue("Invoice is incorrect", t1.invoice == 44648L);
             assertTrue("Date is incorrect", t1.date == 1410843600L);
-            assertTrue("Type is incorrect", t1.type.equals("payment"));
             assertTrue("Method is incorrect", t1.method.equals("check"));
-            assertTrue("Status is succ", t1.status.equals("succeeded"));
-            assertTrue("Gateway is incorrect", t1.gateway == null);
-            assertTrue("Gateway id is incorrect", t1.gatewayId == null);
-            assertTrue("Payment source is incorrect", t1.paymentSource == null);
+            assertTrue("Status is succ", t1.status.equals("applied"));
+            assertTrue("Reference is incorrect", t1.reference == null);
             assertTrue("Currency is incorrect", t1.currency.equals("usd"));
             assertTrue("Amount is incorrect", t1.amount == 800d);
             assertTrue("Notes is incorrect", t1.notes == null);
-            assertTrue("Parent Transaction is incorrect", t1.parentTransaction == null);
             assertTrue(
                     "PdfUrl is incorrect",
                     t1.pdfUrl.equals(
                             "https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf"));
 
             assertTrue("CreatedAt is incorrect", t1.createdAt == 1415228628L);
-            assertTrue("Metadata is incorrect", t1.metadata != null);
 
         } catch (JsonGenerationException e) {
             e.printStackTrace();

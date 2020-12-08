@@ -68,6 +68,10 @@ public final class Payment extends AbstractEntity<Payment> {
   @JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
   public String pdfUrl;
 
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("charge")
+  public Charge charge;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("applied_to")
   public PaymentItem[] appliedTo;
@@ -95,7 +99,13 @@ public final class Payment extends AbstractEntity<Payment> {
   @JsonIgnore
   protected String[] getCreateExclusions() {
     return new String[] {
-      "id", "payment_source", "failure_reason", "pdf_url", "balance", "voided", "created_at"
+            "id",
+            "status",
+            "pdf_url",
+            "balance",
+            "matched",
+            "voided",
+            "created_at"
     };
   }
 
@@ -103,11 +113,13 @@ public final class Payment extends AbstractEntity<Payment> {
   @JsonIgnore
   protected String[] getSaveExclusions() {
     return new String[] {
-      "id",
-      "voided",
-      "balance",
-      "pdf_url",
-      "created_at"
+            "id",
+            "status",
+            "pdf_url",
+            "balance",
+            "matched",
+            "voided",
+            "created_at"
     };
   }
 

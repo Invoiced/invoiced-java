@@ -23,7 +23,7 @@ public class EstimateTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_63.json
+        // references estimates_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -66,7 +66,7 @@ public class EstimateTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_64.json
+        // references estimates_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -85,8 +85,8 @@ public class EstimateTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_64.json
-        // references connection_rr_65.json
+        // references estimates_retrieve.json
+        // references estimates_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -114,8 +114,8 @@ public class EstimateTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_64.json
-        // references connection_rr_66.json
+        // references estimates_retrieve.json
+        // references estimates_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -134,7 +134,7 @@ public class EstimateTest {
     @Test
     public void testList() {
 
-        // references connection_rr_67.json
+        // references estimates_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -155,8 +155,8 @@ public class EstimateTest {
     @Test
     public void testSendEstimateEmail() {
 
-        // references connection_rr_72.json
-        // references connection_rr_73.json
+        // references estimates_retrieve_2.json
+        // references estimates_send_email.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -191,7 +191,7 @@ public class EstimateTest {
     @Test
     public void testVoidEstimate() {
 
-        // references connection_rr_71.json
+        // references estimates_void.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -212,7 +212,7 @@ public class EstimateTest {
     @Test
     public void testConvertToInvoice() {
 
-        // references connection_rr_74.json
+        // references estimates_create_invoice.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

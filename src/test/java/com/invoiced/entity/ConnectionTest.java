@@ -19,7 +19,7 @@ public class ConnectionTest {
     @Test
     public void testGet() {
 
-        // references connection_rr_1.json
+        // references customers_retrieve.json
 
         String jsonBody =
                 "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\": \"NET 30\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": \"Sarah Fisher\",\n  \"address1\": \"342 Amber St\",\n  \"address2\": null,\n  \"city\": \"Hill Valley\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94523\",\n  \"country\": \"US\",\n  \"tax_id\": \"893-934835\",\n  \"phone\": \"(820) 297-2983\",\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
@@ -42,7 +42,7 @@ public class ConnectionTest {
     @Test
     public void testGetFail() {
 
-        // references connection_rr_2.json
+        // references customers_retrieve_not_found.json
 
         String jsonBody =
                 "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Customer was not found: 51123223\"\n}";
@@ -71,7 +71,7 @@ public class ConnectionTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_3.json
+        // references customers_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -89,7 +89,7 @@ public class ConnectionTest {
 
     public void testDeleteFail() {
 
-        // references connection_rr_4.json
+        // references customers_delete_not_found.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -109,7 +109,7 @@ public class ConnectionTest {
     @Test
     public void testUpdate() {
 
-        // references connection_rr_5.json
+        // references customers_edit.json
 
         String expectedJson =
                 "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\": \"NET 14\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": \"Sarah Fisher\",\n  \"address1\": \"342 Amber St\",\n  \"address2\": null,\n  \"city\": \"Hill Valley\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94523\",\n  \"country\": \"US\",\n  \"tax_id\": \"893-934835\",\n  \"phone\": \"(820) 297-2983\",\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
@@ -135,7 +135,7 @@ public class ConnectionTest {
 
     @Test
     public void testMockUpdateFail() {
-        // references connection_rr_6.json
+        // references customers_edit_not_found.json
 
         String expectedJson =
                 "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Customer was not found: 77777\"\n}";
@@ -170,7 +170,7 @@ public class ConnectionTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_7.json
+        // references customers_create.json
 
         String expectedJson =
                 "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\": \"NET 30\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": null,\n  \"address1\": null,\n  \"address2\": null,\n  \"city\": null,\n  \"state\": null,\n  \"postal_code\": null,\n  \"country\": \"US\",\n  \"tax_id\": null,\n  \"phone\": null,\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
@@ -197,7 +197,7 @@ public class ConnectionTest {
     @Test
     public void testCreateFailInvalidRequest() {
 
-        // references connection_rr_8.json
+        // references customers_create_invalid_request.json
 
         String expectedJson =
                 "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Name missing\",\n    \"param\": \"name\"\n}";
@@ -228,7 +228,7 @@ public class ConnectionTest {
     @Test
     public void testCreateFailRateLimit() {
 
-        // references connection_rr_55.json
+        // references customers_create_rate_limit.json
 
         String expectedJson =
                 "{\n    \"type\": \"rate_limit_error\",\n    \"message\": \"You have reached your rate limit\"}";
@@ -259,7 +259,7 @@ public class ConnectionTest {
     @Test
     public void testCreateFailAuthenticationError() {
 
-        // references connection_rr_56.json
+        // references customers_create_authentication_error.json
 
         String expectedJson =
                 "{\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid API key: XXXX\",\n    \"param\": \"name\"\n}";
@@ -290,7 +290,7 @@ public class ConnectionTest {
     @Test
     public void testCreateFailServerError() {
 
-        // references connection_rr_57.json
+        // references customers_create_internal_server_error.json
 
         String expectedJson =
                 "{\n    \"type\": \"server_error\",\n    \"message\": \"Internal Server Error\"\n}";
@@ -321,7 +321,7 @@ public class ConnectionTest {
     @Test
     public void testDelay() {
 
-        // references connection_rr_1.json
+        // references customers_retrieve.json
 
         // String jsonBody = "{\n \"id\": 15444,\n \"number\": \"CUST-0001\",\n
         // \"name\": \"Acme\",\n \"email\": \"billing@acmecorp.com\",\n

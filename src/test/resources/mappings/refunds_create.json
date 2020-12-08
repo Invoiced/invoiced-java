@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/charges/123/refunds",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"amount\":800.0}"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": "{\n  \"amount\": 400,\n  \"charge\": 46374,\n  \"created_at\": 1606943682,\n  \"currency\": \"usd\",\n  \"failure_message\": null,\n  \"gateway\": \"test\",\n  \"gateway_id\": \"wx0c2B1he\",\n  \"id\": 5309,\n  \"object\": \"refund\",\n  \"status\": \"succeeded\"\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

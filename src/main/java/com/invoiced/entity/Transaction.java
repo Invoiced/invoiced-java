@@ -170,19 +170,4 @@ public final class Transaction extends AbstractEntity<Transaction> {
       throw new EntityException(c);
     }
   }
-
-  @JsonIgnore
-  public Transaction initiateCharge(ChargeRequest chargeRequest) throws EntityException {
-    String url = "/charges";
-
-    try {
-      String chargeRequestJson = chargeRequest.toJsonString();
-
-      String response = this.getConnection().post(url, null, chargeRequestJson);
-
-      return Util.getMapper().readValue(response, Transaction.class);
-    } catch (Throwable c) {
-      throw new EntityException(c);
-    }
-  }
 }

@@ -18,7 +18,7 @@ public class TransactionListTest {
     @Test
     public void testList() {
 
-        // references connection_rr_48.json
+        // references transactions_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

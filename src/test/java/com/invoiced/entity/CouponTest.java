@@ -15,7 +15,7 @@ public class CouponTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_105.json
+        // references coupons_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -38,7 +38,7 @@ public class CouponTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_106.json
+        // references coupons_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -56,8 +56,8 @@ public class CouponTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_106.json
-        // references connection_rr_107.json
+        // references coupons_retrieve.json
+        // references coupons_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -79,8 +79,8 @@ public class CouponTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_106.json
-        // references connection_rr_108.json
+        // references coupons_retrieve.json
+        // references coupons_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -97,7 +97,7 @@ public class CouponTest {
     @Test
     public void testList() {
 
-        // references connection_rr_109.json
+        // references coupons_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

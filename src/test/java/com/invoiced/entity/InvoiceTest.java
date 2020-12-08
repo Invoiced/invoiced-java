@@ -29,7 +29,7 @@ public class InvoiceTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_13.json
+        // references invoices_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -72,7 +72,7 @@ public class InvoiceTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_14.json
+        // references invoices_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -94,8 +94,8 @@ public class InvoiceTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_14.json
-        // references connection_rr_15.json
+        // references invoices_retrieve.json
+        // references invoices_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -123,8 +123,8 @@ public class InvoiceTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_14.json
-        // references connection_rr_16.json
+        // references invoices_retrieve.json
+        // references invoices_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -143,8 +143,8 @@ public class InvoiceTest {
     @Test
     public void testPay() {
 
-        // references connection_rr_28.json
-        // references connection_rr_29.json
+        // references invoices_pay.json
+        // references invoices_retrieve_2.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -168,8 +168,8 @@ public class InvoiceTest {
     @Test
     public void testListAttachments() {
 
-        // references connection_rr_14.json
-        // references connection_rr_30.json
+        // references invoices_retrieve.json
+        // references invoices_list_attachments.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -191,8 +191,8 @@ public class InvoiceTest {
     @Test
     public void testSend() {
 
-        // references connection_rr_14.json
-        // references connection_rr_27.json
+        // references invoices_retrieve.json
+        // references invoices_send_email.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -228,8 +228,8 @@ public class InvoiceTest {
     @Test
     public void testSendText() {
 
-        // references connection_rr_14.json
-        // references connection_rr_68.json
+        // references invoices_retrieve.json
+        // references invoices_send_text_message.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -261,8 +261,8 @@ public class InvoiceTest {
     @Test
     public void testSendLetter() {
 
-        // references connection_rr_14.json
-        // references connection_rr_69.json
+        // references invoices_retrieve.json
+        // references invoices_send_letter.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -283,7 +283,7 @@ public class InvoiceTest {
     @Test
     public void testNewNote() {
 
-        // references connection_rr_62.json
+        // references notes_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -308,7 +308,7 @@ public class InvoiceTest {
     @Test
     public void testVoidInvoice() {
 
-        // references connection_rr_70.json
+        // references invoices_void.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

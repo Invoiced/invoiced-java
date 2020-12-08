@@ -1,8 +1,12 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "/customers/15444"
-    // "body": "{  \n  \"payment_terms\":\"NET 14\",\n  \"attention_to\":\"Sarah Fisher\",\n  \"address1\":\"342 Amber St\",\n  \"city\":\"Hill Valley\",\n  \"state\":\"CA\",\n  \"postal_code\":\"94523\",\n  \"tax_id\":\"893-934835\",\n  \"phone\":\"(820) 297-2983\" \n }"
+    "url": "/customers/15444",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{  \n  \"payment_terms\":\"NET 14\",\n  \"attention_to\":\"Sarah Fisher\",\n  \"address1\":\"342 Amber St\",\n  \"city\":\"Hill Valley\",\n  \"state\":\"CA\",\n  \"postal_code\":\"94523\",\n  \"tax_id\":\"893-934835\",\n  \"phone\":\"(820) 297-2983\" \n }"
+      }
+    ]
   },
   "response": {
     "status": 200,

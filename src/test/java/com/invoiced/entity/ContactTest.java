@@ -21,8 +21,8 @@ public class ContactTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_11.json
-        // references connection_rr_33.json
+        // references customers_retrieve_2.json
+        // references contacts_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -47,8 +47,8 @@ public class ContactTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_11.json
-        // references connection_rr_34.json
+        // references customers_retrieve_2.json
+        // references contacts_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -67,8 +67,8 @@ public class ContactTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_11.json
-        // references connection_rr_35.json
+        // references customers_retrieve_2.json
+        // references contacts_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -94,7 +94,7 @@ public class ContactTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_36.json
+        // references contacts_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

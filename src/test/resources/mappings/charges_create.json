@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/charges"
+  },
+  "response": {
+    "status": 201,
+    "body": "{\n  \"ach_sender_id\": null,\n  \"amount\": 2000,\n  \"balance\": 0,\n  \"charge\": {\n    \"amount\": 2000,\n    \"amount_refunded\": 0,\n    \"created_at\": 1607152637,\n    \"currency\": \"usd\",\n    \"customer\": 401558,\n    \"disputed\": false,\n    \"failure_message\": null,\n    \"gateway\": \"test\",\n    \"gateway_id\": \"5d9e31d812151\",\n    \"id\": 46374,\n    \"payment_source\": {\n      \"brand\": \"Visa\",\n      \"chargeable\": true,\n      \"created_at\": 1601919571,\n      \"exp_month\": 8,\n      \"exp_year\": 2025,\n      \"failure_reason\": null,\n      \"funding\": \"credit\",\n      \"gateway\": null,\n      \"gateway_customer\": null,\n      \"gateway_id\": null,\n      \"id\": 448165,\n      \"last4\": \"8550\",\n      \"merchant_account\": 2353,\n      \"object\": \"card\",\n      \"receipt_email\": null\n    },\n    \"receipt_email\": null,\n    \"refunded\": false,\n    \"refunds\": [],\n    \"status\": \"succeeded\"\n  },\n  \"created_at\": 1607152637,\n  \"currency\": \"usd\",\n  \"customer\": 401558,\n  \"date\": 1607152637,\n  \"id\": 32554,\n  \"matched\": null,\n  \"method\": \"credit_card\",\n  \"notes\": null,\n  \"object\": \"payment\",\n  \"pdf_url\": \"https://dundermifflin.invoiced.com/payments/dPf17GiBjJYqcl0zjm7jc02a/pdf\",\n  \"reference\": \"5d9e31d812151\",\n  \"source\": \"api\",\n  \"voided\": false\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

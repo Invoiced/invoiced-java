@@ -154,7 +154,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
       else if (operation == "update") exclusions = this.getSaveExclusions();
 
       return Util.getFilteredMapper(exclusions)
-              .enable(SerializationFeature.INDENT_OUTPUT)
               .writeValueAsString(this);
 
     } catch (Throwable c) {

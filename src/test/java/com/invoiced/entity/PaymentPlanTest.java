@@ -15,8 +15,8 @@ public class PaymentPlanTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_91.json
-        // references connection_rr_92.json
+        // references invoices_retrieve_3.json
+        // references payment_plans_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -45,8 +45,8 @@ public class PaymentPlanTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_91.json
-        // references connection_rr_93.json
+        // references invoices_retrieve_3.json
+        // references payment_plans_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -65,8 +65,8 @@ public class PaymentPlanTest {
     @Test
     public void testCancel() {
 
-        // references connection_rr_91.json
-        // references connection_rr_94.json
+        // references invoices_retrieve_3.json
+        // references payment_plans_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -84,7 +84,7 @@ public class PaymentPlanTest {
     @Test
     public void testProtectedMethods() {
 
-        // references connection_rr_91.json
+        // references invoices_retrieve_3.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

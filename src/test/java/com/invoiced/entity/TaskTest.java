@@ -15,8 +15,8 @@ public class TaskTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_11.json
-        // references connection_rr_86.json
+        // references customers_retrieve_2.json
+        // references tasks_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -40,8 +40,8 @@ public class TaskTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_11.json
-        // references connection_rr_87.json
+        // references customers_retrieve_2.json
+        // references tasks_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -60,8 +60,8 @@ public class TaskTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_11.json
-        // references connection_rr_88.json
+        // references customers_retrieve_2.json
+        // references tasks_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -85,8 +85,8 @@ public class TaskTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_11.json
-        // references connection_rr_89.json
+        // references customers_retrieve_2.json
+        // references tasks_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -105,7 +105,7 @@ public class TaskTest {
     @Test
     public void testProtectedMethods() {
 
-        // references connection_rr_11.json
+        // references customers_retrieve_2.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -124,8 +124,8 @@ public class TaskTest {
     @Test
     public void testList() {
 
-        // references connection_rr_11.json
-        // references connection_rr_90.json
+        // references customers_retrieve_2.json
+        // references tasks_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 

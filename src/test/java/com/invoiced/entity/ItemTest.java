@@ -15,7 +15,7 @@ public class ItemTest {
     @Test
     public void testCreate() {
 
-        // references connection_rr_95.json
+        // references items_create.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -41,7 +41,7 @@ public class ItemTest {
     @Test
     public void testRetrieve() {
 
-        // references connection_rr_96.json
+        // references items_retrieve.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -59,7 +59,7 @@ public class ItemTest {
     @Test
     public void testSave() {
 
-        // references connection_rr_97.json
+        // references items_edit.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -81,7 +81,7 @@ public class ItemTest {
     @Test
     public void testDelete() {
 
-        // references connection_rr_98.json
+        // references items_delete.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
@@ -98,7 +98,7 @@ public class ItemTest {
     @Test
     public void testList() {
 
-        // references connection_rr_99.json
+        // references items_list.json
 
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
