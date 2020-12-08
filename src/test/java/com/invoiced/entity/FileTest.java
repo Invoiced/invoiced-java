@@ -20,8 +20,8 @@ public class FileTest {
 
     @Test
     public void testParentID() {
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         File file = conn.newFile();
 
@@ -33,8 +33,8 @@ public class FileTest {
 
         // references connection_rr_42.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         File file = conn.newFile();
         file.url = "https://invoiced.com/img/logo-invoice.png";
@@ -59,8 +59,8 @@ public class FileTest {
 
         // references connection_rr_43.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             File file = conn.newFile().retrieve(13);
@@ -77,8 +77,8 @@ public class FileTest {
         // references connection_rr_43.json
         // references connection_rr_44.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             File file = conn.newFile().retrieve(13);

@@ -18,8 +18,8 @@ public class TaskTest {
         // references connection_rr_11.json
         // references connection_rr_86.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Customer cust = conn.newCustomer().retrieve(11);
@@ -43,8 +43,8 @@ public class TaskTest {
         // references connection_rr_11.json
         // references connection_rr_87.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Customer cust = conn.newCustomer().retrieve(11);
@@ -63,8 +63,8 @@ public class TaskTest {
         // references connection_rr_11.json
         // references connection_rr_88.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 
@@ -88,8 +88,8 @@ public class TaskTest {
         // references connection_rr_11.json
         // references connection_rr_89.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Customer cust = conn.newCustomer().retrieve(11);
@@ -107,8 +107,8 @@ public class TaskTest {
 
         // references connection_rr_11.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
         try {
             Customer cust = conn.newCustomer().retrieve(11);
             Task task = cust.newTask();
@@ -127,8 +127,8 @@ public class TaskTest {
         // references connection_rr_11.json
         // references connection_rr_90.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 

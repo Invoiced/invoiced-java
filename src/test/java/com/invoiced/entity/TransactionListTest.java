@@ -20,8 +20,8 @@ public class TransactionListTest {
 
         // references connection_rr_48.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<Transaction> transactions = conn.newTransaction().listAll();

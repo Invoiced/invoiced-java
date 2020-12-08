@@ -15,8 +15,8 @@ public class NoteTest {
     @Test
     public void testProtectedMethods() {
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
         Note note = conn.newNote();
         note.id = 312;
         assertTrue("Note Entity id is wrong", note.getEntityId().equals("312"));
@@ -27,8 +27,8 @@ public class NoteTest {
 
         // references connection_rr_77.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 
@@ -51,8 +51,8 @@ public class NoteTest {
         // references connection_rr_11.json
         // references connection_rr_115.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 
@@ -77,8 +77,8 @@ public class NoteTest {
         // references connection_rr_14.json
         // references connection_rr_116.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 

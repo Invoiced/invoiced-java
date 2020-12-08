@@ -20,8 +20,8 @@ public class CustomerTest {
 
     @Test
     public void testParentID() {
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer customer = conn.newCustomer();
     }
@@ -31,8 +31,8 @@ public class CustomerTest {
 
         // references connection_rr_9.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
 
@@ -51,8 +51,8 @@ public class CustomerTest {
     @Test
     public void testCustomerAPIException() {
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
 
@@ -67,8 +67,8 @@ public class CustomerTest {
     @Test
     public void testCustomerAuthException() {
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
 
@@ -83,8 +83,8 @@ public class CustomerTest {
     @Test
     public void testCustomerAPI2Exception() {
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
 
@@ -101,8 +101,8 @@ public class CustomerTest {
 
         // references connection_rr_10.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
 
@@ -126,8 +126,8 @@ public class CustomerTest {
 
         // references connection_rr_11.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
 
@@ -145,8 +145,8 @@ public class CustomerTest {
 
         // references connection_rr_12.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
         cust.id = 12;
@@ -165,8 +165,8 @@ public class CustomerTest {
         // references connection_rr_11.json
         // references connection_rr_25.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
 
@@ -197,8 +197,8 @@ public class CustomerTest {
         // references connection_rr_11.json
         // references connection_rr_26.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
 
@@ -232,8 +232,8 @@ public class CustomerTest {
         // references connection_rr_41.json
         // references connection_rr_11.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = null;
 
@@ -306,8 +306,8 @@ public class CustomerTest {
 
         // references connection_rr_59.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
         cust.id = 15444L;
@@ -328,8 +328,8 @@ public class CustomerTest {
 
         // references connection_rr_59.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
         cust.id = 15444L;
@@ -351,8 +351,8 @@ public class CustomerTest {
         // references connection_rr_11.json
         // references connection_rr_60.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
         cust.id = 11L;
@@ -384,8 +384,8 @@ public class CustomerTest {
         // references connection_rr_11.json
         // references connection_rr_61.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
         cust.id = 11L;
@@ -409,8 +409,8 @@ public class CustomerTest {
 
         // references connection_rr_62.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer();
         cust.id = 11L;

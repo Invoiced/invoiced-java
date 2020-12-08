@@ -17,8 +17,8 @@ public class ItemTest {
 
         // references connection_rr_95.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Item item = conn.newItem();
         item.id = "delivery";
@@ -43,8 +43,8 @@ public class ItemTest {
 
         // references connection_rr_96.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Item item = conn.newItem().retrieve("delivery");
@@ -61,8 +61,8 @@ public class ItemTest {
 
         // references connection_rr_97.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 
@@ -83,8 +83,8 @@ public class ItemTest {
 
         // references connection_rr_98.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Item item = conn.newItem().retrieve("delivery");
@@ -100,8 +100,8 @@ public class ItemTest {
 
         // references connection_rr_99.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<Item> items = conn.newItem().listAll();

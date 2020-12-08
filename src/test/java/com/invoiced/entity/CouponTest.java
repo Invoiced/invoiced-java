@@ -17,8 +17,8 @@ public class CouponTest {
 
         // references connection_rr_105.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Coupon coupon = conn.newCoupon();
         coupon.id = "S8L47J";
@@ -40,8 +40,8 @@ public class CouponTest {
 
         // references connection_rr_106.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Coupon coupon = conn.newCoupon().retrieve("S8L47J");
@@ -59,8 +59,8 @@ public class CouponTest {
         // references connection_rr_106.json
         // references connection_rr_107.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 
@@ -82,8 +82,8 @@ public class CouponTest {
         // references connection_rr_106.json
         // references connection_rr_108.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Coupon coupon = conn.newCoupon().retrieve("S8L47J");
@@ -99,8 +99,8 @@ public class CouponTest {
 
         // references connection_rr_109.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<Coupon> coupons = conn.newCoupon().listAll();

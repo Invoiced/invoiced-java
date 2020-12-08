@@ -19,8 +19,8 @@ public class PaymentSourceTest {
         // references connection_rr_117.json
         // references connection_rr_120.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer().retrieve(11);
 
@@ -41,8 +41,8 @@ public class PaymentSourceTest {
         // references connection_rr_118.json
         // references connection_rr_121.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer().retrieve(11);
 
@@ -62,8 +62,8 @@ public class PaymentSourceTest {
         // references connection_rr_11.json
         // references connection_rr_119.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Customer cust = conn.newCustomer().retrieve(11);
 

@@ -17,8 +17,8 @@ public class PlanTest {
 
         // references connection_rr_100.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Plan plan = conn.newPlan();
         plan.id = "starter";
@@ -44,8 +44,8 @@ public class PlanTest {
 
         // references connection_rr_101.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Plan plan = conn.newPlan().retrieve("starter");
@@ -63,8 +63,8 @@ public class PlanTest {
         // references connection_rr_101.json
         // references connection_rr_102.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 
@@ -86,8 +86,8 @@ public class PlanTest {
         // references connection_rr_101.json
         // references connection_rr_103.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Plan plan = conn.newPlan().retrieve("starter");
@@ -103,8 +103,8 @@ public class PlanTest {
 
         // references connection_rr_104.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<Plan> plans = conn.newPlan().listAll();

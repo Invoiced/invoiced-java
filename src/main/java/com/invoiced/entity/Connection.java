@@ -14,18 +14,23 @@ public class Connection {
   private static final String Accept = "application/json";
   private static final String baseEndPointProduction = "https://api.invoiced.com";
   private static final String baseEndPointSandbox = "https://api.sandbox.invoiced.com";
-  private static final String baseEndPointLocal = "http://localhost:8080";
   private final String apiKey;
-  private boolean sandBox;
-  private boolean testMode;
-  private boolean autoRefresh;
+  private final String baseUrl;
+  private boolean autoRefresh = true;
 
-  public Connection(String apiKey, boolean sandBox) {
-
+  public Connection(String apiKey, boolean sandbox) {
     this.apiKey = apiKey;
-    this.sandBox = sandBox;
-    this.testMode = false;
-    this.autoRefresh = true;
+
+    if (sandbox) {
+      baseUrl = baseEndPointSandbox;
+    } else {
+      baseUrl = baseEndPointProduction;
+    }
+  }
+
+  public Connection(String apiKey, String baseUrl) {
+    this.apiKey = apiKey;
+    this.baseUrl = baseUrl;
   }
 
   public static void closeAll() {
@@ -39,8 +44,8 @@ public class Connection {
   protected String post(String url, HashMap<String, Object> queryParms, String jsonBody)
       throws InvoicedException {
 
-    String responseString = "";
-    int responseCode = -1;
+    String responseString;
+    int responseCode;
 
     if (this.autoRefresh) {
       this.refreshUnirestConnection();
@@ -73,8 +78,8 @@ public class Connection {
 
   protected String patch(String url, String jsonBody) throws InvoicedException {
 
-    String responseString = "";
-    int responseCode = -1;
+    String responseString;
+    int responseCode;
 
     if (this.autoRefresh) {
       this.refreshUnirestConnection();
@@ -106,8 +111,8 @@ public class Connection {
 
   protected String get(String url, HashMap<String, Object> queryParms) throws InvoicedException {
 
-    String responseString = "";
-    int responseCode = -1;
+    String responseString;
+    int responseCode;
 
     if (this.autoRefresh) {
       this.refreshUnirestConnection();
@@ -141,8 +146,8 @@ public class Connection {
   protected ListResponse getList(String url, HashMap<String, Object> queryParms)
       throws InvoicedException {
 
-    String responseString = "";
-    int responseCode = -1;
+    String responseString;
+    int responseCode;
 
     if (this.autoRefresh) {
       this.refreshUnirestConnection();
@@ -150,7 +155,7 @@ public class Connection {
 
     url = this.baseUrl() + url;
 
-    ListResponse apiResult = null;
+    ListResponse apiResult;
 
     try {
       HttpResponse<String> response =
@@ -185,7 +190,7 @@ public class Connection {
 
   protected void delete(String url) throws InvoicedException {
 
-    int responseCode = -1;
+    int responseCode;
     String responseString = "";
 
     if (this.autoRefresh) {
@@ -220,8 +225,8 @@ public class Connection {
   // not all delete requests return 204 so alternate delete is needed for these
   protected String deleteWithResponse(String url) throws InvoicedException {
 
-    String responseString = "";
-    int responseCode = -1;
+    String responseString;
+    int responseCode;
 
     if (this.autoRefresh) {
       this.refreshUnirestConnection();
@@ -260,24 +265,20 @@ public class Connection {
     this.autoRefresh = false;
   }
 
-  public final Invoice newInvoice() {
-    return new Invoice(this);
+  public final Charge newCharge() {
+    return new Charge(this);
   }
 
-  public final Customer newCustomer() {
-    return new Customer(this);
-  }
-
-  public final Transaction newTransaction() {
-    return new Transaction(this);
-  }
-
-  public final Subscription newSubscription() {
-    return new Subscription(this);
+  public final Coupon newCoupon() {
+    return new Coupon(this);
   }
 
   public final CreditNote newCreditNote() {
     return new CreditNote(this);
+  }
+
+  public final Customer newCustomer() {
+    return new Customer(this);
   }
 
   public final Estimate newEstimate() {
@@ -288,50 +289,52 @@ public class Connection {
     return new Event(this);
   }
 
-  public final Note newNote() {
-    return new Note(this);
-  }
-
   public final File newFile() {
     return new File(this);
+  }
+
+  public final Invoice newInvoice() {
+    return new Invoice(this);
   }
 
   public final Item newItem() {
     return new Item(this);
   }
 
-  public final Coupon newCoupon() {
-    return new Coupon(this);
+  public final Note newNote() {
+    return new Note(this);
+  }
+
+  public final Payment newPayment() {
+    return new Payment(this);
   }
 
   public final Plan newPlan() {
     return new Plan(this);
   }
 
-  public final TaxRate newTaxRate() {
-    return new TaxRate(this);
+  public final Refund newRefund() {
+    return new Refund(this);
+  }
+
+  public final Subscription newSubscription() {
+    return new Subscription(this);
   }
 
   public final Task newTask() {
     return new Task(this);
   }
 
-  protected final void testModeOn() {
-    this.testMode = true;
+  public final TaxRate newTaxRate() {
+    return new TaxRate(this);
+  }
+
+  public final Transaction newTransaction() {
+    return new Transaction(this);
   }
 
   protected final String baseUrl() {
-
-    if (this.testMode == true) {
-      return baseEndPointLocal;
-    }
-
-    if (this.sandBox == true) {
-
-      return baseEndPointSandbox;
-    }
-
-    return baseEndPointProduction;
+    return this.baseUrl;
   }
 
   protected final InvoicedException handleApiError(int responseCode, String responseBody) {

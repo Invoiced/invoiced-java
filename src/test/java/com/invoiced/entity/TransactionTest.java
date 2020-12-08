@@ -19,8 +19,8 @@ public class TransactionTest {
 
     @Test
     public void testParentID() {
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Transaction transaction = conn.newTransaction();
     }
@@ -30,8 +30,8 @@ public class TransactionTest {
 
         // references connection_rr_21.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Transaction transaction = conn.newTransaction();
 
@@ -55,8 +55,8 @@ public class TransactionTest {
 
         // references connection_rr_22.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Transaction transaction = conn.newTransaction();
 
@@ -76,8 +76,8 @@ public class TransactionTest {
         // references connection_rr_22.json
         // references connection_rr_23.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Transaction transaction = conn.newTransaction();
 
@@ -102,8 +102,8 @@ public class TransactionTest {
         // references connection_rr_22.json
         // references connection_rr_24.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Transaction transaction = conn.newTransaction();
 
@@ -122,8 +122,8 @@ public class TransactionTest {
         // references connection_rr_22.json
         // references connection_rr_31.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Transaction transaction = conn.newTransaction();
 
@@ -160,8 +160,8 @@ public class TransactionTest {
         // references connection_rr_22.json
         // references connection_rr_32.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Transaction transaction = conn.newTransaction();
 
@@ -183,8 +183,8 @@ public class TransactionTest {
 
         // references connection_rr_76.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         ChargeRequest chargeRequest = new ChargeRequest();
 

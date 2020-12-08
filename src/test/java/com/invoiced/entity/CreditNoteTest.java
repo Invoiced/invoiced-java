@@ -20,8 +20,8 @@ public class CreditNoteTest {
 
     @Test
     public void testParentID() {
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         CreditNote creditNote = conn.newCreditNote();
     }
@@ -31,8 +31,8 @@ public class CreditNoteTest {
 
         // references connection_rr_78.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         CreditNote creditNote = conn.newCreditNote();
 
@@ -74,8 +74,8 @@ public class CreditNoteTest {
 
         // references connection_rr_79.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         CreditNote creditNote = conn.newCreditNote();
 
@@ -94,8 +94,8 @@ public class CreditNoteTest {
         // references connection_rr_79.json
         // references connection_rr_80.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         CreditNote creditNote = conn.newCreditNote();
 
@@ -120,8 +120,8 @@ public class CreditNoteTest {
         // references connection_rr_79.json
         // references connection_rr_81.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         CreditNote creditNote = conn.newCreditNote();
 
@@ -139,8 +139,8 @@ public class CreditNoteTest {
 
         // references connection_rr_82.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<CreditNote> creditNotes = conn.newCreditNote().listAll();
@@ -161,8 +161,8 @@ public class CreditNoteTest {
         // references connection_rr_79.json
         // references connection_rr_83.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         CreditNote creditNote = conn.newCreditNote();
 
@@ -197,8 +197,8 @@ public class CreditNoteTest {
         // references connection_rr_79.json
         // references connection_rr_84.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         CreditNote creditNote = conn.newCreditNote();
 
@@ -219,8 +219,8 @@ public class CreditNoteTest {
 
         // references connection_rr_85.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         CreditNote creditNote = conn.newCreditNote();
         creditNote.id = 2048;

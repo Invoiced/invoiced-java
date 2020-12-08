@@ -18,8 +18,8 @@ public class PaymentPlanTest {
         // references connection_rr_91.json
         // references connection_rr_92.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Invoice invoice = conn.newInvoice().retrieve(998);
@@ -48,8 +48,8 @@ public class PaymentPlanTest {
         // references connection_rr_91.json
         // references connection_rr_93.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Invoice invoice = conn.newInvoice().retrieve(998);
@@ -68,8 +68,8 @@ public class PaymentPlanTest {
         // references connection_rr_91.json
         // references connection_rr_94.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             Invoice invoice = conn.newInvoice().retrieve(998);
@@ -86,8 +86,8 @@ public class PaymentPlanTest {
 
         // references connection_rr_91.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
         try {
             Invoice invoice = conn.newInvoice().retrieve(998);
             PaymentPlan paymentPlan = invoice.newPaymentPlan();

@@ -18,8 +18,8 @@ public class EventListTest {
     @Test(expected = Exception.class)
     public void testForCoverage() throws Exception {
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
         Event event = conn.newEvent();
         event.id = 231;
         assertTrue("Event Entity id is wrong", event.getEntityId().equals("231"));
@@ -35,8 +35,8 @@ public class EventListTest {
     @Test
     public void testForRetrieve() {
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
         Event event = conn.newEvent();
         try {
             event = event.retrieve(1228003);
@@ -54,8 +54,8 @@ public class EventListTest {
         // references connection_rr_11.json
         // references connection_rr_51.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 

@@ -21,8 +21,8 @@ public class PendingLineItemListTest {
         // references connection_rr_11.json
         // references connection_rr_50.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 

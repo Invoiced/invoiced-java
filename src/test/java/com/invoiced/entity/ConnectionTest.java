@@ -24,9 +24,7 @@ public class ConnectionTest {
         String jsonBody =
                 "{\n  \"id\": 15444,\n  \"number\": \"CUST-0001\",\n  \"name\": \"Acme\",\n  \"email\": \"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\": \"NET 30\",\n  \"payment_source\": null,\n  \"taxes\": [],\n  \"type\": \"company\",\n  \"attention_to\": \"Sarah Fisher\",\n  \"address1\": \"342 Amber St\",\n  \"address2\": null,\n  \"city\": \"Hill Valley\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94523\",\n  \"country\": \"US\",\n  \"tax_id\": \"893-934835\",\n  \"phone\": \"(820) 297-2983\",\n  \"notes\": null,\n  \"statement_pdf_url\": \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n  \"created_at\": 1415222128,\n  \"metadata\": {}\n}";
 
-        Connection conn = new Connection("", true);
-
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
         try {
             String url = "/customers/15444";
@@ -49,9 +47,9 @@ public class ConnectionTest {
         String jsonBody =
                 "{\n    \"type\": \"invalid_request\",\n    \"message\": \"Customer was not found: 51123223\"\n}";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/customers/51123223";
@@ -75,9 +73,9 @@ public class ConnectionTest {
 
         // references connection_rr_3.json
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/" + "customers" + "/21123";
@@ -93,9 +91,9 @@ public class ConnectionTest {
 
         // references connection_rr_4.json
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         String url = "/" + "customers" + "/21121";
 
@@ -119,9 +117,9 @@ public class ConnectionTest {
         String jsonBody =
                 "{  \n  \"payment_terms\":\"NET 14\",\n  \"attention_to\":\"Sarah Fisher\",\n  \"address1\":\"342 Amber St\",\n  \"city\":\"Hill Valley\",\n  \"state\":\"CA\",\n  \"postal_code\":\"94523\",\n  \"tax_id\":\"893-934835\",\n  \"phone\":\"(820) 297-2983\" \n }";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/" + "customers" + "/15444";
@@ -145,9 +143,9 @@ public class ConnectionTest {
         String jsonBody =
                 "{  \n  \"payment_terms\":\"NET 14\",\n  \"attention_to\":\"Sarah Fisher\",\n  \"address1\":\"342 Amber St\",\n  \"city\":\"Hill Valley\",\n  \"state\":\"CA\",\n  \"postal_code\":\"94523\",\n  \"tax_id\":\"893-934835\",\n  \"phone\":\"(820) 297-2983\" \n }";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/" + "customers" + "/77777";
@@ -180,9 +178,9 @@ public class ConnectionTest {
         String jsonBody =
                 "{  \n  \"name\":\"Acme\",\n  \"email\":\"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\" \n }";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/" + "customers";
@@ -207,9 +205,9 @@ public class ConnectionTest {
         String jsonBody =
                 "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"invalid_request\":true \n }";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/customers";
@@ -238,9 +236,9 @@ public class ConnectionTest {
         String jsonBody =
                 "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"rate_limit\":true \n }";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/customers";
@@ -269,9 +267,9 @@ public class ConnectionTest {
         String jsonBody =
                 "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"auth_error\":true \n }";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/customers";
@@ -300,9 +298,9 @@ public class ConnectionTest {
         String jsonBody =
                 "{  \n \n  \"email\":\"billing@acmecorp.com\",\n  \"autopay\": false,\n  \"payment_terms\":\"NET 30\",\n  \"type\":\"company\",\n  \"server_error\":true \n }";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/customers";
@@ -337,9 +335,9 @@ public class ConnectionTest {
         // \"https://dundermifflin.invoiced.com/statements/t3NmhUomra3g3ueSNnbtUgrr/pdf\",\n
         // \"created_at\": 1415222128,\n \"metadata\": {}\n}";
 
-        Connection conn = new Connection("", true);
+        Connection conn = new Connection("api_key", "http://localhost:8080");
 
-        conn.testModeOn();
+
 
         try {
             String url = "/" + "delayed";

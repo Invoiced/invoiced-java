@@ -19,8 +19,8 @@ public class SubscriptionTest {
 
     @Test
     public void testParentID() {
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Subscription subscription = conn.newSubscription();
     }
@@ -30,8 +30,8 @@ public class SubscriptionTest {
 
         // references connection_rr_17.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Subscription subscription = conn.newSubscription();
 
@@ -57,8 +57,8 @@ public class SubscriptionTest {
 
         // references connection_rr_18.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Subscription subscription = conn.newSubscription();
 
@@ -78,8 +78,8 @@ public class SubscriptionTest {
         // references connection_rr_18.json
         // references connection_rr_19.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Subscription subscription = conn.newSubscription();
 
@@ -101,8 +101,8 @@ public class SubscriptionTest {
 
         // references connection_rr_20.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Subscription subscription = conn.newSubscription();
 
@@ -120,8 +120,8 @@ public class SubscriptionTest {
 
         // references connection_rr_75.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Subscription subscription = conn.newSubscription();
 

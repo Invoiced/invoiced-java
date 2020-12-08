@@ -17,8 +17,8 @@ public class TaxRateTest {
 
         // references connection_rr_110.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         TaxRate taxRate = conn.newTaxRate();
         taxRate.id = "vat";
@@ -40,8 +40,8 @@ public class TaxRateTest {
 
         // references connection_rr_111.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             TaxRate taxRate = conn.newTaxRate().retrieve("vat");
@@ -59,8 +59,8 @@ public class TaxRateTest {
         // references connection_rr_111.json
         // references connection_rr_112.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
 
@@ -82,8 +82,8 @@ public class TaxRateTest {
         // references connection_rr_111.json
         // references connection_rr_113.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             TaxRate taxRate = conn.newTaxRate().retrieve("vat");
@@ -99,8 +99,8 @@ public class TaxRateTest {
 
         // references connection_rr_114.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<TaxRate> taxRates = conn.newTaxRate().listAll();

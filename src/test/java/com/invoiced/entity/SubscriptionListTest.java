@@ -20,8 +20,8 @@ public class SubscriptionListTest {
 
         // references connection_rr_45.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<Subscription> subscriptions = conn.newSubscription().listAll();

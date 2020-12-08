@@ -20,8 +20,8 @@ public class InvoiceTest {
 
     @Test
     public void testParentID() {
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
     }
@@ -31,8 +31,8 @@ public class InvoiceTest {
 
         // references connection_rr_13.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -74,8 +74,8 @@ public class InvoiceTest {
 
         // references connection_rr_14.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -97,8 +97,8 @@ public class InvoiceTest {
         // references connection_rr_14.json
         // references connection_rr_15.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -127,8 +127,8 @@ public class InvoiceTest {
         // references connection_rr_14.json
         // references connection_rr_16.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -147,8 +147,8 @@ public class InvoiceTest {
         // references connection_rr_28.json
         // references connection_rr_29.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -172,8 +172,8 @@ public class InvoiceTest {
         // references connection_rr_14.json
         // references connection_rr_30.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -195,8 +195,8 @@ public class InvoiceTest {
         // references connection_rr_14.json
         // references connection_rr_27.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -232,8 +232,8 @@ public class InvoiceTest {
         // references connection_rr_14.json
         // references connection_rr_68.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -265,8 +265,8 @@ public class InvoiceTest {
         // references connection_rr_14.json
         // references connection_rr_69.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
 
@@ -286,8 +286,8 @@ public class InvoiceTest {
 
         // references connection_rr_62.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
         invoice.customer = 11L;
@@ -311,8 +311,8 @@ public class InvoiceTest {
 
         // references connection_rr_70.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Invoice invoice = conn.newInvoice();
         invoice.id = 46701;

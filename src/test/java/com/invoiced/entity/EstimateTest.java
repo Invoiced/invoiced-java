@@ -14,8 +14,8 @@ public class EstimateTest {
 
     @Test
     public void testParentID() {
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Estimate estimate = conn.newEstimate();
     }
@@ -25,8 +25,8 @@ public class EstimateTest {
 
         // references connection_rr_63.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Estimate estimate = conn.newEstimate();
 
@@ -68,8 +68,8 @@ public class EstimateTest {
 
         // references connection_rr_64.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Estimate estimate = conn.newEstimate();
 
@@ -88,8 +88,8 @@ public class EstimateTest {
         // references connection_rr_64.json
         // references connection_rr_65.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Estimate estimate = conn.newEstimate();
 
@@ -117,8 +117,8 @@ public class EstimateTest {
         // references connection_rr_64.json
         // references connection_rr_66.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Estimate estimate = conn.newEstimate();
 
@@ -136,8 +136,8 @@ public class EstimateTest {
 
         // references connection_rr_67.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<Estimate> estimates = conn.newEstimate().listAll();
@@ -158,8 +158,8 @@ public class EstimateTest {
         // references connection_rr_72.json
         // references connection_rr_73.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Estimate estimate = conn.newEstimate();
 
@@ -193,8 +193,8 @@ public class EstimateTest {
 
         // references connection_rr_71.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Estimate estimate = conn.newEstimate();
         estimate.id = 11641;
@@ -214,8 +214,8 @@ public class EstimateTest {
 
         // references connection_rr_74.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         Estimate estimate = conn.newEstimate();
         estimate.id = 11641;

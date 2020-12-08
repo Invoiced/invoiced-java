@@ -20,8 +20,8 @@ public class CustomerListTest {
 
         // references connection_rr_45.json
 
-        Connection conn = new Connection("", true);
-        conn.testModeOn();
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
 
         try {
             EntityList<Customer> customers = conn.newCustomer().listAll(null);
