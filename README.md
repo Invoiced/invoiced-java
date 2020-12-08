@@ -5,7 +5,7 @@ This repository contains the Java client library for the [Invoiced](https://invo
 
 You can find detailed API documentation along with java code snippets [here](https://invoiced.com/docs/api/?java#).
 
-[![Build Status](https://travis-ci.org/Invoiced/invoiced-java.svg?branch=master)](https://travis-ci.org/Invoiced/invoiced-java)
+[![Build Status](https://travis-ci.com/Invoiced/invoiced-java.svg?branch=master)](https://travis-ci.com/Invoiced/invoiced-java)
 [![Coverage Status](https://coveralls.io/repos/github/Invoiced/invoiced-java/badge.svg?branch=master)](https://coveralls.io/github/Invoiced/invoiced-java?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.invoiced/invoiced-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.invoiced/invoiced-java)
 
