@@ -296,8 +296,8 @@ public class Connection {
     return new File(this);
   }
 
-  public final CatalogItem newCatalogItem() {
-    return new CatalogItem(this);
+  public final Item newItem() {
+    return new Item(this);
   }
 
   public final Coupon newCoupon() {

@@ -30,7 +30,7 @@ public class PendingLineItemTest {
         try {
             Customer cust = conn.newCustomer().retrieve(11);
             PendingLineItem pli = cust.newPendingLineItem();
-            pli.catalogItem = "delivery";
+            pli.item = "delivery";
             pli.create();
 
             assertTrue("Pending Line Item id is incorrect", pli.id == 8);
@@ -53,7 +53,7 @@ public class PendingLineItemTest {
             Customer cust = conn.newCustomer().retrieve(11);
             PendingLineItem pli = cust.newPendingLineItem().retrieve(8);
 
-            assertTrue("Catalog Item is incorrect", pli.catalogItem.equals("delivery"));
+            assertTrue("Catalog Item is incorrect", pli.item.equals("delivery"));
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -115,7 +115,7 @@ public class PendingLineItemTest {
             PendingLineItem c1 = mapper.readValue(jsonInString, PendingLineItem.class);
 
             assertTrue("Id is incorrect", c1.id == 8);
-            assertTrue("Catalog Item is incorrect", c1.catalogItem.equals("delivery"));
+            assertTrue("Catalog Item is incorrect", c1.item.equals("delivery"));
             assertTrue("Type is incorrect", c1.type.equals("service"));
 
             assertTrue("Description is incorrect", c1.description == "");

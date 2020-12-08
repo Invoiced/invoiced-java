@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class CatalogItemTest {
+public class ItemTest {
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule();
@@ -20,18 +20,18 @@ public class CatalogItemTest {
         Connection conn = new Connection("", true);
         conn.testModeOn();
 
-        CatalogItem catalogItem = conn.newCatalogItem();
-        catalogItem.id = "delivery";
-        catalogItem.object = "failure_condition";
-        catalogItem.name = "Delivery";
-        catalogItem.type = "service";
-        catalogItem.unitCost = 100L;
+        Item item = conn.newItem();
+        item.id = "delivery";
+        item.object = "failure_condition";
+        item.name = "Delivery";
+        item.type = "service";
+        item.unitCost = 100L;
 
         try {
-            catalogItem.create();
+            item.create();
 
-            assertTrue("CatalogItem id is incorrect", catalogItem.id.equals("delivery"));
-            assertTrue("createdAt is not populated", catalogItem.createdAt == 1477327516);
+            assertTrue("Item id is incorrect", item.id.equals("delivery"));
+            assertTrue("createdAt is not populated", item.createdAt == 1477327516);
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -47,9 +47,9 @@ public class CatalogItemTest {
         conn.testModeOn();
 
         try {
-            CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
+            Item item = conn.newItem().retrieve("delivery");
 
-            assertTrue("Catalog item type is incorrect", catalogItem.type.equals("service"));
+            assertTrue("Item type is incorrect", item.type.equals("service"));
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -66,12 +66,12 @@ public class CatalogItemTest {
 
         try {
 
-            CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
-            catalogItem.name = "Updated";
+            Item item = conn.newItem().retrieve("delivery");
+            item.name = "Updated";
 
-            catalogItem.save();
+            item.save();
 
-            assertTrue("Catalog item name is incorrect", catalogItem.name.equals("Updated"));
+            assertTrue("Item name is incorrect", item.name.equals("Updated"));
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -87,8 +87,8 @@ public class CatalogItemTest {
         conn.testModeOn();
 
         try {
-            CatalogItem catalogItem = conn.newCatalogItem().retrieve("delivery");
-            catalogItem.delete();
+            Item item = conn.newItem().retrieve("delivery");
+            item.delete();
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -104,11 +104,11 @@ public class CatalogItemTest {
         conn.testModeOn();
 
         try {
-            EntityList<CatalogItem> catalogItems = conn.newCatalogItem().listAll();
+            EntityList<Item> items = conn.newItem().listAll();
 
-            assertTrue("Id 1 is incorrect", catalogItems.get(0).id.equals("delivery"));
+            assertTrue("Id 1 is incorrect", items.get(0).id.equals("delivery"));
 
-            assertTrue("Id 2 is incorrect", catalogItems.get(1).id.equals("delivery2"));
+            assertTrue("Id 2 is incorrect", items.get(1).id.equals("delivery2"));
 
         } catch (Exception e) {
             e.printStackTrace();

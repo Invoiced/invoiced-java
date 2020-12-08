@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonFilter("customFilter")
-public class CatalogItem extends AbstractEntity<CatalogItem> {
+public class Item extends AbstractEntity<Item> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
@@ -63,13 +63,13 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
   @JsonProperty("metadata")
   public Object metadata;
 
-  public CatalogItem(Connection conn) {
-    super(conn, CatalogItem.class);
+  public Item(Connection conn) {
+    super(conn, Item.class);
     this.entityName = "/items";
   }
 
-  CatalogItem() {
-    super(CatalogItem.class);
+  Item() {
+    super(Item.class);
     this.entityName = "/items";
   }
 

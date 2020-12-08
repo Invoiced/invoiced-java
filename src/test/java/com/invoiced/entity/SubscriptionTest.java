@@ -39,7 +39,7 @@ public class SubscriptionTest {
         subscription.plan = "starter";
         subscription.addons = new SubscriptionAddon[1];
         subscription.addons[0] = new SubscriptionAddon();
-        subscription.addons[0].catalogItem = "ipad-license";
+        subscription.addons[0].item = "ipad-license";
         subscription.addons[0].quantity = 11;
 
         try {

@@ -38,7 +38,7 @@ public class EstimateTest {
         items[0].quantity = 1D;
         items[0].unitCost = 50D;
         items[1] = new LineItem();
-        items[1].catalogItem = "delivery";
+        items[1].item = "delivery";
         items[1].quantity = 1D;
         Tax[] taxes = new Tax[1];
         taxes[0] = new Tax();

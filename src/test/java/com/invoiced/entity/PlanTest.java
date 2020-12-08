@@ -23,7 +23,7 @@ public class PlanTest {
         Plan plan = conn.newPlan();
         plan.id = "starter";
         plan.name = "Starter";
-        plan.catalogItem = "software-subscription";
+        plan.item = "software-subscription";
         plan.amount = 49L;
         plan.interval = "month";
         plan.intervalCount = 1L;

@@ -11,7 +11,7 @@ public class LineItem extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("catalog_item")
-  public String catalogItem;
+  public String item;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("type")
