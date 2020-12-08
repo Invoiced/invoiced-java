@@ -12,11 +12,14 @@ public final class Charge extends AbstractEntity<Charge> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")
-    public long id;
+    public Long id;
+
+    @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+    public String object;
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("customer")
-    public long customer;
+    public Long customer;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("status")
@@ -40,22 +43,30 @@ public final class Charge extends AbstractEntity<Charge> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("amount")
-    public double amount;
+    public Double amount;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JsonProperty("failure_reason")
-    public String failureReason;
+    @JsonProperty("failure_message")
+    public String failureMessage;
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("amount_refunded")
-    public double amountRefunded;
+    public Double amountRefunded;
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("refunded")
     public Boolean refunded;
 
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("refunds")
+    public Refund[] refunds;
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("disputed")
+    public Boolean disputed;
+
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-    public long createdAt;
+    public Long createdAt;
 
     public Charge(Connection conn) {
         super(conn, Charge.class);

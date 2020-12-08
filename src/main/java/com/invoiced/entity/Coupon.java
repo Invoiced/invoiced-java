@@ -12,8 +12,7 @@ public final class Coupon extends AbstractEntity<Coupon> {
     @JsonProperty("id")
     public String id;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JsonProperty("object")
+    @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
     public String object;
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -37,6 +36,10 @@ public final class Coupon extends AbstractEntity<Coupon> {
     public Boolean exclusive;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonProperty("duration")
+    public Long duration;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("expiration_date")
     public Long expirationDate;
 
@@ -45,7 +48,7 @@ public final class Coupon extends AbstractEntity<Coupon> {
     public Long maxRedemptions;
 
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-    public long createdAt;
+    public Long createdAt;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("metadata")

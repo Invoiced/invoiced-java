@@ -9,18 +9,26 @@ public final class BankAccount extends PaymentSource {
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("bank_name")
   public String bankName;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("last4")
   public String last4;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("routing_number")
   public String routingNumber;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("verified")
-  public boolean verified;
+  public Boolean verified;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("currency")
   public String currency;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("country")
+  public String country;
 
   BankAccount() {
     super();

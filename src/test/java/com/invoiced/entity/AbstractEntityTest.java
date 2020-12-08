@@ -10,7 +10,7 @@ public class AbstractEntityTest {
     public void testDiscount() {
 
         Discount discount = new Discount();
-        discount.id = 3231;
+        discount.id = 3231L;
 
         String discountString = discount.toString();
 

@@ -11,10 +11,9 @@ public final class Note extends AbstractEntity<Note> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")
-    public long id;
+    public Long id;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JsonProperty("object")
+    @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
     public String object;
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -26,19 +25,15 @@ public final class Note extends AbstractEntity<Note> {
     public Long customer;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JsonProperty("customer_id")
-    public Long customerId;
-
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JsonProperty("invoice_id")
-    public Long invoiceId;
-
-    @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-    public long createdAt;
+    @JsonProperty("user")
+    public Object user;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("metadata")
     public Object metadata;
+
+    @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long createdAt;
 
     public Note(Connection conn) {
         super(conn, Note.class);

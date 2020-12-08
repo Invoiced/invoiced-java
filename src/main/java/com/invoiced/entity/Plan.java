@@ -12,8 +12,7 @@ public final class Plan extends AbstractEntity<Plan> {
     @JsonProperty("id")
     public String id;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JsonProperty("object")
+    @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
     public String object;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -53,7 +52,7 @@ public final class Plan extends AbstractEntity<Plan> {
     public Object[] tiers;
 
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-    public long createdAt;
+    public Long createdAt;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("metadata")

@@ -223,7 +223,7 @@ public class CreditNoteTest {
 
 
         CreditNote creditNote = conn.newCreditNote();
-        creditNote.id = 2048;
+        creditNote.id = 2048L;
 
         try {
             creditNote.voidCreditNote();

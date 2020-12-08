@@ -9,14 +9,14 @@ public abstract class AbstractDocument<T extends AbstractDocument<T>> extends Ab
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")
-    public long id;
+    public Long id;
 
     @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
     public String object;
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("customer")
-    public long customer;
+    public Long customer;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("name")
@@ -47,7 +47,7 @@ public abstract class AbstractDocument<T extends AbstractDocument<T>> extends Ab
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("date")
-    public long date;
+    public Long date;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("items")
@@ -59,7 +59,7 @@ public abstract class AbstractDocument<T extends AbstractDocument<T>> extends Ab
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("subtotal")
-    public double subtotal;
+    public Double subtotal;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("discounts")
@@ -70,7 +70,7 @@ public abstract class AbstractDocument<T extends AbstractDocument<T>> extends Ab
     public Tax[] taxes;
 
     @JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
-    public double total;
+    public Double total;
 
     @JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
     public String url;
@@ -79,7 +79,7 @@ public abstract class AbstractDocument<T extends AbstractDocument<T>> extends Ab
     public String pdfUrl;
 
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-    public long createdAt;
+    public Long createdAt;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("metadata")
@@ -87,7 +87,7 @@ public abstract class AbstractDocument<T extends AbstractDocument<T>> extends Ab
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("attachments")
-    public long[] attachments;
+    public Long[] attachments;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("calculate_taxes")

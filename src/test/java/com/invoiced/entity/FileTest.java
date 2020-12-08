@@ -38,7 +38,7 @@ public class FileTest {
 
         File file = conn.newFile();
         file.url = "https://invoiced.com/img/logo-invoice.png";
-        file.size = 6936;
+        file.size = 6936L;
         file.name = "logo-invoice.png";
         file.type = "image/png";
 

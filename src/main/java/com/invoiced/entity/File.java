@@ -10,19 +10,18 @@ public final class File extends AbstractEntity<File> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")
-    public long id;
+    public Long id;
+
+    @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+    public String object;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("name")
     public String name;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JsonProperty("object")
-    public String object;
-
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("size")
-    public long size;
+    public Long size;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("type")
@@ -32,9 +31,8 @@ public final class File extends AbstractEntity<File> {
     @JsonProperty("url")
     public String url;
 
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    @JsonProperty("created_at")
-    public long createdAt;
+    @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long createdAt;
 
     public File(Connection conn) {
         super(conn, File.class);

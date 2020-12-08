@@ -12,8 +12,7 @@ public final class Item extends AbstractEntity<Item> {
   @JsonProperty("id")
   public String id;
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("object")
+  @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
   public String object;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -26,7 +25,7 @@ public final class Item extends AbstractEntity<Item> {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("unit_cost")
-  public Long unitCost;
+  public Double unitCost;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("description")
@@ -49,6 +48,10 @@ public final class Item extends AbstractEntity<Item> {
   public String avalaraTaxCode;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("avalara_location_code")
+  public String avalaraLocationCode;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("gl_account")
   public String glAccount;
 
@@ -57,7 +60,7 @@ public final class Item extends AbstractEntity<Item> {
   public Boolean discountable;
 
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long createdAt;
+  public Long createdAt;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")

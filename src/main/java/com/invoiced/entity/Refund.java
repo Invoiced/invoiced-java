@@ -12,11 +12,11 @@ public final class Refund extends AbstractEntity<Refund> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")
-    public long id;
+    public Long id;
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("charge")
-    public long charge;
+    public Long charge;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("status")
@@ -36,14 +36,14 @@ public final class Refund extends AbstractEntity<Refund> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("amount")
-    public double amount;
+    public Double amount;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @JsonProperty("failure_reason")
-    public String failureReason;
+    @JsonProperty("failure_message")
+    public String failureMessage;
 
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-    public long createdAt;
+    public Long createdAt;
 
     public Refund(Connection conn) {
         super(conn, Refund.class);

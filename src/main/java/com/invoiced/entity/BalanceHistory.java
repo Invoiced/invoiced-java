@@ -7,9 +7,13 @@ public final class BalanceHistory extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("timestamp")
-  public long timestamp;
+  public Long timestamp;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("currency")
+  public String currency;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("balance")
-  public double balance;
+  public Double balance;
 }

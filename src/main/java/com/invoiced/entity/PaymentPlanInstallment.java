@@ -7,17 +7,17 @@ public final class PaymentPlanInstallment extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
-  public long id;
+  public Long id;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("date")
-  public long date;
+  public Long date;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("amount")
-  public long amount;
+  public Long amount;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("balance")
-  public long balance;
+  public Long balance;
 }

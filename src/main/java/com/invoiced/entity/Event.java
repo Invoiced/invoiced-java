@@ -8,7 +8,10 @@ public final class Event extends AbstractEntity<Event> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")
-    public long id;
+    public Long id;
+
+    @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+    public String object;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("type")
@@ -16,7 +19,7 @@ public final class Event extends AbstractEntity<Event> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("timestamp")
-    public long timestamp;
+    public Long timestamp;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("data")

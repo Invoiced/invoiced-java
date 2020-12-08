@@ -18,7 +18,7 @@ public class NoteTest {
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
         Note note = conn.newNote();
-        note.id = 312;
+        note.id = 312L;
         assertTrue("Note Entity id is wrong", note.getEntityId().equals("312"));
     }
 

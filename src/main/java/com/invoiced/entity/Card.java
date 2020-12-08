@@ -9,15 +9,19 @@ public final class Card extends PaymentSource {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("brand")
     public String brand;
+
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("last4")
     public String last4;
+
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("exp_month")
-    public int expMonth;
+    public Long expMonth;
+
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("exp_year")
-    public int expYear;
+    public Long expYear;
+
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("funding")
     public String funding;

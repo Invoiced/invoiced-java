@@ -7,11 +7,11 @@ public final class ChargeRequest extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("customer")
-  public long customer;
+  public Long customer;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("method")
-  public long method;
+  public Long method;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("currency")
@@ -19,7 +19,7 @@ public final class ChargeRequest extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("amount")
-  public long amount;
+  public Double amount;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("invoiced_token")

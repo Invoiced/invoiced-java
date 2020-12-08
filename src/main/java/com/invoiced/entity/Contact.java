@@ -10,7 +10,10 @@ public final class Contact extends AbstractEntity<Contact> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
-  public long id;
+  public Long id;
+
+  @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+  public String object;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("name")
@@ -48,9 +51,8 @@ public final class Contact extends AbstractEntity<Contact> {
   @JsonProperty("country")
   public String country;
 
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("created_at")
-  public long createdAt;
+  @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
+  public Long createdAt;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("title")

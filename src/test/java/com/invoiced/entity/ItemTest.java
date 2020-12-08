@@ -25,7 +25,7 @@ public class ItemTest {
         item.object = "failure_condition";
         item.name = "Delivery";
         item.type = "service";
-        item.unitCost = 100L;
+        item.unitCost = 100D;
 
         try {
             item.create();

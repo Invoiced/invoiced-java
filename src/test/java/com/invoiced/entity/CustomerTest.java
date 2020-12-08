@@ -108,7 +108,7 @@ public class CustomerTest {
 
         cust.name = "Customer testSave";
         cust.email = "testcreate@testing.org";
-        cust.id = 10;
+        cust.id = 10L;
         cust.city = "Austin";
 
         try {
@@ -149,7 +149,7 @@ public class CustomerTest {
 
 
         Customer cust = conn.newCustomer();
-        cust.id = 12;
+        cust.id = 12L;
 
         try {
             cust.delete();
@@ -422,7 +422,7 @@ public class CustomerTest {
             note.create();
 
             assertTrue("Note id is incorrect", note.id == 1212);
-            assertTrue("Note customer id is incorrect", note.customerId == 11);
+            assertTrue("Note customer id is incorrect", note.customer == 11);
 
         } catch (Exception e) {
             fail(e.getMessage());

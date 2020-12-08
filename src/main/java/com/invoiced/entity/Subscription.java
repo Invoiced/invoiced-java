@@ -12,11 +12,14 @@ public final class Subscription extends AbstractEntity<Subscription> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
-  public long id;
+  public Long id;
+
+  @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+  public String object;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("customer")
-  public long customer;
+  public Long customer;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("plan")
@@ -24,36 +27,40 @@ public final class Subscription extends AbstractEntity<Subscription> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("start_date")
-  public long startDate;
+  public Long startDate;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("bill_in")
   public String billIn;
 
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("bill_in_advance_days")
+  public Long billInAdvanceDays;
+
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("quantity")
-  public int quantity;
+  public Long quantity;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("cycles")
-  public int cycles;
+  public Long cycles;
 
   @JsonProperty(value = "period_start", access = JsonProperty.Access.WRITE_ONLY)
-  public long periodStart;
+  public Long periodStart;
 
   @JsonProperty(value = "period_end", access = JsonProperty.Access.WRITE_ONLY)
-  public long periodEnd;
+  public Long periodEnd;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("snap_to_nth_day")
-  public long snapToNthDay;
+  public Long snapToNthDay;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("cancel_at_period_end")
   public Boolean cancelAtPeriodEnd;
 
   @JsonProperty(value = "canceled_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long canceledAt;
+  public Long canceledAt;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("prorate")
@@ -61,7 +68,7 @@ public final class Subscription extends AbstractEntity<Subscription> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("proration_date")
-  public long prorationDate;
+  public Long prorationDate;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("paused")
@@ -88,10 +95,10 @@ public final class Subscription extends AbstractEntity<Subscription> {
   public String status;
 
   @JsonProperty(value = "recurring_total", access = JsonProperty.Access.WRITE_ONLY)
-  public long recurringTotal;
+  public Long recurringTotal;
 
   @JsonProperty(value = "mrr", access = JsonProperty.Access.WRITE_ONLY)
-  public long mrr;
+  public Long mrr;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("addons")
@@ -106,6 +113,10 @@ public final class Subscription extends AbstractEntity<Subscription> {
   public String[] taxes;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("ship_to")
+  public ShippingDetail shipTo;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("pending_line_items")
   public String[] pendingLineItems;
 
@@ -113,7 +124,7 @@ public final class Subscription extends AbstractEntity<Subscription> {
   public String url;
 
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long createdAt;
+  public Long createdAt;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")

@@ -10,7 +10,7 @@ public final class Task extends AbstractEntity<Task> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")
-    public long id;
+    public Long id;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("name")
@@ -49,7 +49,7 @@ public final class Task extends AbstractEntity<Task> {
     public Long chaseStepId;
 
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-    public long createdAt;
+    public Long createdAt;
 
     public Task(Connection conn) {
         super(conn, Task.class);

@@ -197,7 +197,7 @@ public class EstimateTest {
 
 
         Estimate estimate = conn.newEstimate();
-        estimate.id = 11641;
+        estimate.id = 11641L;
 
         try {
             estimate.voidEstimate();
@@ -218,7 +218,7 @@ public class EstimateTest {
 
 
         Estimate estimate = conn.newEstimate();
-        estimate.id = 11641;
+        estimate.id = 11641L;
 
         try {
             Invoice invoice = estimate.invoice();

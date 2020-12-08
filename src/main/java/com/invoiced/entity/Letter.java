@@ -15,17 +15,16 @@ public final class Letter extends AbstractItem {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("num_pages")
-    public long numPages;
+    public Long numPages;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("expected_delivery_date")
-    public long expectedDeliveryDate;
+    public Long expectedDeliveryDate;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("to")
     public String to;
 
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    @JsonProperty("created_at")
-    public long createdAt;
+    @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long createdAt;
 }

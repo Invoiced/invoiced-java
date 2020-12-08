@@ -12,19 +12,26 @@ public final class Payment extends AbstractEntity<Payment> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
-  public long id;
+  public Long id;
+
+  @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+  public String object;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("customer")
-  public long customer;
+  public Long customer;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("date")
-  public long date;
+  public Long date;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("method")
   public String method;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("matched")
+  public Boolean matched;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("voided")
@@ -40,11 +47,11 @@ public final class Payment extends AbstractEntity<Payment> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("amount")
-  public double amount;
+  public Double amount;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("balance")
-  public double balance;
+  public Double balance;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("reference")
@@ -66,7 +73,7 @@ public final class Payment extends AbstractEntity<Payment> {
   public PaymentItem[] appliedTo;
 
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long createdAt;
+  public Long createdAt;
 
   public Payment(Connection conn) {
     super(conn, Payment.class);

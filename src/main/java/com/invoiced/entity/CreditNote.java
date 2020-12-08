@@ -11,13 +11,13 @@ public final class CreditNote extends AbstractDocument<CreditNote> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("invoice")
-  public long invoice;
+  public Long invoice;
 
   @JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
   public Boolean paid;
 
   @JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
-  public double balance;
+  public Double balance;
 
   public CreditNote(Connection conn) {
     super(conn, CreditNote.class);

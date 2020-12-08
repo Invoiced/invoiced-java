@@ -9,20 +9,19 @@ import com.invoiced.util.Util;
 
 public final class Estimate extends AbstractDocument<Estimate> {
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("invoice")
-  public String invoice;
+  @JsonProperty(value = "invoice", access = JsonProperty.Access.WRITE_ONLY)
+  public Long invoice;
 
   @JsonProperty(value = "approved", access = JsonProperty.Access.WRITE_ONLY)
   public Boolean approved;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("expiration_date")
-  public long expirationDate;
+  public Long expirationDate;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("deposit")
-  public long deposit;
+  public Long deposit;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("deposit_paid")
@@ -34,7 +33,7 @@ public final class Estimate extends AbstractDocument<Estimate> {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("ship_to")
-  public Object shipTo;
+  public ShippingDetail shipTo;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("disabled_payment_methods")

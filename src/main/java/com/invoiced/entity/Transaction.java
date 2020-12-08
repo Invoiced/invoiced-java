@@ -8,27 +8,36 @@ import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
 @JsonFilter("customFilter")
+@Deprecated
 public final class Transaction extends AbstractEntity<Transaction> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
-  public long id;
+  public Long id;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("customer")
-  public long customer;
+  public Long customer;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("invoice")
-  public long invoice;
+  public Long invoice;
+
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("estimate")
+  public Long estimate;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("credit_note")
-  public long creditNote;
+  public Long creditNote;
+
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("payment_id")
+  public Long payment;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("date")
-  public long date;
+  public Long date;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("type")
@@ -60,11 +69,7 @@ public final class Transaction extends AbstractEntity<Transaction> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("amount")
-  public double amount;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("fee")
-  public double fee;
+  public Double amount;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("notes")
@@ -75,13 +80,13 @@ public final class Transaction extends AbstractEntity<Transaction> {
   public String failureReason;
 
   @JsonProperty(value = "parent_transaction", access = JsonProperty.Access.WRITE_ONLY)
-  public long parentTransaction;
+  public Long parentTransaction;
 
   @JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
   public String pdfUrl;
 
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long createdAt;
+  public Long createdAt;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")

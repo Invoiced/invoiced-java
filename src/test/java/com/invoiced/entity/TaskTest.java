@@ -112,7 +112,7 @@ public class TaskTest {
         try {
             Customer cust = conn.newCustomer().retrieve(11);
             Task task = cust.newTask();
-            task.id = 222;
+            task.id = 222L;
             assertTrue("Task Entity id is wrong", task.getEntityId().equals("222"));
 
         } catch (Exception e) {

@@ -21,7 +21,7 @@ public class EventListTest {
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
         Event event = conn.newEvent();
-        event.id = 231;
+        event.id = 231L;
         assertTrue("Event Entity id is wrong", event.getEntityId().equals("231"));
         try {
             event.create();

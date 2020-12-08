@@ -7,13 +7,19 @@ public final class Attachment extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("id")
-  public long id;
+  public Long id;
+
+  @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+  public String object;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("file")
   public File file;
 
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("created_at")
-  public long createdAt;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("location")
+  public String location;
+
+  @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
+  public Long createdAt;
 }

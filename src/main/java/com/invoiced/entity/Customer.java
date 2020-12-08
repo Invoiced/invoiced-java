@@ -12,7 +12,7 @@ public final class Customer extends AbstractEntity<Customer> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
-  public long id;
+  public Long id;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("name")
@@ -40,10 +40,6 @@ public final class Customer extends AbstractEntity<Customer> {
 
   @JsonProperty(value = "payment_source", access = JsonProperty.Access.WRITE_ONLY)
   public PaymentSource paymentSource;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("taxes")
-  public Tax[] taxes;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("disabled_payment_methods")
@@ -98,8 +94,24 @@ public final class Customer extends AbstractEntity<Customer> {
   public Long nextChaseStep;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("taxable")
+  public Boolean taxable;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("tax_id")
   public String taxId;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("taxes")
+  public Tax[] taxes;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("avalara_entity_use_code")
+  public String avalaraEntityUseCode;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("avalara_exemption_number")
+  public String avalaraExemptionNumber;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("phone")
@@ -118,20 +130,8 @@ public final class Customer extends AbstractEntity<Customer> {
   public Long owner;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("taxable")
-  public Boolean taxable;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("notes")
   public String notes;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("avalara_entity_use_code")
-  public String avalaraEntityUseCode;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("avalara_exemption_number")
-  public String avalaraExemptionNumber;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("parent_customer")
@@ -148,7 +148,7 @@ public final class Customer extends AbstractEntity<Customer> {
   public String statementPdfUrl;
 
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long createdAt;
+  public Long createdAt;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")

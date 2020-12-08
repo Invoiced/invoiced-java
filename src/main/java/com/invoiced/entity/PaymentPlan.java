@@ -13,8 +13,7 @@ public final class PaymentPlan extends AbstractEntity<PaymentPlan> {
   @JsonProperty("id")
   public Long id;
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("object")
+  @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
   public String object;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -30,7 +29,7 @@ public final class PaymentPlan extends AbstractEntity<PaymentPlan> {
   public Object approval;
 
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long createdAt;
+  public Long createdAt;
 
   PaymentPlan(Connection conn) {
     super(conn, PaymentPlan.class);

@@ -106,7 +106,6 @@ public class InvoiceTest {
             invoice = invoice.retrieve(46225);
             invoice.name = "July Paper Delivery";
             invoice.notes = "The order was delivered on Jul 20, 2015";
-            invoice.sent = true;
 
             invoice.save();
 
@@ -299,7 +298,7 @@ public class InvoiceTest {
             note.create();
 
             assertTrue("Note id is incorrect", note.id == 1212);
-            assertTrue("Note customer id is incorrect", note.customerId == 11);
+            assertTrue("Note customer id is incorrect", note.customer == 11);
 
         } catch (Exception e) {
             fail(e.getMessage());
@@ -315,7 +314,7 @@ public class InvoiceTest {
 
 
         Invoice invoice = conn.newInvoice();
-        invoice.id = 46701;
+        invoice.id = 46701L;
 
         try {
             invoice.voidInvoice();
@@ -348,14 +347,12 @@ public class InvoiceTest {
             assertTrue("Closed is incorrect", i1.closed == false);
             assertTrue("Paid is incorrect", i1.paid == true);
             assertTrue("Status is incorrect", i1.status.equals("not_sent"));
-            assertTrue("Chase is incorrect", i1.chase == false);
-            assertTrue("Next Chase On is incorrect", i1.nextChaseOn == 0);
             assertTrue("Autopay is incorrect", i1.autopay == false);
 
             assertTrue("Attempt count is incorrect", i1.attemptCount == 0);
-            assertTrue("Next Payment Attempt is incorrect", i1.nextPaymentAttempt == 0);
+            assertTrue("Next Payment Attempt is incorrect", i1.nextPaymentAttempt == null);
 
-            assertTrue("Subscription is incorrect", i1.subscription == 0L);
+            assertTrue("Subscription is incorrect", i1.subscription == null);
 
             assertTrue("Number is incorrect", i1.number.equals("INV-0016"));
 
@@ -371,8 +368,6 @@ public class InvoiceTest {
             assertTrue("Taxes is incorrect", i1.taxes.length > 0);
             assertTrue("Total is incorrect", i1.total == 51.15d);
             assertTrue("Balance is incorrect", i1.balance == 51.15d);
-
-            assertTrue("Tags is incorrect", i1.tags.length == 0);
 
             assertTrue(
                     "Url is incorrect",

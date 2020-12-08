@@ -35,10 +35,10 @@ public class TransactionTest {
 
         Transaction transaction = conn.newTransaction();
 
-        transaction.invoice = 44648;
+        transaction.invoice = 44648L;
         transaction.method = "check";
         transaction.gatewayId = "1450";
-        transaction.amount = 800;
+        transaction.amount = 800D;
 
         try {
 
@@ -188,16 +188,16 @@ public class TransactionTest {
 
         ChargeRequest chargeRequest = new ChargeRequest();
 
-        chargeRequest.customer = 401558;
+        chargeRequest.customer = 401558L;
         chargeRequest.currency = "usd";
-        chargeRequest.amount = 2000;
+        chargeRequest.amount = 2000D;
 
         PaymentItem[] splits = new PaymentItem[1];
         splits[0] = new PaymentItem();
 
         splits[0].type = "invoice";
-        splits[0].invoice = 1234;
-        splits[0].amount = 2000;
+        splits[0].invoice = 1234L;
+        splits[0].amount = 2000D;
 
         chargeRequest.appliedTo = splits;
 
@@ -221,7 +221,7 @@ public class TransactionTest {
 
         try {
             String jsonString =
-                    "{\n    \"id\": 20939,\n    \"customer\": 15460,\n    \"invoice\": 44648,\n    \"date\": 1410843600,\n    \"type\": \"payment\",\n    \"method\": \"check\",\n    \"status\": \"succeeded\",\n    \"gateway\": null,\n    \"gateway_id\": null,\n    \"payment_source\": null,\n    \"currency\": \"usd\",\n    \"amount\": 800,\n    \"fee\": 0,\n    \"notes\": null,\n    \"parent_transaction\": null,\n    \"pdf_url\": \"https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf\",\n    \"created_at\": 1415228628,\n    \"metadata\": {}\n}";
+                    "{\n    \"id\": 20939,\n    \"customer\": 15460,\n    \"invoice\": 44648,\n    \"date\": 1410843600,\n    \"type\": \"payment\",\n    \"method\": \"check\",\n    \"status\": \"succeeded\",\n    \"gateway\": null,\n    \"gateway_id\": null,\n    \"payment_source\": null,\n    \"currency\": \"usd\",\n    \"amount\": 800,\n    \"notes\": null,\n    \"parent_transaction\": null,\n    \"pdf_url\": \"https://dundermifflin.invoiced.com/payments/IZmXbVOPyvfD3GPBmyd6FwXY/pdf\",\n    \"created_at\": 1415228628,\n    \"metadata\": {}\n}";
 
             Transaction t1 = mapper.readValue(jsonString, Transaction.class);
 
@@ -237,9 +237,8 @@ public class TransactionTest {
             assertTrue("Payment source is incorrect", t1.paymentSource == null);
             assertTrue("Currency is incorrect", t1.currency.equals("usd"));
             assertTrue("Amount is incorrect", t1.amount == 800d);
-            assertTrue("Fee is incorrect", t1.fee == 0d);
             assertTrue("Notes is incorrect", t1.notes == null);
-            assertTrue("Parent Transaction is incorrect", t1.parentTransaction == 0L);
+            assertTrue("Parent Transaction is incorrect", t1.parentTransaction == null);
             assertTrue(
                     "PdfUrl is incorrect",
                     t1.pdfUrl.equals(

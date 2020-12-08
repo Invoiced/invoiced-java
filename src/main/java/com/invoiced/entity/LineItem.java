@@ -7,7 +7,10 @@ public final class LineItem extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")
-  public long id;
+  public Long id;
+
+  @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+  public String object;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("catalog_item")
@@ -27,15 +30,15 @@ public final class LineItem extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("quantity")
-  public double quantity;
+  public Double quantity;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("unit_cost")
-  public double unitCost;
+  public Double unitCost;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("amount")
-  public double amount;
+  public Double amount;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("discountable")
@@ -56,6 +59,18 @@ public final class LineItem extends AbstractItem {
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("plan")
   public String plan;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("period_start")
+  public Long periodStart;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("period_end")
+  public Long periodEnd;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("subscription")
+  public Long subscription;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")

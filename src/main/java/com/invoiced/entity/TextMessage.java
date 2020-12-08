@@ -21,7 +21,6 @@ public final class TextMessage extends AbstractItem {
   @JsonProperty("message")
   public String message;
 
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("created_at")
-  public long createdAt;
+  @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
+  public Long createdAt;
 }

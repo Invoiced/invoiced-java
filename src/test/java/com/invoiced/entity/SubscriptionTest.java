@@ -35,12 +35,12 @@ public class SubscriptionTest {
 
         Subscription subscription = conn.newSubscription();
 
-        subscription.customer = 15444;
+        subscription.customer = 15444L;
         subscription.plan = "starter";
         subscription.addons = new SubscriptionAddon[1];
         subscription.addons[0] = new SubscriptionAddon();
-        subscription.addons[0].item = "ipad-license";
-        subscription.addons[0].quantity = 11;
+        subscription.addons[0].plan = "ipad-license";
+        subscription.addons[0].quantity = 11L;
 
         try {
 
@@ -123,7 +123,7 @@ public class SubscriptionTest {
 
         Subscription subscription = conn.newSubscription();
 
-        subscription.customer = 481594;
+        subscription.customer = 481594L;
         subscription.plan = "starter";
 
         try {
@@ -152,13 +152,13 @@ public class SubscriptionTest {
             assertTrue("Id is incorrect", s1.id == 595L);
             assertTrue("Customer is incorrect", s1.customer == 15444L);
             assertTrue("Plan is incorrect", s1.plan.equals("starter"));
-            assertTrue("Cycles is incorrect", s1.cycles == 0);
+            assertTrue("Cycles is incorrect", s1.cycles == null);
             assertTrue("Quantity is incorrect", s1.quantity == 1);
             assertTrue("Start Date is incorrect", s1.startDate == 1420391704L);
             assertTrue("Period Start is incorrect", s1.periodStart == 1446657304L);
             assertTrue("Period End is incorrect", s1.periodEnd == 1449249304L);
             assertTrue("Cancel At Period End is incorrect", s1.cancelAtPeriodEnd == false);
-            assertTrue("Canceled At incorrect", s1.canceledAt == 0);
+            assertTrue("Canceled At incorrect", s1.canceledAt == null);
             assertTrue("Status is incorrect", s1.status.equals("active"));
             assertTrue("Addons is incorrect", s1.addons.length > 0);
             assertTrue("Discounts is incorrect", s1.discounts.length == 0);

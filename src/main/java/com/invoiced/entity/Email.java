@@ -35,7 +35,7 @@ public final class Email extends AbstractItem {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("opens")
-    public int opens;
+    public Long opens;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("opens_detail")
@@ -43,13 +43,12 @@ public final class Email extends AbstractItem {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("clicks")
-    public int clicks;
+    public Long clicks;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("clicks_detail")
     public Object clicksDetails;
 
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    @JsonProperty("created_at")
-    public long createdAt;
+    @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long createdAt;
 }

@@ -10,14 +10,22 @@ public final class PaymentItem extends AbstractItem {
   public String type;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("amount")
+  public Double amount;
+
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("invoice")
-  public long invoice;
+  public Long invoice;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("estimate")
-  public long estimate;
+  public Long estimate;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("amount")
-  public long amount;
+  @JsonProperty("credit_note")
+  public Long creditNote;
+
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("document_type")
+  public Long documentType;
 }

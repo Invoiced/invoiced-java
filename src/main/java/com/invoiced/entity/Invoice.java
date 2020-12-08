@@ -11,7 +11,7 @@ public final class Invoice extends AbstractDocument<Invoice> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("due_date")
-  public long dueDate;
+  public Long dueDate;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("payment_terms")
@@ -24,41 +24,28 @@ public final class Invoice extends AbstractDocument<Invoice> {
   @JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
   public Boolean paid;
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("sent")
-  public Boolean sent;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("chase")
-  public Boolean chase;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("next_chase_on")
-  public long nextChaseOn;
-
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("attempt_count")
-  public long attemptCount;
+  public Long attemptCount;
 
   @JsonProperty(value = "next_payment_attempt", access = JsonProperty.Access.WRITE_ONLY)
-  public long nextPaymentAttempt;
+  public Long nextPaymentAttempt;
 
   @JsonProperty(value = "subscription", access = JsonProperty.Access.WRITE_ONLY)
-  public long subscription;
+  public Long subscription;
+
+  @JsonProperty(value = "payment_plan", access = JsonProperty.Access.WRITE_ONLY)
+  public Long paymentPlan;
 
   @JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
-  public double balance;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("tags")
-  public Object[] tags;
+  public Double balance;
 
   @JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)
   public String paymentUrl;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("ship_to")
-  public Object shipTo;
+  public ShippingDetail shipTo;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("disabled_payment_methods")

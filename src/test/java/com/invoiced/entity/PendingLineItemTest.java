@@ -74,7 +74,7 @@ public class PendingLineItemTest {
             Customer cust = conn.newCustomer().retrieve(11);
             PendingLineItem pli = cust.newPendingLineItem().retrieve(8);
 
-            pli.quantity = 2;
+            pli.quantity = 2D;
 
             pli.save();
 
