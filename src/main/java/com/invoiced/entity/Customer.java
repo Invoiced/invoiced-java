@@ -58,10 +58,6 @@ public final class Customer extends AbstractEntity<Customer> {
   public String attentionTo;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("stripe_token")
-  public String stripeToken;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("address1")
   public String address1;
 
