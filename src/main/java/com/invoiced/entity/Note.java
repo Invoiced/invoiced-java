@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
 @JsonFilter("customFilter")
-public class Note extends AbstractEntity<Note> {
+public final class Note extends AbstractEntity<Note> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")

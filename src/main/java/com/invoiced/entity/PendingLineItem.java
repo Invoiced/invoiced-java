@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonFilter("customFilter")
-public class PendingLineItem extends AbstractEntity<PendingLineItem> {
+public final class PendingLineItem extends AbstractEntity<PendingLineItem> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")

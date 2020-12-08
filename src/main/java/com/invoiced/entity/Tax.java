@@ -3,7 +3,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Tax extends AbstractItem {
+public final class Tax extends AbstractItem {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")

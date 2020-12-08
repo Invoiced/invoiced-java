@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-public class Invoice extends AbstractDocument<Invoice> {
+public final class Invoice extends AbstractDocument<Invoice> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("due_date")

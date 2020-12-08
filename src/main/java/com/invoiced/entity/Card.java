@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 
-public class Card extends PaymentSource {
+public final class Card extends PaymentSource {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("brand")

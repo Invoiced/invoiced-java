@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonFilter("customFilter")
-public class TaxRate extends AbstractEntity<TaxRate> {
+public final class TaxRate extends AbstractEntity<TaxRate> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")

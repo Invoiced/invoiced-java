@@ -3,7 +3,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class LetterRequest extends AbstractItem {
+public final class LetterRequest extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("type")

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonFilter("customFilter")
-public class Coupon extends AbstractEntity<Coupon> {
+public final class Coupon extends AbstractEntity<Coupon> {
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")

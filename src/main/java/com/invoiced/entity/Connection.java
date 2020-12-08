@@ -9,7 +9,7 @@ import com.mashape.unirest.http.options.Options;
 
 import java.util.HashMap;
 
-public class Connection {
+public final class Connection {
 
   private static final String Accept = "application/json";
   private static final String baseEndPointProduction = "https://api.invoiced.com";

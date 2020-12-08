@@ -8,7 +8,7 @@ import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
 @JsonFilter("customFilter")
-public class Customer extends AbstractEntity<Customer> {
+public final class Customer extends AbstractEntity<Customer> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("id")

@@ -3,7 +3,7 @@ package com.invoiced.entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EntityList<T extends AbstractEntity> extends ArrayList<T> {
+public final class EntityList<T extends AbstractEntity> extends ArrayList<T> {
 
   private static final long serialVersionUID = 1L;
 

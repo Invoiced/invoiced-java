@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-public class CreditNote extends AbstractDocument<CreditNote> {
+public final class CreditNote extends AbstractDocument<CreditNote> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("invoice")

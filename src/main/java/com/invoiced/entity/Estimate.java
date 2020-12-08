@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-public class Estimate extends AbstractDocument<Estimate> {
+public final class Estimate extends AbstractDocument<Estimate> {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("invoice")

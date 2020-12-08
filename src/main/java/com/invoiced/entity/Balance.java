@@ -3,7 +3,7 @@ package com.invoiced.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Balance extends AbstractItem {
+public final class Balance extends AbstractItem {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("available_credits")
