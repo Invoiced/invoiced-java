@@ -30,11 +30,8 @@ public class BankAccount extends PaymentSource {
 
   public void delete() throws EntityException {
     try {
-
       this.getConnection().delete(this.getEndpoint(true));
-
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
   }

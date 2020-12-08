@@ -164,40 +164,28 @@ public class Estimate extends AbstractEntity<Estimate> {
 
   @JsonIgnore
   public Email[] send(EmailRequest emailRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/emails";
 
-    Email[] emails;
-
     try {
-
       String emailRequestJson = emailRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, emailRequestJson);
 
-      emails = Util.getMapper().readValue(response, Email[].class);
-
+      return Util.getMapper().readValue(response, Email[].class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return emails;
   }
 
   public void voidEstimate() throws EntityException {
-
     String url = this.getEndpoint(true) + "/void";
-
-    Estimate v1;
 
     try {
       String response = this.getConnection().post(url, null, "{}");
 
-      v1 = Util.getMapper().readValue(response, Estimate.class);
+      Estimate estimate = Util.getMapper().readValue(response, Estimate.class);
 
-      setFields(v1, this);
-
+      setFields(estimate, this);
     } catch (Throwable c) {
       throw new EntityException(c);
     }
@@ -205,24 +193,18 @@ public class Estimate extends AbstractEntity<Estimate> {
 
   @JsonIgnore
   public Invoice invoice() throws EntityException {
-
     String url = this.getEndpoint(true) + "/invoice";
 
-    Invoice invoice;
-
     try {
-
       String response = this.getConnection().post(url, null, "{}");
 
-      invoice = Util.getMapper().readValue(response, Invoice.class);
+      Invoice invoice = Util.getMapper().readValue(response, Invoice.class);
       invoice.setConnection(this.getConnection());
       invoice.setClass(Invoice.class);
 
+      return invoice;
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return invoice;
   }
 }

@@ -106,24 +106,16 @@ public class Payment extends AbstractEntity<Payment> {
 
   @JsonIgnore
   public Email[] send(EmailRequest emailRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/emails";
 
-    Email[] emails = null;
-
     try {
-
       String emailRequestJson = emailRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, emailRequestJson);
 
-      emails = Util.getMapper().readValue(response, Email[].class);
-
+      return Util.getMapper().readValue(response, Email[].class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return emails;
   }
 }

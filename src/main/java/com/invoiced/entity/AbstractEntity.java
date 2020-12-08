@@ -154,8 +154,6 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
 
   private String toJsonString(String operation) throws EntityException {
 
-    String s = "Entity";
-
     String[] exclusions = null;
 
     try {
@@ -163,16 +161,13 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
       if (operation == "create") exclusions = this.getCreateExclusions();
       else if (operation == "update") exclusions = this.getSaveExclusions();
 
-      s =
-          Util.getFilteredMapper(exclusions)
+      return Util.getFilteredMapper(exclusions)
               .enable(SerializationFeature.INDENT_OUTPUT)
               .writeValueAsString(this);
 
     } catch (Throwable c) {
       throw new EntityException(c);
     }
-
-    return s;
   }
 
   public void save() throws EntityException {
@@ -181,11 +176,9 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
       throw new EntityException(new Throwable("Save operation not available on object."));
     }
 
-    String url = null;
+    String url = this.getEndpoint(true);
 
-    url = this.getEndpoint(true);
-
-    T v1 = null;
+    T v1;
 
     try {
       String jsonRequest = this.toJsonString("update");
@@ -287,7 +280,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
     }
 
     String url = this.getEndpoint(true);
-    T v1 = null;
+    T v1;
 
     try {
 

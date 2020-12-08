@@ -131,74 +131,53 @@ public class Transaction extends AbstractEntity<Transaction> {
 
   @JsonIgnore
   public Transaction refund(long amount) throws EntityException {
-
     String url = this.getEndpoint(true) + "/refunds";
 
     RefundRequest refundRequest = new RefundRequest(amount);
 
-    Transaction v1 = null;
-
     try {
-
       String refundToJson = refundRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, refundToJson);
 
-      v1 = Util.getMapper().readValue(response, Transaction.class);
-      v1.setConnection(this.getConnection());
-      v1.setClass(Transaction.class);
+      Transaction transaction = Util.getMapper().readValue(response, Transaction.class);
+      transaction.setConnection(this.getConnection());
+      transaction.setClass(Transaction.class);
 
+      return transaction;
     } catch (Throwable c) {
 
       throw new EntityException(c);
     }
-
-    return v1;
   }
 
   @JsonIgnore
   public Email[] send(EmailRequest emailRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/emails";
 
-    Email[] emails = null;
-
     try {
-
       String emailRequestJson = emailRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, emailRequestJson);
 
-      emails = Util.getMapper().readValue(response, Email[].class);
-
+      return Util.getMapper().readValue(response, Email[].class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return emails;
   }
 
   @JsonIgnore
   public Transaction initiateCharge(ChargeRequest chargeRequest) throws EntityException {
-
     String url = "/charges";
 
-    Transaction transaction = null;
-
     try {
-
       String chargeRequestJson = chargeRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, chargeRequestJson);
 
-      transaction = Util.getMapper().readValue(response, Transaction.class);
-
+      return Util.getMapper().readValue(response, Transaction.class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return transaction;
   }
 }

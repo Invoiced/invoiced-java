@@ -191,14 +191,12 @@ public class CreditNote extends AbstractEntity<CreditNote> {
 
     String url = this.getEndpoint(true) + "/void";
 
-    CreditNote v1;
-
     try {
       String response = this.getConnection().post(url, null, "{}");
 
-      v1 = Util.getMapper().readValue(response, CreditNote.class);
+      CreditNote creditNote = Util.getMapper().readValue(response, CreditNote.class);
 
-      setFields(v1, this);
+      setFields(creditNote, this);
 
     } catch (Throwable c) {
       throw new EntityException(c);

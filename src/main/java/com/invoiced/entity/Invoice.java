@@ -208,127 +208,86 @@ public class Invoice extends AbstractEntity<Invoice> {
 
   @JsonIgnore
   public Email[] send(EmailRequest emailRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/emails";
 
-    Email[] emails = null;
-
     try {
-
       String emailRequestJson = emailRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, emailRequestJson);
 
-      emails = Util.getMapper().readValue(response, Email[].class);
-
+      return Util.getMapper().readValue(response, Email[].class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return emails;
   }
 
   @JsonIgnore
   public TextMessage[] sendText(TextRequest textRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/text_messages";
 
-    TextMessage[] textMessages = null;
-
     try {
-
       String textRequestJson = textRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, textRequestJson);
 
-      textMessages = Util.getMapper().readValue(response, TextMessage[].class);
-
+      return Util.getMapper().readValue(response, TextMessage[].class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return textMessages;
   }
 
   @JsonIgnore
   public Letter sendLetter() throws EntityException {
-
     String url = this.getEndpoint(true) + "/letters";
 
-    Letter letter = null;
-
     try {
-
       String response = this.getConnection().post(url, null, "{}");
 
-      letter = Util.getMapper().readValue(response, Letter.class);
-
+      return Util.getMapper().readValue(response, Letter.class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return letter;
   }
 
   @JsonIgnore
   public void pay() throws EntityException {
-
     String url = this.getEndpoint(true) + "/pay";
 
     try {
-
       String response = this.getConnection().post(url, null, "");
 
-      Invoice v1 = Util.getMapper().readValue(response, Invoice.class);
+      Invoice invoice = Util.getMapper().readValue(response, Invoice.class);
 
-      setFields(v1, this);
-
+      setFields(invoice, this);
     } catch (Throwable c) {
 
       throw new EntityException(c);
     }
-
-    return;
   }
 
   @JsonIgnore
   public Attachment[] listAttachments() throws EntityException {
-
     String url = this.getEndpoint(true) + "/attachments";
 
-    Attachment[] attachments = null;
-
     try {
-
       String response = this.getConnection().post(url, null, "");
 
-      attachments = Util.getMapper().readValue(response, Attachment[].class);
-
+      return Util.getMapper().readValue(response, Attachment[].class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return attachments;
   }
 
   @JsonIgnore
   public void voidInvoice() throws EntityException {
-
     String url = this.getEndpoint(true) + "/void";
-
-    Invoice v1 = null;
 
     try {
       String response = this.getConnection().post(url, null, "{}");
 
-      v1 = Util.getMapper().readValue(response, Invoice.class);
+      Invoice invoice = Util.getMapper().readValue(response, Invoice.class);
 
-      setFields(v1, this);
-
+      setFields(invoice, this);
     } catch (Throwable c) {
       throw new EntityException(c);
     }

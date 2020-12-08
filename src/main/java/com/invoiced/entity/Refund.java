@@ -79,26 +79,20 @@ public class Refund extends AbstractEntity<Refund> {
     }
 
     @JsonIgnore
-    public Refund create(long chargeId, double amount) throws EntityException {
-
+    public void create(long chargeId, double amount) throws EntityException {
         String url = "/charges/" + chargeId + "/refunds";
 
-        Refund refund = null;
         RefundRequest refundRequest = new RefundRequest(amount);
 
         try {
-
             String refundRequestJson = refundRequest.toJsonString();
 
             String response = this.getConnection().post(url, null, refundRequestJson);
 
-            refund = Util.getMapper().readValue(response, Refund.class);
-
+            Refund refund = Util.getMapper().readValue(response, Refund.class);
+            setFields(refund, this);
         } catch (Throwable c) {
-
             throw new EntityException(c);
         }
-
-        return refund;
     }
 }

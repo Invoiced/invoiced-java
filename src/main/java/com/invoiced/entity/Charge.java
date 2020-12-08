@@ -95,24 +95,15 @@ public class Charge extends AbstractEntity<Charge> {
 
     @JsonIgnore
     public Payment create(ChargeRequest chargeRequest) throws EntityException {
-
-        String url = "/charges";
-
-        Payment payment = null;
-
         try {
-
             String chargeRequestJson = chargeRequest.toJsonString();
 
-            String response = this.getConnection().post(url, null, chargeRequestJson);
+            String response = this.getConnection().post("/charges", null, chargeRequestJson);
 
-            payment = Util.getMapper().readValue(response, Payment.class);
-
+            return Util.getMapper().readValue(response, Payment.class);
         } catch (Throwable c) {
 
             throw new EntityException(c);
         }
-
-        return payment;
     }
 }

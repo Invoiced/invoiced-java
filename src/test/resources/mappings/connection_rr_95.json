@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "/catalog_items"
+    "url": "/items"
   },
   "response": {
     "status": 201,

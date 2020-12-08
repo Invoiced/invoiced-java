@@ -204,115 +204,77 @@ public class Customer extends AbstractEntity<Customer> {
 
   @JsonIgnore
   public Balance getBalance() throws EntityException {
-
     String url = this.getEndpoint(true) + "/balance";
 
-    Balance balance = null;
-
     try {
-
       String response = this.getConnection().get(url, null);
 
-      balance = Util.getMapper().readValue(response, Balance.class);
-
+      return Util.getMapper().readValue(response, Balance.class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return balance;
   }
 
   @JsonIgnore
   public Email[] sendStatement(EmailRequest emailRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/emails";
 
-    Email[] emails = null;
-
     try {
-
       String emailRequestJson = emailRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, emailRequestJson);
 
-      emails = Util.getMapper().readValue(response, Email[].class);
-
+      return Util.getMapper().readValue(response, Email[].class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return emails;
   }
 
   @JsonIgnore
   public TextMessage[] sendStatementText(TextRequest textRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/text_messages";
 
-    TextMessage[] textMessages = null;
-
     try {
-
       String textRequestJson = textRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, textRequestJson);
 
-      textMessages = Util.getMapper().readValue(response, TextMessage[].class);
-
+      return Util.getMapper().readValue(response, TextMessage[].class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return textMessages;
   }
 
   @JsonIgnore
   public Letter sendStatementLetter(LetterRequest letterRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/letters";
 
-    Letter letter = null;
-
     try {
-
       String letterRequestJson = letterRequest.toJsonString();
 
       String response = this.getConnection().post(url, null, letterRequestJson);
 
-      letter = Util.getMapper().readValue(response, Letter.class);
-
+      return Util.getMapper().readValue(response, Letter.class);
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return letter;
   }
 
   @JsonIgnore
   public Invoice invoice() throws EntityException {
-
     String url = this.getEndpoint(true) + "/invoices";
 
-    Invoice invoice = null;
-
     try {
-
       String response = this.getConnection().post(url, null, "{}");
 
-      invoice = Util.getMapper().readValue(response, Invoice.class);
+      Invoice invoice = Util.getMapper().readValue(response, Invoice.class);
       invoice.setConnection(this.getConnection());
       invoice.setClass(Invoice.class);
 
+      return invoice;
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return invoice;
   }
 
   @JsonIgnore
@@ -335,22 +297,17 @@ public class Customer extends AbstractEntity<Customer> {
       cutoffJson = "{}";
     }
 
-    Invoice invoice = null;
-
     try {
-
       String response = this.getConnection().post(url, null, cutoffJson);
 
-      invoice = Util.getMapper().readValue(response, Invoice.class);
+      Invoice invoice = Util.getMapper().readValue(response, Invoice.class);
       invoice.setConnection(this.getConnection());
       invoice.setClass(Invoice.class);
 
+      return invoice;
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return invoice;
   }
 
   @JsonIgnore
@@ -383,27 +340,23 @@ public class Customer extends AbstractEntity<Customer> {
 
   @JsonIgnore
   public PaymentSource createPaymentSource(SourceRequest sourceRequest) throws EntityException {
-
     String url = this.getEndpoint(true) + "/payment_sources";
-    PaymentSource v1 = null;
 
     try {
 
       String sourceRequestJson = sourceRequest.toJsonString();
       String response = this.getConnection().post(url, null, sourceRequestJson);
 
-      v1 = Util.getMapper().readValue(response, PaymentSource.class);
+      PaymentSource paymentSource = Util.getMapper().readValue(response, PaymentSource.class);
 
       // only need to set connection and base; setClass is called by constructors.
-      v1.setConnection(this.getConnection());
-      v1.setEndpointBase(this.getEndpoint(true));
+      paymentSource.setConnection(this.getConnection());
+      paymentSource.setEndpointBase(this.getEndpoint(true));
 
+      return paymentSource;
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
-
-    return v1;
   }
 
   @JsonIgnore

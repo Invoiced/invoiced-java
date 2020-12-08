@@ -72,13 +72,9 @@ public class PaymentPlan extends AbstractEntity<PaymentPlan> {
   }
 
   public void cancel() throws EntityException {
-
     try {
-
       this.delete();
-
     } catch (Throwable c) {
-
       throw new EntityException(c);
     }
   }

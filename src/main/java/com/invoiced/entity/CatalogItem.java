@@ -65,12 +65,12 @@ public class CatalogItem extends AbstractEntity<CatalogItem> {
 
   public CatalogItem(Connection conn) {
     super(conn, CatalogItem.class);
-    this.entityName = "/catalog_items";
+    this.entityName = "/items";
   }
 
   CatalogItem() {
     super(CatalogItem.class);
-    this.entityName = "/catalog_items";
+    this.entityName = "/items";
   }
 
   @Override
