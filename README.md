@@ -44,11 +44,16 @@ Then, API calls can be made like this:
 Invoice invoice = invoiced.newInvoice().retrieve({INVOICE_ID});
 
 # mark as paid
-Transaction transaction = invoiced.newTransaction();
-transaction.invoice = invoice.id;
-transaction.amount = invoice.balance;
-transaction.method = "check";
-transaction.create();
+Payment payment = invoiced.newPayment();
+payment.amount = invoice.balance;
+payment.method = "check";
+PaymentItem[] appliedTo = new PaymentItem[1];
+appliedTo[0] = new PaymentItem();
+appliedTo[0].type = "invoice";
+appliedTo[0].invoice = invoice.id;
+appliedTo[0].amount = invoice.balance;
+payment.appliedTo = appliedTo;
+payment.create();
 ```
 
 If you want to use the sandbox API instead then you must set the second argument on the client to `true` like this:
