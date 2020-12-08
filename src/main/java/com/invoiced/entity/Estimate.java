@@ -7,54 +7,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-@JsonFilter("customFilter")
-public class Estimate extends AbstractEntity<Estimate> {
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("id")
-  public long id;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("customer")
-  public long customer;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("name")
-  public String name;
+public class Estimate extends AbstractDocument<Estimate> {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("invoice")
   public String invoice;
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("number")
-  public String number;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("email")
-  public String email;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("currency")
-  public String currency;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("draft")
-  public Boolean draft;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("closed")
-  public Boolean closed;
-
   @JsonProperty(value = "approved", access = JsonProperty.Access.WRITE_ONLY)
   public Boolean approved;
-
-  @JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
-  public String status;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("date")
-  public long date;
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("expiration_date")
@@ -73,52 +33,12 @@ public class Estimate extends AbstractEntity<Estimate> {
   public String paymentTerms;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("items")
-  public LineItem[] items;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("notes")
-  public String notes;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("subtotal")
-  public double subtotal;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("discounts")
-  public Discount[] discounts;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("disabled_payment_methods")
-  public String[] disabledPaymentMethods;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("taxes")
-  public Tax[] taxes;
-
-  @JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
-  public double total;
-
-  @JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
-  public String url;
-
-  @JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
-  public String pdfUrl;
-
-  @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long createdAt;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("metadata")
-  public Object metadata;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("ship_to")
   public Object shipTo;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("calculate_taxes")
-  public Boolean calculateTaxes;
+  @JsonProperty("disabled_payment_methods")
+  public String[] disabledPaymentMethods;
 
   public Estimate(Connection conn) {
     super(conn, Estimate.class);
@@ -128,12 +48,6 @@ public class Estimate extends AbstractEntity<Estimate> {
   Estimate() {
     super(Estimate.class);
     this.entityName = "/estimates";
-  }
-
-  @Override
-  @JsonIgnore
-  protected String getEntityId() {
-    return String.valueOf(this.id);
   }
 
   @Override
@@ -162,33 +76,8 @@ public class Estimate extends AbstractEntity<Estimate> {
     };
   }
 
-  @JsonIgnore
-  public Email[] send(EmailRequest emailRequest) throws EntityException {
-    String url = this.getEndpoint(true) + "/emails";
-
-    try {
-      String emailRequestJson = emailRequest.toJsonString();
-
-      String response = this.getConnection().post(url, null, emailRequestJson);
-
-      return Util.getMapper().readValue(response, Email[].class);
-    } catch (Throwable c) {
-      throw new EntityException(c);
-    }
-  }
-
   public void voidEstimate() throws EntityException {
-    String url = this.getEndpoint(true) + "/void";
-
-    try {
-      String response = this.getConnection().post(url, null, "{}");
-
-      Estimate estimate = Util.getMapper().readValue(response, Estimate.class);
-
-      setFields(estimate, this);
-    } catch (Throwable c) {
-      throw new EntityException(c);
-    }
+    this.voidDocument();
   }
 
   @JsonIgnore

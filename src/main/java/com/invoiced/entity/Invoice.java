@@ -7,50 +7,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.invoiced.exception.EntityException;
 import com.invoiced.util.Util;
 
-@JsonFilter("customFilter")
-public class Invoice extends AbstractEntity<Invoice> {
+public class Invoice extends AbstractDocument<Invoice> {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("id")
-  public long id;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("customer")
-  public long customer;
+  @JsonProperty("due_date")
+  public long dueDate;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("name")
-  public String name;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("number")
-  public String number;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("email")
-  public String email;
+  @JsonProperty("payment_terms")
+  public String paymentTerms;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("autopay")
   public Boolean autopay;
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("currency")
-  public String currency;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("draft")
-  public Boolean draft;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("closed")
-  public Boolean closed;
-
   @JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
   public Boolean paid;
-
-  @JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
-  public String status;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("sent")
@@ -74,41 +46,6 @@ public class Invoice extends AbstractEntity<Invoice> {
   @JsonProperty(value = "subscription", access = JsonProperty.Access.WRITE_ONLY)
   public long subscription;
 
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("date")
-  public long date;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("due_date")
-  public long dueDate;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("payment_terms")
-  public String paymentTerms;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("items")
-  public LineItem[] items;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("notes")
-  public String notes;
-
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("subtotal")
-  public double subtotal;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("discounts")
-  public Discount[] discounts;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("taxes")
-  public Tax[] taxes;
-
-  @JsonProperty(value = "total", access = JsonProperty.Access.WRITE_ONLY)
-  public double total;
-
   @JsonProperty(value = "balance", access = JsonProperty.Access.WRITE_ONLY)
   public double balance;
 
@@ -116,37 +53,16 @@ public class Invoice extends AbstractEntity<Invoice> {
   @JsonProperty("tags")
   public Object[] tags;
 
-  @JsonProperty(value = "url", access = JsonProperty.Access.WRITE_ONLY)
-  public String url;
-
   @JsonProperty(value = "payment_url", access = JsonProperty.Access.WRITE_ONLY)
   public String paymentUrl;
-
-  @JsonProperty(value = "pdf_url", access = JsonProperty.Access.WRITE_ONLY)
-  public String pdfUrl;
-
-  @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
-  public long createdAt;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("metadata")
-  public Object metadata;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("ship_to")
   public Object shipTo;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("attachments")
-  public long[] attachments;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("disabled_payment_methods")
   public String[] disabledPaymentMethods;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("calculate_taxes")
-  public Boolean calculateTaxes;
 
   public Invoice(Connection conn) {
     super(conn, Invoice.class);
@@ -207,21 +123,6 @@ public class Invoice extends AbstractEntity<Invoice> {
   }
 
   @JsonIgnore
-  public Email[] send(EmailRequest emailRequest) throws EntityException {
-    String url = this.getEndpoint(true) + "/emails";
-
-    try {
-      String emailRequestJson = emailRequest.toJsonString();
-
-      String response = this.getConnection().post(url, null, emailRequestJson);
-
-      return Util.getMapper().readValue(response, Email[].class);
-    } catch (Throwable c) {
-      throw new EntityException(c);
-    }
-  }
-
-  @JsonIgnore
   public TextMessage[] sendText(TextRequest textRequest) throws EntityException {
     String url = this.getEndpoint(true) + "/text_messages";
 
@@ -266,31 +167,8 @@ public class Invoice extends AbstractEntity<Invoice> {
   }
 
   @JsonIgnore
-  public Attachment[] listAttachments() throws EntityException {
-    String url = this.getEndpoint(true) + "/attachments";
-
-    try {
-      String response = this.getConnection().post(url, null, "");
-
-      return Util.getMapper().readValue(response, Attachment[].class);
-    } catch (Throwable c) {
-      throw new EntityException(c);
-    }
-  }
-
-  @JsonIgnore
   public void voidInvoice() throws EntityException {
-    String url = this.getEndpoint(true) + "/void";
-
-    try {
-      String response = this.getConnection().post(url, null, "{}");
-
-      Invoice invoice = Util.getMapper().readValue(response, Invoice.class);
-
-      setFields(invoice, this);
-    } catch (Throwable c) {
-      throw new EntityException(c);
-    }
+    this.voidDocument();
   }
 
   @JsonIgnore

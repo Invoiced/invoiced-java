@@ -30,10 +30,11 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
   }
 
   protected static void setFields(Object from, Object to) throws EntityException {
-    Field[] fields = from.getClass().getDeclaredFields();
+    Field[] fields = from.getClass().getFields();
+
     for (Field field : fields) {
       try {
-        Field fieldFrom = from.getClass().getDeclaredField(field.getName());
+        Field fieldFrom = from.getClass().getField(field.getName());
 
         if (Modifier.isPrivate(field.getModifiers())) {
           continue;
@@ -52,7 +53,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
         }
 
         Object value = fieldFrom.get(from);
-        to.getClass().getDeclaredField(field.getName()).set(to, value);
+        to.getClass().getField(field.getName()).set(to, value);
 
       } catch (Throwable c) {
         throw new EntityException(c);
@@ -101,18 +102,16 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
     }
 
     String url = this.getEndpoint(false);
-    T v1 = null;
 
     try {
       String jsonRequest = this.toJsonString("create");
       String response = this.conn.post(url, null, jsonRequest);
 
-      v1 = Util.getMapper().readValue(response, this.tClass);
-      v1.setConnection(this.conn);
-      v1.setClass(this.tClass);
+      T object = Util.getMapper().readValue(response, this.tClass);
+      object.setConnection(this.conn);
+      object.setClass(this.tClass);
 
-      setFields(v1, this);
-
+      setFields(object, this);
     } catch (Throwable c) {
       throw new EntityException(c);
     }
@@ -138,18 +137,11 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
   }
 
   public String toJsonString() throws EntityException {
-
-    String s = "Entity";
-
     try {
-
-      s = Util.getMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
-
+      return Util.getMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(this);
     } catch (Throwable c) {
       throw new EntityException(c);
     }
-
-    return s;
   }
 
   private String toJsonString(String operation) throws EntityException {
@@ -171,70 +163,56 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
   }
 
   public void save() throws EntityException {
-
     if (!this.hasCRUD()) {
       throw new EntityException(new Throwable("Save operation not available on object."));
     }
 
     String url = this.getEndpoint(true);
 
-    T v1;
-
     try {
       String jsonRequest = this.toJsonString("update");
       String response = this.conn.patch(url, jsonRequest);
 
-      v1 = Util.getMapper().readValue(response, this.tClass);
-
-      setFields(v1, this);
-
+      T object = Util.getMapper().readValue(response, this.tClass);
+      setFields(object, this);
     } catch (Throwable c) {
       throw new EntityException(c);
     }
   }
 
   public T retrieve() throws EntityException {
-
     return this.retrieve("", null);
   }
 
   public T retrieve(long id) throws EntityException {
-
     return this.retrieve(String.valueOf(id), null);
   }
 
   public T retrieve(String id) throws EntityException {
-
     return this.retrieve(id, null);
   }
 
   public T retrieve(long id, HashMap<String, Object> queryParams) throws EntityException {
-
     return this.retrieve(String.valueOf(id), queryParams);
   }
 
   public T retrieve(String id, HashMap<String, Object> queryParams) throws EntityException {
-
     String url = this.getEndpoint(false);
     if (id.length() > 0) url += "/" + id;
 
-    T v1 = null;
-
     try {
-
       String response = this.conn.get(url, queryParams);
 
-      v1 = Util.getMapper().readValue(response, this.tClass);
-      v1.setConnection(this.conn);
-      v1.setClass(this.tClass);
-      v1.setEndpointBase(this.endpointBase);
+      T object = Util.getMapper().readValue(response, this.tClass);
+      object.setConnection(this.conn);
+      object.setClass(this.tClass);
+      object.setEndpointBase(this.endpointBase);
 
+      return object;
     } catch (Throwable c) {
 
       throw new EntityException(c);
     }
-
-    return v1;
   }
 
   public void delete() throws EntityException {
