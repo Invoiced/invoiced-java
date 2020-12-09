@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/credit_balance_adjustments",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"customer\":1234,\"currency\":\"usd\",\"amount\":800.0,\"notes\":\"1450\"}"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": "{\n    \"id\": 20939,\n    \"customer\": 15460,\n    \"date\": 1410843600,\n    \"currency\": \"usd\",\n    \"amount\": 800,\n    \"notes\": null,\n    \"created_at\": 1415228628\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

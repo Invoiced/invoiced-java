@@ -273,6 +273,10 @@ public final class Connection {
     return new Coupon(this);
   }
 
+  public final CreditBalanceAdjustment newCreditBalanceAdjustment() {
+    return new CreditBalanceAdjustment(this);
+  }
+
   public final CreditNote newCreditNote() {
     return new CreditNote(this);
   }
