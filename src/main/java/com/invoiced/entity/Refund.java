@@ -14,6 +14,9 @@ public final class Refund extends AbstractEntity<Refund> {
     @JsonProperty("id")
     public Long id;
 
+    @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+    public String object;
+
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("charge")
     public Long charge;
