@@ -28,12 +28,12 @@ public final class TaxRate extends AbstractEntity<TaxRate> {
   public Long value;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonProperty("inclusive")
-  public Boolean inclusive;
-
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("is_percent")
   public Boolean isPercent;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("inclusive")
+  public Boolean inclusive;
 
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public Long createdAt;

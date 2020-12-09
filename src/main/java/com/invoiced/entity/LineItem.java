@@ -69,6 +69,10 @@ public final class LineItem extends AbstractItem {
   public Long periodEnd;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("prorated")
+  public Boolean prorated;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("subscription")
   public Long subscription;
 

@@ -14,6 +14,9 @@ public final class Customer extends AbstractEntity<Customer> {
   @JsonProperty("id")
   public Long id;
 
+  @JsonProperty(value = "object", access = JsonProperty.Access.WRITE_ONLY)
+  public String object;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("name")
   public String name;
@@ -136,6 +139,10 @@ public final class Customer extends AbstractEntity<Customer> {
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("parent_customer")
   public Long parentCustomer;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("bill_to_parent")
+  public Boolean billToParent;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("sign_up_page")
