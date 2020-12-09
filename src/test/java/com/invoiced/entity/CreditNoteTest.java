@@ -37,7 +37,6 @@ public class CreditNoteTest {
         CreditNote creditNote = conn.newCreditNote();
 
         creditNote.customer = 15444L;
-        creditNote.invoice = 46225L;
         LineItem[] items = new LineItem[2];
         items[0] = new LineItem();
         items[0].name = "Copy paper, Case";
@@ -252,7 +251,6 @@ public class CreditNoteTest {
             assertTrue("Customer is incorrect", i1.customer == 15444L);
             assertTrue("Name is incorrect", i1.name == null);
             assertTrue("Object is credit_note", i1.name == null);
-            assertTrue("Invoice is incorrect", i1.invoice == 46225L);
             assertTrue("Currency is incorrect", i1.currency.equals("usd"));
             assertTrue("Draft is incorrect", i1.draft == false);
             assertTrue("Closed is incorrect", i1.closed == false);

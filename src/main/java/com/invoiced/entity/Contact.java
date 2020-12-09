@@ -71,7 +71,6 @@ public final class Contact extends AbstractEntity<Contact> {
   public String department;
 
   Contact(Connection conn) {
-
     super(conn, Contact.class);
     this.entityName = "/contacts";
   }

@@ -7,10 +7,6 @@ import com.invoiced.exception.EntityException;
 
 public final class CreditNote extends AbstractDocument<CreditNote> {
 
-  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-  @JsonProperty("invoice")
-  public Long invoice;
-
   @JsonProperty(value = "paid", access = JsonProperty.Access.WRITE_ONLY)
   public Boolean paid;
 
