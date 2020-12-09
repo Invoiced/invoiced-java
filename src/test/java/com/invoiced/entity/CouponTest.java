@@ -23,7 +23,7 @@ public class CouponTest {
         Coupon coupon = conn.newCoupon();
         coupon.id = "S8L47J";
         coupon.name = "Non-profit Discount";
-        coupon.value = 20L;
+        coupon.value = 20D;
 
         try {
             coupon.create();

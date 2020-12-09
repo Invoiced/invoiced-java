@@ -23,7 +23,7 @@ public class TaxRateTest {
         TaxRate taxRate = conn.newTaxRate();
         taxRate.id = "vat";
         taxRate.name = "VAT";
-        taxRate.value = 5L;
+        taxRate.value = 5D;
 
         try {
             taxRate.create();
