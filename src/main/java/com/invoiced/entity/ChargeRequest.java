@@ -11,7 +11,7 @@ public final class ChargeRequest extends AbstractItem {
 
   @JsonInclude(JsonInclude.Include.NON_DEFAULT)
   @JsonProperty("method")
-  public Long method;
+  public String method;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("currency")
