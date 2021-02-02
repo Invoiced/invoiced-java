@@ -53,6 +53,10 @@ public abstract class AbstractDocument<T extends AbstractDocument<T>> extends Ab
     public Long date;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonProperty("purchase_order")
+    public String purchaseOrder;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("items")
     public LineItem[] items;
 
