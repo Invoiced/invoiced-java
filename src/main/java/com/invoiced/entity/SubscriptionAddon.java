@@ -24,6 +24,10 @@ public final class SubscriptionAddon extends AbstractItem {
   @JsonProperty("quantity")
   public Long quantity;
 
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("amount")
+  public Long amount;
+
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public Long createdAt;
 }

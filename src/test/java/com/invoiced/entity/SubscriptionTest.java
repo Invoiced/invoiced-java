@@ -145,7 +145,7 @@ public class SubscriptionTest {
 
         try {
             String jsonString =
-                    "{\n    \"id\": 595,\n    \"customer\": 15444,\n    \"plan\": \"starter\",\n    \"cycles\": null,\n    \"quantity\": 1,\n    \"start_date\": 1420391704,\n    \"period_start\": 1446657304,\n    \"period_end\": 1449249304,\n    \"cancel_at_period_end\": false,\n    \"canceled_at\": null,\n    \"status\": \"active\",\n    \"addons\": [\n        {\n            \"id\": 3,\n            \"catalog_item\": \"ipad-license\",\n            \"quantity\": 11,\n            \"created_at\": 1420391704\n        }\n    ],\n    \"discounts\": [],\n    \"taxes\": [],\n    \"url\": \"https://dundermifflin.invoiced.com/subscriptions/o2mAd2wWVfYy16XZto7xHwXX\",\n    \"created_at\": 1420391704,\n    \"metadata\": {}\n}";
+                    "{\n    \"id\": 595,\n    \"customer\": 15444,\n    \"amount\": 20,\n    \"plan\": \"starter\",\n    \"cycles\": null,\n    \"quantity\": 1,\n    \"start_date\": 1420391704,\n    \"period_start\": 1446657304,\n    \"period_end\": 1449249304,\n    \"cancel_at_period_end\": false,\n    \"canceled_at\": null,\n    \"status\": \"active\",\n    \"addons\": [\n        {\n            \"id\": 3,\n            \"catalog_item\": \"ipad-license\",\n            \"quantity\": 11,\n            \"created_at\": 1420391704\n        }\n    ],\n    \"discounts\": [],\n    \"taxes\": [],\n    \"url\": \"https://dundermifflin.invoiced.com/subscriptions/o2mAd2wWVfYy16XZto7xHwXX\",\n    \"created_at\": 1420391704,\n    \"metadata\": {}\n}";
 
             Subscription s1 = mapper.readValue(jsonString, Subscription.class);
 
@@ -163,6 +163,7 @@ public class SubscriptionTest {
             assertTrue("Addons is incorrect", s1.addons.length > 0);
             assertTrue("Discounts is incorrect", s1.discounts.length == 0);
             assertTrue("Taxes is incorrect", s1.taxes.length == 0);
+            assertTrue("Amount is incorrect", s1.amount == 20);
             assertTrue(
                     "Url is incorrect",
                     s1.url.equals(
