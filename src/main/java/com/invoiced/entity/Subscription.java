@@ -21,6 +21,10 @@ public final class Subscription extends AbstractEntity<Subscription> {
   @JsonProperty("customer")
   public Long customer;
 
+  @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+  @JsonProperty("amount")
+  public Double amount;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("plan")
   public String plan;
