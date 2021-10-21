@@ -79,6 +79,9 @@ public final class Payment extends AbstractEntity<Payment> {
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public Long createdAt;
 
+  @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+  public Long updatedAt;
+
   public Payment(Connection conn) {
     super(conn, Payment.class);
     this.entityName = "/payments";

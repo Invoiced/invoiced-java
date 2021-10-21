@@ -79,4 +79,7 @@ public final class LineItem extends AbstractItem {
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")
   public Object metadata;
+
+  @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+  public Long updatedAt;
 }

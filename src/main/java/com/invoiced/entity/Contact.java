@@ -54,6 +54,9 @@ public final class Contact extends AbstractEntity<Contact> {
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public Long createdAt;
 
+  @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+  public Long updatedAt;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("title")
   public String title;

@@ -48,6 +48,9 @@ public final class Refund extends AbstractEntity<Refund> {
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public Long createdAt;
 
+    @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long updatedAt;
+
     public Refund(Connection conn) {
         super(conn, Refund.class);
         this.entityName = "/refunds";

@@ -27,4 +27,7 @@ public final class Letter extends AbstractItem {
 
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public Long createdAt;
+
+    @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long updatedAt;
 }
