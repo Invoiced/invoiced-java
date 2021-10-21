@@ -51,6 +51,9 @@ public final class Task extends AbstractEntity<Task> {
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public Long createdAt;
 
+    @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long updatedAt;
+
     public Task(Connection conn) {
         super(conn, Task.class);
         this.entityName = "/tasks";

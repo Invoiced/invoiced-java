@@ -130,6 +130,9 @@ public final class Subscription extends AbstractEntity<Subscription> {
   @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
   public Long createdAt;
 
+  @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+  public Long updatedAt;
+
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("metadata")
   public Object metadata;

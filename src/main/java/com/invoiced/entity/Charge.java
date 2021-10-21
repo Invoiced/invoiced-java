@@ -68,6 +68,9 @@ public final class Charge extends AbstractEntity<Charge> {
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public Long createdAt;
 
+    @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long updatedAt;
+
     public Charge(Connection conn) {
         super(conn, Charge.class);
         this.entityName = "/charges";

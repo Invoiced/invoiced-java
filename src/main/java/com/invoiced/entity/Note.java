@@ -35,6 +35,9 @@ public final class Note extends AbstractEntity<Note> {
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public Long createdAt;
 
+    @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long updatedAt;
+
     public Note(Connection conn) {
         super(conn, Note.class);
         this.entityName = "/notes";

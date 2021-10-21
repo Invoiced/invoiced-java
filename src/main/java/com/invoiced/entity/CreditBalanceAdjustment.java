@@ -40,6 +40,9 @@ public final class CreditBalanceAdjustment extends AbstractEntity<CreditBalanceA
     @JsonProperty(value = "created_at", access = JsonProperty.Access.WRITE_ONLY)
     public Long createdAt;
 
+    @JsonProperty(value = "updated_at", access = JsonProperty.Access.WRITE_ONLY)
+    public Long updatedAt;
+
     public CreditBalanceAdjustment(Connection conn) {
         super(conn, CreditBalanceAdjustment.class);
         this.entityName = "/credit_balance_adjustments";
