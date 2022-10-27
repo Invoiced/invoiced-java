@@ -110,11 +110,11 @@ public final class Subscription extends AbstractEntity<Subscription> {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("discounts")
-  public String[] discounts;
+  public Coupon[] discounts;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("taxes")
-  public String[] taxes;
+  public TaxRate[] taxes;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("ship_to")

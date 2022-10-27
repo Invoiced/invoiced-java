@@ -41,7 +41,7 @@ public final class Item extends AbstractEntity<Item> {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("taxes")
-  public Tax[] taxes;
+  public TaxRate[] taxes;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("avalara_tax_code")

@@ -106,7 +106,7 @@ public final class Customer extends AbstractEntity<Customer> {
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("taxes")
-  public Tax[] taxes;
+  public TaxRate[] taxes;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("avalara_entity_use_code")
