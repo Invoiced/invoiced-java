@@ -1,74 +1,29 @@
-
-invoiced-java
-========
-
-This repository contains the Java client library for the [Invoiced](https://invoiced.com) API.
-
-You can find detailed API documentation along with java code snippets [here](https://invoiced.com/docs/api/?java#).
-
-[![Build Status](https://travis-ci.com/Invoiced/invoiced-java.svg?branch=master)](https://travis-ci.com/Invoiced/invoiced-java)
-[![Coverage Status](https://coveralls.io/repos/github/Invoiced/invoiced-java/badge.svg?branch=master)](https://coveralls.io/github/Invoiced/invoiced-java?branch=master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.invoiced/invoiced/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.invoiced/invoiced)
-
-## Installing
-
-You can build the jar file by doing
-
-```
-gradle jar
-```
-
-or build the complete all in one jar file by doing
-
-```
-gradle fatJar
-```
-
-## Requirements
-
-- Gradle 5.6.4
-- Java 8+
+Smoke test for JAVA SDK
+===========
 
 ## Usage
 
-First, you must instantiate a new client
+Environment variables:
 
-```java
-import com.invoiced.entity.Connection;
+- install JDK >=8 and <=11
+- install gradle
+- install IntelliJ IDEA IDE
 
-Connection invoiced = new Connection("{YOUR_API_KEY}",false);
-```
+Checkout the branch and add it as new gradle project to the IDE
+Open using IDE
 
-Then, API calls can be made like this:
-```java
-# retrieve invoice
-Invoice invoice = invoiced.newInvoice().retrieve({INVOICE_ID});
+    ./invoiced-java/src/main/java/com/invoiced/Main.java
 
-# mark as paid
-Payment payment = invoiced.newPayment();
-payment.amount = invoice.balance;
-payment.method = "check";
-paymentItem = new PaymentItem();
-paymentItem.type = "invoice";
-paymentItem.invoice = invoice.id;
-paymentItem.amount = invoice.balance;
-payment.appliedTo = PaymentItem{paymentItem};
-payment.create();
-```
+Replace {API_KEY} with real API key:
 
-If you want to use the sandbox API instead then you must set the second argument on the client to `true` like this:
+Examples:
 
-```java
-import com.invoiced.entity.Connection;
+    //custom url
+    Connection conn = new Connection("api_key", "http://localhost:8080");
+    //prod url
+    Connection conn = new Connection("api_key", false);
+    //sandbox url
+    Connection conn = new Connection("api_key", true);
 
-Connection invoiced = new Connection("{YOUR_API_KEY}",true);
-```
-
-## Developing
-
-
-The test suite can be ran with `gradle test`
-
-## Deployment
-
-Here is a useful [guide](http://www.albertgao.xyz/2018/01/18/how-to-publish-artifact-to-maven-central-via-gradle/) for deploying to Maven.
+Click the green triangle below, to run the program 
+![img.png](img.png)
