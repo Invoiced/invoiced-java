@@ -153,8 +153,6 @@ public final class Connection {
       this.refreshUnirestConnection();
     }
 
-    url = this.baseUrl() + url;
-
     ListResponse apiResult;
 
     try {

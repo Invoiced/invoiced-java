@@ -307,11 +307,7 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
       throw new EntityException(new Throwable("List operation not available on object."));
     }
 
-    String url = this.getEndpoint(false);
-
-    if (nextURL != null && nextURL.length() > 0) {
-      url = nextURL;
-    }
+    String url = nextURL != null && nextURL.length() > 0 ? nextURL : this.conn.baseUrl() + this.getEndpoint(false);
 
     EntityList<T> entities = null;
 
