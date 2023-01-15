@@ -1,21 +1,21 @@
 plugins {
     id 'com.github.kt3k.coveralls' version '2.12.0'
     id 'jacoco'
-    id 'com.bmuschko.nexus' version '2.3.1'
-    id 'io.codearte.nexus-staging' version '0.11.0'
+    id 'maven-publish'
 }
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
-apply plugin: 'com.bmuschko.nexus'
 
 archivesBaseName = 'invoiced'
 group = 'com.invoiced'
 
 task fatJar(type: Jar) {
     baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+configurations.all {
 }
 
 // In this section you declare where to find the dependencies of your project
@@ -32,28 +32,24 @@ version = '4.2.1'
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    // The production code uses the SLF4J logging API at compile time
-    compile 'org.slf4j:slf4j-api:1.7.21'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.9'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.9'
-    compile group: 'org.json', name: 'json', version: '20160212'
-    compile group: 'org.apache.httpcomponents', name: 'httpasyncclient', version: '4.1.1'
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
-    compile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.2'
-    compile group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
-    compile 'com.auth0:java-jwt:3.3.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.9'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.9'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.9'
+    implementation 'org.json:json:20160212'
+    implementation 'org.apache.httpcomponents:httpasyncclient:4.1.1'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.2'
+    implementation 'org.apache.httpcomponents:httpmime:4.5.2'
+    implementation 'com.mashape.unirest:unirest-java:1.4.9'
+    implementation 'com.auth0:java-jwt:3.3.0'
 
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.12'
-
-    testCompile "com.github.tomakehurst:wiremock:2.1.12"
+    testImplementation "com.github.tomakehurst:wiremock:2.1.12"
 
 
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
 jacocoTestReport {
@@ -66,49 +62,36 @@ jacocoTestReport {
 coveralls {
     jacocoReportPath "build/reports/jacoco/test/jacocoTestReport.xml"
 }
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'invoiced'
+                description = 'Official Java client library for the Invoiced API'
+                url= 'https://github.com/Invoiced/invoiced-java'
 
-modifyPom {
-    project {
-        name 'invoiced'
-        description 'Official Java client library for the Invoiced API'
-        url 'https://github.com/Invoiced/invoiced-java'
+                scm {
+                    url = 'https://github.com/Invoiced/invoiced-java'
+                    connection = 'scm:https://github.com/invoiced/invoiced-java.git'
+                    developerConnection = 'scm:git://github.com/invoiced/invoiced-java.git'
+                }
 
-        scm {
-            url 'https://github.com/Invoiced/invoiced-java'
-            connection 'scm:https://github.com/invoiced/invoiced-java.git'
-            developerConnection 'scm:git://github.com/invoiced/invoiced-java.git'
-        }
+                licenses {
+                    license {
+                        name = 'The MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                        distribution = 'repo'
+                    }
+                }
 
-        licenses {
-            license {
-                name 'The MIT License'
-                url 'https://opensource.org/licenses/MIT'
-                distribution 'repo'
-            }
-        }
-
-        developers {
-            developer {
-                id 'invoiced'
-                name 'Invoiced Inc'
-                email 'support@invoiced.com'
+                developers {
+                    developer {
+                        id = 'invoiced'
+                        name = 'Invoiced Inc'
+                        email = 'support@invoiced.com'
+                    }
+                }
             }
         }
     }
-}
-
-extraArchive {
-    sources = true
-    tests = true
-    javadoc = true
-}
-
-nexus {
-    sign = true
-    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
-}
-
-nexusStaging {
-    packageGroup = 'com.invoiced'
 }
