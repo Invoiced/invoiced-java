@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test:
+    name: Test
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        java-version:
+          - "8"
+          - "9"
+          - "10"
+          - "11"
+          - "12"
+          - "13"
+          - "14"
+          - "15"
+          - "16"
+          - "17"
+          - "18"
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup Test Java Runtime
+        id: setup-test-jre
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+          architecture: x64
+
+      - name: Run test suite
+        run: ./gradlew test
+
+      - name: Send code coverage report to coveralls.io
+        run: ./gradlew jacocoTestReport coveralls
+        if: env.COVERALLS_REPO_TOKEN && matrix.java-version == '17'
+        env:
+          CI_NAME: github-actions
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
