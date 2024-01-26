@@ -100,19 +100,19 @@ public class SubscriptionTest {
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
         try {
-            subscription = subscription.retrieve(595);
+            Subscription subscription = subscription.retrieve(595);
             subscription.quantity = 2;
 
             subscription.save();
 
-            assertTrue("Subscription should have been updated", subscription.addons.size().equals(1));
+            assertTrue("Subscription addon should not be deleted", subscription.addons.size() == 1);
 
             subscription = subscription.retrieve(595);
             subscription.addons = new SubscriptionAddon[] {};
 
             subscription.save();
 
-            assertTrue("Subscription should have been updated", subscription.addons.equals.size(0));
+            assertTrue("Subscription addon should be deleted", subscription.addons.size() == 0);
 
         } catch (Exception e) {
             fail(e.getMessage());
