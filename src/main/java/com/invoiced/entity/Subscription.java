@@ -104,7 +104,7 @@ public final class Subscription extends AbstractEntity<Subscription> {
   @JsonProperty(value = "mrr", access = JsonProperty.Access.WRITE_ONLY)
   public Long mrr;
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonInclude(JsonInclude.Include.NON_ABSENT)
   @JsonProperty("addons")
   public SubscriptionAddon[] addons;
 

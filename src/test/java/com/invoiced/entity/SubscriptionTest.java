@@ -96,6 +96,28 @@ public class SubscriptionTest {
         }
     }
 
+    public void testRemoveAddons() {
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
+        Subscription subscription = conn.newSubscription();
+
+        try {
+            subscription = subscription.retrieve(595);
+            subscription.quantity = 2L;
+            subscription.save();
+
+            assertTrue("Subscription addon should not be deleted", subscription.addons.length == 1);
+
+            subscription.addons = new SubscriptionAddon[] {};
+            subscription.save();
+
+            assertTrue("Subscription addon should be deleted", subscription.addons.length == 0);
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
     @Test
     public void testCancel() {
 
