@@ -96,6 +96,34 @@ public class SubscriptionTest {
         }
     }
 
+    public void testRemoveAddons() {
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
+        try {
+            subscription = subscription.retrieve(595);
+            subscription.quantity = 2;
+
+            subscription.save();
+
+            assertTrue("Subscription should have been updated", subscription.addons.equals([]));
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+        try {
+            subscription = subscription.retrieve(595);
+            subscription.addons = new SubscriptionAddon[] {};
+
+            subscription.save();
+
+            assertTrue("Subscription should have been updated", subscription.addons.equals([]));
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
     @Test
     public void testCancel() {
 
