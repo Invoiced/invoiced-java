@@ -101,18 +101,15 @@ public class SubscriptionTest {
 
         try {
             Subscription subscription = subscription.retrieve(595);
-            subscription.quantity = 2;
-
+            subscription.quantity = 2L;
             subscription.save();
 
-            assertTrue("Subscription addon should not be deleted", subscription.addons.size() == 1);
+            assertTrue("Subscription addon should not be deleted", subscription.addons.length == 1);
 
-            subscription = subscription.retrieve(595);
             subscription.addons = new SubscriptionAddon[] {};
-
             subscription.save();
 
-            assertTrue("Subscription addon should be deleted", subscription.addons.size() == 0);
+            assertTrue("Subscription addon should be deleted", subscription.addons.length == 0);
 
         } catch (Exception e) {
             fail(e.getMessage());
