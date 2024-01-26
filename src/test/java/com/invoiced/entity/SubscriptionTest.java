@@ -105,19 +105,14 @@ public class SubscriptionTest {
 
             subscription.save();
 
-            assertTrue("Subscription should have been updated", subscription.addons.equals([]));
+            assertTrue("Subscription should have been updated", subscription.addons.size().equals(1));
 
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-
-        try {
             subscription = subscription.retrieve(595);
             subscription.addons = new SubscriptionAddon[] {};
 
             subscription.save();
 
-            assertTrue("Subscription should have been updated", subscription.addons.equals([]));
+            assertTrue("Subscription should have been updated", subscription.addons.equals.size(0));
 
         } catch (Exception e) {
             fail(e.getMessage());
