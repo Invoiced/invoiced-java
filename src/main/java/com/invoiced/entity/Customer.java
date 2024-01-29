@@ -373,6 +373,9 @@ public final class Customer extends AbstractEntity<Customer> {
   }
 
   public String[] getTaxes() {
+    if (this.taxes == null) {
+      return null;
+    }
     String[] ids = new String[this.taxes.length];
     for (int i = 0; i < this.taxes.length; i++) {
       ids[i] = this.taxes[i].toString();

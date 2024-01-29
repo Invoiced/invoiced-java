@@ -431,6 +431,9 @@ public class CustomerTest {
 
     @Test
     public void testTaxes() {
+        //src/test/resources/mappings/customers_edit_3.json
+        //src/test/resources/mappings/tax_rates_retrieve_2.json
+
         Connection conn = new Connection("api_key", "http://localhost:8080");
 
         try {
