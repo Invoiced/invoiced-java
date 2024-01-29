@@ -64,14 +64,19 @@ public final class TaxRate extends AbstractEntity<TaxRate> {
   @Override
   @JsonIgnore
   protected String[] getCreateExclusions() {
-    return new String[] {"object", "created_at"};
+    return new String[]{"object", "created_at"};
   }
 
   @Override
   @JsonIgnore
   protected String[] getSaveExclusions() {
-    return new String[] {
-      "id", "object", "currency", "value", "inclusive", "is_percent", "created_at"
+    return new String[]{
+            "id", "object", "currency", "value", "inclusive", "is_percent", "created_at"
     };
+  }
+
+  @Override
+  public String toString() {
+    return id;
   }
 }

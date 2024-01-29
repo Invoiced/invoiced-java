@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "/customers/11",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"name\":\"Customer testRetrieve\",\"number\":\"0111\",\"email\":\"billing@acmecorp.com\",\"autopay\":false,\"payment_terms\":\"NET 90\",\"type\":\"company\",\"city\":\"Austin\",\"country\":\"US\",\"taxes\":[\"vat\",\"vat2\"]}"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"name\":\"Customer testRetrieve\",\"number\":\"0111\",\"email\":\"billing@acmecorp.com\",\"autopay\":false,\"payment_terms\":\"NET 90\",\"type\":\"company\",\"city\":\"Austin\",\"country\":\"US\",\"taxes\":[{\"created_at\":1477418268,\"currency\":null,\"id\":\"vat\",\"inclusive\":false,\"is_percent\":true,\"metadata\":{},\"name\":\"VAT_2\",\"object\":\"tax_rate\",\"value\":5},{\"created_at\":1477418268,\"currency\":null,\"id\":\"vat2\",\"inclusive\":false,\"is_percent\":true,\"metadata\":{},\"name\":\"VAT_2\",\"object\":\"tax_rate\",\"value\":15}]}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
