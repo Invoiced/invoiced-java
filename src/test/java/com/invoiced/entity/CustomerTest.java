@@ -428,4 +428,22 @@ public class CustomerTest {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void testTaxes() {
+        Connection conn = new Connection("api_key", "http://localhost:8080");
+
+        try {
+            Customer cust = conn.newCustomer().retrieve(11);
+            TaxRate taxRate1 = conn.newTaxRate().retrieve("vat");
+            TaxRate taxRate2 = conn.newTaxRate().retrieve("vat2");
+            cust.taxes = new TaxRate[] { taxRate1, taxRate2 };
+            cust.save();
+            assertTrue("Customer Tax is incorrect", cust.taxes[0].toString().equals("vat"));
+            assertTrue("Customer Tax is incorrect", cust.taxes[1].toString().equals("vat2"));
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

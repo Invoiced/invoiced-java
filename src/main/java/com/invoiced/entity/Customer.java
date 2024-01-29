@@ -371,4 +371,13 @@ public final class Customer extends AbstractEntity<Customer> {
     source.setEndpointBase(this.getEndpoint(true));
     return source.listAll();
   }
+
+  public String[] getTaxes() {
+    String[] ids = new String[this.taxes.length];
+    for (int i = 0; i < this.taxes.length; i++) {
+      ids[i] = this.taxes[i].toString();
+    }
+
+    return ids;
+  }
 }
