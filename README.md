@@ -71,4 +71,7 @@ The test suite can be ran with `gradle test`
 
 ## Deployment
 
-Here is a useful [guide](http://www.albertgao.xyz/2018/01/18/how-to-publish-artifact-to-maven-central-via-gradle/) for deploying to Maven.
+1. Run the "Publish" action in GitHub.
+2. On [Nexus Repository Manager](https://oss.sonatype.org/#stagingRepositories) find the staging repository and click "Close".
+3. Click "Refresh" until the status goes from `open` to `closed`.
+4. Click "Release".

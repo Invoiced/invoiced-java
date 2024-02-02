@@ -2,6 +2,7 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.12.0'
     id 'jacoco'
     id 'maven-publish'
+    id 'signing'
 }
 
 // Apply the java plugin to add support for Java
@@ -11,24 +12,18 @@ archivesBaseName = 'invoiced'
 group = 'com.invoiced'
 
 task fatJar(type: Jar) {
-    baseName = project.name + '-all'
+    archivesBaseName = project.name + '-all'
     with jar
 }
 
 configurations.all {
 }
 
-// In this section you declare where to find the dependencies of your project
 repositories {
-    // Use 'jcenter' for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    mavenCentral()
 }
 
-
-
 version = '4.3.0'
-
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
@@ -62,6 +57,7 @@ jacocoTestReport {
 coveralls {
     jacocoReportPath "build/reports/jacoco/test/jacocoTestReport.xml"
 }
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -94,4 +90,18 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = project.findProperty("nexusUsername")
+                password = project.findProperty("nexusPassword")
+            }
+        }
+    }
+}
+
+signing {
+    useGpgCmd()
+    sign publishing.publications.mavenJava
 }
